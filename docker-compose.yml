@@ -33,7 +33,7 @@ services:
   nrv.db:
     image: 'postgres:latest'
     container_name: postgres_container_nrv
-    env_file: ./nrv.env
+    env_file: ./nrvdb.env
     ports:
       - '21002:5432'
     networks:
