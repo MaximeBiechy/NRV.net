@@ -49,11 +49,19 @@ CREATE TABLE "public"."places" (
 ) WITH (oids = false);
 
 \connect nrv_show;
+
 DROP TABLE IF EXISTS "artists";
 CREATE TABLE "public"."artists" (
     "id" uuid NOT NULL,
     "name" character(50) NOT NULL,
     "style" character(50) NOT NULL
+) WITH (oids = false);
+
+
+DROP TABLE IF EXISTS "artists2style";
+CREATE TABLE "public"."artists2style" (
+    "artist_id" uuid NOT NULL,
+    "style_id" uuid NOT NULL
 ) WITH (oids = false);
 
 
@@ -77,6 +85,13 @@ CREATE TABLE "public"."shows" (
     "id" uuid NOT NULL,
     "title" character(50) NOT NULL,
     "description" character(128) NOT NULL,
-    "video" character(256) NOT NULL,
+    "video" character(256),
     "begin" timestamp NOT NULL
+) WITH (oids = false);
+
+
+DROP TABLE IF EXISTS "style";
+CREATE TABLE "public"."style" (
+  "id" uuid NOT NULL,
+  "name" integer NOT NULL
 ) WITH (oids = false);
