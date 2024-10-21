@@ -3,9 +3,7 @@ version: '3.8'
 services:
 
   nrv.api:
-    build:
-      context: build
-      dockerfile: build/8.3-cli.Dockerfile
+    image: canals/php:latest
     env_file: ./nrv.env
     ports:
       - '21000:80'
@@ -40,6 +38,7 @@ services:
       - nrv.net
     volumes:
       - ./sql:/var/sql
+      - ./initdb:/docker-entrypoint-initdb.d
     restart: unless-stopped
 
   adminer:
