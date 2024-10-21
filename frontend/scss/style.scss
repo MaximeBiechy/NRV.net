@@ -1,8 +1,10 @@
 @import 'partials/config';
-@import 'partials/header';
-@import 'partials/reset';
 
-body{
-  background-color: $bg_color;
+
+body {
+    background-color: $bg_color;
+    color: $text_color;
+    font-family: $font_serif;
+    font-size: 1.6rem;
+    line-height: 1.5;
 }
-
