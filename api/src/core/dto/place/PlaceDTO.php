@@ -2,7 +2,7 @@
 
 namespace nrv\core\dto\place;
 
-use nrv\core\domain\entities\place\Place;
+use nrv\core\domain\entities\place\string;
 use nrv\core\dto\DTO;
 
 class PlaceDTO extends DTO
@@ -11,7 +11,7 @@ class PlaceDTO extends DTO
     protected int $nbSit, $nbStand;
     protected array $images;
 
-    public function __construct(Place $place) {
+    public function __construct(string $place) {
         $this->id = $place->getId();
         $this->name = $place->getName();
         $this->address = $place->getAddress();

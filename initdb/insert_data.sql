@@ -9,11 +9,11 @@ VALUES (gen_random_uuid(), 'greg@gmail.com', '$2y$10$Z/Ly0lfKRG8/6.I7Ask8cumJwbm
 -- DATA FOR PARTY
 \connect nrv_party;
 -- Insertion des fêtes (party)
-INSERT INTO public.party (id, name, theme, date, begin, place_id, show1_id, show2_id, show3_id)
+INSERT INTO public.party (id, name, theme, date, begin, place_id, show1_id, show2_id, show3_id, price)
 VALUES (gen_random_uuid(), 'Birthday Bash', 'Anniversaire', '2024-12-25 20:00:00', '2024-12-25 21:00:00',
-        gen_random_uuid(), gen_random_uuid(), gen_random_uuid(), NULL),
+        gen_random_uuid(), gen_random_uuid(), gen_random_uuid(), NULL, 30),
        (gen_random_uuid(), 'Music Fiesta', 'Musique', '2024-11-01 18:00:00', '2024-11-01 19:00:00', gen_random_uuid(),
-        gen_random_uuid(), NULL, NULL);
+        gen_random_uuid(), NULL, NULL, 25);
 
 
 -- DATA FOR SHOW

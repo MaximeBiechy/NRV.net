@@ -26,6 +26,7 @@ class DisplayShowsAction extends AbstractAction
         $shows = array_map(function($show) use ($routeParser) {
             $urlShow = $routeParser->urlFor('shows_id', ['ID-SHOW' => $show->id]);
             return [
+                "id" => $show->id,
                 "title" => $show->title,
                 "date" => $show->begin,
                 "images" => $show->images,
@@ -38,7 +39,7 @@ class DisplayShowsAction extends AbstractAction
         $response = [
             "type" => "collection",
             "locale" => "fr-FR",
-            "praticien" => $shows,
+            "shows" => $shows,
             "links" => [
                 "self" => ['href' => $urlSelf]
             ]

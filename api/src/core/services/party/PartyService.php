@@ -27,10 +27,10 @@ class PartyService implements PartyServiceInterface
         return $partiesDTO;
     }
 
-    public function getParty(int $id): PartyDTO
+    public function getParty(string $id): PartyDetailsDTO
     {
         $party = $this->partyRepository->getPartyById($id);
-        return new PartyDTO($party);
+        return new PartyDetailsDTO($party);
     }
 
     public function createParty(CreatePartyDTO $party): PartyDTO
@@ -41,7 +41,7 @@ class PartyService implements PartyServiceInterface
         return new PartyDTO($party);
     }
 
-    public function getPartyByShow(int $showId): array
+    public function getPartyByShow(string $showId): array
     {
         $parties = $this->partyRepository->getPartyByShow($showId);
         $partiesDTO = [];

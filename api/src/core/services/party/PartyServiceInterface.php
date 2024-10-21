@@ -3,13 +3,14 @@
 namespace nrv\core\services\party;
 
 use nrv\core\dto\party\CreatePartyDTO;
+use nrv\core\dto\party\PartyDetailsDTO;
 use nrv\core\dto\party\PartyDTO;
 
 interface PartyServiceInterface
 {
     public function getParties(): array;
-    public function getParty(int $id): PartyDTO;
+    public function getParty(string $id): PartyDetailsDTO;
     public function createParty(CreatePartyDTO $party): PartyDTO;
-    public function getPartyByShow(int $showId): array;
+    public function getPartyByShow(string $showId): array;
 
 }

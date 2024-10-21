@@ -8,7 +8,7 @@ use nrv\core\dto\show\ShowDTO;
 interface ShowServiceInterface
 {
     public function getShows(): array;
-    public function getShow(int $id): ShowDTO;
+    public function getShow(string $id): ShowDTO;
     public function createShow(CreateShowDTO $show): ShowDTO;
 
 }

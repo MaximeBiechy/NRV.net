@@ -8,10 +8,10 @@ use nrv\core\domain\entities\Entity;
 class Artist extends Entity
 {
     private string $name;
-    private array $styles;
+    private string $styles;
     private string $image;
 
-    public function __construct(string $name, array $styles, string $image)
+    public function __construct(string $name, string $styles, string $image)
     {   
         $this->name = $name;
         $this->styles = $styles;
@@ -23,7 +23,7 @@ class Artist extends Entity
         return $this->name;
     }
 
-    public function getStyles(): array
+    public function getStyle(): string
     {
         return $this->styles;
     }

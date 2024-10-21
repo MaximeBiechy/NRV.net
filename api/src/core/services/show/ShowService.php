@@ -32,7 +32,7 @@ class ShowService implements ShowServiceInterface
         }
     }
 
-    public function getShow(int $id): ShowDTO
+    public function getShow(string $id): ShowDTO
     {
         try{
             $show = $this->showRepository->getShowById($id);
