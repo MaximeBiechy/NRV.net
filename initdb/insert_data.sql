@@ -1,5 +1,6 @@
 -- Connexion à la base de données nrv_auth
-\connect nrv_auth;
+\connect
+nrv_auth;
 
 -- Insertion des utilisateurs
 INSERT INTO public.users (id, email, password, role)
@@ -8,20 +9,24 @@ VALUES (gen_random_uuid(), 'greg@gmail.com', '$2y$10$Z/Ly0lfKRG8/6.I7Ask8cumJwbm
        (gen_random_uuid(), 'superadmin@gmail.com', '$2y$10$WLGsGcxTevxNT3SWaWYK7.1P34A6FsjWyJkf/qKJz1ry5S/7FYqRS', 100);
 
 -- Connexion à la base de données nrv_place
-\connect nrv_place;
-
--- Insertion des images de lieux
-INSERT INTO public.images (id, path, place_id)
-VALUES (gen_random_uuid(), '/images/place1.jpg', gen_random_uuid()),
-       (gen_random_uuid(), '/images/place2.jpg', gen_random_uuid());
+\connect
+nrv_place;
 
 -- Insertion des lieux
 INSERT INTO public.places (id, name, address, nbSit, nbStand)
 VALUES (gen_random_uuid(), 'Stade de France', 'Saint-Denis, France', 80000, 20000),
        (gen_random_uuid(), 'Zénith Paris', 'Paris, France', 6000, 3000);
 
+-- Insertion des images de lieux
+INSERT INTO public.images (id, path, place_id)
+VALUES (gen_random_uuid(), '/images/stadedefrance.jpg',
+        (SELECT id FROM public.places WHERE name = 'Stade de France')),
+       (gen_random_uuid(), '/images/zenithparis.jpg',
+        (SELECT id FROM public.places WHERE name = 'Zénith Paris'));
+
 -- Connexion à la base de données nrv_show
-\connect nrv_show;
+\connect
+nrv_show;
 
 -- Insertion des styles musicaux
 INSERT INTO public.style (id, name)
@@ -39,7 +44,8 @@ VALUES (gen_random_uuid(), 'Electro'),
        (gen_random_uuid(), 'Metal');
 
 
-\connect nrv_show;
+\connect
+nrv_show;
 -- Insertion des artistes avec les valeurs spécifiées
 INSERT INTO public.artists (id, name, style, image)
 VALUES (gen_random_uuid(), 'Daft Punk', 'Electro', 'default.jpg'),
@@ -274,18 +280,18 @@ INSERT INTO public.artists2style (artist_id, style_id)
 SELECT (SELECT id FROM public.artists WHERE name = 'Mylène Farmer'), (SELECT id FROM public.style WHERE name = 'Pop');
 
 
--- Insertion des images de spectacles
-INSERT INTO public.images (id, path, show_id)
-VALUES (gen_random_uuid(), '/images/show1.jpg', gen_random_uuid()),
-       (gen_random_uuid(), '/images/show2.jpg', gen_random_uuid());
-
 -- Insertion des spectacles
 INSERT INTO public.shows (id, title, description, video, begin)
 VALUES (gen_random_uuid(), 'Daft Punk Show', 'Un concert unique avec Daft Punk', '/videos/daftpunk.mp4',
         '2024-12-31 22:00:00'),
        (gen_random_uuid(), 'Phoenix Live', 'Phoenix en live à Paris', '/videos/phoenix.mp4', '2024-11-15 20:00:00');
 
+-- Insertion des images de spectacles
+INSERT INTO public.images (id, path, show_id)
+VALUES (gen_random_uuid(), '/images/daftpunk.jpg',
+        (SELECT id FROM public.shows WHERE title = 'Daft Punk Show')),
+
+
 -- Insertion des performances d'artistes
 INSERT INTO public.perform (show_id, artist_id)
-VALUES (gen_random_uuid(), gen_random_uuid()), -- Artiste 1 dans Show 1
-       (gen_random_uuid(), gen_random_uuid()); -- Artiste 2 dans Show 2
+VALUES ((SELECT id FROM public.shows WHERE title = 'Daft Punk Show'), (SELECT id FROM public.artists WHERE name = 'Daft Punk')), ((SELECT id FROM public.shows WHERE title = 'Phoenix Live'), (SELECT id FROM public.artists WHERE name = 'Phoenix'));
