@@ -44,8 +44,8 @@ CREATE TABLE "public"."places" (
    "id" uuid NOT NULL,
    "name" character(50) NOT NULL,
    "address" character(128) NOT NULL,
-   "nbSit" integer NOT NULL,
-   "nbStand" integer NOT NULL
+   "nb_sit" integer NOT NULL,
+   "nb_stand" integer NOT NULL
 ) WITH (oids = false);
 
 \connect nrv_show;

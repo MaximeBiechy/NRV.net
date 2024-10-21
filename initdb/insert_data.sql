@@ -278,13 +278,15 @@ INSERT INTO public.images (id, path, show_id)
 VALUES (gen_random_uuid(), '/images/daftpunk.jpg',
         (SELECT id FROM public.shows WHERE title = 'Daft Punk Show'));
 
--- DATA FOR PLACES
-\connect nrv_place;
+
 -- Insertion des performances d'artistes
 INSERT INTO public.perform (show_id, artist_id)
 VALUES ((SELECT id FROM public.shows WHERE title = 'Daft Punk Show'), (SELECT id FROM public.artists WHERE name = 'Daft Punk')), ((SELECT id FROM public.shows WHERE title = 'Phoenix Live'), (SELECT id FROM public.artists WHERE name = 'Phoenix'));
 
-INSERT INTO public.places (id, name, address, nbSit, nbStand)
+-- DATA FOR PLACES
+\connect nrv_place;
+
+INSERT INTO public.places (id, name, address, nb_sit, nb_stand)
 VALUES (gen_random_uuid(), 'Stade de France', 'Saint-Denis, France', 80000, 20000),
        (gen_random_uuid(), 'Zénith Paris', 'Paris, France', 6000, 3000);
 
