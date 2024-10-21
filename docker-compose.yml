@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+
+  nrv.api:
+    build:
+      context: build
+      dockerfile: build/8.3-cli.Dockerfile
+    env_file: ./nrv.env
+    ports:
+      - '21000:80'
+    volumes:
+      - ./app:/var/php
+    working_dir: /var/php
+    networks:
+      - nrv.net
+    depends_on:
+      - nrv.db
+    command: php -S 0.0.0.0:80 -t /var/php/public
+    restart: unless-stopped
+
+  nrv.frontend:
+    image: httpd:latest
+    container_name: httpd_container_nrv
+    volumes:
+      - ./frontend:/usr/local/apache2/htdocs/
+    ports:
+      - "21001:80"
+    networks:
+      - nrv.net
+    restart: unless-stopped
+
+  nrv.db:
+    image: 'postgres:latest'
+    container_name: postgres_container_nrv
+    env_file: ./nrv.env
+    ports:
+      - '21002:5432'
+    networks:
+      - nrv.net
+    volumes:
+      - ./app/sql:/var/sql
+    restart: unless-stopped
+
+  adminer:
+    image: adminer
+    ports:
+      - '21003:8080'
+    networks:
+      - nrv.net
+    restart: unless-stopped
+
+networks:
+  nrv.net:
+    driver: bridge
