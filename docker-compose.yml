@@ -10,7 +10,7 @@ services:
     ports:
       - '21000:80'
     volumes:
-      - ./app:/var/php
+      - ./api:/var/php
     working_dir: /var/php
     networks:
       - nrv.net
@@ -39,7 +39,7 @@ services:
     networks:
       - nrv.net
     volumes:
-      - ./app/sql:/var/sql
+      - ./sql:/var/sql
     restart: unless-stopped
 
   adminer:
