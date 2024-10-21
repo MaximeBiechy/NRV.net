@@ -39,7 +39,7 @@ class Artist {
 
 "Party" "1"-->"1" "Place" : -takes place
 
-"Show" "1"-->"1..*" "Artist" : -performed by
+"Show" "*"-->"1..*" "Artist" : -performed by
 
 "Entity" <|-- "Show"
 "Entity" <|-- "Place"
