@@ -28,6 +28,7 @@ class "Party"{
     -theme: string
     -date: DateTimeImmutable
     -begin: DateTimeImmutable
+    -prices: int
 }
 
 class Artist {

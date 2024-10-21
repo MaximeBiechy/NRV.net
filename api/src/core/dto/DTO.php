@@ -3,6 +3,8 @@
 namespace nrv\core\dto;
 
 
+use Respect\Validation\Validatable;
+
 abstract class DTO implements \JsonSerializable
 {
     protected ?Validatable $businessValidator = null;
