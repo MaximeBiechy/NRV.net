@@ -1,5 +1,48 @@
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+.genres {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  justify-content: space-around;
+  margin: 0 auto;
+  width: 75%;
+}
+.genres .genre_card {
+  align-items: center;
+  aspect-ratio: 1/1;
+  border-radius: 1em;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-basis: calc(33% - 2em);
+  position: relative;
+}
+.genres .genre_card:nth-child(1) {
+  background-color: #F35DD8;
+}
+.genres .genre_card:nth-child(2) {
+  background-color: #5DF3AB;
+}
+.genres .genre_card:nth-child(3) {
+  background-color: #F3EC5D;
+}
+.genres .genre_card:nth-child(4) {
+  background-color: #5D71F3;
+}
+.genres .genre_card:nth-child(5) {
+  background-color: #F3AB5D;
+}
+.genres .genre_card:nth-child(6) {
+  background-color: #F35D5D;
+}
+.genres .genre_card p {
+  font-size: 4em;
+}
+
 body {
   background-color: #FFF;
   color: #151515;

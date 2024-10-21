@@ -1,0 +1,32 @@
+@import 'config';
+
+.genres {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  justify-content: space-around;
+  margin: 0 auto;
+  width: 75%;
+
+  .genre_card {
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    border-radius: 1em;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-basis: calc(33% - 2em);
+    position: relative;
+
+    @for $i from 1 through 6 {
+      &:nth-child(#{$i}) {
+        background-color: nth(($color_pink, $color_green, $color_yellow, $color_purple, $color_orange, $color_red), $i);
+      }
+    }
+
+    p{
+      font-size: 4em;
+    }
+  }
+}
