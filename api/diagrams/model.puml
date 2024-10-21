@@ -1,0 +1,52 @@
+@startuml
+package Entities{
+abstract Entity{
+    -id: string
+}
+
+class "Show"{
+    -id: string
+    -title: string
+    -description: string
+    -images: List<string>
+    -video: string
+    -begin: DateTimeImmutable
+}
+
+class "Place"{
+    -id: string
+    -name: string
+    -address: string
+    -nbSit: int
+    -nbStand: int
+    -images: List<string>
+}
+
+class "Party"{
+    -id: string
+    -name: string
+    -theme: string
+    -date: DateTimeImmutable
+    -begin: DateTimeImmutable
+}
+
+class Artist {
+    -id: string
+    -name: string
+    -style: string
+}
+"Show" "1..*"<--"1" "Party" : -plans
+
+"Party" "1"-->"1" "Place" : -takes place
+
+"Show" "1"-->"1..*" "Artist" : -performed by
+
+"Entity" <|-- "Show"
+"Entity" <|-- "Place"
+"Entity" <|-- "Party"
+"Entity" <|-- "Artist"
+}
+skinparam linetype ortho
+
+
+@enduml
