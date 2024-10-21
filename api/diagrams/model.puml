@@ -47,6 +47,8 @@ class Artist {
 "Entity" <|-- "Artist"
 }
 package "dto" {
+abstract DTO {
+}
 package "show"{
 
     class CreateShowDTO{
@@ -129,6 +131,17 @@ package "artist"{
         -style: string
     }
 }
+
+DTO <|-- CreateShowDTO
+DTO <|-- ShowDTO
+DTO <|-- DisplayShowShortDTO
+DTO <|-- PartyDTO
+DTO <|-- CreatePartyDTO
+DTO <|-- PartyDetailsDTO
+DTO <|-- CreatePlaceDTO
+DTO <|-- PlaceDTO
+DTO <|-- CreateArtistDTO
+DTO <|-- ArtistDTO
 }
 
 package "services" {
