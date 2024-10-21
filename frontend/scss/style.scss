@@ -1,1 +1,12 @@
 @import 'partials/config';
+
+
+body {
+    background-color: $bg_color;
+    color: $text_color;
+    font-family: $font_serif;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+}
