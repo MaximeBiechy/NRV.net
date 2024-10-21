@@ -1,3 +1,5 @@
+import Handlebars from "handlebars";
+
 console.log('fetches.js loaded');
 
 // Récupérer l'ensemble des spectacles :
