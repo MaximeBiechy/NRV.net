@@ -57,4 +57,32 @@ class PDOPartyRepository implements PartyRepositoryInterface
             throw new RepositoryInternalServerError('Error while getting party');
         }
     }
+
+    public function getParties(): array
+    {
+        try {
+            $stmt = $this->pdo->prepare('SELECT * FROM party');
+            $stmt->execute();
+            $parties = $stmt->fetchAll();
+            return array_map(function ($party) {
+                return new Party($party['id'], $party['name'], $party['theme'], $party['prices'], $party['date'], $party['begin'], $party['shows'], $party['place']);
+            }, $parties);
+        } catch (\PDOException $e) {
+            throw new RepositoryInternalServerError('Error while getting parties');
+        }
+    }
+
+    public function getPartyByShow(int $showId): array
+    {
+        try {
+            $stmt = $this->pdo->prepare('SELECT * FROM party WHERE show1_id = :shows OR show2_id = :shows OR show3_id = :shows');
+            $stmt->execute(['shows' => $showId]);
+            $parties = $stmt->fetchAll();
+            return array_map(function ($party) {
+                return new Party($party['id'], $party['name'], $party['theme'], $party['prices'], $party['date'], $party['begin'], $party['shows'], $party['place']);
+            }, $parties);
+        } catch (\PDOException $e) {
+            throw new RepositoryInternalServerError('Error while getting parties');
+        }
+    }
 }
