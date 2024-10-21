@@ -1,22 +1,9 @@
 console.log('fetches.js loaded');
 
-//Récupérer l'ensemble des spectacles :
+// Récupérer l'ensemble des spectacles :
 async function fetchShows() {
   try {
-    const response = await fetch('http://localhost:21000/shows');
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const data = await response.json();
-    console.log(data);
-  } catch (error) {
-    console.error('There has been a problem with your fetch operation:', error);
-  }
-}
-//Récupérer les détails d'une soirée par son id :
-async function fetchPartyById(id) {
-  try {
-    const response = await fetch(`http://localhost:21000/parties/${id}`);
+    const response = await fetch('http://localhost:21000/shows', { mode: 'no-cors' });
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -27,10 +14,10 @@ async function fetchPartyById(id) {
   }
 }
 
-//Récupérer l'ensemble des spectacles et les détails d'une soirée par l'id du spectacle :
-async function fetchShowPartyById(showId) {
+// Récupérer les détails d'une soirée par son id :
+async function fetchPartyById(id) {
   try {
-    const response = await fetch(`http://localhost:21000/shows/${showId}/party`);
+    const response = await fetch(`http://localhost:21000/parties/${id}`, { mode: 'no-cors' });
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -40,3 +27,25 @@ async function fetchShowPartyById(showId) {
     console.error('There has been a problem with your fetch operation:', error);
   }
 }
+
+// Récupérer l'ensemble des spectacles et les détails d'une soirée par l'id du spectacle :
+async function fetchShowPartyById(showId) {
+  try {
+    const response = await fetch(`http://localhost:21000/shows/${showId}/party`, { mode: 'no-cors' });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error('There has been a problem with your fetch operation:', error);
+  }
+}
+
+const button_1 = document.querySelector('#shows');
+const button_2 = document.querySelector('#party');
+const button_3 = document.querySelector('#party_spectacles');
+
+button_1.addEventListener('click', fetchShows);
+button_2.addEventListener('click', () => fetchPartyById(1));
+button_3.addEventListener('click', () => fetchShowPartyById(1));
