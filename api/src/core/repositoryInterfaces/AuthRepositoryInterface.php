@@ -1,8 +1,8 @@
 <?php
 
-namespace toubeelib\core\repositoryInterfaces;
+namespace nrv\core\repositoryInterfaces;
 
-use toubeelib\core\domain\entities\user\User;
+use nrv\core\domain\entities\user\User;
 
 interface AuthRepositoryInterface
 {

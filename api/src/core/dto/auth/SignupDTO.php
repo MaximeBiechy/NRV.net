@@ -1,5 +1,5 @@
 <?php
-  namespace toubeelib\core\dto\auth;
+  namespace nrv\core\dto\auth;
 
   class SignupDTO extends DTO{
     private string $name;
@@ -14,4 +14,3 @@
       $this->phone = $phone;
     }
   }
-?>

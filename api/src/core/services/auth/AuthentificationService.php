@@ -1,14 +1,13 @@
 <?php
 
-namespace toubeelib\core\services\auth;
+namespace nrv\core\services\auth;
 
-use toubeelib\core\domain\entities\user\User;
-use toubeelib\core\dto\auth\AuthDTO;
-use toubeelib\core\dto\auth\CredentialsDTO;
-use toubeelib\core\dto\auth\TokenDTO;
-use toubeelib\core\repositoryInterfaces\AuthRepositoryInterface;
-use toubeelib\core\repositoryInterfaces\RepositoryEntityNotFoundException;
-use toubeelib\core\repositoryInterfaces\RepositoryInternalServerError;
+
+use nrv\core\dto\auth\AuthDTO;
+use nrv\core\dto\auth\CredentialsDTO;
+use nrv\core\repositoryInterfaces\AuthRepositoryInterface;
+use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
+use nrv\core\repositoryInterfaces\RepositoryInternalServerError;
 
 class AuthentificationService implements AuthentificationServiceInterface
 {

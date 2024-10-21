@@ -1,6 +1,6 @@
 <?php
 
-namespace toubeelib\core\repositoryInterfaces;
+namespace nrv\core\repositoryInterfaces;
 
 class RepositoryEntityNotFoundException extends \Exception
 {

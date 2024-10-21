@@ -1,9 +1,10 @@
 <?php
 
-namespace toubeelib\application\provider\auth;
+namespace nrv\application\provider\auth;
 
-use toubeelib\core\dto\auth\AuthDTO;
-use toubeelib\core\dto\auth\CredentialsDTO;
+
+use nrv\core\dto\auth\AuthDTO;
+use nrv\core\dto\auth\CredentialsDTO;
 
 interface AuthProviderInterface
 {

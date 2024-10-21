@@ -1,15 +1,16 @@
 <?php
 
-namespace toubeelib\application\middlewares;
+namespace nrv\application\middlewares;
 
+
+use nrv\application\provider\auth\AuthProviderBeforeValidException;
+use nrv\application\provider\auth\AuthProviderInterface;
+use nrv\application\provider\auth\AuthProviderSignatureInvalidException;
+use nrv\application\provider\auth\AuthProviderTokenExpiredException;
+use nrv\application\provider\auth\AuthProviderUnexpectedValueException;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Exception\HttpUnauthorizedException;
-use toubeelib\application\provider\auth\AuthProviderBeforeValidException;
-use toubeelib\application\provider\auth\AuthProviderInterface;
-use toubeelib\application\provider\auth\AuthProviderSignatureInvalidException;
-use toubeelib\application\provider\auth\AuthProviderTokenExpiredException;
-use toubeelib\application\provider\auth\AuthProviderUnexpectedValueException;
 
 class Auth
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace toubeelib\application\provider\auth;
+namespace nrv\application\provider\auth;
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;

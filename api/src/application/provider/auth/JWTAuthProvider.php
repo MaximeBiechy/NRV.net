@@ -1,15 +1,14 @@
 <?php
 
-namespace toubeelib\application\provider\auth;
+namespace nrv\application\provider\auth;
+
 
 use Firebase\JWT\BeforeValidException;
 use Firebase\JWT\ExpiredException;
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
 use Firebase\JWT\SignatureInvalidException;
-use toubeelib\core\dto\auth\AuthDTO;
-use toubeelib\core\dto\auth\CredentialsDTO;
-use toubeelib\core\services\auth\AuthentificationServiceInterface;
+use nrv\core\dto\auth\AuthDTO;
+use nrv\core\dto\auth\CredentialsDTO;
+use nrv\core\services\auth\AuthentificationServiceInterface;
 
 class JWTAuthProvider implements AuthProviderInterface
 {

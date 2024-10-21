@@ -1,12 +1,12 @@
 <?php
 
-namespace toubeelib\infrastructure\db;
+namespace nrv\infrastructure\db;
 
-use Ramsey\Uuid\Uuid;
-use toubeelib\core\domain\entities\user\User;
-use toubeelib\core\repositoryInterfaces\AuthRepositoryInterface;
-use toubeelib\core\repositoryInterfaces\RepositoryEntityNotFoundException;
-use toubeelib\core\repositoryInterfaces\RepositoryInternalServerError;
+
+use nrv\core\repositoryInterfaces\AuthRepositoryInterface;
+use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
+use nrv\core\repositoryInterfaces\RepositoryInternalServerError;
+use nrv\core\domain\entities\user\User;
 
 class PDOAuthRepository implements AuthRepositoryInterface
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace toubeelib\core\dto\auth;
+namespace nrv\core\dto\auth;
 
-use toubeelib\core\dto\DTO;
+use nrv\core\dto\DTO;
 
 class AuthDTO extends DTO
 {
