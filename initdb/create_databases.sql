@@ -54,7 +54,8 @@ DROP TABLE IF EXISTS "artists";
 CREATE TABLE "public"."artists" (
     "id" uuid NOT NULL,
     "name" character(50) NOT NULL,
-    "style" character(50) NOT NULL
+    "style" character(50) NOT NULL,
+    "image" character(128) DEFAULT 'default.jpg' NOT NULL
 ) WITH (oids = false);
 
 
