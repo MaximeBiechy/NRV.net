@@ -2,8 +2,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 .genres {
   align-items: center;
+  color: #151515;
   display: flex;
   flex-wrap: wrap;
   gap: 2em;
@@ -14,6 +19,7 @@
 .genres .genre_card {
   align-items: center;
   aspect-ratio: 1/1;
+  background-image: url("../assets/img/rnb.jpg");
   border-radius: 1em;
   display: flex;
   justify-content: center;
@@ -21,31 +27,151 @@
   flex-basis: calc(33% - 2em);
   position: relative;
 }
-.genres .genre_card:nth-child(1) {
-  background-color: #F35DD8;
-}
-.genres .genre_card:nth-child(2) {
-  background-color: #5DF3AB;
-}
-.genres .genre_card:nth-child(3) {
-  background-color: #F3EC5D;
-}
-.genres .genre_card:nth-child(4) {
-  background-color: #5D71F3;
-}
-.genres .genre_card:nth-child(5) {
-  background-color: #F3AB5D;
-}
-.genres .genre_card:nth-child(6) {
-  background-color: #F35D5D;
-}
 .genres .genre_card p {
   font-size: 4em;
+  font-style: italic;
+  z-index: 2;
+}
+.genres .genre_card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 60%;
+  z-index: 1;
+  border-radius: 20px;
+}
+.genres .genre_card:nth-child(1)::before {
+  background-color: #F35DD8;
+}
+.genres .genre_card:nth-child(2)::before {
+  background-color: #5DF3AB;
+}
+.genres .genre_card:nth-child(3)::before {
+  background-color: #F3EC5D;
+}
+.genres .genre_card:nth-child(4)::before {
+  background-color: #5D71F3;
+}
+.genres .genre_card:nth-child(5)::before {
+  background-color: #F3AB5D;
+}
+.genres .genre_card:nth-child(6)::before {
+  background-color: #F35D5D;
+}
+
+.navbar {
+  align-items: center;
+  color: #FFF;
+  display: flex;
+  font-family: "Instrument Serif", serif;
+  justify-content: space-between;
+  height: 10vh;
+  margin: 0 1em;
+}
+
+.card {
+  color: #FFF;
+  width: 414px;
+  height: 807px;
+  z-index: 2;
+  position: relative;
+  border-radius: 20px;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(360deg, rgb(0, 0, 0) 0%, rgba(255, 255, 255, 0) 76%, rgb(0, 0, 0) 100%);
+  z-index: 1;
+  border-radius: 20px;
+}
+.card img {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+.card .card_head {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  color: white;
+  width: 100%;
+  font-size: 1.2rem;
+  z-index: 2;
+}
+.card .card_head .bold {
+  font-weight: 600;
+}
+.card .card_head .place {
+  text-align: right;
+}
+.card .card_head p {
+  margin-inline: 1em;
+}
+.card .card_body {
+  position: absolute;
+  bottom: 30px;
+  left: 10px;
+  width: 50%;
+  margin: 1em;
+  z-index: 2;
+}
+.card .card_body * {
+  margin: 0;
+}
+.card .card_body .card_title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  border-bottom: 1px solid white;
+  margin-bottom: 0.3em;
+}
+.card .card_body .card_tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2em;
+}
+.card .card_body .card_tags .tag, .card .card_body .card_tags .Metal, .card .card_body .card_tags .Rap, .card .card_body .card_tags .RnB {
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.5em;
+  border-radius: 10px;
+  color: #151515;
+  opacity: 80%;
+}
+
+.RnB {
+  background-color: #F35DD8;
+}
+
+.Rap {
+  background-color: #5DF3AB;
+}
+
+.Metal {
+  background-color: #F3AB5D;
+}
+
+.container h2 {
+  font-size: 2.5em;
+  margin: 1em 0;
+  font-weight: 400;
+  text-align: center;
 }
 
 body {
-  background-color: #FFF;
-  color: #151515;
+  background-color: #151515;
+  color: #FFF;
   font-family: "Instrument Serif", serif;
   font-size: 1.6rem;
   line-height: 1.5;
