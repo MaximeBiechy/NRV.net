@@ -46,6 +46,150 @@ class Artist {
 "Entity" <|-- "Party"
 "Entity" <|-- "Artist"
 }
+package "dto" {
+package "show"{
+
+    class CreateShowDTO{
+        -title : string
+        -description: string
+        -images: List<string>
+        -video: string
+        -artist : List<ArtistDTO>
+        -begin: DateTimeImmutable
+    }
+    class ShowDTO{
+        -id: string
+        -title : string
+        -description: string
+        -images: List<string>
+        -video: string
+        -artist : List<ArtistDTO>
+        -begin: DateTimeImmutable
+    }
+    class DisplayShowShortDTO{
+        -id: string
+        -title : string
+        -images: List<string>
+        -begin: DateTimeImmutable
+    }
+}
+package "party" {
+    class PartyDTO {
+        -id: string
+        -name: string
+        -theme: string
+        -date: DateTimeImmutable
+        -begin: DateTimeImmutable
+    }
+    class CreatePartyDTO {
+        -name: string
+        -theme: string
+        -date: DateTimeImmutable
+        -begin: DateTimeImmutable
+    }
+    class PartyDetailsDTO {
+        -id: string
+        -name: string
+        -theme: string
+        -date: DateTimeImmutable
+        -begin: DateTimeImmutable
+        -prices: int
+        -shows: List<ShowDTO>
+    }
+
+}
+
+package "place"{
+    class "CreatePlaceDTO"{
+        -name: string
+        -address: string
+        -nbSit: int
+        -nbStand: int
+        -images: List<string>
+    }
+
+    class "PlaceDTO"{
+        -id: string
+        -name: string
+        -address: string
+        -nbSit: int
+        -nbStand: int
+        -images: List<string>
+    }
+}
+
+package "artist"{
+    class "CreateArtistDTO"{
+        -name: string
+        -style: string
+    }
+    class "ArtistDTO"{
+        -id: string
+        -name: string
+        -style: string
+    }
+}
+}
+
+package "services" {
+    package "show"{
+        interface ShowServiceInterface{
+            + displayShows() : DisplayShowShortDTO
+            + createShow(createShowDTO c): ShowDTO
+        }
+
+        class ShowService implements ShowServiceInterface{
+            + displayShows() : DisplayShowShortDTO
+            + createShow(createShowDTO c): ShowDTO
+        }
+
+        exception ShowAlreadyExistException{
+            + __construct(string $message)
+        }
+        exception ShowNotFoundException{
+            + __construct(string $message)
+        }
+        exception ShowBadDataException{
+            + __construct(string $message)
+        }
+        exception ShowInternalServerErrorException{
+            + __construct(string $message)
+        }
+        ShowService <.. ShowAlreadyExistException
+        ShowService <.. ShowNotFoundException
+        ShowService <.. ShowBadDataException
+        ShowService <.. ShowInternalServerErrorException
+    }
+
+    package "party" {
+        interface PartyServiceInterface {
+            +displayPartyDetails(): PartyDetailsDTO
+            +createParty(CreatePartyDTO c): PartyDTO
+        }
+        class PartyService implements PartyServiceInterface{
+                +displayPartyDetails(): PartyDetailsDTO
+                +createParty(CreatePartyDTO c): PartyDTO
+        }
+        exception PartyAlreadyExistException{
+                + __construct(string $message)
+        }
+        exception PartyNotFoundException{
+                + __construct(string $message)
+        }
+        exception PartyBadDataException{
+                + __construct(string $message)
+        }
+        exception PartyInternalServerErrorException{
+                + __construct(string $message)
+        }
+        PartyService <.. PartyAlreadyExistException
+        PartyService <.. PartyNotFoundException
+        PartyService <.. PartyBadDataException
+        PartyService <.. PartyInternalServerErrorException
+    }
+}
+
+
 skinparam linetype ortho
 
 
