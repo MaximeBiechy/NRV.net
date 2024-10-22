@@ -5,6 +5,7 @@ namespace nrv\core\services\ticket;
 use nrv\core\domain\entities\ticket\SoldTicket;
 use nrv\core\domain\entities\ticket\Ticket;
 use nrv\core\dto\card\AddTicketToCardDTO;
+use nrv\core\dto\card\CardDTO;
 use nrv\core\dto\ticket\CreateTicketDTO;
 use nrv\core\dto\ticket\SoldTicketDTO;
 use nrv\core\dto\ticket\TicketDTO;
@@ -94,6 +95,23 @@ class TicketService implements TicketServiceInterface
             $soldTicket = $this->ticketRepository->getSoldTicketById($ticketId);
             return new SoldTicketDTO($soldTicket);
         } catch (RepositoryInternalServerError $e) {
+            throw new RepositoryInternalServerError($e->getMessage());
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new RepositoryEntityNotFoundException($e->getMessage());
+        }
+    }
+
+    public function getCardByUserId(string $userId): CardDTO
+    {
+        try{
+            $card = $this->ticketRepository->getCardByUserId($userId);
+            $t = [];
+            foreach ($card->getTickets() as $ticket) {
+                $t[] = new TicketDTO($ticket);
+            }
+            $card->setTickets($t);
+            return new CardDTO($card);
+        }catch (RepositoryInternalServerError $e) {
             throw new RepositoryInternalServerError($e->getMessage());
         } catch (RepositoryEntityNotFoundException $e) {
             throw new RepositoryEntityNotFoundException($e->getMessage());

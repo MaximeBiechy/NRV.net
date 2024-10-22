@@ -2,6 +2,7 @@
 
 namespace nrv\core\repositoryInterfaces;
 
+use nrv\core\domain\entities\card\Card;
 use nrv\core\domain\entities\ticket\SoldTicket;
 use nrv\core\domain\entities\ticket\Ticket;
 
@@ -14,4 +15,5 @@ interface TicketRepositoryInterface
     public function getSoldTicketsByUserID(string $userID): array;
     public function getTicketsByCardID(string $cardID): array;
     public function addTicketToCard(string $ticketID, string $cardID): void;
+    public function getCardByUserID(string $userID): Card;
 }

@@ -3,6 +3,7 @@
 namespace nrv\core\services\ticket;
 
 use nrv\core\dto\card\AddTicketToCardDTO;
+use nrv\core\dto\card\CardDTO;
 use nrv\core\dto\ticket\SoldTicketDTO;
 use nrv\core\dto\ticket\TicketDTO;
 
@@ -14,4 +15,5 @@ interface TicketServiceInterface
     public function getTicket(string $ticketId): TicketDTO;
     public function createSoldTicket(SoldTicketDTO $ticketDTO): SoldTicketDTO;
     public function getSoldTicket(string $ticketId): SoldTicketDTO;
+    public function getCardByUserId(string $userId): CardDTO;
 }

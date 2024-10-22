@@ -2,19 +2,21 @@
 
 namespace nrv\core\dto\card;
 
+use nrv\core\domain\entities\card\Card;
 use nrv\core\dto\DTO;
 
 class CardDTO extends DTO
 {
-    protected string $id, $name, $user_id;
+    protected string $id, $user_id;
     protected int $price;
+    protected array $tickets;
 
-    public function __construct(string $id, string $name, int $price, string $user_id)
+    public function __construct(Card $card)
     {
-        $this->id = $id;
-        $this->name = $name;
-        $this->price = $price;
-        $this->user_id = $user_id;
+        $this->id = $card->getId();
+        $this->price = $card->getTotalPrice();
+        $this->user_id = $card->getUserId();
+        $this->tickets = $card->getTickets();
     }
 
 }

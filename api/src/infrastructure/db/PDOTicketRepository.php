@@ -2,6 +2,7 @@
 
 namespace nrv\infrastructure\db;
 
+use nrv\core\domain\entities\card\Card;
 use nrv\core\domain\entities\ticket\SoldTicket;
 use nrv\core\domain\entities\ticket\Ticket;
 use nrv\core\repositoryInterfaces\RepositoryInternalServerError;
@@ -150,6 +151,28 @@ class PDOTicketRepository implements TicketRepositoryInterface
             $stmt2->execute(['card_id' => $cardID, 'ticket_id' => $ticketID]);
         } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error adding ticket to card");
+        }
+    }
+
+    public function getCardByUserID(string $userID): Card
+    {
+        try {
+            $stmt = $this->pdo_ticket->prepare("SELECT * FROM cards WHERE user_id = :user_id");
+            $stmt->execute(['user_id' => $userID]);
+            $card = $stmt->fetch();
+            if ($card === false) {
+                throw new RepositoryInternalServerError("Card not found");
+            }
+            try {
+                $tickets = $this->getTicketsByCardID($card['id']);
+            } catch (RepositoryInternalServerError $e) {
+                throw new RepositoryInternalServerError($e->getMessage());
+            }
+            $c = new Card($card['user_id'], $card['total_price'], $tickets);
+            $c->setID($card['id']);
+            return $c;
+        } catch (\PDOException $e) {
+            throw new RepositoryInternalServerError("Error getting card by user id");
         }
     }
 }

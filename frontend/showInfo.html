@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NRV.net</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+  <script src="https://kit.fontawesome.com/596072d93b.js" crossorigin="anonymous"></script>   <!-- Font Awesome -->
+</head>
+<body>
+  <!-- <div class="loader">
+    <span class="loader__spinner"></span>
+  </div> -->
+<header>
+  <nav>
+    <div class="navbar">
+      <h1>NancyRockVibraaation</h1>
+      <i class="fa-solid fa-cart-shopping"></i>
+    </div>
+  </nav>
+</header>
+<section class="showInfo">
+  <h2>{{party.name}}</h2>
+  <p>Quoi écoouuter ?</p>
+  
+  <div class="container party"> 
+      <article class="card">
+        <img src="./{{party.shows.images.0.self.href}}" alt="1" class="card_img">
+        <div class="card_head">
+          <p><span class="bold">{{party.date.date}}</span></p>
+          <p class="place">Arène<br> Marchand</p>
+        </div>
+        <div class="card_body">
+          <h3 class="card_title">{{party.title}}</h3>
+          <div class="card_tags">
+            <p class="tag RnB">RnB</p>
+            <p class="tag Rap">Rap</p>
+            <p class="tag Metal">Metal,Hard Rock</p>
+          </div>
+        </div>
+      </article>
+  </div>
+</section>
+<script type="module" src="./js/fetches.js"></script>
+</body>
+</html>
