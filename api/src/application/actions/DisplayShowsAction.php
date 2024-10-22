@@ -25,11 +25,17 @@ class DisplayShowsAction extends AbstractAction
         $urlSelf = $routeParser->urlFor('shows');
         $shows = array_map(function($show) use ($routeParser) {
             $urlShow = $routeParser->urlFor('shows_id', ['ID-SHOW' => $show->id]);
+            $images = $show->images;
+            $images = array_map(function($image) use ($routeParser) {
+                return [
+                    "self" => ['href' =>$image]
+                ];
+            }, $images);
             return [
                 "id" => $show->id,
                 "title" => $show->title,
                 "date" => $show->begin,
-                "images" => $show->images,
+                "images" => $images,
                 "links" => [
                     "self" => ['href' => $urlShow]
                 ]

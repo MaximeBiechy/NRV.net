@@ -28,9 +28,7 @@ class ShowService implements ShowServiceInterface
             foreach ($shows as $show) {
                 $ars = [];
                 foreach ($show->getArtists() as $artist) {
-                    $a = new Artist($artist['name'], $artist['style'], $artist['image']);
-                    $a->setID($artist['id']);
-                    $ars[] = new ArtistDTO($a);
+                    $ars[] = new ArtistDTO($artist);
                 }
                 $show->setArtists($ars);
             }

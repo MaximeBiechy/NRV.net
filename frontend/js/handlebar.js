@@ -1,30 +1,25 @@
-function fillTemplate() {
-    var data = {
-        artists: [
-            {
-                id: 1,
-                image: './images/default.jpg',
-                date: '2021-12-12',
-                name: 'Artist One'
-            },
-            {
-                id: 2,
-                image: './images/default.jpg',
-                date: '2022-01-15',
-                name: 'Artist Two'
-            },
-            {
-                id: 3,
-                image: './images/default.jpg',
-                date: '2022-02-20',
-                name: 'Artist Three'
-            }
-        ]
-    };
+
+  // Récupérer les détails d'une soirée par son id :
+  async function fetchPartyById(id) {
+    try {
+      const response = await fetch(`http://localhost:21000/parties/${id}`, { mode: 'no-cors' });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error('There has been a problem with your fetch operation:', error);
+    }
+    return data;
+  }
+
+function fillTemplate(data) {
+
+    var datas = data;
     var template = Handlebars.compile(document.getElementById('artist-template').innerHTML);
     var filledTemplate = template(data);
     document.getElementById('output').innerHTML = filledTemplate;
 }
 
-fillTemplate();
-console.log('après fillTemplate');
+fillTemplate(data);

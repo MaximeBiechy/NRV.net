@@ -2,7 +2,7 @@
 
 namespace nrv\core\services\party;
 
-use nrv\core\domain\entities\Artist\Artist;
+use nrv\core\domain\entities\artist\Artist;
 use nrv\core\domain\entities\party\Party;
 use nrv\core\dto\artist\ArtistDTO;
 use nrv\core\dto\party\CreatePartyDTO;

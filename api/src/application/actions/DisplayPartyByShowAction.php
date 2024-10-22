@@ -34,9 +34,31 @@ class DisplayPartyByShowAction extends AbstractAction
             $party = array_map(function($party) use ($routeParser) {
                 $shows = [];
                 foreach ($party->shows as $show) {
+                    $artists = $show->artists;
+                    $artists = array_map(function($artist) use ($routeParser) {
+                        return [
+                            "id" => $artist->id,
+                            "name" => $artist->name,
+                            "style" => $artist->style,
+                            "image" => [
+                                "self" => ['href' => $artist->image]
+                            ]
+                        ];
+                    }, $artists);
+                    $images = $show->images;
+                    $images = array_map(function($image) use ($routeParser) {
+                        return [
+                            "self" => ['href' =>$image]
+                        ];
+                    }, $images);
                     $shows[] = [
+                        'id' => $show->id,
+                        'title' => $show->title,
+                        'date' => $show->begin,
+                        'images' => $images,
+                        'artists' => $artists,
                         "links" => [
-                            "self" => ['href' => $routeParser->urlFor('shows_id', ['ID-SHOW' => $show])]
+                            "self" => ['href' => $routeParser->urlFor('shows_id', ['ID-SHOW' => $show->id])]
                         ]
                     ];
                 }
@@ -44,7 +66,7 @@ class DisplayPartyByShowAction extends AbstractAction
                     "id" => $party->id,
                     "name" => $party->name,
                     "theme" => $party->theme,
-                    "prices" => $party->prices,
+                    "prices" => $party->price,
                     "date" => $party->date,
                     "begin" => $party->begin,
                     "shows" => $shows,
