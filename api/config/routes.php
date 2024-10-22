@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use nrv\application\actions\DisplayPartyAction;
 use nrv\application\actions\DisplayPartyByShowAction;
+use nrv\application\actions\SigninAction;
 use nrv\application\actions\SignupAction;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -28,5 +29,7 @@ return function(\Slim\App $app):\Slim\App {
 
     // Compte et profil d'utilisateur
     $app->post('/signup[/]', SignupAction::class)->setName('signup');
+    $app->post('/signin[/]', SigninAction::class)->setName('signin');
+
     return $app;
 };

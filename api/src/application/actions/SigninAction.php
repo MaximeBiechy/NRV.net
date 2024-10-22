@@ -7,13 +7,15 @@ use nrv\application\provider\auth\AuthProviderInterface;
 use nrv\application\renderer\JsonRenderer;
 use nrv\core\dto\auth\CredentialsDTO;
 use nrv\core\services\auth\AuthentificationServiceBadDataException;
+use nrv\core\services\auth\AuthentificationServiceInternalServerErrorException;
 use nrv\core\services\auth\AuthentificationServiceNotFoundException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpBadRequestException;
+use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Exception\HttpNotFoundException;
 
-class SignupAction extends AbstractAction
+class SigninAction extends AbstractAction
 {
 
     private AuthProviderInterface $authProvider;
@@ -34,19 +36,21 @@ class SignupAction extends AbstractAction
         $password = $data['password'];
 
         try {
-            $this->authProvider->register(new CredentialsDTO($email, $password));
-
             $authDTO = $this->authProvider->signin(new CredentialsDTO($email, $password));
             $res = [
                 'id' => $authDTO->id,
                 'email' => $authDTO->email,
                 'role' => $authDTO->role,
+                'token' => $authDTO->token,
+                'token_refresh' => $authDTO->token_refresh
             ];
-            return JsonRenderer::render($rs, 201, $res);
+            return JsonRenderer::render($rs, 200, $res);
         } catch (AuthentificationServiceNotFoundException $e) {
             throw new HttpNotFoundException($rq, $e->getMessage());
         } catch (AuthentificationServiceBadDataException $e) {
             throw new HttpBadRequestException($rq, $e->getMessage());
+        } catch (AuthentificationServiceInternalServerErrorException $e) {
+            throw new HttpInternalServerErrorException($rq, $e->getMessage());
         }
     }
 }
