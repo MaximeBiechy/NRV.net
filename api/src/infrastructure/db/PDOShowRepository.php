@@ -2,8 +2,7 @@
 
 namespace nrv\infrastructure\db;
 
-use nrv\core\domain\entities\Artist\Artist;
-use nrv\core\domain\entities\image\Image;
+use nrv\core\domain\entities\artist\Artist;
 use nrv\core\domain\entities\show\Show;
 use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 use nrv\core\repositoryInterfaces\RepositoryInternalServerError;
@@ -102,6 +101,41 @@ class PDOShowRepository implements ShowRepositoryInterface
             return $s;
         }catch (\PDOException $e){
             throw new RepositoryInternalServerError("Error while fetching show");
+        }
+    }
+
+    public function getArtists(): array
+    {
+        try{
+            $stmt = $this->pdo_show->prepare("SELECT * FROM artists");
+            $stmt->execute();
+            $artists = $stmt->fetchAll();
+            $result = [];
+            foreach ($artists as $artist) {
+                $a = new Artist($artist['name'], $artist['style'], $artist['image']);
+                $a->setID($artist['id']);
+                $result[] = $a;
+            }
+            return $result;
+        }catch (\PDOException $e){
+            throw new RepositoryInternalServerError("Error while fetching artists");
+        }
+    }
+
+    public function getArtistById(string $id): Artist
+    {
+        try{
+            $stmt = $this->pdo_show->prepare("SELECT * FROM artists WHERE id = :id");
+            $stmt->execute(['id' => $id]);
+            $artist = $stmt->fetch();
+            if ($artist === false) {
+                throw new RepositoryEntityNotFoundException("Artist not found");
+            }
+            $a = new Artist($artist['name'], $artist['style'], $artist['image']);
+            $a->setID($artist['id']);
+            return $a;
+        }catch (\PDOException $e){
+            throw new RepositoryInternalServerError("Error while fetching artist");
         }
     }
 }

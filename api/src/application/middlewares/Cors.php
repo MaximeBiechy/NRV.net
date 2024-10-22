@@ -3,20 +3,19 @@
 namespace nrv\application\middlewares;
 
 
-
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Exception\HttpUnauthorizedException;
+use Slim\Psr7\Response;
 
 class Cors
 {
     public function __invoke(ServerRequestInterface $rq, RequestHandlerInterface $next)
     {
-
+        $response = new Response();
         if (!$rq->hasHeader('Origin')){
-            throw new HttpUnauthorizedException($rq, 'Origin header is missing');
+            throw new HttpUnauthorizedException($rq, 'missing Origin Header (cors)');
         }
-
         $rs = $next->handle($rq);
         return $rs
             ->withHeader('Access-Control-Allow-Origin', $rq->getHeader('Origin'))

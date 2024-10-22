@@ -79,4 +79,30 @@ class ShowService implements ShowServiceInterface
             throw new ShowServiceInternalServerErrorException($e->getMessage());
         }
     }
+
+    public function getArtists(): array
+    {
+        try{
+            $artists = $this->showRepository->getArtists();
+            $result = [];
+            foreach ($artists as $artist) {
+                $result[] = new ArtistDTO($artist);
+            }
+            return $result;
+        }catch (RepositoryInternalServerError $e){
+            throw new ShowServiceInternalServerErrorException($e->getMessage());
+        }
+    }
+
+    public function getArtist(string $id): ArtistDTO
+    {
+        try{
+            $artist = $this->showRepository->getArtistById($id);
+            return new ArtistDTO($artist);
+        }catch (RepositoryInternalServerError $e){
+            throw new ShowServiceInternalServerErrorException($e->getMessage());
+        }catch (RepositoryEntityNotFoundException $e){
+            throw new ShowServiceArtistNotFoundException($e->getMessage());
+        }
+    }
 }
