@@ -1,5 +1,6 @@
 //loader
   var loader = document.querySelector('.loader');
+
 // Récupérer l'ensemble des spectacles :
 async function fetchShows() {
   try {
@@ -12,9 +13,9 @@ async function fetchShows() {
       var template = Handlebars.compile(document.querySelector('.shows').innerHTML);
       var filledTemplate = template(data);
       document.querySelector('.shows').innerHTML = filledTemplate;
-      
+
         loader.style.display = 'none';
-    
+
   }
   catch (error) {
     console.error('There has been a problem with your fetch operation:', error);
@@ -61,12 +62,18 @@ function fillPartyTemplate(data) {
 
 (async () => {
   const data = await fetchPartyById('a0b7566b-6fdd-4e34-bbab-41d882de9c07');
-  let new_date = new Date(data.party.date.date).toLocaleDateString('fr-FR', { weekday: 'short', day: '2-digit', month: '2-digit' });
-  data.party.date.date = new_date;
+
+  let new_date_dd_mm = new Date(data.party.date.date).toLocaleDateString('fr-FR', { weekday: 'short', day: '2-digit', month: '2-digit' });
+  data.party.date.date = new_date_dd_mm;
+
+  let new_begin_date_dd_mm = new Date(data.party.begin.date).toLocaleDateString('fr-FR', { weekday: 'long', day: '2-digit', month: '2-digit' });
+  data.party.begin.date = new_begin_date_dd_mm;
+
+
   console.log(data.party.shows[0].images[0].self.href)
   fillPartyTemplate(data);
 
 })();
 
 
-fetchShows(); 
+fetchShows();
