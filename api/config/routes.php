@@ -6,6 +6,8 @@ use nrv\application\actions\DisplayArtistAction;
 use nrv\application\actions\DisplayArtistsAction;
 use nrv\application\actions\DisplayPartyAction;
 use nrv\application\actions\DisplayPartyByShowAction;
+use nrv\application\actions\DisplayPlaceAction;
+use nrv\application\actions\DisplayPlacesAction;
 use nrv\application\actions\SigninAction;
 use nrv\application\actions\SignupAction;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -31,8 +33,13 @@ return function(\Slim\App $app):\Slim\App {
     $app->post('/signup[/]', SignupAction::class)->setName('signup');
     $app->post('/signin[/]', SigninAction::class)->setName('signin');
 
+    // Artistes
     $app->get('/artists[/]', DisplayArtistsAction::class)->setName('artists');
     $app->get('/artists/{ID-ARTIST}[/]', DisplayArtistAction::class)->setName('artists_id');
+
+    //Places
+    $app->get('/places[/]', DisplayPlacesAction::class)->setName('places');
+    $app->get('/places/{ID-PLACE}[/]', DisplayPlaceAction::class)->setName('places_id');
 
     return $app;
 };
