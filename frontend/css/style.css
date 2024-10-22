@@ -98,7 +98,8 @@
   z-index: -1;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 20px;
 }
 .card .card_head {
@@ -164,6 +165,13 @@
   background-color: #F3AB5D;
 }
 
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .container h2 {
   font-size: 2.5em;
   margin: 1em 0;
@@ -206,7 +214,8 @@
   border-radius: 2em;
   width: 175px;
   height: 350px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .cart .cart_item .cart_item_desc_title {
   display: flex;
@@ -252,6 +261,4 @@ body {
   font-family: "Instrument Serif", serif;
   font-size: 1.6rem;
   line-height: 1.5;
-}
-
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */
