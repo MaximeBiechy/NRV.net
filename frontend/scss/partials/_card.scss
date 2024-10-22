@@ -2,11 +2,15 @@
 
 .card {
     color: $text_color;
-    width:414px;
-    height: 807px;
+    width: 16em; //!
+    height: 800px; //!
     z-index: 2;
     position: relative;
     border-radius: 20px;
+
+  &.card_place{
+    width: 100%;
+  }
 
     &::before {
         content: '';
@@ -35,7 +39,7 @@
             justify-content: space-between;
             font-family: $font_sans;
             font-weight: 300;
-            color: white; 
+            color: white;
             width: 100%;
             font-size: 1.2rem;
             z-index: 2;
@@ -43,7 +47,7 @@
                 font-weight: 600;
             }
             .place{
-                
+
                 text-align: right;
             }
             p{
