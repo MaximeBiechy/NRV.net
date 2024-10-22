@@ -1,6 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 .genres {
   align-items: center;
   color: #151515;
@@ -94,8 +107,7 @@
   z-index: -1;
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   border-radius: 20px;
 }
 .card .card_head {
@@ -113,6 +125,7 @@
   font-weight: 600;
 }
 .card .card_head .place {
+  font-size: 1em;
   text-align: right;
 }
 .card .card_head p {
@@ -167,7 +180,8 @@
   gap: 2em;
   flex-wrap: wrap;
   justify-content: center;
-  width: 100%;
+  margin: 0 auto;
+  width: 80%;
 }
 
 section {
@@ -180,13 +194,13 @@ section h2 {
   font-weight: 400;
   text-align: center;
   border-bottom: white 1px solid;
-  margin: 0 auto;
+  margin: 1em auto;
   width: 80%;
 }
 
 .cart {
   position: relative;
-  margin: 1.5em;
+  width: 100%;
 }
 .cart h2 {
   border-bottom: 0.5px solid white;
@@ -230,8 +244,7 @@ section h2 {
   border-radius: 2em;
   width: 175px;
   height: 350px;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .cart .cart_item .cart_item_desc_title {
   display: flex;
@@ -274,7 +287,7 @@ section h2 {
   align-items: flex-end;
   display: flex;
   font-family: "Inter", sans-serif;
-  gap: 10em;
+  gap: 5em;
   bottom: 0;
   right: 0;
   position: absolute;
@@ -284,10 +297,8 @@ section h2 {
   border-radius: 16px;
   font-family: "Instrument Serif", serif;
   font-size: 1em;
-  height: -moz-fit-content;
   height: fit-content;
   padding: 0.1em 2em;
-  width: -moz-fit-content;
   width: fit-content;
 }
 .cart .cart_payment .cart_payment_calculus {
@@ -388,4 +399,6 @@ body {
   font-family: "Instrument Serif", serif;
   font-size: 1.6rem;
   line-height: 1.5;
-}/*# sourceMappingURL=style.css.map */
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -51,7 +51,7 @@ VALUES ('3fc424d2-b3c7-4bf9-9bd5-0a0d86c40543', 'Daft Punk', 'Electro', 'daftpun
        ('c3dfb3ab-d942-4494-a8c3-eedbf6c9d6a7', 'Phoenix', 'Rock', 'phoenix.jpg'),
        ('5f89da2b-321d-4c58-bfe5-24a7796235d8', 'David Guetta', 'House', 'davidguetta.jpg'),
        ('a8f6597f-473a-4ff6-8508-ed91451faa50', 'M83', 'Synthpop', 'm83.jpg'),
-       ('f19b8af0-3f83-4e6c-8400-4d56181a4e96', 'Air', 'Downtempo', 'air.jpg'),
+       ('f19b8af0-3f83-4e6c-8400-4d56181a4e96', 'Air', 'Downtempo', 'default.jpg'),
        ('86d47229-0879-41d7-84f4-b247131e48ac', 'Yann Tiersen', 'Classical', 'yanntiersen.jpg'),
        ('6e9e694a-929e-4946-b793-89f61acc153a', 'Zaz', 'Chanson', 'zaz.jpg'),
        ('1dec3475-f06a-4ae1-bce4-336e8f1413e1', 'Stromae', 'Hip Hop', 'stromae.jpg'),
@@ -73,7 +73,7 @@ VALUES ('3fc424d2-b3c7-4bf9-9bd5-0a0d86c40543', 'Daft Punk', 'Electro', 'daftpun
        ('38d78cad-a7b3-4875-9d9f-054988db45a5', 'Serge Gainsbourg', 'Chanson', 'sergegainsbourg.jpg'),
        ('db2f0967-8b47-4892-8d18-f1d4fc156712', 'Manu Chao', 'World Music', 'manuchao.jpg'),
        ('05c10123-0165-4c52-b943-57eb1935e08d', 'Gojira', 'Metal', 'gojira.jpg'),
-       ('9419f77e-db21-4ed1-9e5f-fb04373e2400', 'Camille', 'Experimental', 'camille.jpg'),
+       ('9419f77e-db21-4ed1-9e5f-fb04373e2400', 'Camille', 'Experimental', 'default.jpg'),
        ('81a432bc-b9b0-4965-8884-1b8b3ed1f48b', 'Aya Nakamura', 'R&B', 'ayanakamura.jpg'),
        ('f9b357ab-43cc-4838-a91a-2c3359d42031', 'Booba', 'Rap', 'booba.jpg'),
        ('88157f29-a90e-4eab-be23-6195e0c8246b', 'PNL', 'Rap', 'pnl.jpg'),
@@ -82,9 +82,9 @@ VALUES ('3fc424d2-b3c7-4bf9-9bd5-0a0d86c40543', 'Daft Punk', 'Electro', 'daftpun
        ('d76e00c4-61c9-4c41-a854-5e899f645378', 'MC Solaar', 'Rap', 'mcsolaar.jpg'),
        ('93b95145-bc4a-4a98-80c5-16b25111256a', 'Kendji Girac', 'Pop', 'kendjigirac.jpg'),
        ('31a83440-e9ef-4093-b908-f1716413c05e', 'Black M', 'Rap', 'blackm.jpg'),
-       ('b64615f4-2ff8-4990-8031-07dd40479c20', 'Bigflo & Oli', 'Rap', 'biglo&oli.jpg'),
+       ('b64615f4-2ff8-4990-8031-07dd40479c20', 'Bigflo & Oli', 'Rap', 'bigflo&oli.jpg'),
        ('0b008605-0039-4da0-a84e-88d6663d1743', 'Lou Doillon', 'Indie', 'loudoillon.jpg'),
-       ('cc1aa06d-4759-48b5-874d-d49817d4a274', 'Brigitte', 'Pop', 'brigitte.jpg'),
+       ('cc1aa06d-4759-48b5-874d-d49817d4a274', 'Brigitte', 'Pop', 'default.jpg'),
        ('9968dcf8-068e-4f2b-9f6c-5453b9a31ee3', 'Jain', 'Pop', 'jain.jpg'),
        ('2d8ee4ff-cd0e-4a7e-a51f-d61dac39bec4', 'Izïa', 'Rock', 'izia.jpg'),
        ('c7df396b-fe96-4988-b875-86063c8727d7', 'Rone', 'Electro', 'rone.jpg'),
@@ -101,7 +101,7 @@ VALUES ('3fc424d2-b3c7-4bf9-9bd5-0a0d86c40543', 'Daft Punk', 'Electro', 'daftpun
        ('3df8cb67-1037-4e95-a426-04391f061fe6', 'M', 'Pop', 'm.jpg'),
        ('e402ef41-4c22-4da1-8738-d51e740df156', 'Claudio Capéo', 'Pop', 'claudiocapeo.jpg'),
        ('3f982975-909b-43cd-b71c-bc6c31c4938f', 'Amir', 'Pop', 'amir.jpg'),
-       ('d380097d-438a-43b6-ae22-d757847e880e', 'Suzane', 'Pop', 'suzane.jpg'),
+       ('d380097d-438a-43b6-ae22-d757847e880e', 'Suzane', 'Pop', 'default.jpg'),
        ('c30f0641-f138-4869-b066-95b123bb9257', 'Yseult', 'Pop', 'yseult.jpg'),
        ('462ef814-d0e8-488f-9731-9ddf6630e2cf', 'Zaho', 'R&B', 'zaho.jpg'),
        ('0d5aa540-6774-400d-a2e4-543cc9514bea', 'Hoshi', 'Pop', 'hoshi.jpg'),
@@ -318,3 +318,30 @@ VALUES ('a0b7566b-6fdd-4e34-bbab-41d882de9c07', 'Birthday Bash', 'Anniversaire',
         '340cf1fe-6344-4e93-ab6a-347c7e461d36', '14808e51-d1b6-4539-8596-66a9e39e01c9', '14808e51-d1b6-4539-8596-66a9e39e01c9', NULL, 30),
        ('8243ea21-155b-4ac9-b75e-f66fc142c2ef', 'Music Fiesta', 'Musique', '2024-11-01 18:00:00', '2024-11-01 19:00:00', 'b6b101d5-563e-4530-a3bb-43be12ea1053',
         'df220d31-9506-40f5-ad71-dd0a0ac48c52', NULL, NULL, 25);
+
+-- DATA FOR TICKETS
+\connect
+nrv_ticket;
+
+INSERT INTO public.tickets (id, name, price, quantity, party_id)
+VALUES ('cec7ef16-66db-4916-96cd-4e4a2057ae8c', 'Birthday Bash ticket', 30, 100000,
+        'a0b7566b-6fdd-4e34-bbab-41d882de9c07'),
+       ('eaa814ee-398e-435e-950c-32bc56cf0c90', 'Music Fiesta ticket', 50, 9000,
+        '8243ea21-155b-4ac9-b75e-f66fc142c2ef');
+
+INSERT INTO public.soldtickets (id, name, price, user_id, ticket_id, party_id)
+VALUES ('ef54b2c6-15bb-498f-9118-064db56f611b', 'Birthday Bash ticket', 30,
+        '669d5162-84b0-4edc-b043-3ccfa71eb0a9', (SELECT id FROM public.tickets WHERE name = 'Birthday Bash ticket'),
+        (SELECT party_id FROM public.tickets WHERE name = 'Birthday Bash ticket')),
+       ('d45fcf22-e954-4639-9c73-8fb0040e1335', 'Music Fiesta ticket', 50,
+        '669d5162-84b0-4edc-b043-3ccfa71eb0a9', (SELECT id FROM public.tickets WHERE name = 'Music Fiesta ticket'),
+        (SELECT party_id FROM public.tickets WHERE name = 'Music Fiesta ticket'));
+
+INSERT INTO public.cards (id, user_id, total_price)
+VALUES ('d85544dd-c85b-4f9b-a600-52f91388d6d0', '669d5162-84b0-4edc-b043-3ccfa71eb0a9', 80);
+
+INSERT INTO public.card_content (card_id, ticket_id, quantity)
+VALUES ((SELECT id FROM public.cards WHERE user_id = '669d5162-84b0-4edc-b043-3ccfa71eb0a9'),
+        (SELECT id FROM public.tickets WHERE name = 'Birthday Bash ticket'), 1),
+       ((SELECT id FROM public.cards WHERE user_id = '669d5162-84b0-4edc-b043-3ccfa71eb0a9'),
+        (SELECT id FROM public.tickets WHERE name = 'Music Fiesta ticket'), 1);
