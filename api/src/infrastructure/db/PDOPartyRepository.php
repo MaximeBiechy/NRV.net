@@ -107,7 +107,22 @@ class PDOPartyRepository implements PartyRepositoryInterface
                 if ($party['show3_id'] !== null) {
                     $shows[] = $party['show3_id'];
                 }
-                $p = new Party($party['name'], $party['theme'], $party['price'], \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $party['date']), \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $party['begin']), $shows, $party['place_id']);
+                $stmt = $this->pdo_place->prepare('SELECT * FROM places WHERE id = :id');
+                $stmt->execute(['id' => $party['place_id']]);
+                $place = $stmt->fetch();
+                if ($place === false) {
+                    throw new RepositoryInternalServerError('Place not found');
+                }
+                $stmt = $this->pdo_place->prepare('SELECT * FROM images WHERE place_id = :id');
+                $stmt->execute(['id' => $party['place_id']]);
+                $is = [];
+                $images = $stmt->fetchAll();
+                foreach ($images as $image) {
+                    $is[] = $image['path'];
+                }
+                $pa = new Place($place['name'], $place['address'], $place['nb_sit'], $place['nb_stand'], $is);
+                $pa->setID($place['id']);
+                $p = new Party($party['name'], $party['theme'], $party['price'], \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $party['date']), \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $party['begin']), $shows, $pa);
                 $p->setID($party['id']);
                 $part[] = $p;
             }
@@ -135,7 +150,22 @@ class PDOPartyRepository implements PartyRepositoryInterface
                 if ($party['show3_id'] !== null) {
                     $shows[] = $party['show3_id'];
                 }
-                $p = new Party($party['name'], $party['theme'], $party['price'], \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $party['date']), \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $party['begin']), $shows, $party['place_id']);
+                $stmt = $this->pdo_place->prepare('SELECT * FROM places WHERE id = :id');
+                $stmt->execute(['id' => $party['place_id']]);
+                $place = $stmt->fetch();
+                if ($place === false) {
+                    throw new RepositoryInternalServerError('Place not found');
+                }
+                $stmt = $this->pdo_place->prepare('SELECT * FROM images WHERE place_id = :id');
+                $stmt->execute(['id' => $party['place_id']]);
+                $is = [];
+                $images = $stmt->fetchAll();
+                foreach ($images as $image) {
+                    $is[] = $image['path'];
+                }
+                $pa = new Place($place['name'], $place['address'], $place['nb_sit'], $place['nb_stand'], $is);
+                $pa->setID($place['id']);
+                $p = new Party($party['name'], $party['theme'], $party['price'], \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $party['date']), \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $party['begin']), $shows, $pa);
                 $p->setID($party['id']);
                 $part[] = $p;
             }
