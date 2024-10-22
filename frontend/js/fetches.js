@@ -45,16 +45,7 @@ async function fetchShowPartyById(showId) {
   }
 }
 
-//Page de test fetch :
-const button_1 = document.querySelector('#shows');
-const button_2 = document.querySelector('#party');
-const button_3 = document.querySelector('#party_spectacles');
-
-button_1.addEventListener('click', fetchShows);
-button_2.addEventListener('click', () => fetchPartyById(1));
-button_3.addEventListener('click', () => fetchShowPartyById(1));
-
-//Tests Handlebars pour les spectacles (question 2) :
+//Vadim : Handlebars pour les soirées (question 2) :
 
 var template = Handlebars.compile(document.querySelector('.party').innerHTML);
 console.log(template)
