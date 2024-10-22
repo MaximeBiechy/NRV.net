@@ -121,10 +121,8 @@ class PDOTicketRepository implements TicketRepositoryInterface
     public function getTicketsByCardID(string $cardID): array
     {
         try {
-            $stmt = $this->pdo_ticket->prepare("SELECT ticket_id FROM card_content WHERE card_id = :card_id");
+            $stmt = $this->pdo_ticket->prepare("SELECT * FROM tickets INNER JOIN card_content ON tickets.id = card_content.ticket_id WHERE card_content.card_id = :card_id");
             $stmt->execute(['card_id' => $cardID]);
-            $stmt2 = $this->pdo_ticket->prepare("SELECT * FROM tickets WHERE id = :id");
-            $stmt2->execute(['id' => $stmt->fetch()['ticket_id']]);
             $tickets = $stmt->fetchAll();
             $ts = [];
             foreach ($tickets as $ticket) {
@@ -140,6 +138,18 @@ class PDOTicketRepository implements TicketRepositoryInterface
 
     public function addTicketToCard(string $ticketID, string $cardID): void
     {
-        // TODO: Implement addTicketToCard() method.
+        try {
+            $stmt = $this->pdo_ticket->prepare("SELECT * FROM card_content WHERE card_id = :card_id AND ticket_id = :ticket_id");
+            $stmt->execute(['card_id' => $cardID, 'ticket_id' => $ticketID]);
+            $ticket = $stmt->fetch();
+            if ($ticket !== false) {
+                $stmt2 = $this->pdo_ticket->prepare("UPDATE card_content SET quantity = quantity + 1 WHERE card_id = :card_id AND ticket_id = :ticket_id");
+            } else {
+                $stmt2 = $this->pdo_ticket->prepare("INSERT INTO card_content (card_id, ticket_id, quantity) VALUES (:card_id, :ticket_id, 1)");
+            }
+            $stmt2->execute(['card_id' => $cardID, 'ticket_id' => $ticketID]);
+        } catch (\PDOException $e) {
+            throw new RepositoryInternalServerError("Error adding ticket to card");
+        }
     }
 }
