@@ -2,8 +2,7 @@
 
 namespace nrv\infrastructure\db;
 
-use nrv\core\domain\entities\Artist\Artist;
-use nrv\core\domain\entities\image\Image;
+use nrv\core\domain\entities\artist\Artist;
 use nrv\core\domain\entities\show\Show;
 use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 use nrv\core\repositoryInterfaces\RepositoryInternalServerError;
