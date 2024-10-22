@@ -8,13 +8,13 @@ use nrv\core\dto\DTO;
 class CreateArtistDTO extends DTO
 {
     protected string $name;
-    protected array $style;
+    protected string $style;
     protected string $image;
 
     public function __construct(Artist $a)
     {
         $this->name = $a->getName();
-        $this->style = $a->getStyles();
+        $this->style = $a->getStyle();
         $this->image = $a->getImage();
     }
 }

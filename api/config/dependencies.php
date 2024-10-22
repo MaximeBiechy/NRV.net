@@ -22,7 +22,6 @@ use nrv\infrastructure\db\PDOPartyRepository;
 use nrv\infrastructure\db\PDOPlaceRepository;
 use nrv\infrastructure\db\PDOShowRepository;
 use Psr\Container\ContainerInterface;
-
 return [
     'auth.pdo' => function (ContainerInterface $c) {
         $data = parse_ini_file($c->get('auth.ini'));
@@ -74,7 +73,7 @@ return [
         return new ShowService($c->get(ShowRepositoryInterface::class));
     },
     PartyServiceInterface::class => function (ContainerInterface $c) {
-        return new PartyService($c->get(PartyRepositoryInterface::class));
+        return new PartyService($c->get(PartyRepositoryInterface::class), $c->get(ShowRepositoryInterface::class));
     },
 
     //Actions
@@ -82,7 +81,7 @@ return [
         return new DisplayShowsAction($c->get(ShowServiceInterface::class));
     },
     DisplayPartyAction::class => function (ContainerInterface $c) {
-        return new DisplayPartyAction($c->get(PartyServiceInterface::class));
+        return new DisplayPartyAction($c->get(PartyServiceInterface::class), $c->get(ShowServiceInterface::class));
     },
     DisplayPartyByShowAction::class => function (ContainerInterface $c) {
         return new DisplayPartyByShowAction($c->get(PartyServiceInterface::class));

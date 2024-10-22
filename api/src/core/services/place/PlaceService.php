@@ -3,6 +3,7 @@
 namespace nrv\core\services\place;
 
 use nrv\core\domain\entities\place\Place;
+use nrv\core\domain\entities\place\string;
 use nrv\core\dto\place\CreatePlaceDTO;
 use nrv\core\dto\place\PlaceDTO;
 use nrv\core\repositoryInterfaces\PlaceRepositoryInterface;

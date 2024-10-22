@@ -8,6 +8,5 @@ interface ShowRepositoryInterface
 {
     public function save(Show $show): string;
     public function getShows(): array;
-    public function getShowById(int $id): Show;
-
+    public function getShowById(string $id): Show;
 }

@@ -9,6 +9,6 @@ interface PartyRepositoryInterface
     public function save(Party $party): string;
     public function getPartyById(string $id): Party;
     public function getParties(): array;
-    public function getPartyByShow(int $showId): array;
+    public function getPartyByShow(string $showId): array;
 
 }

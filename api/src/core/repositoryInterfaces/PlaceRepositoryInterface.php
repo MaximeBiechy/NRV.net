@@ -3,6 +3,7 @@
 namespace nrv\core\repositoryInterfaces;
 
 use nrv\core\domain\entities\place\Place;
+use nrv\core\domain\entities\place\string;
 
 interface PlaceRepositoryInterface
 {

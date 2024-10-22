@@ -32,22 +32,14 @@ class DisplayPartyByShowAction extends AbstractAction
             $routeContext = RouteContext::fromRequest($rq);
             $routeParser = $routeContext->getRouteParser();
             $party = array_map(function($party) use ($routeParser) {
-                $shows = $party->getShows();
-                $shows = array_map(function($show) use ($routeParser) {
-                    $urlShow = $routeParser->urlFor('shows_id', ['ID-SHOW' => $show->getId()]);
-                    return [
-                        "id" => $show->id,
-                        "title" => $show->title,
-                        "description" => $show->description,
-                        "video" => $show->video,
-                        "images" => $show->images,
-                        "artists" => $show->artists,
-                        "begin" => $show->begin,
+                $shows = [];
+                foreach ($party->shows as $show) {
+                    $shows[] = [
                         "links" => [
-                            "self" => ['href' => $urlShow]
+                            "self" => ['href' => $routeParser->urlFor('shows_id', ['ID-SHOW' => $show])]
                         ]
                     ];
-                }, $shows);
+                }
                 return [
                     "id" => $party->id,
                     "name" => $party->name,
@@ -57,7 +49,7 @@ class DisplayPartyByShowAction extends AbstractAction
                     "begin" => $party->begin,
                     "shows" => $shows,
                     "links" => [
-                        "self" => ['href' => $routeParser->urlFor('parties_id', ['ID-PARTY' => $party->getId()])]
+                        "self" => ['href' => $routeParser->urlFor('parties_id', ['ID-PARTY' => $party->id])]
                     ]
 
                 ];

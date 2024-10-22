@@ -9,14 +9,14 @@ class ArtistDTO extends DTO
 {
     protected string $id;
     protected string $name;
-    protected array $style;
+    protected string $style;
     protected string $image;
 
     public function __construct(Artist $a)
     {
         $this->id = $a->getId();
         $this->name = $a->getName();
-        $this->style = $a->getStyles();
+        $this->style = $a->getStyle();
         $this->image = $a->getImage();
     }
 

@@ -9,8 +9,8 @@ CREATE DATABASE nrv_show;
 DROP TABLE IF EXISTS "users";
 CREATE TABLE "public"."users" (
   "id" uuid NOT NULL,
-  "email" character(128) NOT NULL,
-  "password" character(256) NOT NULL,
+  "email" character varying(128) NOT NULL,
+  "password" character varying(256) NOT NULL,
   "role" integer DEFAULT '0' NOT NULL
 ) WITH (oids = false);
 
@@ -18,15 +18,16 @@ CREATE TABLE "public"."users" (
 
 DROP TABLE IF EXISTS "party";
 CREATE TABLE "public"."party" (
-  "id" uuid NOT NULL,
-  "name" character(50) NOT NULL,
-  "theme" character(50) NOT NULL,
-  "date" timestamp NOT NULL,
-  "begin" timestamp NOT NULL,
-  "place_id" uuid NOT NULL,
-  "show1_id" uuid NOT NULL,
-  "show2_id" uuid,
-  "show3_id" uuid
+    "id" uuid NOT NULL,
+    "name" character varying(50) NOT NULL,
+    "theme" character varying(50) NOT NULL,
+    "date" timestamp NOT NULL,
+    "begin" timestamp NOT NULL,
+    "place_id" uuid NOT NULL,
+    "show1_id" uuid NOT NULL,
+    "show2_id" uuid,
+    "show3_id" uuid,
+    "price" integer
 ) WITH (oids = false);
 
 
@@ -34,7 +35,7 @@ CREATE TABLE "public"."party" (
 DROP TABLE IF EXISTS "images";
 CREATE TABLE "public"."images" (
    "id" uuid NOT NULL,
-   "path" character(256) NOT NULL,
+   "path" character varying(256) NOT NULL,
    "place_id" uuid NOT NULL
 ) WITH (oids = false);
 
@@ -42,10 +43,10 @@ CREATE TABLE "public"."images" (
 DROP TABLE IF EXISTS "places";
 CREATE TABLE "public"."places" (
    "id" uuid NOT NULL,
-   "name" character(50) NOT NULL,
-   "address" character(128) NOT NULL,
-   "nbSit" integer NOT NULL,
-   "nbStand" integer NOT NULL
+   "name" character varying(50) NOT NULL,
+   "address" character varying(128) NOT NULL,
+   "nb_sit" integer NOT NULL,
+   "nb_stand" integer NOT NULL
 ) WITH (oids = false);
 
 \connect nrv_show;
@@ -53,9 +54,9 @@ CREATE TABLE "public"."places" (
 DROP TABLE IF EXISTS "artists";
 CREATE TABLE "public"."artists" (
     "id" uuid NOT NULL,
-    "name" character(50) NOT NULL,
-    "style" character(50) NOT NULL,
-    "image" character(128) DEFAULT 'default.jpg' NOT NULL
+    "name" character varying(50) NOT NULL,
+    "style" character varying(50) NOT NULL,
+    "image" character varying(128) DEFAULT 'default.jpg' NOT NULL
 ) WITH (oids = false);
 
 
@@ -69,7 +70,7 @@ CREATE TABLE "public"."artists2style" (
 DROP TABLE IF EXISTS "images";
 CREATE TABLE "public"."images" (
     "id" uuid NOT NULL,
-    "path" character(256) NOT NULL,
+    "path" character varying(256) NOT NULL,
     "show_id" uuid NOT NULL
 ) WITH (oids = false);
 
@@ -84,9 +85,9 @@ CREATE TABLE "public"."perform" (
 DROP TABLE IF EXISTS "shows";
 CREATE TABLE "public"."shows" (
     "id" uuid NOT NULL,
-    "title" character(50) NOT NULL,
-    "description" character(128) NOT NULL,
-    "video" character(256),
+    "title" character varying(50) NOT NULL,
+    "description" character varying(128) NOT NULL,
+    "video" character varying(256),
     "begin" timestamp NOT NULL
 ) WITH (oids = false);
 
@@ -94,5 +95,5 @@ CREATE TABLE "public"."shows" (
 DROP TABLE IF EXISTS "style";
 CREATE TABLE "public"."style" (
   "id" uuid NOT NULL,
-  "name" character(50) NOT NULL
+  "name" character varying(50) NOT NULL
 ) WITH (oids = false);

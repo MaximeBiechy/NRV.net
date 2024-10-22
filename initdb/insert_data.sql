@@ -1,33 +1,23 @@
--- Connexion à la base de données nrv_auth
-\connect
-nrv_auth;
-
+-- DATA FOR AUTH
+\connect nrv_auth;
 -- Insertion des utilisateurs
 INSERT INTO public.users (id, email, password, role)
 VALUES (gen_random_uuid(), 'greg@gmail.com', '$2y$10$Z/Ly0lfKRG8/6.I7Ask8cumJwbmaHPpnTTevulJwerlaK4109okAS', 0),
        (gen_random_uuid(), 'admin@gmail.com', '$2y$10$yEKWI4iJHlN5.PdKp8LvFefnKpclftKoWleY4xFkLHO7NzUUA5RlK', 10),
        (gen_random_uuid(), 'superadmin@gmail.com', '$2y$10$WLGsGcxTevxNT3SWaWYK7.1P34A6FsjWyJkf/qKJz1ry5S/7FYqRS', 100);
 
--- Connexion à la base de données nrv_place
-\connect
-nrv_place;
+-- DATA FOR PARTY
+\connect nrv_party;
+-- Insertion des fêtes (party)
+INSERT INTO public.party (id, name, theme, date, begin, place_id, show1_id, show2_id, show3_id, price)
+VALUES (gen_random_uuid(), 'Birthday Bash', 'Anniversaire', '2024-12-25 20:00:00', '2024-12-25 21:00:00',
+        gen_random_uuid(), gen_random_uuid(), gen_random_uuid(), NULL, 30),
+       (gen_random_uuid(), 'Music Fiesta', 'Musique', '2024-11-01 18:00:00', '2024-11-01 19:00:00', gen_random_uuid(),
+        gen_random_uuid(), NULL, NULL, 25);
 
--- Insertion des lieux
-INSERT INTO public.places (id, name, address, nbSit, nbStand)
-VALUES (gen_random_uuid(), 'Stade de France', 'Saint-Denis, France', 80000, 20000),
-       (gen_random_uuid(), 'Zénith Paris', 'Paris, France', 6000, 3000);
 
--- Insertion des images de lieux
-INSERT INTO public.images (id, path, place_id)
-VALUES (gen_random_uuid(), '/images/stadedefrance.jpg',
-        (SELECT id FROM public.places WHERE name = 'Stade de France')),
-       (gen_random_uuid(), '/images/zenithparis.jpg',
-        (SELECT id FROM public.places WHERE name = 'Zénith Paris'));
-
--- Connexion à la base de données nrv_show
-\connect
-nrv_show;
-
+-- DATA FOR SHOW
+\connect nrv_show;
 -- Insertion des styles musicaux
 INSERT INTO public.style (id, name)
 VALUES (gen_random_uuid(), 'Electro'),
@@ -43,9 +33,6 @@ VALUES (gen_random_uuid(), 'Electro'),
        (gen_random_uuid(), 'R&B'),
        (gen_random_uuid(), 'Metal');
 
-
-\connect
-nrv_show;
 -- Insertion des artistes avec les valeurs spécifiées
 INSERT INTO public.artists (id, name, style, image)
 VALUES (gen_random_uuid(), 'Daft Punk', 'Electro', 'default.jpg'),
@@ -162,10 +149,10 @@ SELECT (SELECT id FROM public.artists WHERE name = 'Justice'), (SELECT id FROM p
 
 INSERT INTO public.artists2style (artist_id, style_id)
 SELECT (SELECT id FROM public.artists WHERE name = 'Sofiane Pamart'),
-       (SELECT id FROM public.style WHERE name = 'Piano');
+       (SELECT id FROM public.style WHERE name = 'Classical');
 
 INSERT INTO public.artists2style (artist_id, style_id)
-SELECT (SELECT id FROM public.artists WHERE name = 'Imany'), (SELECT id FROM public.style WHERE name = 'Soul');
+SELECT (SELECT id FROM public.artists WHERE name = 'Imany'), (SELECT id FROM public.style WHERE name = 'Classical');
 
 INSERT INTO public.artists2style (artist_id, style_id)
 SELECT (SELECT id FROM public.artists WHERE name = 'Shaka Ponk'), (SELECT id FROM public.style WHERE name = 'Rock');
@@ -179,7 +166,7 @@ SELECT (SELECT id FROM public.artists WHERE name = 'Julien Doré'), (SELECT id F
 
 INSERT INTO public.artists2style (artist_id, style_id)
 SELECT (SELECT id FROM public.artists WHERE name = 'Jeanne Added'),
-       (SELECT id FROM public.style WHERE name = 'Indie Rock');
+       (SELECT id FROM public.style WHERE name = 'Rock');
 
 INSERT INTO public.artists2style (artist_id, style_id)
 SELECT (SELECT id FROM public.artists WHERE name = 'Louane'), (SELECT id FROM public.style WHERE name = 'Pop');
@@ -211,14 +198,14 @@ SELECT (SELECT id FROM public.artists WHERE name = 'Serge Gainsbourg'),
 
 INSERT INTO public.artists2style (artist_id, style_id)
 SELECT (SELECT id FROM public.artists WHERE name = 'Manu Chao'),
-       (SELECT id FROM public.style WHERE name = 'World Music');
+       (SELECT id FROM public.style WHERE name = 'Classical');
 
 INSERT INTO public.artists2style (artist_id, style_id)
 SELECT (SELECT id FROM public.artists WHERE name = 'Gojira'), (SELECT id FROM public.style WHERE name = 'Metal');
 
 INSERT INTO public.artists2style (artist_id, style_id)
 SELECT (SELECT id FROM public.artists WHERE name = 'Camille'),
-       (SELECT id FROM public.style WHERE name = 'Experimental');
+       (SELECT id FROM public.style WHERE name = 'Classical');
 
 INSERT INTO public.artists2style (artist_id, style_id)
 SELECT (SELECT id FROM public.artists WHERE name = 'Aya Nakamura'), (SELECT id FROM public.style WHERE name = 'R&B');
@@ -248,7 +235,7 @@ INSERT INTO public.artists2style (artist_id, style_id)
 SELECT (SELECT id FROM public.artists WHERE name = 'Bigflo & Oli'), (SELECT id FROM public.style WHERE name = 'Rap');
 
 INSERT INTO public.artists2style (artist_id, style_id)
-SELECT (SELECT id FROM public.artists WHERE name = 'Lou Doillon'), (SELECT id FROM public.style WHERE name = 'Indie');
+SELECT (SELECT id FROM public.artists WHERE name = 'Lou Doillon'), (SELECT id FROM public.style WHERE name = 'Classical');
 
 INSERT INTO public.artists2style (artist_id, style_id)
 SELECT (SELECT id FROM public.artists WHERE name = 'Brigitte'), (SELECT id FROM public.style WHERE name = 'Pop');
@@ -266,7 +253,7 @@ INSERT INTO public.artists2style (artist_id, style_id)
 SELECT (SELECT id FROM public.artists WHERE name = 'Therapie TAXI'), (SELECT id FROM public.style WHERE name = 'Pop');
 
 INSERT INTO public.artists2style (artist_id, style_id)
-SELECT (SELECT id FROM public.artists WHERE name = 'Kassav'), (SELECT id FROM public.style WHERE name = 'Zouk');
+SELECT (SELECT id FROM public.artists WHERE name = 'Kassav'), (SELECT id FROM public.style WHERE name = 'Classical');
 
 INSERT INTO public.artists2style (artist_id, style_id)
 SELECT (SELECT id FROM public.artists WHERE name = 'Johnny Hallyday'),
@@ -289,9 +276,23 @@ VALUES (gen_random_uuid(), 'Daft Punk Show', 'Un concert unique avec Daft Punk',
 -- Insertion des images de spectacles
 INSERT INTO public.images (id, path, show_id)
 VALUES (gen_random_uuid(), '/images/daftpunk.jpg',
-        (SELECT id FROM public.shows WHERE title = 'Daft Punk Show')),
+        (SELECT id FROM public.shows WHERE title = 'Daft Punk Show'));
 
 
 -- Insertion des performances d'artistes
 INSERT INTO public.perform (show_id, artist_id)
 VALUES ((SELECT id FROM public.shows WHERE title = 'Daft Punk Show'), (SELECT id FROM public.artists WHERE name = 'Daft Punk')), ((SELECT id FROM public.shows WHERE title = 'Phoenix Live'), (SELECT id FROM public.artists WHERE name = 'Phoenix'));
+
+-- DATA FOR PLACES
+\connect nrv_place;
+
+INSERT INTO public.places (id, name, address, nb_sit, nb_stand)
+VALUES (gen_random_uuid(), 'Stade de France', 'Saint-Denis, France', 80000, 20000),
+       (gen_random_uuid(), 'Zénith Paris', 'Paris, France', 6000, 3000);
+
+-- Insertion des images de lieux
+INSERT INTO public.images (id, path, place_id)
+VALUES (gen_random_uuid(), '/images/stadedefrance.jpg',
+        (SELECT id FROM public.places WHERE name = 'Stade de France')),
+       (gen_random_uuid(), '/images/zenithparis.jpg',
+        (SELECT id FROM public.places WHERE name = 'Zénith Paris'));

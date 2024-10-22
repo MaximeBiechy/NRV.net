@@ -8,20 +8,20 @@ use nrv\core\domain\entities\place\Place;
 class Party extends Entity
 {
     private string $name, $theme;
-    private int $prices;
+    private int $price;
     private \DateTimeImmutable $date, $begin;
     private array $shows;
-    private Place $place;
+    private string $place_id;
 
-    public function __construct(string $id, string $name, string $theme, int $prices, \DateTimeImmutable $date, \DateTimeImmutable $begin, array $shows, Place $place)
+    public function __construct(string $name, string $theme, int $prices, \DateTimeImmutable $date, \DateTimeImmutable $begin, array $shows, string $place_id)
     {
         $this->name = $name;
         $this->theme = $theme;
-        $this->prices = $prices;
+        $this->price = $prices;
         $this->date = $date;
         $this->begin = $begin;
         $this->shows = $shows;
-        $this->place = $place;
+        $this->place_id = $place_id;
     }
 
     public function getName(): string
@@ -44,14 +44,14 @@ class Party extends Entity
         $this->theme = $theme;
     }
 
-    public function getPrices(): int
+    public function getPrice(): int
     {
-        return $this->prices;
+        return $this->price;
     }
 
-    public function setPrices(int $prices): void
+    public function setPrice(int $price): void
     {
-        $this->prices = $prices;
+        $this->price = $price;
     }
 
     public function getDate(): \DateTimeImmutable
@@ -84,14 +84,14 @@ class Party extends Entity
         $this->shows = $shows;
     }
 
-    public function getPlace(): Place
+    public function getPlaceID(): string
     {
-        return $this->place;
+        return $this->place_id;
     }
 
-    public function setPlace(Place $place): void
+    public function setPlace(string $place): void
     {
-        $this->place = $place;
+        $this->place_id = $place;
     }
 
 

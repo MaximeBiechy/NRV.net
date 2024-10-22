@@ -3,9 +3,15 @@
 namespace nrv\application\actions;
 
 use nrv\application\renderer\JsonRenderer;
+use nrv\core\services\show\ShowServiceBadDataException;
 use nrv\core\services\show\ShowServiceInterface;
+use nrv\core\services\show\ShowServiceInternalServerErrorException;
+use nrv\core\services\show\ShowServiceNotFoundException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Slim\Exception\HttpBadRequestException;
+use Slim\Exception\HttpInternalServerErrorException;
+use Slim\Exception\HttpNotFoundException;
 use Slim\Routing\RouteContext;
 
 class DisplayShowAction extends AbstractAction
@@ -19,17 +25,26 @@ class DisplayShowAction extends AbstractAction
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        $show = $this->showServiceInterface->getShow($args['ID-SHOW']);
-        $routeContext = RouteContext::fromRequest($rq);
-        $routeParser = $routeContext->getRouteParser();
-        $response = [
-            "type" => "resource",
-            "locale" => "fr-FR",
-            "show" => $show,
-            "links" => [
-                "self" => ['href' => $routeParser->urlFor('shows_id', ['ID-SHOW' => $show->id])]
-            ]
-        ];
-        return JsonRenderer::render($rs, 200, $response);
+        try{
+            $show = $this->showServiceInterface->getShow($args['ID-SHOW']);
+            $routeContext = RouteContext::fromRequest($rq);
+            $routeParser = $routeContext->getRouteParser();
+
+            $response = [
+                "type" => "resource",
+                "locale" => "fr-FR",
+                "show" => $show,
+                "links" => [
+                    "self" => ['href' => $routeParser->urlFor('shows_id', ['ID-SHOW' => $show->id])]
+                ]
+            ];
+            return JsonRenderer::render($rs, 200, $response);
+        } catch (ShowServiceBadDataException $e) {
+            throw new HttpBadRequestException($rq, $e->getMessage());
+        } catch (ShowServiceInternalServerErrorException $e) {
+            throw new HttpInternalServerErrorException($rq, $e->getMessage());
+        } catch (ShowServiceNotFoundException $e) {
+            throw new HttpNotFoundException($rq, $e->getMessage());
+        }
     }
 }
