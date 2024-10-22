@@ -2,7 +2,7 @@
 
 namespace nrv\core\services\show;
 
-use nrv\core\domain\entities\artist\Artist;
+use nrv\core\domain\entities\Artist\Artist;
 use nrv\core\domain\entities\show\Show;
 use nrv\core\dto\artist\ArtistDTO;
 use nrv\core\dto\show\CreateShowDTO;
