@@ -44,4 +44,8 @@ class Show extends Entity
         return $this->begin;
     }
 
+    public function setArtists(array $artists): void {
+        $this->artists = $artists;
+    }
+
 }

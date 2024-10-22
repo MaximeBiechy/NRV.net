@@ -8,7 +8,7 @@ use nrv\core\domain\entities\place\Place;
 class Party extends Entity
 {
     private string $name, $theme;
-    private int $prices;
+    private int $price;
     private \DateTimeImmutable $date, $begin;
     private array $shows;
     private string $place_id;
@@ -17,7 +17,7 @@ class Party extends Entity
     {
         $this->name = $name;
         $this->theme = $theme;
-        $this->prices = $prices;
+        $this->price = $prices;
         $this->date = $date;
         $this->begin = $begin;
         $this->shows = $shows;
@@ -44,14 +44,14 @@ class Party extends Entity
         $this->theme = $theme;
     }
 
-    public function getPrices(): int
+    public function getPrice(): int
     {
-        return $this->prices;
+        return $this->price;
     }
 
-    public function setPrices(int $prices): void
+    public function setPrice(int $price): void
     {
-        $this->prices = $prices;
+        $this->price = $price;
     }
 
     public function getDate(): \DateTimeImmutable

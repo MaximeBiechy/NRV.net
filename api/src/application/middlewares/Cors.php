@@ -4,13 +4,13 @@ namespace nrv\application\middlewares;
 
 
 
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Exception\HttpUnauthorizedException;
-use Slim\Psr7\Request;
 
 class Cors
 {
-    public function __invoke(Request $rq, RequestHandlerInterface $next)
+    public function __invoke(ServerRequestInterface $rq, RequestHandlerInterface $next)
     {
         if (! $rq->hasHeader('Origin')){
             new HttpUnauthorizedException ($rq, "missing Origin Header (cors)");

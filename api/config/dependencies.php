@@ -73,7 +73,7 @@ return [
         return new ShowService($c->get(ShowRepositoryInterface::class));
     },
     PartyServiceInterface::class => function (ContainerInterface $c) {
-        return new PartyService($c->get(PartyRepositoryInterface::class));
+        return new PartyService($c->get(PartyRepositoryInterface::class), $c->get(ShowRepositoryInterface::class));
     },
 
     //Actions

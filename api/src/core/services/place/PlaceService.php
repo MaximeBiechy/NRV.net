@@ -2,6 +2,7 @@
 
 namespace nrv\core\services\place;
 
+use nrv\core\domain\entities\place\Place;
 use nrv\core\domain\entities\place\string;
 use nrv\core\dto\place\CreatePlaceDTO;
 use nrv\core\dto\place\PlaceDTO;
@@ -49,7 +50,7 @@ class PlaceService implements PlaceServiceInterface
     public function createPlace(CreatePlaceDTO $place): PlaceDTO
     {
         try{
-            $place = new string($place->name, $place->address,$place->nbSit, $place->nbStand, $place->images);
+            $place = new Place($place->name, $place->address,$place->nbSit, $place->nbStand, $place->images);
             $id = $this->placeRepository->save($place);
             $place->setID($id);
             return new PlaceDTO($place);

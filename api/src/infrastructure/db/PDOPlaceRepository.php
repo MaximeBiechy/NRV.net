@@ -25,8 +25,11 @@ class PDOPlaceRepository implements PlaceRepositoryInterface
             $st = $this->pdo->prepare('SELECT * FROM images WHERE place_id = :place_id');
             $st->execute(['place_id' => $row['id']]);
             $images = $st->fetchAll();
-            $row['images'] = $images;
-            $places[] = new Place($row['name'], $row['address'], $row['nbSit'], $row['nbStand'], $row['images']);
+            $is = [];
+            foreach ($images as $image) {
+                $is[] = $image['path'];
+            }
+            $places[] = new Place($row['name'], $row['address'], $row['nbSit'], $row['nbStand'], $is);
         }
         return $places;
     }
@@ -42,8 +45,11 @@ class PDOPlaceRepository implements PlaceRepositoryInterface
         $st = $this->pdo->prepare('SELECT * FROM images WHERE place_id = :place_id');
         $st->execute(['place_id' => $place['id']]);
         $images = $st->fetchAll();
-        $place['images'] = $images;
-        return new Place($place['name'], $place['address'], $place['nbSit'], $place['nbStand'], $place['images']);
+        $is = [];
+        foreach ($images as $image) {
+            $is[] = $image['path'];
+        }
+        return new Place($place['name'], $place['address'], $place['nbSit'], $place['nbStand'], $is);
     }
 
     public function save(Place $place): string

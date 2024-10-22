@@ -65,9 +65,7 @@ class PDOShowRepository implements ShowRepositoryInterface
                 $images = $stmt->fetchAll();
                 $is =[];
                 foreach ($images as $image) {
-                    $i = new Image($image['path']);
-                    $i->setID($image['id']);
-                    $is[] = $i;
+                    $is[] = $image['path'];
                 }
                 $s = new Show($show['title'], $show['description'], $show['video'], $is, $ars, \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $show['begin']));
                 $s->setID($show['id']);
@@ -97,9 +95,7 @@ class PDOShowRepository implements ShowRepositoryInterface
             $images = $stmt->fetchAll();
             $is =[];
             foreach ($images as $image) {
-                $i = new Image($image['path']);
-                $i->setID($image['id']);
-                $is[] = $i;
+                $is[] = $image['path'];
             }
             $s = new Show($show['title'], $show['description'], $show['video'],$is,$show['artists'], \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $show['begin']));
             $s->setID($show['id']);
