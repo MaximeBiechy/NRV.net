@@ -1,7 +1,10 @@
 <?php
 
+use nrv\application\actions\DisplayArtistsAction;
 use nrv\application\actions\DisplayPartyAction;
 use nrv\application\actions\DisplayPartyByShowAction;
+use nrv\application\actions\DisplayPlaceAction;
+use nrv\application\actions\DisplayPlacesAction;
 use nrv\application\actions\DisplayShowAction;
 use nrv\application\actions\DisplayShowsAction;
 use nrv\application\actions\SigninAction;
@@ -97,6 +100,15 @@ return [
     },
     SigninAction::class => function (ContainerInterface $c) {
         return new SigninAction($c->get(JWTAuthProvider::class));
+    },
+    DisplayArtistsAction::class => function (ContainerInterface $c) {
+        return new DisplayArtistsAction($c->get(ShowServiceInterface::class));
+    },
+    DisplayPlaceAction::class => function (ContainerInterface $c) {
+        return new DisplayPlaceAction($c->get(PlaceServiceInterface::class));
+    },
+    DisplayPlacesAction::class => function (ContainerInterface $c) {
+        return new DisplayPlacesAction($c->get(PlaceServiceInterface::class));
     },
 
 ];

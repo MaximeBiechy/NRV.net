@@ -2,19 +2,21 @@
 declare(strict_types=1);
 
 
+use nrv\application\actions\DisplayArtistAction;
+use nrv\application\actions\DisplayArtistsAction;
 use nrv\application\actions\DisplayPartyAction;
 use nrv\application\actions\DisplayPartyByShowAction;
+use nrv\application\actions\DisplayPlaceAction;
+use nrv\application\actions\DisplayPlacesAction;
 use nrv\application\actions\SigninAction;
 use nrv\application\actions\SignupAction;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use nrv\application\actions\DisplayShowAction;
 use nrv\application\actions\DisplayShowsAction;
-use nrv\application\middlewares\Cors;
 
 return function(\Slim\App $app):\Slim\App {
 
-    $app->add(Cors::class);
 
     $app->options('/{routes:.+}', function (Request $rq, Response $rs, array $args): Response {
         return $rs;
@@ -30,6 +32,14 @@ return function(\Slim\App $app):\Slim\App {
     // Compte et profil d'utilisateur
     $app->post('/signup[/]', SignupAction::class)->setName('signup');
     $app->post('/signin[/]', SigninAction::class)->setName('signin');
+
+    // Artistes
+    $app->get('/artists[/]', DisplayArtistsAction::class)->setName('artists');
+    $app->get('/artists/{ID-ARTIST}[/]', DisplayArtistAction::class)->setName('artists_id');
+
+    //Places
+    $app->get('/places[/]', DisplayPlacesAction::class)->setName('places');
+    $app->get('/places/{ID-PLACE}[/]', DisplayPlaceAction::class)->setName('places_id');
 
     return $app;
 };

@@ -1,6 +1,7 @@
 <?php
 
 use DI\ContainerBuilder;
+use nrv\application\middlewares\Cors;
 use Slim\Factory\AppFactory;
 
 
@@ -14,6 +15,7 @@ $app = AppFactory::createFromContainer($c);
 
 
 $app->addBodyParsingMiddleware();
+$app->add(Cors::class);
 $app->addRoutingMiddleware();
 $app->addErrorMiddleware($c->get('displayErrorDetails'), false, false)
 ->getDefaultErrorHandler()
@@ -26,3 +28,4 @@ $routeParser = $app->getRouteCollector()->getRouteParser();
 
 
 return $app;
+

@@ -82,8 +82,8 @@
 
 .card {
   color: #FFF;
-  width: 16em;
-  height: 800px;
+  width: 12em;
+  height: 22em;
   z-index: 2;
   position: relative;
   border-radius: 20px;
@@ -118,7 +118,7 @@
   font-weight: 300;
   color: white;
   width: 100%;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   z-index: 2;
 }
 .card .card_head .bold {
@@ -132,10 +132,10 @@
 }
 .card .card_body {
   position: absolute;
-  bottom: 30px;
-  left: 10px;
+  bottom: 0.3em;
+  left: 0.1em;
   width: 50%;
-  margin: 1em;
+  margin: 0.7em;
   z-index: 2;
 }
 .card .card_body * {

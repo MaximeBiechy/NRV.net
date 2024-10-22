@@ -29,12 +29,14 @@ class PDOPlaceRepository implements PlaceRepositoryInterface
             foreach ($images as $image) {
                 $is[] = $image['path'];
             }
-            $places[] = new Place($row['name'], $row['address'], $row['nbSit'], $row['nbStand'], $is);
+            $p = new Place($row['name'], $row['address'], $row['nb_sit'], $row['nb_stand'], $is);
+            $p->setID($row['id']);
+            $places[] = $p;
         }
         return $places;
     }
 
-    public function getPlaceById(int $id): Place
+    public function getPlaceById(string $id): Place
     {
         $stmt = $this->pdo->prepare('SELECT * FROM places WHERE id = :id');
         $stmt->execute(['id' => $id]);
@@ -49,18 +51,20 @@ class PDOPlaceRepository implements PlaceRepositoryInterface
         foreach ($images as $image) {
             $is[] = $image['path'];
         }
-        return new Place($place['name'], $place['address'], $place['nbSit'], $place['nbStand'], $is);
+        $p = new Place($place['name'], $place['address'], $place['nb_sit'], $place['nb_stand'], $is);
+        $p->setID($place['id']);
+        return $p;
     }
 
     public function save(Place $place): string
     {
         try {
             if ($place->getID() !== null) {
-                $stmt = $this->pdo->prepare("UPDATE places SET name = :name, address = :address, nbSit = :nbSit, nbStand = :nbStand WHERE id = :id");
+                $stmt = $this->pdo->prepare("UPDATE places SET name = :name, address = :address, nb_sit = :nbSit, nb_stand = :nbStand WHERE id = :id");
             } else {
                 $id = Uuid::uuid4()->toString();
                 $place->setID($id);
-                $stmt = $this->pdo->prepare("INSERT INTO places (id, name, address, nbSit, nbStand) VALUES (:id, :name, :address, :nbSit, :nbStand)");
+                $stmt = $this->pdo->prepare("INSERT INTO places (id, name, address, nb_sit, nb_stand) VALUES (:id, :name, :address, :nbSit, :nbStand)");
             }
             $stmt->execute([
                 'id' => $place->getID(),
