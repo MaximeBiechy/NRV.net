@@ -8,4 +8,5 @@ return  [
     'auth.ini' => __DIR__ . '/../config/auth.ini',
     'party.ini' => __DIR__ . '/../config/party.ini',
     'place.ini' => __DIR__ . '/../config/place.ini',
+    'ticket.ini' => __DIR__ . '/../config/ticket.ini',
     ] ;

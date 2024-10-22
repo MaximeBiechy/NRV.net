@@ -15,6 +15,7 @@ use nrv\core\repositoryInterfaces\PartyRepositoryInterface;
 
 use nrv\core\repositoryInterfaces\PlaceRepositoryInterface;
 use nrv\core\repositoryInterfaces\ShowRepositoryInterface;
+use nrv\core\repositoryInterfaces\TicketRepositoryInterface;
 use nrv\core\services\auth\AuthentificationService;
 use nrv\core\services\auth\AuthentificationServiceInterface;
 use nrv\core\services\place\PlaceService;
@@ -23,10 +24,13 @@ use nrv\core\services\show\ShowService;
 use nrv\core\services\show\ShowServiceInterface;
 use nrv\core\services\party\PartyServiceInterface;
 use nrv\core\services\party\PartyService;
+use nrv\core\services\ticket\TicketService;
+use nrv\core\services\ticket\TicketServiceInterface;
 use nrv\infrastructure\db\PDOAuthRepository;
 use nrv\infrastructure\db\PDOPartyRepository;
 use nrv\infrastructure\db\PDOPlaceRepository;
 use nrv\infrastructure\db\PDOShowRepository;
+use nrv\infrastructure\db\PDOTicketRepository;
 use Psr\Container\ContainerInterface;
 return [
     'auth.pdo' => function (ContainerInterface $c) {
@@ -53,6 +57,12 @@ return [
         $pdo_praticien->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         return $pdo_praticien;
     },
+    'ticket.pdo' => function (ContainerInterface $c) {
+        $data = parse_ini_file($c->get('ticket.ini'));
+        $pdo_praticien = new PDO('pgsql:host=' . $data['host'] . ';dbname=' . $data['dbname'], $data['username'], $data['password']);
+        $pdo_praticien->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        return $pdo_praticien;
+    },
 
     // Repositories
     PartyRepositoryInterface::class => function (ContainerInterface $c) {
@@ -67,6 +77,9 @@ return [
     ShowRepositoryInterface::class => function (ContainerInterface $c) {
         return new PDOShowRepository($c->get('show.pdo'), $c->get('place.pdo'), $c->get('party.pdo'));
     },
+    TicketRepositoryInterface::class => function (ContainerInterface $c) {
+        return new PDOTicketRepository($c->get('ticket.pdo'));
+    },
 
     // Services
     AuthentificationServiceInterface::class => function (ContainerInterface $c) {
@@ -80,6 +93,9 @@ return [
     },
     PartyServiceInterface::class => function (ContainerInterface $c) {
         return new PartyService($c->get(PartyRepositoryInterface::class), $c->get(ShowRepositoryInterface::class));
+    },
+    TicketServiceInterface::class => function (ContainerInterface $c) {
+        return new TicketService($c->get(TicketRepositoryInterface::class));
     },
 
     //Actions
