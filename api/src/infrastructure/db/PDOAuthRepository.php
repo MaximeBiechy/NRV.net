@@ -7,6 +7,7 @@ use nrv\core\repositoryInterfaces\AuthRepositoryInterface;
 use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 use nrv\core\repositoryInterfaces\RepositoryInternalServerError;
 use nrv\core\domain\entities\user\User;
+use Ramsey\Uuid\Uuid;
 
 class PDOAuthRepository implements AuthRepositoryInterface
 {
@@ -22,11 +23,11 @@ class PDOAuthRepository implements AuthRepositoryInterface
     {
         try{
             if ($user->getID() !== null) {
-                $stmt = $this->pdo->prepare("UPDATE user SET email = :email, password = :password, role = :role WHERE id = :id");
+                $stmt = $this->pdo->prepare("UPDATE users SET email = :email, password = :password, role = :role WHERE id = :id");
             }else{
                 $id = Uuid::uuid4()->toString();
                 $user->setID($id);
-                $stmt = $this->pdo->prepare("INSERT INTO user (id, email, password, role) VALUES (:id, :email, :password, :role)");
+                $stmt = $this->pdo->prepare("INSERT INTO users (id, email, password, role) VALUES (:id, :email, :password, :role)");
             }
             $stmt->execute([
                 'id' => $user->getID(),
@@ -34,20 +35,20 @@ class PDOAuthRepository implements AuthRepositoryInterface
                 'password' => $user->getPassword(),
                 'role' => $user->getRole()
             ]);
-
+            return $user->getID();
         }catch (\PDOException $e){
-            throw new RepositoryInternalServerError("Error while saving user");
+            throw new RepositoryInternalServerError("Error while saving user" . $e->getMessage());
         }
     }
 
-    public function getUserByEmail(string $email): User
+    public function getUserByEmail(string $email): ?User
     {
         try{
             $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = :email");
             $stmt->execute(['email' => $email]);
             $user = $stmt->fetch();
             if ($user === false) {
-                throw new RepositoryEntityNotFoundException("User not found");
+                return null;
             }
             $u =  new User($user['email'], $user['password'], $user['role']);
             $u->setID($user['id']);

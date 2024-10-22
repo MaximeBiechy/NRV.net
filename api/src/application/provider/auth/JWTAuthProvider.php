@@ -32,7 +32,7 @@ class JWTAuthProvider implements AuthProviderInterface
         $credentials = new CredentialsDTO($credentialsDTO->email, $credentialsDTO->password);
         $authDTO = $this->authService->byCredentials($credentials);
         $payload = [
-            'aud' => 'toubeelib',
+            'aud' => 'nrv',
             "iat" => time(),
             "exp" => time() + 3600,
             "sub" => $authDTO->id,
@@ -52,7 +52,7 @@ class JWTAuthProvider implements AuthProviderInterface
         try{
             $decoded = $this->jwtManager->decodeToken($token);
             $payload = [
-                'aud' => 'toubeelib',
+                'aud' => 'nrv',
                 "iat" => time(),
                 "exp" => time() + 3600,
                 "sub" => $decoded->sub,

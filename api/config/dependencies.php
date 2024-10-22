@@ -4,6 +4,9 @@ use nrv\application\actions\DisplayPartyAction;
 use nrv\application\actions\DisplayPartyByShowAction;
 use nrv\application\actions\DisplayShowAction;
 use nrv\application\actions\DisplayShowsAction;
+use nrv\application\actions\SigninAction;
+use nrv\application\actions\SignupAction;
+use nrv\application\provider\auth\JWTAuthProvider;
 use nrv\core\repositoryInterfaces\AuthRepositoryInterface;
 use nrv\core\repositoryInterfaces\PartyRepositoryInterface;
 
@@ -88,6 +91,12 @@ return [
     },
     DisplayShowAction::class => function (ContainerInterface $c) {
         return new DisplayShowAction($c->get(ShowServiceInterface::class));
+    },
+    SignupAction::class => function (ContainerInterface $c) {
+        return new SignupAction($c->get(JWTAuthProvider::class));
+    },
+    SigninAction::class => function (ContainerInterface $c) {
+        return new SigninAction($c->get(JWTAuthProvider::class));
     },
 
 ];

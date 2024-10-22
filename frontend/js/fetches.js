@@ -1,5 +1,5 @@
-console.log('fetches.js loaded');
-
+//loader
+  var loader = document.querySelector('.loader');
 // Récupérer l'ensemble des spectacles :
 async function fetchShows() {
   try {
@@ -8,7 +8,13 @@ async function fetchShows() {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
-    return data;
+
+      var template = Handlebars.compile(document.querySelector('.shows').innerHTML);
+      var filledTemplate = template(data);
+      document.querySelector('.shows').innerHTML = filledTemplate;
+      
+        loader.style.display = 'none';
+    
   }
   catch (error) {
     console.error('There has been a problem with your fetch operation:', error);
@@ -63,3 +69,4 @@ function fillPartyTemplate(data) {
 })();
 
 
+fetchShows(); 

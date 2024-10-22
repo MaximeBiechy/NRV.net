@@ -87,8 +87,11 @@ package "party" {
     class CreatePartyDTO {
         -name: string
         -theme: string
+        -price: int
         -date: DateTimeImmutable
         -begin: DateTimeImmutable
+        -shows: List<ShowDTO>
+        -place_id: string
     }
     class PartyDetailsDTO {
         -id: string
