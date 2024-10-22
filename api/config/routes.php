@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use nrv\application\actions\DisplayArtistAction;
 use nrv\application\actions\DisplayArtistsAction;
+use nrv\application\actions\DisplayCardAction;
 use nrv\application\actions\DisplayPartyAction;
 use nrv\application\actions\DisplayPartyByShowAction;
 use nrv\application\actions\DisplayPlaceAction;
@@ -40,6 +41,8 @@ return function(\Slim\App $app):\Slim\App {
     //Places
     $app->get('/places[/]', DisplayPlacesAction::class)->setName('places');
     $app->get('/places/{ID-PLACE}[/]', DisplayPlaceAction::class)->setName('places_id');
+
+    $app->get('/users/{ID-USER}/card[/]', DisplayCardAction::class)->setName('users_id_card');
 
     return $app;
 };

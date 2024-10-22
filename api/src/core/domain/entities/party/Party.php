@@ -11,9 +11,9 @@ class Party extends Entity
     private int $price;
     private \DateTimeImmutable $date, $begin;
     private array $shows;
-    private string $place_id;
+    private Place $place;
 
-    public function __construct(string $name, string $theme, int $prices, \DateTimeImmutable $date, \DateTimeImmutable $begin, array $shows, string $place_id)
+    public function __construct(string $name, string $theme, int $prices, \DateTimeImmutable $date, \DateTimeImmutable $begin, array $shows, Place $place)
     {
         $this->name = $name;
         $this->theme = $theme;
@@ -21,7 +21,7 @@ class Party extends Entity
         $this->date = $date;
         $this->begin = $begin;
         $this->shows = $shows;
-        $this->place_id = $place_id;
+        $this->place = $place;
     }
 
     public function getName(): string
@@ -84,14 +84,14 @@ class Party extends Entity
         $this->shows = $shows;
     }
 
-    public function getPlaceID(): string
+    public function getPlace(): Place
     {
-        return $this->place_id;
+        return $this->place;
     }
 
-    public function setPlace(string $place): void
+    public function setPlace(Place $place): void
     {
-        $this->place_id = $place;
+        $this->place = $place;
     }
 
 

@@ -66,7 +66,7 @@ return [
 
     // Repositories
     PartyRepositoryInterface::class => function (ContainerInterface $c) {
-        return new PDOPartyRepository($c->get('party.pdo'));
+        return new PDOPartyRepository($c->get('party.pdo'), $c->get('place.pdo'));
     },
     AuthRepositoryInterface::class => function (ContainerInterface $c) {
         return new PDOAuthRepository($c->get('auth.pdo'));
