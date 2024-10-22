@@ -42,4 +42,9 @@ class Card extends Entity
         return $this->tickets;
     }
 
+    public function setTickets(array $tickets): void
+    {
+        $this->tickets = $tickets;
+    }
+
 }
