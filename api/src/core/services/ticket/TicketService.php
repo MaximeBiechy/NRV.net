@@ -26,7 +26,7 @@ class TicketService implements TicketServiceInterface
     public function addTicketToCard(AddTicketToCardDTO $dto): void
     {
         try{
-            $this->ticketRepository->addTicketToCard($dto->card_id, $dto->ticket_id);
+            $this->ticketRepository->addTicketToCard($dto->ticket_id, $dto->card_id);
         } catch (RepositoryInternalServerError $e) {
             throw new RepositoryInternalServerError($e->getMessage());
         } catch (RepositoryEntityNotFoundException $e) {
