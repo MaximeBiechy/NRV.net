@@ -3,6 +3,7 @@
 namespace nrv\core\services\auth;
 
 
+use nrv\core\domain\entities\user\User;
 use nrv\core\dto\auth\AuthDTO;
 use nrv\core\dto\auth\CredentialsDTO;
 use nrv\core\repositoryInterfaces\AuthRepositoryInterface;
