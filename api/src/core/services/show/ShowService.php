@@ -105,4 +105,67 @@ class ShowService implements ShowServiceInterface
             throw new ShowServiceArtistNotFoundException($e->getMessage());
         }
     }
+
+    public function getShowsByDate(string $date): array
+    {
+        try {
+            $shows = $this->showRepository->getShowsByDate($date);
+            $result = [];
+            foreach ($shows as $show) {
+                $ars = [];
+                foreach ($show->getArtists() as $artist) {
+//                    $a = new Artist($artist['name'], $artist['style'], $artist['image']);
+//                    $a->setID($artist['id']);
+                    $ars[] = new ArtistDTO($artist);
+                }
+                $show->setArtists($ars);
+                $result[] = new ShowDTO($show);
+            }
+            return $result;
+        }catch (RepositoryInternalServerError $e){
+            throw new ShowServiceInternalServerErrorException($e->getMessage());
+        }
+    }
+
+    public function getShowsByStyle(string $style_name): array
+    {
+        try {
+            $shows = $this->showRepository->getShowsByStyle($style_name);
+            $result = [];
+            foreach ($shows as $show) {
+                $ars = [];
+                foreach ($show->getArtists() as $artist) {
+//                    $a = new Artist($artist['name'], $artist['style'], $artist['image']);
+//                    $a->setID($artist['id']);
+                    $ars[] = new ArtistDTO($artist);
+                }
+                $show->setArtists($ars);
+                $result[] = new ShowDTO($show);
+            }
+            return $result;
+        }catch (RepositoryInternalServerError $e){
+            throw new ShowServiceInternalServerErrorException($e->getMessage());
+        }
+    }
+
+    public function getShowsByPlace(string $place_name): array
+    {
+        try {
+            $shows = $this->showRepository->getShowsByPlace($place_name);
+            $result = [];
+            foreach ($shows as $show) {
+                $ars = [];
+                foreach ($show->getArtists() as $artist) {
+//                    $a = new Artist($artist['name'], $artist['style'], $artist['image']);
+//                    $a->setID($artist['id']);
+                    $ars[] = new ArtistDTO($artist);
+                }
+                $show->setArtists($ars);
+                $result[] = new ShowDTO($show);
+            }
+            return $result;
+        }catch (RepositoryInternalServerError $e){
+            throw new ShowServiceInternalServerErrorException($e->getMessage());
+        }
+    }
 }

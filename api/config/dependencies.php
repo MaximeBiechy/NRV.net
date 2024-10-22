@@ -65,7 +65,7 @@ return [
         return new PDOPlaceRepository($c->get('place.pdo'));
     },
     ShowRepositoryInterface::class => function (ContainerInterface $c) {
-        return new PDOShowRepository($c->get('show.pdo'));
+        return new PDOShowRepository($c->get('show.pdo'), $c->get('place.pdo'), $c->get('party.pdo'));
     },
 
     // Services
