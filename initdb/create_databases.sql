@@ -2,7 +2,7 @@ CREATE DATABASE nrv_auth;
 CREATE DATABASE nrv_party;
 CREATE DATABASE nrv_place;
 CREATE DATABASE nrv_show;
-CREATE DATABASE nvr_ticket;
+CREATE DATABASE nrv_ticket;
 
 
 \connect nrv_auth;

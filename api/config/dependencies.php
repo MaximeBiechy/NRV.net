@@ -1,5 +1,6 @@
 <?php
 
+use nrv\application\actions\AddTicketToUserCardAction;
 use nrv\application\actions\DisplayArtistsAction;
 use nrv\application\actions\DisplayPartyAction;
 use nrv\application\actions\DisplayPartyByShowAction;
@@ -126,5 +127,7 @@ return [
     DisplayPlacesAction::class => function (ContainerInterface $c) {
         return new DisplayPlacesAction($c->get(PlaceServiceInterface::class));
     },
-
+    AddTicketToUserCardAction::class => function (ContainerInterface $c) {
+        return new AddTicketToUserCardAction($c->get(TicketServiceInterface::class));
+    }
 ];
