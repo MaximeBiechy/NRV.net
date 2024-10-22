@@ -31,10 +31,10 @@ async function fetchArtists() {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
+    var template = Handlebars.compile(document.querySelector('.artists').innerHTML);
+    var filledTemplate = template(data);
+    document.querySelector('.artists').innerHTML = filledTemplate;
 
-      var template = Handlebars.compile(document.querySelector('.artists').innerHTML);
-      var filledTemplate = template(data);
-      document.querySelector('.artists').innerHTML = filledTemplate;
       loader.style.display = 'none';
 
   }
@@ -43,6 +43,9 @@ async function fetchArtists() {
   }
 }
 
+
+fetchArtists();
+fetchShows();
 
 
 //fetchShows();
@@ -78,8 +81,6 @@ window.onload = function() {
   if (showId) {
     console.log('Show id found in URL:', showId);
     fetchShowInfo(showId);
-  } else {
-    console.log('No show id found in URL');
   }
 }
 
@@ -94,8 +95,6 @@ async function fetchPartyById(id) {
     }
     const data = await response.json();
     console.log(data);
-    console.log(data.party.place.images[0].self.href);
-    console.log('ffdfdffd');
     return data;
   }
   catch (error) {
