@@ -2,6 +2,7 @@ CREATE DATABASE nrv_auth;
 CREATE DATABASE nrv_party;
 CREATE DATABASE nrv_place;
 CREATE DATABASE nrv_show;
+CREATE DATABASE nvr_ticket;
 
 
 \connect nrv_auth;
@@ -96,4 +97,38 @@ DROP TABLE IF EXISTS "style";
 CREATE TABLE "public"."style" (
   "id" uuid NOT NULL,
   "name" character varying(50) NOT NULL
+) WITH (oids = false);
+
+\connect nrv_ticket;
+DROP TABLE IF EXISTS "tickets";
+CREATE TABLE "public"."tickets" (
+    "id" uuid NOT NULL,
+    "name" character varying(50) NOT NULL,
+    "price" integer NOT NULL,
+    "quantity" integer NOT NULL,
+    "party_id" uuid NOT NULL
+) WITH (oids = false);
+
+DROP TABLE IF EXISTS "soldtickets";
+CREATE TABLE "public"."soldtickets" (
+      "id" uuid NOT NULL,
+      "name" character varying(50) NOT NULL,
+      "price" integer NOT NULL,
+      "user_id" uuid NOT NULL,
+      "ticket_id" uuid NOT NULL,
+      "party_id" uuid NOT NULL
+) WITH (oids = false);
+
+DROP TABLE IF EXISTS "cards";
+CREATE TABLE "public"."cards" (
+  "id" uuid NOT NULL,
+  "user_id" uuid NOT NULL,
+  "total_price" integer NOT NULL
+) WITH (oids = false);
+
+DROP TABLE IF EXISTS "card_content";
+CREATE TABLE "public"."card_content" (
+ "card_id" uuid NOT NULL,
+ "ticket_id" uuid NOT NULL,
+ "quantity" integer DEFAULT '1' NOT NULL
 ) WITH (oids = false);

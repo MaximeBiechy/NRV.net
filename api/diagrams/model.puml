@@ -36,16 +36,34 @@ class Artist {
     -name: string
     -style: string
 }
+
+class User {
+    -id: string
+    -email: string
+    -password: string
+    -role: int
+}
+
+class Ticket {
+    -id: string
+    -name: string
+    -price: int
+}
+
 "Show" "1..*"<--"1" "Party" : -plans
 
 "Party" "1"-->"1" "Place" : -takes place
 
 "Show" "*"-->"1..*" "Artist" : -performed by
 
+"Ticket" "*"-->"1" "Party" : -sold for
+
 "Entity" <|-- "Show"
 "Entity" <|-- "Place"
 "Entity" <|-- "Party"
 "Entity" <|-- "Artist"
+"Entity" <|-- "User"
+"Entity" <|-- "Ticket"
 }
 package "dto" {
 abstract DTO {
@@ -134,6 +152,19 @@ package "artist"{
         -name: string
         -style: string
     }
+
+    package Ticket {
+        class "CreateTicketDTO"{
+            -name: string
+            -price: int
+            -user_id: string
+        }
+        class "TicketDTO"{
+            -id: string
+            -name: string
+            -price: int
+        }
+    }
 }
 
 DTO <|-- CreateShowDTO
@@ -146,6 +177,8 @@ DTO <|-- CreatePlaceDTO
 DTO <|-- PlaceDTO
 DTO <|-- CreateArtistDTO
 DTO <|-- ArtistDTO
+DTO <|-- CreateTicketDTO
+DTO <|-- TicketDTO
 }
 
 package "services" {

@@ -13,5 +13,8 @@ interface ShowServiceInterface
     public function createShow(CreateShowDTO $show): ShowDTO;
     public function getArtists(): array;
     public function getArtist(string $id): ArtistDTO;
+    public function getShowsByDate(string $date): array;
+    public function getShowsByStyle(string $style_name): array;
+    public function getShowsByPlace(string $place_name): array;
 
 }

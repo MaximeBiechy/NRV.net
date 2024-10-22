@@ -19,7 +19,16 @@ class DisplayShowsAction extends AbstractAction
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        $shows = $this->showServiceInterface->getShows();
+        $params = $rq->getQueryParams();
+        if (isset($params['date'])) {
+            $shows = $this->showServiceInterface->getShowsByDate(urldecode($params['date']));
+        } else if (isset($params['style'])) {
+            $shows = $this->showServiceInterface->getShowsByStyle(urldecode($params['style']));
+        } else if (isset($params['place'])) {
+            $shows = $this->showServiceInterface->getShowsByPlace(urldecode($params['place']));
+        } else {
+            $shows = $this->showServiceInterface->getShows();
+        }
         $routeContext = RouteContext::fromRequest($rq);
         $routeParser = $routeContext->getRouteParser();
         $urlSelf = $routeParser->urlFor('shows');
