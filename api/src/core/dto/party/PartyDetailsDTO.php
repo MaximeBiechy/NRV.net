@@ -8,7 +8,7 @@ use nrv\core\dto\DTO;
 class PartyDetailsDTO extends DTO
 {
     protected string $id, $name, $theme;
-    protected int $prices;
+    protected int $price;
     protected \DateTimeImmutable $date, $begin;
     protected array $shows;
 
@@ -17,7 +17,7 @@ class PartyDetailsDTO extends DTO
         $this->id = $p->getId();
         $this->name = $p->getName();
         $this->theme = $p->getTheme();
-        $this->prices = $p->getPrices();
+        $this->price = $p->getPrice();
         $this->date = $p->getDate();
         $this->begin = $p->getBegin();
         $this->shows = $p->getShows();

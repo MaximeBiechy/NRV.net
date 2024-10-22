@@ -32,7 +32,7 @@ class PDOPartyRepository implements PartyRepositoryInterface
                 'id' => $party->getID(),
                 'name' => $party->getName(),
                 'theme' => $party->getTheme(),
-                'price' => $party->getPrices(),
+                'price' => $party->getPrice(),
                 'date' => $party->getDate(),
                 'begin' => $party->getBegin(),
                 'show1_id' => $party->getShows()[0],
