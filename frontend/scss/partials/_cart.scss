@@ -1,7 +1,7 @@
 @import 'config';
 .cart{
-  position: relative;
-  margin: 1.5em;
+  position: relative;;
+  width: 100%;
   h2{
     border-bottom: .5px solid white;
     font-style: italic;
@@ -93,7 +93,7 @@
     align-items: flex-end;
     display: flex;
     font-family: $font_sans;
-    gap: 10em;
+    gap: 5em;
     bottom: 0;
     right: 0;
     position: absolute;
