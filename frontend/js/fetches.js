@@ -57,7 +57,9 @@ function fillPartyTemplate(data) {
   const data = await fetchPartyById('a0b7566b-6fdd-4e34-bbab-41d882de9c07');
   let new_date = new Date(data.party.date.date).toLocaleDateString('fr-FR', { weekday: 'short', day: '2-digit', month: '2-digit' });
   data.party.date.date = new_date;
+  console.log(data.party.shows[0].images[0].self.href)
   fillPartyTemplate(data);
+
 })();
 
 
