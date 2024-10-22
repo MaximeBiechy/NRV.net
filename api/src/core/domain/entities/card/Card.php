@@ -8,11 +8,13 @@ class Card extends Entity
 {
     protected string $user_id;
     protected int $total_price;
+    protected array $tickets;
 
-    public function __construct(string $user_id, int $total_price)
+    public function __construct(string $user_id, int $total_price, array $tickets)
     {
         $this->user_id = $user_id;
         $this->total_price = $total_price;
+        $this->tickets = $tickets;
     }
 
     public function getUserId(): string
@@ -33,6 +35,16 @@ class Card extends Entity
     public function setTotalPrice(int $total_price): void
     {
         $this->total_price = $total_price;
+    }
+
+    public function getTickets(): array
+    {
+        return $this->tickets;
+    }
+
+    public function setTickets(array $tickets): void
+    {
+        $this->tickets = $tickets;
     }
 
 }

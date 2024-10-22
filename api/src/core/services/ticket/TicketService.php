@@ -105,6 +105,11 @@ class TicketService implements TicketServiceInterface
     {
         try{
             $card = $this->ticketRepository->getCardByUserId($userId);
+            $t = [];
+            foreach ($card->getTickets() as $ticket) {
+                $t[] = new TicketDTO($ticket);
+            }
+            $card->setTickets($t);
             return new CardDTO($card);
         }catch (RepositoryInternalServerError $e) {
             throw new RepositoryInternalServerError($e->getMessage());

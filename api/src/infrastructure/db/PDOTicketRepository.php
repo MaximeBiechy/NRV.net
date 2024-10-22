@@ -163,7 +163,14 @@ class PDOTicketRepository implements TicketRepositoryInterface
             if ($card === false) {
                 throw new RepositoryInternalServerError("Card not found");
             }
-            return new Card($card['user_id'], $card['total_price']);
+            try {
+                $tickets = $this->getTicketsByCardID($card['id']);
+            } catch (RepositoryInternalServerError $e) {
+                throw new RepositoryInternalServerError($e->getMessage());
+            }
+            $c = new Card($card['user_id'], $card['total_price'], $tickets);
+            $c->setID($card['id']);
+            return $c;
         } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error getting card by user id");
         }
