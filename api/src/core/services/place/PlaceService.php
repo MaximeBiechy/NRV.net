@@ -3,7 +3,6 @@
 namespace nrv\core\services\place;
 
 use nrv\core\domain\entities\place\Place;
-use nrv\core\domain\entities\place\string;
 use nrv\core\dto\place\CreatePlaceDTO;
 use nrv\core\dto\place\PlaceDTO;
 use nrv\core\repositoryInterfaces\PlaceRepositoryInterface;
@@ -34,7 +33,7 @@ class PlaceService implements PlaceServiceInterface
 
     }
 
-    public function getPlace(int $id): PlaceDTO
+    public function getPlace(string $id): PlaceDTO
     {
         try{
             $place = $this->placeRepository->getPlaceById($id);

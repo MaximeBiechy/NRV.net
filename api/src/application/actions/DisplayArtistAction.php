@@ -10,6 +10,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Exception\HttpNotFoundException;
+use Slim\Routing\RouteContext;
 
 class DisplayArtistAction extends AbstractAction
 {
@@ -24,6 +25,9 @@ class DisplayArtistAction extends AbstractAction
     {
         try{
             $artist = $this->showServiceInterface->getArtist($args['ID-ARTIST']);
+            $routeContext = RouteContext::fromRequest($rq);
+            $routeParser = $routeContext->getRouteParser();
+            $urlSelf = $routeParser->urlFor('artists_id', ['ID-ARTIST' => $artist->id]);
             $response = [
                 "type" => "resource",
                 "locale" => "fr-FR",
@@ -34,6 +38,9 @@ class DisplayArtistAction extends AbstractAction
                     "image" => [
                         "self" => ['href' => $artist->image]
                     ]
+                ],
+                "links" => [
+                    "self" => ['href' => $urlSelf]
                 ]
             ];
             return JsonRenderer::render($rs, 200, $response);
