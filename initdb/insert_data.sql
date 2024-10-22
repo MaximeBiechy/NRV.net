@@ -329,7 +329,7 @@ VALUES ('cec7ef16-66db-4916-96cd-4e4a2057ae8c', 'Birthday Bash ticket', 30, 1000
        ('eaa814ee-398e-435e-950c-32bc56cf0c90', 'Music Fiesta ticket', 50, 9000,
         '8243ea21-155b-4ac9-b75e-f66fc142c2ef');
 
-INSERT INTO public.selledtickets (id, name, price, user_id, ticket_id, party_id)
+INSERT INTO public.soldtickets (id, name, price, user_id, ticket_id, party_id)
 VALUES ('ef54b2c6-15bb-498f-9118-064db56f611b', 'Birthday Bash ticket', 30,
         '669d5162-84b0-4edc-b043-3ccfa71eb0a9', (SELECT id FROM public.tickets WHERE name = 'Birthday Bash ticket'),
         (SELECT party_id FROM public.tickets WHERE name = 'Birthday Bash ticket')),

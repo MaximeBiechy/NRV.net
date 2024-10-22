@@ -109,8 +109,8 @@ CREATE TABLE "public"."tickets" (
     "party_id" uuid NOT NULL
 ) WITH (oids = false);
 
-DROP TABLE IF EXISTS "selledtickets";
-CREATE TABLE "public"."selledtickets" (
+DROP TABLE IF EXISTS "soldtickets";
+CREATE TABLE "public"."soldtickets" (
       "id" uuid NOT NULL,
       "name" character varying(50) NOT NULL,
       "price" integer NOT NULL,
