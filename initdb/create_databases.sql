@@ -2,6 +2,7 @@ CREATE DATABASE nrv_auth;
 CREATE DATABASE nrv_party;
 CREATE DATABASE nrv_place;
 CREATE DATABASE nrv_show;
+CREATE DATABASE nvr_ticket;
 
 
 \connect nrv_auth;
@@ -97,3 +98,26 @@ CREATE TABLE "public"."style" (
   "id" uuid NOT NULL,
   "name" character varying(50) NOT NULL
 ) WITH (oids = false);
+
+\connect nrv_ticket;
+DROP TABLE IF EXISTS "tickets";
+CREATE TABLE "public"."tickets" (
+    "id" uuid NOT NULL,
+    "name" character varying(50) NOT NULL,
+    "price" integer NOT NULL,
+    "quantity" integer NOT NULL,
+    "party_id" uuid NOT NULL
+) WITH (oids = false);
+
+DROP TABLE IF EXISTS "selledtickets";
+CREATE TABLE "public"."selledtickets" (
+      "id" uuid NOT NULL,
+      "name" character varying(50) NOT NULL,
+      "price" integer NOT NULL,
+      "user_id" uuid NOT NULL,
+      "ticket_id" uuid NOT NULL,
+      "party_id" uuid NOT NULL
+) WITH (oids = false);
+
+
+
