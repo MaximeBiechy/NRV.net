@@ -8,6 +8,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 .genres {
   align-items: center;
   color: #151515;
@@ -98,7 +100,8 @@
   z-index: -1;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 20px;
 }
 .card .card_head {
@@ -164,6 +167,13 @@
   background-color: #F3AB5D;
 }
 
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .container h2 {
   font-size: 2.5em;
   margin: 1em 0;
@@ -171,9 +181,6 @@
   text-align: center;
 }
 
-.cart {
-  height: 100vh;
-}
 .cart h2 {
   border-bottom: 0.5px solid white;
   font-style: italic;
@@ -181,6 +188,16 @@
   text-align: center;
   margin: 0 auto;
   padding: 1em 0;
+  width: 90%;
+}
+.cart h3 {
+  font-family: "Inter", sans-serif;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 200;
+  margin: 2em auto;
+  padding: 0.5em 0;
+  border-top: 0.5px solid white;
   width: 90%;
 }
 .cart .cart_nametags {
@@ -206,7 +223,8 @@
   border-radius: 2em;
   width: 175px;
   height: 350px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .cart .cart_item .cart_item_desc_title {
   display: flex;
@@ -246,12 +264,32 @@
   margin-left: 1em;
 }
 
+.validate_order {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.validate_order img {
+  width: 5%;
+  height: auto;
+}
+.validate_order p {
+  margin: 0;
+  font-size: 3em;
+  font-family: "Instrument Serif", serif;
+  font-style: italic;
+}
+.validate_order span {
+  font-family: "Inter", sans-serif;
+  font-size: 1em;
+  font-weight: 300;
+  text-align: center;
+}
+
 body {
   background-color: #151515;
   color: #FFF;
   font-family: "Instrument Serif", serif;
   font-size: 1.6rem;
   line-height: 1.5;
-}
-
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */

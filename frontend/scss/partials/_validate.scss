@@ -1,0 +1,25 @@
+@import 'config';
+
+.validate_order{
+  display:  flex;
+  flex-direction: column;
+  align-items: center;
+
+  img{
+    width: 5%;
+    height: auto;
+  }
+
+  p{
+    margin: 0;
+    font-size: 3em;
+    font-family: $font-serif;
+    font-style: italic;
+  }
+  span{
+    font-family: $font_sans;
+    font-size: 1em;
+    font-weight: 300;
+    text-align: center;
+  }
+}
