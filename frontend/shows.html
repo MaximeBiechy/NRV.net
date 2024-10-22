@@ -22,24 +22,28 @@
 <section>
   <h2>Les Spectacles Disponibles</h2>
   <p>Quoi écoouuter ?</p>
-  <div class="container shows">
-    {{#each shows}}
-    <article class="card" id="{{this.id}}">
-      <img src="./{{this.images.[0].self.href}}" alt="1" class="card_img">
-      <div class="card_head">
-        <p><span class="bold">{{this.date.date}}</span></p>
-        <p class="place">Arène<br> Marchand</p>
-      </div>
-      <div class="card_body">
-        <h3 class="card_title">{{this.title}}</h3>
-        <div class="card_tags">
-          <p class="tag RnB">RnB</p>
-          <p class="tag Rap">Rap</p>
-          <p class="tag Metal">Metal,Hard Rock</p>
+  
+  <div class="container shows"> 
+
+      {{#each shows}}
+<a href="./showInfo.html?id={{this.id}}">
+      <article class="card" >
+        <img src="./{{this.images.0.self.href}}" alt="1" class="card_img">
+        <div class="card_head">
+          <p><span class="bold">{{this.date.date}}</span></p>
+          <p class="place">Arène<br> Marchand</p>
         </div>
-      </div>
-    </article>
-    {{/each}}
+        <div class="card_body">
+          <h3 class="card_title">{{this.title}}</h3>
+          <div class="card_tags">
+            <p class="tag RnB">RnB</p>
+            <p class="tag Rap">Rap</p>
+            <p class="tag Metal">Metal,Hard Rock</p>
+          </div>
+        </div>
+      </article>
+      </a>
+      {{/each}}
   </div>
 </section>
 <section>
@@ -60,6 +64,23 @@
     </article>
     {{/each}}
   </div>
+  {{#each shows}}
+  <article class="card">
+    <img src="./images/{{this.image.self.href}}" alt="1" class="card_img">
+    <div class="card_head">
+      <p></p>
+      <p class="place">Arène<br> Marchand</p>
+    </div>
+    <div class="card_body">
+      <h3 class="card_title">{{this.name}}</h3>
+      <div class="card_tags">
+        <p class="tag RnB">{{this.style}}</p>
+      </div>
+    </div>
+  </article>
+  {{/each}}
+</div>
+</div>
 </section>
 <script type="module" src="./js/fetches.js"></script>
 </body>

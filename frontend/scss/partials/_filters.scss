@@ -1,0 +1,25 @@
+@import 'config';
+
+.filters{
+  display: flex;
+  justify-content: flex-end;
+  gap: 1em;
+  list-style-type: none;
+  margin: 0 auto;
+  margin-bottom: .75em;
+  width: 75%;
+
+  select{
+    background-color: $bg_color;
+    border: none;
+    color: $text_color;
+    font-family: $font_sans;
+    font-size: 1em;
+    font-weight: 300;
+    gap: 10px;
+
+    option{
+      font-size: .5em;
+    }
+  }
+}

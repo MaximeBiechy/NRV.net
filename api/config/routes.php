@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 
+use nrv\application\actions\AddTicketToUserCardAction;
 use nrv\application\actions\DisplayArtistAction;
 use nrv\application\actions\DisplayArtistsAction;
 use nrv\application\actions\DisplayCardAction;
@@ -38,9 +39,12 @@ return function(\Slim\App $app):\Slim\App {
     $app->get('/artists[/]', DisplayArtistsAction::class)->setName('artists');
     $app->get('/artists/{ID-ARTIST}[/]', DisplayArtistAction::class)->setName('artists_id');
 
-    //Places
+    // Places
     $app->get('/places[/]', DisplayPlacesAction::class)->setName('places');
     $app->get('/places/{ID-PLACE}[/]', DisplayPlaceAction::class)->setName('places_id');
+
+    // Tickets
+    $app->patch('/cards/{ID-CARD}/[/]', AddTicketToUserCardAction::class)->setName('cards_id');
 
     $app->get('/users/{ID-USER}/card[/]', DisplayCardAction::class)->setName('users_id_card');
 
