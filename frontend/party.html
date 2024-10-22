@@ -46,20 +46,20 @@
   <p>Artistes :</p>
 
   <div class="artists">
-    {{#each artists}}
-    <article class="card" id={{this.id}}>
-      <img src="./images/{{this.image.self.href}}" alt="1" class="card_img">
-      <div class="card_head">
+  {{#each artists}}
+  <article class="card" id="{{this.id}}">
+    <img src="./images/{{this.image.self.href}}" alt="1" class="card_img">
+    <div class="card_head">
+    </div>
+    <div class="card_body">
+      <h3 class="card_title">{{this.name}}</h3>
+      <div class="card_tags">
+        <p class="tag RnB">{{this.style}}</p>
       </div>
-      <div class="card_body">
-        <h3 class="card_title">{{this.name}}</h3>
-        <div class="card_tags">
-          <p class="tag RnB">{{this.style}}</p>
-        </div>
-      </div>
-    </article>
-    {{/each}}
-  </div>
+    </div>
+  </article>
+  {{/each}}
+</div>
 
 </div>
 
