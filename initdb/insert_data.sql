@@ -16,7 +16,8 @@ nrv_place;
 
 INSERT INTO public.places (id, name, address, nb_sit, nb_stand)
 VALUES ('340cf1fe-6344-4e93-ab6a-347c7e461d36', 'Stade de France', 'Saint-Denis, France', 80000, 20000),
-       ('b6b101d5-563e-4530-a3bb-43be12ea1053', 'Zénith Paris', 'Paris, France', 6000, 3000);
+       ('b6b101d5-563e-4530-a3bb-43be12ea1053', 'Zénith Paris', 'Paris, France', 6000, 3000),
+       ('df23e061-1a1b-4344-ac9c-5357465f5c5b', 'AccorHotels Arena', 'Paris, France', 20000, 5000);
 
 -- Insertion des images de lieux
 INSERT INTO public.images (id, path, place_id)
@@ -288,7 +289,10 @@ VALUES ('14808e51-d1b6-4539-8596-66a9e39e01c9', 'Daft Punk Show', 'Un concert un
         '2024-11-15 20:00:00'),
        ('2ccfe7d7-adaf-492a-abb4-78065bd69ae6', 'Christine and the Queens', 'Christine and the Queens en concert',
         '/videos/christine.mp4',
-        '2024-10-15 20:00:00');
+        '2024-10-15 20:00:00'),
+       ('4105771b-8e04-4547-a1b4-4dd97564ddfd', 'Zaz Live', 'Zaz en live à Paris en 2024', '/videos/zaz.mp4',
+        '2024-09-15 20:00:00');
+;
 
 -- Insertion des images de spectacles
 INSERT INTO public.images (id, path, show_id)
@@ -297,7 +301,9 @@ VALUES ('dc0596b0-9ac2-448e-b258-eff68fb81691', '/images/daftpunk.jpg',
        ('157d8626-58d4-423f-91fc-7b0155baa241', '/images/phoenix.jpg',
         (SELECT id FROM public.shows WHERE title = 'Phoenix Live')),
        ('df220d31-9506-40f5-ad71-dd0a0ac48c52', '/images/christine.jpg',
-        (SELECT id FROM public.shows WHERE title = 'Christine and the Queens'));
+        (SELECT id FROM public.shows WHERE title = 'Christine and the Queens')),
+       ('4105771b-8e04-4547-a1b4-4dd97564ddfd', '/images/zaz.jpg',
+        (SELECT id FROM public.shows WHERE title = 'Zaz Live'));
 
 
 -- Insertion des performances d'artistes
@@ -305,7 +311,11 @@ INSERT INTO public.perform (show_id, artist_id)
 VALUES ((SELECT id FROM public.shows WHERE title = 'Daft Punk Show'),
         (SELECT id FROM public.artists WHERE name = 'Daft Punk')),
        ((SELECT id FROM public.shows WHERE title = 'Phoenix Live'),
-        (SELECT id FROM public.artists WHERE name = 'Phoenix'));
+        (SELECT id FROM public.artists WHERE name = 'Phoenix')),
+       ((SELECT id FROM public.shows WHERE title = 'Christine and the Queens'),
+        (SELECT id FROM public.artists WHERE name = 'Christine and the Queens')),
+       ((SELECT id FROM public.shows WHERE title = 'Zaz Live'),
+        (SELECT id FROM public.artists WHERE name = 'Zaz'));
 
 
 -- DATA FOR PARTY
@@ -314,10 +324,16 @@ nrv_party;
 
 -- Insertion des fêtes (party)
 INSERT INTO public.party (id, name, theme, date, begin, place_id, show1_id, show2_id, show3_id, price)
-VALUES ('a0b7566b-6fdd-4e34-bbab-41d882de9c07', 'Birthday Bash', 'Anniversaire', '2024-12-25 20:00:00', '2024-12-25 21:00:00',
-        '340cf1fe-6344-4e93-ab6a-347c7e461d36', '14808e51-d1b6-4539-8596-66a9e39e01c9', '14808e51-d1b6-4539-8596-66a9e39e01c9', NULL, 30),
-       ('8243ea21-155b-4ac9-b75e-f66fc142c2ef', 'Music Fiesta', 'Musique', '2024-11-01 18:00:00', '2024-11-01 19:00:00', 'b6b101d5-563e-4530-a3bb-43be12ea1053',
-        'df220d31-9506-40f5-ad71-dd0a0ac48c52', NULL, NULL, 25);
+VALUES ('a0b7566b-6fdd-4e34-bbab-41d882de9c07', 'Birthday Bash', 'Anniversaire', '2024-12-25 20:00:00',
+        '2024-12-25 21:00:00',
+        '340cf1fe-6344-4e93-ab6a-347c7e461d36', '14808e51-d1b6-4539-8596-66a9e39e01c9',
+        '14808e51-d1b6-4539-8596-66a9e39e01c9', NULL, 30),
+       ('8243ea21-155b-4ac9-b75e-f66fc142c2ef', 'Music Fiesta', 'Musique', '2024-11-01 18:00:00', '2024-11-01 19:00:00',
+        'b6b101d5-563e-4530-a3bb-43be12ea1053',
+        'df220d31-9506-40f5-ad71-dd0a0ac48c52', NULL, NULL, 25),
+    ('8a03e604-ed5f-457f-82c3-11d35e54d496', 'Hola Amigo', 'Fiesta', '2024-10-01 18:00:00', '2024-10-01 19:00:00',
+        'df23e061-1a1b-4344-ac9c-5357465f5c5b',
+        '4105771b-8e04-4547-a1b4-4dd97564ddfd', NULL, NULL, 25);
 
 -- DATA FOR TICKETS
 \connect
@@ -327,7 +343,8 @@ INSERT INTO public.tickets (id, name, price, quantity, party_id)
 VALUES ('cec7ef16-66db-4916-96cd-4e4a2057ae8c', 'Birthday Bash ticket', 30, 100000,
         'a0b7566b-6fdd-4e34-bbab-41d882de9c07'),
        ('eaa814ee-398e-435e-950c-32bc56cf0c90', 'Music Fiesta ticket', 50, 9000,
-        '8243ea21-155b-4ac9-b75e-f66fc142c2ef');
+        '8243ea21-155b-4ac9-b75e-f66fc142c2ef'),
+        ('788c28db-0b2a-48d5-a010-cf138292d212', 'Hola Amigo ticket', 25, 25000, '8a03e604-ed5f-457f-82c3-11d35e54d496');
 
 INSERT INTO public.soldtickets (id, name, price, user_id, ticket_id, party_id)
 VALUES ('ef54b2c6-15bb-498f-9118-064db56f611b', 'Birthday Bash ticket', 30,

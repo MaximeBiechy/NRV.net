@@ -8,9 +8,9 @@
   <script src="https://kit.fontawesome.com/596072d93b.js" crossorigin="anonymous"></script>   <!-- Font Awesome -->
 </head>
 <body>
-  <!-- <div class="loader">
+  <div class="loader">
     <span class="loader__spinner"></span>
-  </div> -->
+  </div>
 <header>
   <nav>
     <div class="navbar">
@@ -20,18 +20,18 @@
   </nav>
 </header>
 <section class="showInfo">
-  <h2>{{party.name}}</h2>
+  <h2>{{party.[0].name}}</h2>
   <p>Quoi écoouuter ?</p>
 
   <div class="container party">
-      <article class="card" data-href="{{party.0.links.self.href}}>
-        <img src="./{{party.shows.images.0.self.href}}" alt="1" class="card_img">
+      <article class="card">
+        <img src="./{{party.[0].shows.[0].images.[0].self.href}}" alt="1" class="card_img">
         <div class="card_head">
-          <p><span class="bold">{{party.date.date}}</span></p>
+          <p><span class="bold">{{party.[0].date.date}}</span></p>
           <p class="place">Arène<br> Marchand</p>
         </div>
         <div class="card_body">
-          <h3 class="card_title">{{party.title}}</h3>
+          <h3 class="card_title">{{party.[0].title}}</h3>
           <div class="card_tags">
             <p class="tag RnB">RnB</p>
             <p class="tag Rap">Rap</p>

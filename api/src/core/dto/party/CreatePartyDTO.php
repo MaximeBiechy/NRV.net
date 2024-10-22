@@ -19,6 +19,6 @@ class CreatePartyDTO extends DTO
         $this->date = $p->getDate();
         $this->begin = $p->getBegin();
         $this->shows = $p->getShows();
-        $this->place_id = $p->getPlaceID();
+        $this->place_id = $p->getPlace();
     }
 }

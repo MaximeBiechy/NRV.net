@@ -1,5 +1,6 @@
 <?php
 
+use nrv\application\actions\AddTicketToUserCardAction;
 use nrv\application\actions\DisplayArtistsAction;
 use nrv\application\actions\DisplayPartyAction;
 use nrv\application\actions\DisplayPartyByShowAction;
@@ -66,7 +67,7 @@ return [
 
     // Repositories
     PartyRepositoryInterface::class => function (ContainerInterface $c) {
-        return new PDOPartyRepository($c->get('party.pdo'));
+        return new PDOPartyRepository($c->get('party.pdo'), $c->get('place.pdo'));
     },
     AuthRepositoryInterface::class => function (ContainerInterface $c) {
         return new PDOAuthRepository($c->get('auth.pdo'));
@@ -126,5 +127,7 @@ return [
     DisplayPlacesAction::class => function (ContainerInterface $c) {
         return new DisplayPlacesAction($c->get(PlaceServiceInterface::class));
     },
-
+    AddTicketToUserCardAction::class => function (ContainerInterface $c) {
+        return new AddTicketToUserCardAction($c->get(TicketServiceInterface::class));
+    }
 ];

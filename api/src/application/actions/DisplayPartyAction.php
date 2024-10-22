@@ -66,6 +66,12 @@ class DisplayPartyAction extends AbstractAction
                 ];
 
             }
+            $images =$party->place->images;
+            $images = array_map(function($image) use ($routeParser) {
+                return [
+                    "self" => ['href' =>$image]
+                ];
+            }, $images);
             $response = [
                 'type' => 'ressource',
                 'locale' => 'fr-FR',
@@ -76,6 +82,17 @@ class DisplayPartyAction extends AbstractAction
                     'prices' => $party->price,
                     'date' => $party->date,
                     'begin' => $party->begin,
+                    'place' => [
+                        'id' => $party->place->id,
+                        'name' => $party->place->name,
+                        'address' => $party->place->address,
+                        'nb_sit' => $party->place->nbSit,
+                        'nb_stand' => $party->place->nbStand,
+                        'images' => $images,
+                        'links' => [
+                            'self' => ['href' => $routeParser->urlFor('places_id', ['ID-PLACE' => $party->place->id])]
+                        ]
+                    ],
                     'shows' => $shows,
                     'links' => [
                         'self' => ['href' => $urlSelf]

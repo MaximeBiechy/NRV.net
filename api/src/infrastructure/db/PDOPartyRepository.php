@@ -11,22 +11,23 @@ use Ramsey\Uuid\Uuid;
 class PDOPartyRepository implements PartyRepositoryInterface
 {
 
-    private \PDO $pdo;
+    private \PDO $pdo_party, $pdo_place;
 
-    public function __construct(\PDO $pdo)
+    public function __construct(\PDO $pdo_party, \PDO $pdo_place)
     {
-        $this->pdo = $pdo;
+        $this->pdo_party = $pdo_party;
+        $this->pdo_place = $pdo_place;
     }
 
     public function save(Party $party): string
     {
         try {
             if ($party->getID() !== null) {
-                $stmt = $this->pdo->prepare('UPDATE party SET name = :name, theme = :theme, price = :price, date = :date, begin = :begin, show1_id = :show1_id, show2_id = :show2_id, show3_id = :show3_id, place = :place WHERE id = :id');
+                $stmt = $this->pdo_party->prepare('UPDATE party SET name = :name, theme = :theme, price = :price, date = :date, begin = :begin, show1_id = :show1_id, show2_id = :show2_id, show3_id = :show3_id, place_id = :place WHERE id = :id');
             } else {
                 $id = Uuid::uuid4()->toString();
                 $party->setID($id);
-                $stmt = $this->pdo->prepare('INSERT INTO party (id, name, theme, price, date, begin, show1_id, show2_id, show3_id, place) VALUES (:id, :name, :theme, :price, :date, :begin, :show1_id, :show2_id, :show2_id, :place)');
+                $stmt = $this->pdo_party->prepare('INSERT INTO party (id, name, theme, price, date, begin, show1_id, show2_id, show3_id, place_id) VALUES (:id, :name, :theme, :price, :date, :begin, :show1_id, :show2_id, :show2_id, :place)');
             }
             $stmt->execute([
                 'id' => $party->getID(),
@@ -38,7 +39,7 @@ class PDOPartyRepository implements PartyRepositoryInterface
                 'show1_id' => $party->getShows()[0],
                 'show2_id' => $party->getShows()[1]??null,
                 'show3_id' => $party->getShows()[2]??null,
-                'place' => $party->getPlaceID()
+                'place' => $party->getPlace()->getID()
             ]);
             return $party->getID();
         } catch (\PDOException $e) {
@@ -49,7 +50,7 @@ class PDOPartyRepository implements PartyRepositoryInterface
     public function getPartyById(string $id): Party
     {
         try {
-            $stmt = $this->pdo->prepare('SELECT * FROM party WHERE id = :id');
+            $stmt = $this->pdo_party->prepare('SELECT * FROM party WHERE id = :id');
             $stmt->execute(['id' => $id]);
             $party = $stmt->fetch();
             if ($party === false) {
@@ -65,7 +66,23 @@ class PDOPartyRepository implements PartyRepositoryInterface
             if ($party['show3_id'] !== null) {
                 $shows[] = $party['show3_id'];
             }
-            $p = new Party($party['name'], $party['theme'], $party['price'], \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $party['date']), \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $party['begin']), $shows, $party['place_id']);
+            $stmt = $this->pdo_place->prepare('SELECT * FROM places WHERE id = :id');
+            $stmt->execute(['id' => $party['place_id']]);
+            $place = $stmt->fetch();
+            if ($place === false) {
+                throw new RepositoryInternalServerError('Place not found');
+            }
+            $stmt = $this->pdo_place->prepare('SELECT * FROM images WHERE place_id = :id');
+            $stmt->execute(['id' => $party['place_id']]);
+            $is = [];
+            $images = $stmt->fetchAll();
+            foreach ($images as $image) {
+                $is[] = $image['path'];
+            }
+            $p = new Place($place['name'], $place['address'], $place['nb_sit'], $place['nb_stand'], $is);
+            $p->setID($place['id']);
+
+            $p = new Party($party['name'], $party['theme'], $party['price'], \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $party['date']), \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $party['begin']), $shows, $p);
             $p->setID($party['id']);
             return $p;
         } catch (\PDOException $e) {
@@ -76,7 +93,7 @@ class PDOPartyRepository implements PartyRepositoryInterface
     public function getParties(): array
     {
         try {
-            $stmt = $this->pdo->prepare('SELECT * FROM party');
+            $stmt = $this->pdo_party->prepare('SELECT * FROM party');
             $stmt->execute();
             $parties = $stmt->fetchAll();
             foreach ($parties as $party) {
@@ -90,7 +107,22 @@ class PDOPartyRepository implements PartyRepositoryInterface
                 if ($party['show3_id'] !== null) {
                     $shows[] = $party['show3_id'];
                 }
-                $p = new Party($party['name'], $party['theme'], $party['price'], \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $party['date']), \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $party['begin']), $shows, $party['place_id']);
+                $stmt = $this->pdo_place->prepare('SELECT * FROM places WHERE id = :id');
+                $stmt->execute(['id' => $party['place_id']]);
+                $place = $stmt->fetch();
+                if ($place === false) {
+                    throw new RepositoryInternalServerError('Place not found');
+                }
+                $stmt = $this->pdo_place->prepare('SELECT * FROM images WHERE place_id = :id');
+                $stmt->execute(['id' => $party['place_id']]);
+                $is = [];
+                $images = $stmt->fetchAll();
+                foreach ($images as $image) {
+                    $is[] = $image['path'];
+                }
+                $pa = new Place($place['name'], $place['address'], $place['nb_sit'], $place['nb_stand'], $is);
+                $pa->setID($place['id']);
+                $p = new Party($party['name'], $party['theme'], $party['price'], \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $party['date']), \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $party['begin']), $shows, $pa);
                 $p->setID($party['id']);
                 $part[] = $p;
             }
@@ -103,7 +135,7 @@ class PDOPartyRepository implements PartyRepositoryInterface
     public function getPartyByShow(string $showId): array
     {
         try {
-            $stmt = $this->pdo->prepare('SELECT * FROM party WHERE show1_id = :shows OR show2_id = :shows OR show3_id = :shows');
+            $stmt = $this->pdo_party->prepare('SELECT * FROM party WHERE show1_id = :shows OR show2_id = :shows OR show3_id = :shows');
             $stmt->execute(['shows' => $showId]);
             $parties = $stmt->fetchAll();
             $part = [];
@@ -118,7 +150,22 @@ class PDOPartyRepository implements PartyRepositoryInterface
                 if ($party['show3_id'] !== null) {
                     $shows[] = $party['show3_id'];
                 }
-                $p = new Party($party['name'], $party['theme'], $party['price'], \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $party['date']), \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $party['begin']), $shows, $party['place_id']);
+                $stmt = $this->pdo_place->prepare('SELECT * FROM places WHERE id = :id');
+                $stmt->execute(['id' => $party['place_id']]);
+                $place = $stmt->fetch();
+                if ($place === false) {
+                    throw new RepositoryInternalServerError('Place not found');
+                }
+                $stmt = $this->pdo_place->prepare('SELECT * FROM images WHERE place_id = :id');
+                $stmt->execute(['id' => $party['place_id']]);
+                $is = [];
+                $images = $stmt->fetchAll();
+                foreach ($images as $image) {
+                    $is[] = $image['path'];
+                }
+                $pa = new Place($place['name'], $place['address'], $place['nb_sit'], $place['nb_stand'], $is);
+                $pa->setID($place['id']);
+                $p = new Party($party['name'], $party['theme'], $party['price'], \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $party['date']), \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $party['begin']), $shows, $pa);
                 $p->setID($party['id']);
                 $part[] = $p;
             }
