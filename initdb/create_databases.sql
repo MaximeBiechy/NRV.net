@@ -119,5 +119,16 @@ CREATE TABLE "public"."selledtickets" (
       "party_id" uuid NOT NULL
 ) WITH (oids = false);
 
+DROP TABLE IF EXISTS "cards";
+CREATE TABLE "public"."cards" (
+  "id" uuid NOT NULL,
+  "user_id" uuid NOT NULL,
+  "total_price" integer NOT NULL
+) WITH (oids = false);
 
-
+DROP TABLE IF EXISTS "card_content";
+CREATE TABLE "public"."card_content" (
+ "card_id" uuid NOT NULL,
+ "ticket_id" uuid NOT NULL,
+ "quantity" integer DEFAULT '1' NOT NULL
+) WITH (oids = false);
