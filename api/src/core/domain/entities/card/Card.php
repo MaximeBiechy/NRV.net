@@ -37,4 +37,9 @@ class Card extends Entity
         $this->total_price = $total_price;
     }
 
+    public function getTickets(): array
+    {
+        return $this->tickets;
+    }
+
 }
