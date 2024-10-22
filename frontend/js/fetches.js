@@ -110,16 +110,14 @@ function fillPlaceTemplate(data) {
 
 (async () => {
   const data = await fetchPlace('340cf1fe-6344-4e93-ab6a-347c7e461d36');
-  console.log(data)
   fillPlaceTemplate(data);
   //loader.style.display = 'none'
 })();
 ///////////////////////////////////////////////////////////////////////////////////
-//fetchShows();
-//fetchArtists();
-
-
 // Fetch show artists:
+///////////////////////////////////////////////////////////////////////////////////
+
+
 async function fetchShowArtists(showId) {
   try {
     const response = await fetch(`http://localhost:21000/shows/${showId}`, { headers: { 'Origin': 'http://localhost:21000' }});
@@ -136,16 +134,13 @@ async function fetchShowArtists(showId) {
 }
 
 function fillShowArtistsTemplate(data) {
-  var templateSource = document.querySelector('.artists').innerHTML; // Adjust selector to match the container
-  var template = Handlebars.compile(templateSource);
+  var template = Handlebars.compile(document.querySelector('.artists').innerHTML);
   var filledTemplate = template(data);
-  document.querySelector('.artists').innerHTML = filledTemplate; // Adjust selector to match the container
+  document.querySelector('.artists').innerHTML = filledTemplate;
 }
 
 (async () => {
   const data = await fetchShowArtists('05cf1397-1bf3-4227-aa5a-063c6b3e14e8');
   fillShowArtistsTemplate(data);
-  console.log(data)
-  //loader.style.display = 'none'
 })();
 
