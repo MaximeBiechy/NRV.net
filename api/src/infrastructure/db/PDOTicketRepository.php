@@ -152,4 +152,19 @@ class PDOTicketRepository implements TicketRepositoryInterface
             throw new RepositoryInternalServerError("Error adding ticket to card");
         }
     }
+
+    public function getCardByUserID(string $userID): string
+    {
+        try {
+            $stmt = $this->pdo_ticket->prepare("SELECT * FROM cards WHERE user_id = :user_id");
+            $stmt->execute(['user_id' => $userID]);
+            $card = $stmt->fetch();
+            if ($card === false) {
+                throw new RepositoryInternalServerError("Card not found");
+            }
+            return $card['id'];
+        } catch (\PDOException $e) {
+            throw new RepositoryInternalServerError("Error getting card by user id");
+        }
+    }
 }
