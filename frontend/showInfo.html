@@ -22,9 +22,9 @@
 <section class="showInfo">
   <h2>{{party.name}}</h2>
   <p>Quoi écoouuter ?</p>
-  
-  <div class="container party"> 
-      <article class="card">
+
+  <div class="container party">
+      <article class="card" data-href="{{party.0.links.self.href}}>
         <img src="./{{party.shows.images.0.self.href}}" alt="1" class="card_img">
         <div class="card_head">
           <p><span class="bold">{{party.date.date}}</span></p>

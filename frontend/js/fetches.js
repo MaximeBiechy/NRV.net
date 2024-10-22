@@ -139,16 +139,16 @@ function fillPlaceTemplate(data) {
   document.querySelector('.card_place').innerHTML = filledTemplate;
 }
 
-//  (async () => {
-//    const data = await fetchPartyById('a0b7566b-6fdd-4e34-bbab-41d882de9c07');
-//    let new_date = new Date(data.party.date.date).toLocaleDateString('fr-FR', { weekday: 'short', day: '2-digit', month: '2-digit' });
-//    data.party.date.date = new_date;
+  (async () => {
+    const data = await fetchPartyById('a0b7566b-6fdd-4e34-bbab-41d882de9c07');
+    let new_date = new Date(data.party.date.date).toLocaleDateString('fr-FR', { weekday: 'short', day: '2-digit', month: '2-digit' });
+    data.party.date.date = new_date;
 
-//    let new_date_begin = new Date(data.party.begin.date).toLocaleDateString('fr-FR', { weekday: 'long', day: '2-digit', month: '2-digit' });
-//    data.party.begin.date = new_date_begin;
-//    fillPartyTemplate(data);
-//    //loader.style.display = 'none'
-//  })();
+    let new_date_begin = new Date(data.party.begin.date).toLocaleDateString('fr-FR', { weekday: 'long', day: '2-digit', month: '2-digit' });
+    data.party.begin.date = new_date_begin;
+    fillPartyTemplate(data);
+   //loader.style.display = 'none'
+  })();
 
 (async () => {
   const data = await fetchPlace('340cf1fe-6344-4e93-ab6a-347c7e461d36');
