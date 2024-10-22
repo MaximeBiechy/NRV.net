@@ -2,6 +2,7 @@
 
 namespace nrv\core\repositoryInterfaces;
 
+use nrv\core\domain\entities\ticket\SoldTicket;
 use nrv\core\domain\entities\ticket\Ticket;
 
 interface TicketRepositoryInterface
