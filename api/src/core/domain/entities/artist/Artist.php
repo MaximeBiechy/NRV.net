@@ -1,6 +1,6 @@
 <?php
 
-namespace nrv\core\domain\entities\Artist;
+namespace nrv\core\domain\entities\artist;
 
 use nrv\core\domain\entities\Entity;
 
