@@ -1,8 +1,17 @@
+@import 'config';
+
 .party {
   margin: 0 auto;
   width: 80%;
   h2 {
     text-align: center;
+    word-spacing: 4px ;
+
+    span{
+      color: $color_yellow;
+      font-size: 1.5em;
+      font-style: italic;
+    }
   }
   p{
     font-size: 1.5em;

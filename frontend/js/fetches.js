@@ -12,8 +12,8 @@ async function fetchShows() {
       var template = Handlebars.compile(document.querySelector('.shows').innerHTML);
       var filledTemplate = template(data);
       document.querySelector('.shows').innerHTML = filledTemplate;
-      
-    
+
+
   }
   catch (error) {
     console.error('There has been a problem with your fetch operation:', error);
@@ -31,9 +31,9 @@ async function fetchArtists() {
       var template = Handlebars.compile(document.querySelector('.artists').innerHTML);
       var filledTemplate = template(data);
       document.querySelector('.artists').innerHTML = filledTemplate;
-      
+
         loader.style.display = 'none';
-    
+
   }
   catch (error) {
     console.error('There has been a problem with your fetch operation:', error);
@@ -86,5 +86,5 @@ async function fetchShowPartyById(showId) {
 // })();
 
 
-fetchShows(); 
+fetchShows();
 fetchArtists();
