@@ -29,14 +29,36 @@ class DisplayShowAction extends AbstractAction
             $show = $this->showServiceInterface->getShow($args['ID-SHOW']);
             $routeContext = RouteContext::fromRequest($rq);
             $routeParser = $routeContext->getRouteParser();
+            $images = $show->images;
+            $images = array_map(function($image) use ($routeParser) {
+                return [
+                    "self" => ['href' =>$image]
+                ];
+            }, $images);
+            $artists = $show->artists;
+            $artists = array_map(function($artist) use ($routeParser) {
+                return [
+                    "id" => $artist->id,
+                    "name" => $artist->name,
+                    "style" => $artist->style,
+                    "image" => [
+                        "self" => ['href' => $artist->image]
+                    ]
+                ];
+            }, $artists);
+            $show = [
+                "id" => $show->id,
+                "title" => $show->title,
+                "date" => $show->begin,
+                "images" => $images,
+                "artists" => $artists,
+            ];
 
             $response = [
                 "type" => "resource",
                 "locale" => "fr-FR",
                 "show" => $show,
-                "links" => [
-                    "self" => ['href' => $routeParser->urlFor('shows_id', ['ID-SHOW' => $show->id])]
-                ]
+                "self" => ['href' => $routeParser->urlFor('shows_id', ['ID-SHOW' => $show['id']])]
             ];
             return JsonRenderer::render($rs, 200, $response);
         } catch (ShowServiceBadDataException $e) {
