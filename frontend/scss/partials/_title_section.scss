@@ -4,7 +4,8 @@
   gap: 2em;
   flex-wrap: wrap;
   justify-content: center;
-  width: 100%;
+  margin: 0 auto;
+  width: 80%;
 }
 
 section {
@@ -16,7 +17,7 @@ section {
     font-weight: 400;
     text-align: center;
     border-bottom: white 1px solid;
-    margin: 0 auto;
+    margin: 1em auto;
     width: 80%;
   }
 }
