@@ -147,7 +147,7 @@ class PDOShowRepository implements ShowRepositoryInterface
     public function getShowsByDate(string $date): array
     {
         try{
-            $stmt = $this->pdo_show->prepare("SELECT * FROM shows WHERE begin = :begin");
+            $stmt = $this->pdo_show->prepare("SELECT * FROM shows WHERE DATE(begin) = :begin");
             $stmt->execute(['begin' => $date]);
             $shows = $stmt->fetchAll();
             $result = [];
