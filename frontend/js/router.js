@@ -17,9 +17,6 @@ const routes ={
     "/showInfo": "/component/showInfo.html",
 }
 
-if (window.hasReloaded){
-    
-}
 
 const handleLocation =async () => {
     const path = window.location.pathname;
