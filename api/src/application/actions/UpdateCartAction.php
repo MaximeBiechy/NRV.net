@@ -29,6 +29,15 @@ class UpdateCartAction extends AbstractAction
         }
 
         switch ($param['state']) {
+            case UPDATABLE:
+                $ticket_id = $rq->getParsedBody()['ticket_id'];
+                $quantity = (int)$rq->getParsedBody()['quantity'];
+                if ($quantity > 0) {
+                    $cart = $this->ticketService->updateTicketQuantity($card_id, $ticket_id, $quantity);
+                } else {
+                    $cart = $this->ticketService->deleteTicketFromCart($card_id, $ticket_id);
+                }
+                break;
             case VALIDATE_CART:
                 $cart = $this->ticketService->validateCart($card_id);
                 break;

@@ -277,4 +277,85 @@ class PDOTicketRepository implements TicketRepositoryInterface
             throw new RepositoryInternalServerError("Error getting number of sold tickets by party id");
         }
     }
+
+
+    public function updateTicketQuantity(string $cartID, string $ticketID, int $quantity): Cart
+    {
+        try {
+            // Vérifie que l'état du panier est 0
+            $stmt0 = $this->pdo_ticket->prepare("SELECT state FROM carts WHERE id = :cart_id");
+            $stmt0->execute(['cart_id' => $cartID]);
+            $state = $stmt0->fetch();
+            if ($state === false || $state['state'] != 0) {
+                throw new RepositoryInternalServerError("Cart not found or state is not 0");
+            }
+            // Vérifie que le ticket est dans le panier
+            $stmt1 = $this->pdo_ticket->prepare("SELECT * FROM cart_content WHERE cart_id = :cart_id AND ticket_id = :ticket_id");
+            $stmt1->execute(['cart_id' => $cartID, 'ticket_id' => $ticketID]);
+            if ($stmt1->fetch() === false) {
+                throw new RepositoryInternalServerError("Ticket not found in cart");
+            }
+
+            // Mise à jour de la quantité
+            $stmt2 = $this->pdo_ticket->prepare("UPDATE cart_content SET quantity = :quantity WHERE cart_id = :cart_id AND ticket_id = :ticket_id");
+            $stmt2->execute(['quantity' => $quantity, 'cart_id' => $cartID, 'ticket_id' => $ticketID]);
+
+            // Mise à jour du prix
+            $stmt3 = $this->pdo_ticket->prepare("
+            UPDATE carts 
+            SET total_price = (
+                SELECT SUM(tickets.price * cart_content.quantity)
+                FROM cart_content
+                INNER JOIN tickets ON cart_content.ticket_id = tickets.id
+                WHERE cart_content.cart_id = :cart_id
+            ) 
+            WHERE carts.id = :cart_id
+            ");
+            $stmt3->execute(['cart_id' => $cartID]);
+
+            return $this->getCartByID($cartID);
+        } catch (\PDOException $e) {
+            throw new RepositoryInternalServerError("Error updating ticket quantity" . $e->getMessage());
+        } catch (RepositoryInternalServerError $e) {
+            throw new RepositoryInternalServerError($e->getMessage());
+        }
+    }
+
+    public function deleteTicketFromCart(string $cartID, string $ticketID): Cart
+    {
+        try {
+            // Vérifie que l'état du panier est 0
+            $stmt0 = $this->pdo_ticket->prepare("SELECT state FROM carts WHERE id = :cart_id");
+            $stmt0->execute(['cart_id' => $cartID]);
+            $state = $stmt0->fetch();
+            if ($state === false || $state['state'] != 0) {
+                throw new RepositoryInternalServerError("Cart not found or state is not 0");
+            }
+            // Vérifie que le ticket est dans le panier
+            $stmt1 = $this->pdo_ticket->prepare("SELECT * FROM cart_content WHERE cart_id = :cart_id AND ticket_id = :ticket_id");
+            $stmt1->execute(['cart_id' => $cartID, 'ticket_id' => $ticketID]);
+            if ($stmt1->fetch() === false) {
+                throw new RepositoryInternalServerError("Ticket not found in cart");
+            }
+            $stmt2 = $this->pdo_ticket->prepare("DELETE FROM cart_content WHERE cart_id = :cart_id AND ticket_id = :ticket_id");
+            $stmt2->execute(['cart_id' => $cartID, 'ticket_id' => $ticketID]);
+
+            $stmt3 = $this->pdo_ticket->prepare("
+                UPDATE carts 
+                SET total_price = (
+                    SELECT SUM(t.price * cc.quantity)
+                    FROM cart_content cc
+                    INNER JOIN tickets t ON cc.ticket_id = t.id
+                    WHERE cc.cart_id = :cart_id
+                ) 
+                WHERE id = :cart_id
+            ");
+            $stmt3->execute(['cart_id' => $cartID]);
+            return $this->getCartByID($cartID);
+        } catch (\PDOException $e) {
+            throw new RepositoryInternalServerError("Error deleting ticket from cart " . $e->getMessage());
+        } catch (RepositoryInternalServerError $e) {
+            throw new RepositoryInternalServerError($e->getMessage());
+        }
+    }
 }

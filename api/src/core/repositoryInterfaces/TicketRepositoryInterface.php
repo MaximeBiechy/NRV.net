@@ -20,4 +20,6 @@ interface TicketRepositoryInterface
     public function saveCart(Cart $cart): string;
     public function getTicketsByPartyID(string $partyId): array;
     public function getNbSoldTicketsByPartyID(string $partyId): int;
+    public function updateTicketQuantity(string $cartID, string $ticketID, int $quantity): Cart;
+    public function deleteTicketFromCart(string $cartID, string $ticketID): Cart;
 }
