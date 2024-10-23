@@ -20,11 +20,11 @@ class DisplayShowsAction extends AbstractAction
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
         $params = $rq->getQueryParams();
-        if (isset($params['date'])) {
+        if (isset($params['date']) && strlen($params['date']) > 0 ) {
             $shows = $this->showServiceInterface->getShowsByDate(urldecode($params['date']));
-        } else if (isset($params['style'])) {
+        } else if (isset($params['style']) && strlen($params['style']) > 0) {
             $shows = $this->showServiceInterface->getShowsByStyle(urldecode($params['style']));
-        } else if (isset($params['place'])) {
+        } else if (isset($params['place']) && strlen($params['place']) > 0) {
             $shows = $this->showServiceInterface->getShowsByPlace(urldecode($params['place']));
         } else {
             $shows = $this->showServiceInterface->getShows();
