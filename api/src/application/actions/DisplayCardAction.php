@@ -30,6 +30,7 @@ class DisplayCardAction extends AbstractAction
             "card" => [
                 "id" => $card->id,
                 "user_id" => $card->user_id,
+                "state" => $card->state,
                 "tickets" => $card->tickets,
                 "links" => [
                     "self" => ['href' => $urlSelf]

@@ -175,4 +175,49 @@ class PDOTicketRepository implements TicketRepositoryInterface
             throw new RepositoryInternalServerError("Error getting card by user id");
         }
     }
+
+    public function getCardByID(string $cardID): Card
+    {
+        try {
+            $stmt = $this->pdo_ticket->prepare("SELECT * FROM cards WHERE id = :id");
+            $stmt->execute(['id' => $cardID]);
+            $card = $stmt->fetch();
+            if ($card === false) {
+                throw new RepositoryInternalServerError("Card not found");
+            }
+            try {
+                $tickets = $this->getTicketsByCardID($card['id']);
+            } catch (RepositoryInternalServerError $e) {
+                throw new RepositoryInternalServerError($e->getMessage());
+            }
+            $c = new Card($card['user_id'], $card['total_price'], $tickets);
+            $c->setID($card['id']);
+            return $c;
+        } catch (\PDOException $e) {
+            throw new RepositoryInternalServerError("Error getting card by id");
+        }
+    }
+
+    public function saveCard(Card $card): string
+    {
+        try {
+            if ($card->getID() !== null) {
+                $stmt = $this->pdo_ticket->prepare("UPDATE cards SET user_id = :user_id, total_price = :total_price, state = :state WHERE id = :id");
+            } else {
+                $id = Uuid::uuid4()->toString();
+                $card->setID($id);
+                $stmt = $this->pdo_ticket->prepare("INSERT INTO cards (id, user_id, total_price, state) VALUES (:id, :user_id, :total_price, :state)");
+            }
+            $stmt->execute([
+                'id' => $card->getID(),
+                'user_id' => $card->getUserID(),
+                'total_price' => $card->getTotalPrice(),
+                'state' => $card->getState()
+            ]);
+        }catch (\PDOException $e){
+            throw new RepositoryInternalServerError("Error saving card");
+        }
+
+        return $card->getID();
+    }
 }

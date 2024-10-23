@@ -16,4 +16,6 @@ interface TicketServiceInterface
     public function createSoldTicket(SoldTicketDTO $ticketDTO): SoldTicketDTO;
     public function getSoldTicket(string $ticketId): SoldTicketDTO;
     public function getCardByUserId(string $userId): CardDTO;
+    public function validateCard(string $cardId): CardDTO;
+    public function validateCommand(string $cardId): CardDTO;
 }

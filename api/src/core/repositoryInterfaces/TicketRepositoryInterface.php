@@ -16,4 +16,6 @@ interface TicketRepositoryInterface
     public function getTicketsByCardID(string $cardID): array;
     public function addTicketToCard(string $ticketID, string $cardID): void;
     public function getCardByUserID(string $userID): Card;
+    public function getCardByID(string $cardID): Card;
+    public function saveCard(Card $card): string;
 }
