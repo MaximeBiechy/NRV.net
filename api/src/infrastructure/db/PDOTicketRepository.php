@@ -148,19 +148,34 @@ class PDOTicketRepository implements TicketRepositoryInterface
                 throw new RepositoryInternalServerError("Cart not found or state is not 0");
             }
 
-            $stmt = $this->pdo_ticket->prepare("SELECT * FROM cart_content WHERE cart_id = :cart_id AND ticket_id = :ticket_id");
-            $stmt->execute(['cart_id' => $cartID, 'ticket_id' => $ticketID]);
-            $ticket = $stmt->fetch();
-            if ($ticket !== false) {
-                $stmt2 = $this->pdo_ticket->prepare("UPDATE cart_content SET quantity = quantity + 1 WHERE cart_id = :cart_id AND ticket_id = :ticket_id");
-            } else {
-                $stmt2 = $this->pdo_ticket->prepare("INSERT INTO cart_content (cart_id, ticket_id, quantity) VALUES (:cart_id, :ticket_id, 1)");
-            }
+            // Vérifie qu'il y a assez de tickets
+            $stmt1 = $this->pdo_ticket->prepare("SELECT quantity FROM tickets WHERE id = :ticket_id");
+            $stmt1->execute(['ticket_id' => $ticketID]);
+            $result1 = $stmt1->fetch();
+            $quantity = $result1 ? $result1['quantity'] : 0;
+
+            $stmt2 = $this->pdo_ticket->prepare("SELECT quantity FROM cart_content WHERE cart_id = :cart_id AND ticket_id = :ticket_id");
             $stmt2->execute(['cart_id' => $cartID, 'ticket_id' => $ticketID]);
+            $result2 = $stmt2->fetch();
+            $quantity_card_content = $result2 ? $result2['quantity'] : 0;
+
+            if ($quantity <= $quantity_card_content) {
+                throw new RepositoryInternalServerError("Not enough tickets");
+            }
+
+            $stmt3 = $this->pdo_ticket->prepare("SELECT * FROM cart_content WHERE cart_id = :cart_id AND ticket_id = :ticket_id");
+            $stmt3->execute(['cart_id' => $cartID, 'ticket_id' => $ticketID]);
+            $ticket = $stmt3->fetch();
+            if ($ticket !== false) {
+                $stmt4 = $this->pdo_ticket->prepare("UPDATE cart_content SET quantity = quantity + 1 WHERE cart_id = :cart_id AND ticket_id = :ticket_id");
+            } else {
+                $stmt4 = $this->pdo_ticket->prepare("INSERT INTO cart_content (cart_id, ticket_id, quantity) VALUES (:cart_id, :ticket_id, 1)");
+            }
+            $stmt4->execute(['cart_id' => $cartID, 'ticket_id' => $ticketID]);
 
             // Modification du prix
-            $stmt3 = $this->pdo_ticket->prepare("UPDATE carts SET total_price = total_price + (SELECT price FROM tickets WHERE id = :ticket_id) WHERE id = :cart_id");
-            $stmt3->execute(['cart_id' => $cartID, 'ticket_id' => $ticketID]);
+            $stmt5 = $this->pdo_ticket->prepare("UPDATE carts SET total_price = total_price + (SELECT price FROM tickets WHERE id = :ticket_id) WHERE id = :cart_id");
+            $stmt5->execute(['cart_id' => $cartID, 'ticket_id' => $ticketID]);
         } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error adding ticket to cart");
         }
