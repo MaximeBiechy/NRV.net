@@ -1,11 +1,9 @@
-console.log("Fichier filters.js chargé")
 
 const select_places = document.querySelector('#places');
 const select_style = document.querySelector('#styles');
 const calendar = document.querySelector('#calendar');
 
 async function filterPlace(place) {
-  console.log('Fonction Filterplace');
   try {
     const response = await fetch(`http://localhost:21000/shows?place=${place}`, { headers: { 'Origin': 'http://localhost' }});
     if (!response.ok) {
@@ -16,7 +14,28 @@ async function filterPlace(place) {
     console.log(data);
 
     // Handlebars
-    var templateSource = document.querySelector('#templateShow').innerHTML;
+    var templateSource = `
+    <div class="container" id="templateShow">
+      {{#if shows.length}}
+      {{#each shows}}
+      <article class="card">
+      <img src="{{this.images.0.self.href}}" alt="1" class="card__img">
+      <div class="card_head">
+        <p>VEN.<br><span class="bold">{{ this.date.date }}</span></p>
+        <p class="place">Arène<br> Marchand</p>
+      </div>
+      <div class="card_body">
+        <h3 class="card_title">{{ this.title }}</h3>
+        <div class="card_tags">
+        </div>
+      </div>
+      </article>
+      {{/each}}
+      {{else}}
+      <p class="error-message">Aucun spectacle disponible pour le moment.</p>
+      {{/if}}
+    </div>
+    `;
     var template = Handlebars.compile(templateSource);
     var filledTemplate = template(data);
 
@@ -27,7 +46,6 @@ async function filterPlace(place) {
 }
 
 async function filterStyle(style) {
-  console.log('Fonction FiltersStyle');
   try {
     const response = await fetch(`http://localhost:21000/shows?style=${style}`, { headers: { 'Origin': 'http://localhost' }});
     if (!response.ok) {
@@ -38,10 +56,40 @@ async function filterStyle(style) {
     console.log(data);
 
     // Handlebars
-    var templateSource = document.querySelector('#templateShow').innerHTML;
+    var templateSource = `
+    <div class="container" id="templateShow">
+      {{#if shows.length}}
+      {{#each shows}}
+      <article class="card">
+      <img src="{{this.images.0.self.href}}" alt="1" class="card__img">
+      <div class="card_head">
+        <p>VEN.<br><span class="bold">{{ this.date.date }}</span></p>
+        <p class="place">Arène<br> Marchand</p>
+      </div>
+      <div class="card_body">
+        <h3 class="card_title">{{ this.title }}</h3>
+        <div class="card_tags">
+        </div>
+      </div>
+      </article>
+      {{/each}}
+      {{else}}
+      <p class="error-message">Aucun spectacle disponible pour le moment.</p>
+      {{/if}}
+    </div>
+    `;
+
+
     var template = Handlebars.compile(templateSource);
+
+    console.log(template);
+
     var filledTemplate = template(data);
+
+    console.log(filledTemplate);
+
     document.querySelector('#templateShow').innerHTML = filledTemplate;
+
   } catch (error) {
     console.error('There has been a problem with your fetch operation:', error);
   }
@@ -59,7 +107,28 @@ async function filterDate(date) {
     console.log(data);
 
     // Handlebars
-    var templateSource = document.querySelector('#templateShow').innerHTML;
+    var templateSource = `
+    <div class="container" id="templateShow">
+      {{#if shows.length}}
+      {{#each shows}}
+      <article class="card">
+      <img src="{{this.images.0.self.href}}" alt="1" class="card__img">
+      <div class="card_head">
+        <p>VEN.<br><span class="bold">{{ this.date.date }}</span></p>
+        <p class="place">Arène<br> Marchand</p>
+      </div>
+      <div class="card_body">
+        <h3 class="card_title">{{ this.title }}</h3>
+        <div class="card_tags">
+        </div>
+      </div>
+      </article>
+      {{/each}}
+      {{else}}
+      <p class="error-message">Aucun spectacle disponible pour le moment.</p>
+      {{/if}}
+    </div>
+    `;
     var template = Handlebars.compile(templateSource);
     var filledTemplate = template(data);
     document.querySelector('#templateShow').innerHTML = filledTemplate;
@@ -67,6 +136,7 @@ async function filterDate(date) {
     console.error('There has been a problem with your fetch operation:', error);
   }
 }
+
 
 // Section des events :
 function addChangeListener(element, callback) {
