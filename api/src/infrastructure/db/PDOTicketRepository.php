@@ -2,7 +2,7 @@
 
 namespace nrv\infrastructure\db;
 
-use nrv\core\domain\entities\card\Card;
+use nrv\core\domain\entities\cart\Cart;
 use nrv\core\domain\entities\ticket\SoldTicket;
 use nrv\core\domain\entities\ticket\Ticket;
 use nrv\core\repositoryInterfaces\RepositoryInternalServerError;
@@ -119,11 +119,11 @@ class PDOTicketRepository implements TicketRepositoryInterface
         }
     }
 
-    public function getTicketsByCardID(string $cardID): array
+    public function getTicketsByCartID(string $cartID): array
     {
         try {
-            $stmt = $this->pdo_ticket->prepare("SELECT * FROM tickets INNER JOIN card_content ON tickets.id = card_content.ticket_id WHERE card_content.card_id = :card_id");
-            $stmt->execute(['card_id' => $cardID]);
+            $stmt = $this->pdo_ticket->prepare("SELECT * FROM tickets INNER JOIN cart_content ON tickets.id = cart_content.ticket_id WHERE cart_content.cart_id = :cart_id");
+            $stmt->execute(['cart_id' => $cartID]);
             $tickets = $stmt->fetchAll();
             $ts = [];
             foreach ($tickets as $ticket) {
@@ -133,91 +133,91 @@ class PDOTicketRepository implements TicketRepositoryInterface
             }
             return $ts;
         } catch (\PDOException $e) {
-            throw new RepositoryInternalServerError("Error getting tickets by card id");
+            throw new RepositoryInternalServerError("Error getting tickets by cart id");
         }
     }
 
-    public function addTicketToCard(string $ticketID, string $cardID): void
+    public function addTicketToCart(string $ticketID, string $cartID): void
     {
         try {
-            $stmt = $this->pdo_ticket->prepare("SELECT * FROM card_content WHERE card_id = :card_id AND ticket_id = :ticket_id");
-            $stmt->execute(['card_id' => $cardID, 'ticket_id' => $ticketID]);
+            $stmt = $this->pdo_ticket->prepare("SELECT * FROM cart_content WHERE cart_id = :cart_id AND ticket_id = :ticket_id");
+            $stmt->execute(['cart_id' => $cartID, 'ticket_id' => $ticketID]);
             $ticket = $stmt->fetch();
             if ($ticket !== false) {
-                $stmt2 = $this->pdo_ticket->prepare("UPDATE card_content SET quantity = quantity + 1 WHERE card_id = :card_id AND ticket_id = :ticket_id");
+                $stmt2 = $this->pdo_ticket->prepare("UPDATE cart_content SET quantity = quantity + 1 WHERE cart_id = :cart_id AND ticket_id = :ticket_id");
             } else {
-                $stmt2 = $this->pdo_ticket->prepare("INSERT INTO card_content (card_id, ticket_id, quantity) VALUES (:card_id, :ticket_id, 1)");
+                $stmt2 = $this->pdo_ticket->prepare("INSERT INTO cart_content (cart_id, ticket_id, quantity) VALUES (:cart_id, :ticket_id, 1)");
             }
-            $stmt2->execute(['card_id' => $cardID, 'ticket_id' => $ticketID]);
+            $stmt2->execute(['cart_id' => $cartID, 'ticket_id' => $ticketID]);
         } catch (\PDOException $e) {
-            throw new RepositoryInternalServerError("Error adding ticket to card");
+            throw new RepositoryInternalServerError("Error adding ticket to cart");
         }
     }
 
-    public function getCardByUserID(string $userID): Card
+    public function getCartByUserID(string $userID): Cart
     {
         try {
-            $stmt = $this->pdo_ticket->prepare("SELECT * FROM cards WHERE user_id = :user_id");
+            $stmt = $this->pdo_ticket->prepare("SELECT * FROM carts WHERE user_id = :user_id");
             $stmt->execute(['user_id' => $userID]);
-            $card = $stmt->fetch();
-            if ($card === false) {
-                throw new RepositoryInternalServerError("Card not found");
+            $cart = $stmt->fetch();
+            if ($cart === false) {
+                throw new RepositoryInternalServerError("Cart not found");
             }
             try {
-                $tickets = $this->getTicketsByCardID($card['id']);
+                $tickets = $this->getTicketsByCartID($cart['id']);
             } catch (RepositoryInternalServerError $e) {
                 throw new RepositoryInternalServerError($e->getMessage());
             }
-            $c = new Card($card['user_id'], $card['total_price'], $tickets);
-            $c->setID($card['id']);
+            $c = new Cart($cart['user_id'], $cart['total_price'], $tickets);
+            $c->setID($cart['id']);
             return $c;
         } catch (\PDOException $e) {
-            throw new RepositoryInternalServerError("Error getting card by user id");
+            throw new RepositoryInternalServerError("Error getting cart by user id");
         }
     }
 
-    public function getCardByID(string $cardID): Card
+    public function getCartByID(string $cartID): Cart
     {
         try {
-            $stmt = $this->pdo_ticket->prepare("SELECT * FROM cards WHERE id = :id");
-            $stmt->execute(['id' => $cardID]);
-            $card = $stmt->fetch();
-            if ($card === false) {
-                throw new RepositoryInternalServerError("Card not found");
+            $stmt = $this->pdo_ticket->prepare("SELECT * FROM carts WHERE id = :id");
+            $stmt->execute(['id' => $cartID]);
+            $cart = $stmt->fetch();
+            if ($cart === false) {
+                throw new RepositoryInternalServerError("Cart not found");
             }
             try {
-                $tickets = $this->getTicketsByCardID($card['id']);
+                $tickets = $this->getTicketsByCartID($cart['id']);
             } catch (RepositoryInternalServerError $e) {
                 throw new RepositoryInternalServerError($e->getMessage());
             }
-            $c = new Card($card['user_id'], $card['total_price'], $tickets);
-            $c->setID($card['id']);
+            $c = new Cart($cart['user_id'], $cart['total_price'], $tickets);
+            $c->setID($cart['id']);
             return $c;
         } catch (\PDOException $e) {
-            throw new RepositoryInternalServerError("Error getting card by id");
+            throw new RepositoryInternalServerError("Error getting cart by id");
         }
     }
 
-    public function saveCard(Card $card): string
+    public function saveCart(Cart $cart): string
     {
         try {
-            if ($card->getID() !== null) {
-                $stmt = $this->pdo_ticket->prepare("UPDATE cards SET user_id = :user_id, total_price = :total_price, state = :state WHERE id = :id");
+            if ($cart->getID() !== null) {
+                $stmt = $this->pdo_ticket->prepare("UPDATE carts SET user_id = :user_id, total_price = :total_price, state = :state WHERE id = :id");
             } else {
                 $id = Uuid::uuid4()->toString();
-                $card->setID($id);
-                $stmt = $this->pdo_ticket->prepare("INSERT INTO cards (id, user_id, total_price, state) VALUES (:id, :user_id, :total_price, :state)");
+                $cart->setID($id);
+                $stmt = $this->pdo_ticket->prepare("INSERT INTO carts (id, user_id, total_price, state) VALUES (:id, :user_id, :total_price, :state)");
             }
             $stmt->execute([
-                'id' => $card->getID(),
-                'user_id' => $card->getUserID(),
-                'total_price' => $card->getTotalPrice(),
-                'state' => $card->getState()
+                'id' => $cart->getID(),
+                'user_id' => $cart->getUserID(),
+                'total_price' => $cart->getTotalPrice(),
+                'state' => $cart->getState()
             ]);
         }catch (\PDOException $e){
-            throw new RepositoryInternalServerError("Error saving card");
+            throw new RepositoryInternalServerError("Error saving cart");
         }
 
-        return $card->getID();
+        return $cart->getID();
     }
 }

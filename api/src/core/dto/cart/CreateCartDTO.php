@@ -1,10 +1,10 @@
 <?php
 
-namespace nrv\core\dto\card;
+namespace nrv\core\dto\cart;
 
 use nrv\core\dto\DTO;
 
-class CreateCardDTO extends DTO
+class CreateCartDTO extends DTO
 {
     protected string $name, $user_id;
     protected int $price;

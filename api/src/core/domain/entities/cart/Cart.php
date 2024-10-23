@@ -1,10 +1,10 @@
 <?php
 
-namespace nrv\core\domain\entities\card;
+namespace nrv\core\domain\entities\cart;
 
 use nrv\core\domain\entities\Entity;
 
-class Card extends Entity
+class Cart extends Entity
 {
     protected string $user_id;
     protected int $total_price;

@@ -4,8 +4,8 @@ namespace nrv\core\services\ticket;
 
 use nrv\core\domain\entities\ticket\SoldTicket;
 use nrv\core\domain\entities\ticket\Ticket;
-use nrv\core\dto\card\AddTicketToCardDTO;
-use nrv\core\dto\card\CardDTO;
+use nrv\core\dto\cart\AddTicketToCartDTO;
+use nrv\core\dto\cart\CartDTO;
 use nrv\core\dto\ticket\CreateTicketDTO;
 use nrv\core\dto\ticket\SoldTicketDTO;
 use nrv\core\dto\ticket\TicketDTO;
@@ -23,10 +23,10 @@ class TicketService implements TicketServiceInterface
         $this->ticketRepository = $ticketRepository;
     }
 
-    public function addTicketToCard(AddTicketToCardDTO $dto): void
+    public function addTicketToCart(AddTicketToCartDTO $dto): void
     {
         try{
-            $this->ticketRepository->addTicketToCard($dto->ticket_id, $dto->card_id);
+            $this->ticketRepository->addTicketToCart($dto->ticket_id, $dto->card_id);
         } catch (RepositoryInternalServerError $e) {
             throw new RepositoryInternalServerError($e->getMessage());
         } catch (RepositoryEntityNotFoundException $e) {
@@ -36,10 +36,10 @@ class TicketService implements TicketServiceInterface
     }
 
 
-    public function getTicketsFromCard(string $id): array
+    public function getTicketsFromCart(string $id): array
     {
         try{
-            $tickets = $this->ticketRepository->getTicketsByCardID($id);
+            $tickets = $this->ticketRepository->getTicketsByCartID($id);
             $ticketDTOs = [];
             foreach ($tickets as $ticket) {
                 $ticketDTOs[] = new TicketDTO($ticket);
@@ -101,16 +101,16 @@ class TicketService implements TicketServiceInterface
         }
     }
 
-    public function getCardByUserId(string $userId): CardDTO
+    public function getCartByUserId(string $userId): CartDTO
     {
         try{
-            $card = $this->ticketRepository->getCardByUserId($userId);
+            $cart = $this->ticketRepository->getCartByUserID($userId);
             $t = [];
-            foreach ($card->getTickets() as $ticket) {
+            foreach ($cart->getTickets() as $ticket) {
                 $t[] = new TicketDTO($ticket);
             }
-            $card->setTickets($t);
-            return new CardDTO($card);
+            $cart->setTickets($t);
+            return new CartDTO($cart);
         }catch (RepositoryInternalServerError $e) {
             throw new RepositoryInternalServerError($e->getMessage());
         } catch (RepositoryEntityNotFoundException $e) {
@@ -118,21 +118,21 @@ class TicketService implements TicketServiceInterface
         }
     }
 
-    public function validateCard(string $cardId): CardDTO
+    public function validateCart(string $cartId): CartDTO
     {
         try{
-            $card = $this->ticketRepository->getCardById($cardId);
+            $card = $this->ticketRepository->getCartByID($cartId);
             if ($card->getState() >= 1) {
-                throw new TicketBadDataException("Card already validated");
+                throw new TicketBadDataException("Cart already validated");
             }
             $card->setState(1);
-            $this->ticketRepository->saveCard($card);
+            $this->ticketRepository->saveCart($card);
             $t = [];
             foreach ($card->getTickets() as $ticket) {
                 $t[] = new TicketDTO($ticket);
             }
             $card->setTickets($t);
-            return new CardDTO($card);
+            return new CartDTO($card);
         }catch (RepositoryInternalServerError $e) {
             throw new TicketServiceInternalServerErrorException($e->getMessage());
         } catch (RepositoryEntityNotFoundException $e) {
@@ -140,12 +140,12 @@ class TicketService implements TicketServiceInterface
         }
     }
 
-    public function validateCommand(string $cardId): CardDTO
+    public function validateCommand(string $cardId): CartDTO
     {
         try{
-            $card = $this->ticketRepository->getCardById($cardId);
+            $card = $this->ticketRepository->getCartByID($cardId);
             if ($card->getState() >= 2) {
-                throw new TicketBadDataException("Card already validated");
+                throw new TicketBadDataException("Cart already validated");
             }
             $card->setState(2);
             $t = [];
@@ -153,7 +153,7 @@ class TicketService implements TicketServiceInterface
                 $t[] = new TicketDTO($ticket);
             }
             $card->setTickets($t);
-            return new CardDTO($card);
+            return new CartDTO($card);
         }catch (RepositoryInternalServerError $e) {
             throw new TicketServiceInternalServerErrorException($e->getMessage());
         } catch (RepositoryEntityNotFoundException $e) {

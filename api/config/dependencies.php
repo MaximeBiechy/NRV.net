@@ -1,7 +1,8 @@
 <?php
 
-use nrv\application\actions\AddTicketToUserCardAction;
+use nrv\application\actions\AddTicketToUserCartAction;
 use nrv\application\actions\DisplayArtistsAction;
+use nrv\application\actions\DisplayCartAction;
 use nrv\application\actions\DisplayPartyAction;
 use nrv\application\actions\DisplayPartyByShowAction;
 use nrv\application\actions\DisplayPlaceAction;
@@ -127,7 +128,10 @@ return [
     DisplayPlacesAction::class => function (ContainerInterface $c) {
         return new DisplayPlacesAction($c->get(PlaceServiceInterface::class));
     },
-    AddTicketToUserCardAction::class => function (ContainerInterface $c) {
-        return new AddTicketToUserCardAction($c->get(TicketServiceInterface::class));
-    }
+    AddTicketToUserCartAction::class => function (ContainerInterface $c) {
+        return new AddTicketToUserCartAction($c->get(TicketServiceInterface::class));
+    },
+    DisplayCartAction::class => function (ContainerInterface $c) {
+        return new DisplayCartAction($c->get(TicketServiceInterface::class));
+    },
 ];

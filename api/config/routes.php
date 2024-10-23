@@ -2,16 +2,17 @@
 declare(strict_types=1);
 
 
-use nrv\application\actions\AddTicketToUserCardAction;
+use nrv\application\actions\AddTicketToUserCartAction;
 use nrv\application\actions\DisplayArtistAction;
 use nrv\application\actions\DisplayArtistsAction;
-use nrv\application\actions\DisplayCardAction;
+use nrv\application\actions\DisplayCartAction;
 use nrv\application\actions\DisplayPartyAction;
 use nrv\application\actions\DisplayPartyByShowAction;
 use nrv\application\actions\DisplayPlaceAction;
 use nrv\application\actions\DisplayPlacesAction;
 use nrv\application\actions\SigninAction;
 use nrv\application\actions\SignupAction;
+use nrv\application\actions\ValidateCardAction;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use nrv\application\actions\DisplayShowAction;
@@ -44,9 +45,9 @@ return function(\Slim\App $app):\Slim\App {
     $app->get('/places/{ID-PLACE}[/]', DisplayPlaceAction::class)->setName('places_id');
 
     // Tickets
-    $app->patch('/cards/{ID-CARD}/[/]', AddTicketToUserCardAction::class)->setName('cards_id');
+    $app->patch('/carts/{ID-CART}/[/]', AddTicketToUserCartAction::class)->setName('carts_id');
 
-    $app->get('/users/{ID-USER}/card[/]', DisplayCardAction::class)->setName('users_id_card');
+    $app->get('/users/{ID-USER}/cart[/]', DisplayCartAction::class)->setName('users_id_cart');
 
     return $app;
 };

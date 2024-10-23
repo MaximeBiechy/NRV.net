@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Routing\RouteContext;
 
-class DisplayCardAction extends AbstractAction
+class DisplayCartAction extends AbstractAction
 {
     private TicketServiceInterface $ticketServiceInterface;
 
@@ -20,18 +20,18 @@ class DisplayCardAction extends AbstractAction
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
         $user_id = $args['ID-USER'];
-        $card = $this->ticketServiceInterface->getCardByUserId($user_id);
+        $cart = $this->ticketServiceInterface->getCartByUserId($user_id);
         $routeContext = RouteContext::fromRequest($rq);
         $routeParser = $routeContext->getRouteParser();
-        $urlSelf = $routeParser->urlFor('users_id_card', ['ID-USER' => $user_id]);
+        $urlSelf = $routeParser->urlFor('users_id_cart', ['ID-USER' => $user_id]);
         $response = [
             "type" => "resource",
             "locale" => "fr-FR",
-            "card" => [
-                "id" => $card->id,
-                "user_id" => $card->user_id,
-                "state" => $card->state,
-                "tickets" => $card->tickets,
+            "cart" => [
+                "id" => $cart->id,
+                "user_id" => $cart->user_id,
+                "state" => $cart->state,
+                "tickets" => $cart->tickets,
                 "links" => [
                     "self" => ['href' => $urlSelf]
                 ]

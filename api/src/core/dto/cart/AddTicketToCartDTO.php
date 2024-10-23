@@ -1,10 +1,10 @@
 <?php
 
-namespace nrv\core\dto\card;
+namespace nrv\core\dto\cart;
 
 use nrv\core\dto\DTO;
 
-class AddTicketToCardDTO extends DTO
+class AddTicketToCartDTO extends DTO
 {
     protected string $card_id, $ticket_id;
 
