@@ -354,8 +354,8 @@ VALUES ('ef54b2c6-15bb-498f-9118-064db56f611b', 'Birthday Bash ticket', 30,
         '669d5162-84b0-4edc-b043-3ccfa71eb0a9', (SELECT id FROM public.tickets WHERE name = 'Music Fiesta ticket'),
         (SELECT party_id FROM public.tickets WHERE name = 'Music Fiesta ticket'));
 
-INSERT INTO public.cards (id, user_id, total_price)
-VALUES ('d85544dd-c85b-4f9b-a600-52f91388d6d0', '669d5162-84b0-4edc-b043-3ccfa71eb0a9', 80);
+INSERT INTO public.cards (id, user_id, total_price, state)
+VALUES ('d85544dd-c85b-4f9b-a600-52f91388d6d0', '669d5162-84b0-4edc-b043-3ccfa71eb0a9', 80, 0);
 
 INSERT INTO public.card_content (card_id, ticket_id, quantity)
 VALUES ((SELECT id FROM public.cards WHERE user_id = '669d5162-84b0-4edc-b043-3ccfa71eb0a9'),
