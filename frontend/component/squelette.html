@@ -44,8 +44,9 @@
 
     </ul>
 
-  <div class="container">
+  <div class="container" id="templateShow">
 
+    {{#if shows.length}}
     {{#each shows}}
     <article class="card">
       <img src="{{this.images.0.self.href}}" alt="1" class="card__img">
@@ -63,8 +64,9 @@
       </div>
     </article>
     {{/each}}
-
+    {{else}}
     <p class="error-message">Aucun spectacle disponible pour le moment.</p>
+    {{/if}}
 
   </div>
 </section>
