@@ -10,11 +10,15 @@ const route = (event) => {
 }
 
 const routes ={
-    404: "/frontend/component/404.html",
-    "/frontend/": "/component/squelette.html",
-    "/frontend/Login": "/component/login.html",
-    "/frontend/Shows": "/component/shows.html",
-    "/frontend/showInfo": "/frontend/component/showInfo.html",
+    404: "/component/404.html",
+    "/": "/component/squelette.html",
+    "/Login": "/component/login.html",
+    "/Shows": "/component/shows.html",
+    "/showInfo": "/component/showInfo.html",
+}
+
+if (window.hasReloaded){
+    
 }
 
 const handleLocation =async () => {
