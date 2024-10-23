@@ -1,26 +1,33 @@
-
-const select_places = document.querySelector('#places');
-const select_style = document.querySelector('#styles');
-const calendar = document.querySelector('#calendar');
+const select_places = document.querySelector("#places");
+const select_style = document.querySelector("#styles");
+const calendar = document.querySelector("#calendar");
 
 async function filterPlace(place) {
-
-  if (place === 'default') {
-    place = '';}
+  if (place === "default") {
+    place = "";
+  }
 
   try {
-    const response = await fetch(`http://localhost:21000/shows?place=${place}`, { headers: { 'Origin': 'http://localhost' }});
+    const response = await fetch(
+      `http://localhost:21000/shows?place=${place}`,
+      { headers: { Origin: "http://localhost" } }
+    );
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error("Network response was not ok");
     }
 
     const data = await response.json();
     console.log(data);
 
     for (let i = 0; i < data.shows.length; i++) {
-      data.shows[i].date.date = new Date(data.shows[i].date.date).toLocaleDateString('fr-FR', { weekday: 'short', day: '2-digit', month: '2-digit' });
-  }
-    
+      data.shows[i].date.date = new Date(
+        data.shows[i].date.date
+      ).toLocaleDateString("fr-FR", {
+        weekday: "short",
+        day: "2-digit",
+        month: "2-digit",
+      });
+    }
 
     // Handlebars
     var templateSource = `
@@ -48,26 +55,36 @@ async function filterPlace(place) {
     var template = Handlebars.compile(templateSource);
     var filledTemplate = template(data);
 
-    document.querySelector('#templateShow').innerHTML = filledTemplate;
+    document.querySelector("#templateShow").innerHTML = filledTemplate;
   } catch (error) {
-    console.error('There has been a problem with your fetch operation:', error);
+    console.error("There has been a problem with your fetch operation:", error);
   }
 }
 
 async function filterStyle(style) {
-  if (style === 'default') {
-    style = '';}
+  if (style === "default") {
+    style = "";
+  }
   try {
-    const response = await fetch(`http://localhost:21000/shows?style=${style}`, { headers: { 'Origin': 'http://localhost' }});
+    const response = await fetch(
+      `http://localhost:21000/shows?style=${style}`,
+      { headers: { Origin: "http://localhost" } }
+    );
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error("Network response was not ok");
     }
 
     const data = await response.json();
     console.log(data);
     for (let i = 0; i < data.shows.length; i++) {
-      data.shows[i].date.date = new Date(data.shows[i].date.date).toLocaleDateString('fr-FR', { weekday: 'short', day: '2-digit', month: '2-digit' });
-  }
+      data.shows[i].date.date = new Date(
+        data.shows[i].date.date
+      ).toLocaleDateString("fr-FR", {
+        weekday: "short",
+        day: "2-digit",
+        month: "2-digit",
+      });
+    }
 
     // Handlebars
     var templateSource = `
@@ -92,7 +109,6 @@ async function filterStyle(style) {
       {{/if}}
     </div>
     `;
-
 
     var template = Handlebars.compile(templateSource);
 
@@ -102,28 +118,37 @@ async function filterStyle(style) {
 
     console.log(filledTemplate);
 
-    document.querySelector('#templateShow').innerHTML = filledTemplate;
-
+    document.querySelector("#templateShow").innerHTML = filledTemplate;
   } catch (error) {
-    console.error('There has been a problem with your fetch operation:', error);
+    console.error("There has been a problem with your fetch operation:", error);
   }
 }
 
-
 async function filterDate(date) {
-  console.log('Fonction FilterDate');
-  
-  if (date === 'default') {
-    date = '';}
+  console.log("Fonction FilterDate");
+
+  if (date === "default") {
+    date = "";
+  }
   try {
-    const response = await fetch(`http://localhost:21000/shows?date=${date}`, { headers: { 'Origin': 'http://localhost' }});
+    const response = await fetch(`http://localhost:21000/shows?date=${date}`, {
+      headers: { Origin: "http://localhost" },
+    });
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error("Network response was not ok");
     }
 
     const data = await response.json();
     console.log(data);
-
+    for (let i = 0; i < data.shows.length; i++) {
+      data.shows[i].date.date = new Date(
+        data.shows[i].date.date
+      ).toLocaleDateString("fr-FR", {
+        weekday: "short",
+        day: "2-digit",
+        month: "2-digit",
+      });
+    }
     // Handlebars
     var templateSource = `
     <div class="container" id="templateShow">
@@ -149,15 +174,15 @@ async function filterDate(date) {
     `;
     var template = Handlebars.compile(templateSource);
     var filledTemplate = template(data);
-    document.querySelector('#templateShow').innerHTML = filledTemplate;
+    document.querySelector("#templateShow").innerHTML = filledTemplate;
   } catch (error) {
-    console.error('There has been a problem with your fetch operation:', error);
+    console.error("There has been a problem with your fetch operation:", error);
   }
 }
 
 // Section des events :
 function addChangeListener(element, callback) {
-  element.addEventListener('change', function() {
+  element.addEventListener("change", function () {
     let current_value = element.value;
     console.log(current_value);
     callback(current_value);
