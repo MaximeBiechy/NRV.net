@@ -14,7 +14,6 @@ async function login() {
         }
 
         const data = await response.json();
-        console.log(data);
 
         
         localStorage.setItem('authToken', data.token);

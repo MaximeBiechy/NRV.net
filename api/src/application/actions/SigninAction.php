@@ -14,10 +14,10 @@ use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Exception\HttpNotFoundException;
+use Slim\Exception\HttpUnauthorizedException;
 
 class SigninAction extends AbstractAction
 {
-
     private AuthProviderInterface $authProvider;
 
     public function __construct(AuthProviderInterface $authProvider)
@@ -27,13 +27,12 @@ class SigninAction extends AbstractAction
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        $data = $rq->getParsedBody();
-        if (!isset($data['email']) || !isset($data['password'])) {
-            throw new HttpBadRequestException($rq, 'Missing email or password');
-        }
 
-        $email = $data['email'];
-        $password = $data['password'];
+        $token = $rq->getHeader('Authorization')[0] ?? throw new HttpUnauthorizedException($rq, 'missing Authorization Header');
+        $authHeader = sscanf($token, "Basic %s")[0] ;
+
+        $decodedAuth = base64_decode($authHeader);
+        list($email, $password) = explode(':', $decodedAuth, 2);
 
         try {
             $authDTO = $this->authProvider->signin(new CredentialsDTO($email, $password));
