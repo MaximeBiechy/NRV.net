@@ -6,15 +6,15 @@ async function login() {
 
     try {
         const response = await fetch('http://localhost:21000/signin', { method: 'POST',
-            headers: {'Origin': 'http://localhost:5500', 'Content-Type': 'application/json'},
-            body: JSON.stringify({ email: username, password: password })});
+            headers: {'Origin': 'http://localhost:5500','Authorization': 'Basic ' + btoa(username + ':' + password)} })
+          ;
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
 
         const data = await response.json();
-
+        
         
         localStorage.setItem('authToken', data.token);
 

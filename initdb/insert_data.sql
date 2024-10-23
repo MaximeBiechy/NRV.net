@@ -327,10 +327,10 @@ INSERT INTO public.party (id, name, theme, date, begin, place_id, show1_id, show
 VALUES ('a0b7566b-6fdd-4e34-bbab-41d882de9c07', 'Birthday Bash', 'Anniversaire', '2024-12-25 20:00:00',
         '2024-12-25 21:00:00',
         '340cf1fe-6344-4e93-ab6a-347c7e461d36', '14808e51-d1b6-4539-8596-66a9e39e01c9',
-        '14808e51-d1b6-4539-8596-66a9e39e01c9', NULL, 30),
+        '05cf1397-1bf3-4227-aa5a-063c6b3e14e8', NULL, 30),
        ('8243ea21-155b-4ac9-b75e-f66fc142c2ef', 'Music Fiesta', 'Musique', '2024-11-01 18:00:00', '2024-11-01 19:00:00',
         'b6b101d5-563e-4530-a3bb-43be12ea1053',
-        'df220d31-9506-40f5-ad71-dd0a0ac48c52', NULL, NULL, 25),
+        '2ccfe7d7-adaf-492a-abb4-78065bd69ae6', NULL, NULL, 25),
        ('8a03e604-ed5f-457f-82c3-11d35e54d496', 'Hola Amigo', 'Fiesta', '2024-10-01 18:00:00', '2024-10-01 19:00:00',
         'df23e061-1a1b-4344-ac9c-5357465f5c5b',
         '4105771b-8e04-4547-a1b4-4dd97564ddfd', NULL, NULL, 25);
