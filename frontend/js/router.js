@@ -23,6 +23,15 @@ const handleLocation =async () => {
     const html = await fetch(route).then((data) => data.text());
     document.getElementById("main-page").innerHTML = html;
 
+        // Appeler fetchShowInfo si l'utilisateur navigue vers la page showInfo
+        if (path === "/ShowInfo") {
+            const urlParams = new URLSearchParams(window.location.search);
+            const showId = urlParams.get('id');
+            if (showId) {
+                await fetchShowInfo(showId);
+            }
+        }
+
 
     const scripts = document.querySelectorAll('.main-page-script');
 
