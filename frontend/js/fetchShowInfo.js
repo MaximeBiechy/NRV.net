@@ -22,8 +22,6 @@ async function fetchShowInfo(id) {
     }
 }
 
-this.localStorage.getItem('id_show', id);
-
+    this.localStorage.getItem('id_show', id);
             console.log(id);
-
-fetchShowInfo(id);
+    fetchShowInfo(id);

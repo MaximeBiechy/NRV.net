@@ -4,6 +4,10 @@ const select_style = document.querySelector('#styles');
 const calendar = document.querySelector('#calendar');
 
 async function filterPlace(place) {
+
+  if (place === 'default') {
+    place = '';}
+
   try {
     const response = await fetch(`http://localhost:21000/shows?place=${place}`, { headers: { 'Origin': 'http://localhost' }});
     if (!response.ok) {
@@ -51,6 +55,8 @@ async function filterPlace(place) {
 }
 
 async function filterStyle(style) {
+  if (style === 'default') {
+    style = '';}
   try {
     const response = await fetch(`http://localhost:21000/shows?style=${style}`, { headers: { 'Origin': 'http://localhost' }});
     if (!response.ok) {
@@ -59,6 +65,9 @@ async function filterStyle(style) {
 
     const data = await response.json();
     console.log(data);
+    for (let i = 0; i < data.shows.length; i++) {
+      data.shows[i].date.date = new Date(data.shows[i].date.date).toLocaleDateString('fr-FR', { weekday: 'short', day: '2-digit', month: '2-digit' });
+  }
 
     // Handlebars
     var templateSource = `
@@ -100,8 +109,12 @@ async function filterStyle(style) {
   }
 }
 
+
 async function filterDate(date) {
   console.log('Fonction FilterDate');
+  
+  if (date === 'default') {
+    date = '';}
   try {
     const response = await fetch(`http://localhost:21000/shows?date=${date}`, { headers: { 'Origin': 'http://localhost' }});
     if (!response.ok) {
