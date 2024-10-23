@@ -24,7 +24,6 @@ class UpdateCartAction extends AbstractAction
     {
         $param = $rq->getQueryParams();
         $card_id = $args["ID-CART"];
-        $paramState = $param['state'];
         if (!isset($param['state'])) {
             throw new HttpBadRequestException($rq, "Missing state parameter");
         }
