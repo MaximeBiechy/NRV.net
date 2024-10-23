@@ -11,47 +11,50 @@
 <body>
 
 <main id="content">
+  <div class="loader">
+    <div class="loader__spinner"></div>
+  </div>
 <section>
   <h2 class="section__title">NRV.net</h2>
     <ul class="filters">
-      <select name="Lieux" value="eeee" id="">
-        <option value="">Lieux</option>
+      <select name="places" id="places">
+        <option value="default">-- Lieux --</option>
+        <option value="Stade de France">Stade de France</option>
+        <option value="Zénith Paris">Zénith Paris</option>
+        <option value="AccorHotels Arena">AccorHotels Arena</option>
       </select>
 
-      <select name="Date" id="">
-        <option value="">Date</option>
+      <select name="style" id="styles">
+        <option value="default">-- Style --</option>
+        <option value="Electro">Electro</option>
+        <option value="Pop">Pop</option>
+        <option value="Rock">Rock</option>
+        <option value="House">House</option>
+        <option value="Synthpop">Synthpop</option>
+        <option value="Downtempo">Downtempo</option>
+        <option value="Classical">Classical</option>
+        <option value="Chanson">Chanson</option>
+        <option value="Hip Hop">Hip Hop</option>
+        <option value="Rap">Rap</option>
+        <option value="R&B">R&B</option>
+        <option value="Metal">Metal</option>
       </select>
 
-      <select name="Style" id="">
-        <option value="">Style</option>
-      </select>
+      <input type="date" id="calendar" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
+
     </ul>
 
   <div class="container">
-    <article class="card">
-			<img src="https://images.pexels.com/photos/3807142/pexels-photo-3807142.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="1" class="card__img">
-			<div class="card_head">
-				<p>VEN.<br><span class="bold">23/05</span></p>
-				<p class="place">Arène<br> Marchand</p>
-			</div>
-			<div class="card_body">
-				<h3 class="card_title">Singer Name</h3>
-				<div class="card_tags">
-					<p class="tag RnB">RnB</p>
-					<p class="tag Rap">Rap</p>
-					<p class="tag Metal">Metal,Hard Rock</p>
-				</div>
-			</div>
-		</article>
 
+    {{#each shows}}
     <article class="card">
-      <img src="https://images.pexels.com/photos/3807142/pexels-photo-3807142.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="1" class="card__img">
+      <img src="{{this.images.0.self.href}}" alt="1" class="card__img">
       <div class="card_head">
-        <p>VEN.<br><span class="bold">23/05</span></p>
+        <p>VEN.<br><span class="bold">{{ this.date.date }}</span></p>
         <p class="place">Arène<br> Marchand</p>
       </div>
       <div class="card_body">
-        <h3 class="card_title">Singer Name</h3>
+        <h3 class="card_title">{{ this.title }}</h3>
         <div class="card_tags">
           <p class="tag RnB">RnB</p>
           <p class="tag Rap">Rap</p>
@@ -59,38 +62,10 @@
         </div>
       </div>
     </article>
+    {{/each}}
 
-    <article class="card">
-      <img src="https://images.pexels.com/photos/3807142/pexels-photo-3807142.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="1" class="card__img">
-      <div class="card_head">
-        <p>VEN.<br><span class="bold">23/05</span></p>
-        <p class="place">Arène<br> Marchand</p>
-      </div>
-      <div class="card_body">
-        <h3 class="card_title">Singer Name</h3>
-        <div class="card_tags">
-          <p class="tag RnB">RnB</p>
-          <p class="tag Rap">Rap</p>
-          <p class="tag Metal">Metal,Hard Rock</p>
-        </div>
-      </div>
-    </article>
+    <p class="error-message">Aucun spectacle disponible pour le moment.</p>
 
-    <article class="card">
-      <img src="https://images.pexels.com/photos/3807142/pexels-photo-3807142.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="1" class="card__img">
-      <div class="card_head">
-        <p>VEN.<br><span class="bold">23/05</span></p>
-        <p class="place">Arène<br> Marchand</p>
-      </div>
-      <div class="card_body">
-        <h3 class="card_title">Singer Name</h3>
-        <div class="card_tags">
-          <p class="tag RnB">RnB</p>
-          <p class="tag Rap">Rap</p>
-          <p class="tag Metal">Metal,Hard Rock</p>
-        </div>
-      </div>
-    </article>
   </div>
 </section>
 
@@ -162,5 +137,7 @@
     </div>
 </section>
 </main>
+<script type="module" src="../js/filters.js" class="main-page-script"></script>
+<script type="module" src="../js/fetchShows.js" class="main-page-script"></script>
 </body>
 </html>
