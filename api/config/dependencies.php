@@ -1,6 +1,7 @@
 <?php
 
 use nrv\application\actions\AddTicketToUserCartAction;
+use nrv\application\actions\DisplayArtistAction;
 use nrv\application\actions\DisplayArtistsAction;
 use nrv\application\actions\DisplayCartAction;
 use nrv\application\actions\DisplayPartyAction;
@@ -9,6 +10,8 @@ use nrv\application\actions\DisplayPlaceAction;
 use nrv\application\actions\DisplayPlacesAction;
 use nrv\application\actions\DisplayShowAction;
 use nrv\application\actions\DisplayShowsAction;
+use nrv\application\actions\DisplaySoldTicketsByUserAction;
+use nrv\application\actions\DisplaySpectatorGaugeAction;
 use nrv\application\actions\SigninAction;
 use nrv\application\actions\SignupAction;
 use nrv\application\actions\UpdateCartAction;
@@ -21,12 +24,20 @@ use nrv\core\repositoryInterfaces\ShowRepositoryInterface;
 use nrv\core\repositoryInterfaces\TicketRepositoryInterface;
 use nrv\core\services\auth\AuthentificationService;
 use nrv\core\services\auth\AuthentificationServiceInterface;
+use nrv\core\services\party\AuthzPartyService;
+use nrv\core\services\party\AuthzPartyServiceInterface;
+use nrv\core\services\place\AuthzPlaceService;
+use nrv\core\services\place\AuthzPlaceServiceInterface;
 use nrv\core\services\place\PlaceService;
 use nrv\core\services\place\PlaceServiceInterface;
+use nrv\core\services\show\AuthzShowService;
+use nrv\core\services\show\AuthzShowServiceInterface;
 use nrv\core\services\show\ShowService;
 use nrv\core\services\show\ShowServiceInterface;
 use nrv\core\services\party\PartyServiceInterface;
 use nrv\core\services\party\PartyService;
+use nrv\core\services\ticket\AuthzTicketService;
+use nrv\core\services\ticket\AuthzTicketServiceInterface;
 use nrv\core\services\ticket\TicketService;
 use nrv\core\services\ticket\TicketServiceInterface;
 use nrv\infrastructure\db\PDOAuthRepository;
@@ -100,6 +111,18 @@ return [
     TicketServiceInterface::class => function (ContainerInterface $c) {
         return new TicketService($c->get(TicketRepositoryInterface::class));
     },
+    AuthzPartyServiceInterface::class => function (ContainerInterface $c) {
+        return new AuthzPartyService($c->get(PartyRepositoryInterface::class), $c->get(AuthRepositoryInterface::class));
+    },
+    AuthzPlaceServiceInterface::class => function (ContainerInterface $c) {
+        return new AuthzPlaceService($c->get(PlaceRepositoryInterface::class), $c->get(AuthRepositoryInterface::class));
+    },
+    AuthzShowServiceInterface::class => function (ContainerInterface $c) {
+        return new AuthzShowService($c->get(ShowRepositoryInterface::class), $c->get(AuthRepositoryInterface::class));
+    },
+    AuthzTicketServiceInterface::class => function (ContainerInterface $c) {
+        return new AuthzTicketService($c->get(TicketRepositoryInterface::class), $c->get(AuthRepositoryInterface::class));
+    },
 
     //Actions
     DisplayShowsAction::class => function (ContainerInterface $c) {
@@ -137,5 +160,14 @@ return [
     },
     UpdateCartAction::class => function (ContainerInterface $c) {
         return new UpdateCartAction($c->get(TicketServiceInterface::class));
+    },
+    DisplaySpectatorGaugeAction::class => function (ContainerInterface $c) {
+        return new DisplaySpectatorGaugeAction($c->get(PartyServiceInterface::class), $c->get(TicketServiceInterface::class));
+    },
+    DisplaySoldTicketsByUserAction::class => function (ContainerInterface $c) {
+        return new DisplaySoldTicketsByUserAction($c->get(TicketServiceInterface::class));
+    },
+    DisplayArtistAction::class => function (ContainerInterface $c) {
+        return new DisplayArtistAction($c->get(ShowServiceInterface::class));
     },
 ];

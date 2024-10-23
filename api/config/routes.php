@@ -11,6 +11,7 @@ use nrv\application\actions\DisplayPartyAction;
 use nrv\application\actions\DisplayPartyByShowAction;
 use nrv\application\actions\DisplayPlaceAction;
 use nrv\application\actions\DisplayPlacesAction;
+use nrv\application\actions\DisplaySpectatorGaugeAction;
 use nrv\application\actions\SigninAction;
 use nrv\application\actions\SignupAction;
 use nrv\application\actions\UpdateCartAction;
@@ -31,6 +32,7 @@ return function(\Slim\App $app):\Slim\App {
     $app->get('/shows/{ID-SHOW}[/]', DisplayShowAction::class)->setName('shows_id');
     $app->get('/shows/{ID-SHOW}/party[/]', DisplayPartyByShowAction::class)->setName('shows_id_party');
 
+    $app->get('/parties/gauge[/]', DisplaySpectatorGaugeAction::class)->setName('parties_gauge');
     $app->get('/parties/{ID-PARTY}[/]', DisplayPartyAction::class)->setName('parties_id');
 
     // Compte et profil d'utilisateur
@@ -51,6 +53,7 @@ return function(\Slim\App $app):\Slim\App {
 
     $app->get('/users/{ID-USER}/cart[/]', DisplayCartAction::class)->setName('users_id_cart');
     $app->get('/users/{ID-USER}/sold_tickets[/]', DisplaySoldTicketsByUserAction::class)->setName('users_id_sold_tickets');
+
 
 
     return $app;

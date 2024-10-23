@@ -265,4 +265,16 @@ class PDOTicketRepository implements TicketRepositoryInterface
             throw new RepositoryInternalServerError("Error getting tickets by party id");
         }
     }
+
+    public function getNbSoldTicketsByPartyID(string $partyId): int
+    {
+        try {
+            $stmt = $this->pdo_ticket->prepare("SELECT COUNT(*) FROM soldtickets WHERE party_id = :party_id");
+            $stmt->execute(['party_id' => $partyId]);
+            $nb = $stmt->fetch();
+            return $nb[0];
+        } catch (\PDOException $e) {
+            throw new RepositoryInternalServerError("Error getting number of sold tickets by party id");
+        }
+    }
 }

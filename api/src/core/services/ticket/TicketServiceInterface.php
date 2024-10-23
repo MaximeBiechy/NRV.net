@@ -21,4 +21,5 @@ interface TicketServiceInterface
     public function payCart(string $cartId): CartDTO;
     public function getTicketsByPartyId(string $partyId): array;
     public function getSoldTicketsByUserId(string $userId): array;
+    public function getNbSoldTicketsByPartyId(string $partyId): int;
 }
