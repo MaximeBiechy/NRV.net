@@ -1,21 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
 .genres {
   align-items: center;
   color: #151515;
@@ -81,6 +66,28 @@
   height: 10vh;
   margin: 0 1em;
 }
+.navbar .navbar_right {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+.navbar .navbar_right .menu {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+.navbar .navbar_right .menu li {
+  list-style: none;
+}
+.navbar .navbar_right .menu li a {
+  color: #FFF;
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.navbar .navbar_right .menu li a:hover {
+  color: white;
+}
 
 .card {
   color: #FFF;
@@ -109,7 +116,8 @@
   z-index: -1;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 20px;
 }
 .card .card_head {
@@ -246,7 +254,8 @@ section h2 {
   border-radius: 2em;
   width: 175px;
   height: 350px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .cart .cart_item .cart_item_desc_title {
   display: flex;
@@ -299,8 +308,10 @@ section h2 {
   border-radius: 16px;
   font-family: "Instrument Serif", serif;
   font-size: 1em;
+  height: -moz-fit-content;
   height: fit-content;
   padding: 0.1em 2em;
+  width: -moz-fit-content;
   width: fit-content;
 }
 .cart .cart_payment .cart_payment_calculus {
@@ -423,6 +434,4 @@ body {
   font-family: "Instrument Serif", serif;
   font-size: 1.6rem;
   line-height: 1.5;
-}
-
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */

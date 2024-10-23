@@ -1,6 +1,6 @@
 @import "config";
 
-.navbar{
+.navbar {
   align-items: center;
   color: $text_color;
   display: flex;
@@ -8,4 +8,30 @@
   justify-content: space-between;
   height: 10vh;
   margin: 0 1em;
+
+  .navbar_right {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    
+    .menu{
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+      li{
+        list-style: none;
+        a {
+          color: $text_color;
+          font-size: 1.2rem;
+          text-decoration: none;
+          transition: color 0.3s;
+
+        &:hover {
+          color: adjust-color($text_color, $lightness: 0.5);
+          }
+        }
+      }
+    }
+  }
 }
+

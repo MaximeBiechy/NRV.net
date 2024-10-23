@@ -1,29 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>NRV.net</title>
-  <link rel="stylesheet" href="css/style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
-  <script src="https://kit.fontawesome.com/596072d93b.js" crossorigin="anonymous"></script>   <!-- Font Awesome -->
-</head>
-<body>
-<div class="loader">
-  <span class="loader__spinner"></span>
-</div>
-<header>
-  <nav>
-    <div class="navbar">
-      <h1>NancyRockVibraaation</h1>
-      <i class="fa-solid fa-cart-shopping"></i>
-    </div>
-  </nav>
-</header>
+
+
 <section>
   <h2>Les Spectacles Disponibles</h2>
   <p>Quoi écoouuter ?</p>
   
-  <div class="container shows"> 
+  <div class="container" id="templateShow"> 
 
       {{#each shows}}
 <a href="./showInfo.html?id={{this.id}}">
@@ -44,14 +25,15 @@
       </article>
       </a>
       {{/each}}
+
   </div>
 </section>
 
 <section>
   <h2>Artistes :</h2>
 
-  <div class="container artists">
-    {{#each artists}}
+  <div class="container" id="templateArtist">
+    {{#each shows}}
     <article class="card">
       <img src="./images/{{this.image.self.href}}" alt="1" class="card_img">
       <div class="card_head">
@@ -68,6 +50,6 @@
 
 </section>
 
-<script type="module" src="./js/fetches.js"></script>
-</body>
-</html>
+<script type="module" src="./../js/fetchArtists.js" defer></script>
+<script type="module" src="./../js/fetchShows.js" defer></script>
+

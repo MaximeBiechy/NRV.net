@@ -3,169 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <title>NRV.net</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="scss/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" defer></script>
+  <script src="./js/router.js" defer></script>
+  <script src="./js/menuBurger.js" defer></script>
   <script src="https://kit.fontawesome.com/596072d93b.js" crossorigin="anonymous"></script>   <!-- Font Awesome -->
 </head>
 <body>
-<header>
-  <nav>
-    <div class="navbar">
-      <h1>NancyRockVibraaation</h1>
-      <i class="fa-solid fa-cart-shopping"></i>
-    </div>
-  </nav>
-</header>
-
-<section>
-  <h2 class="section__title">NRV.net</h2>
-    <ul class="filters">
-      <select name="Lieux" value="eeee" id="">
-        <option value="">Lieux</option>
-      </select>
-
-      <select name="Date" id="">
-        <option value="">Date</option>
-      </select>
-
-      <select name="Style" id="">
-        <option value="">Style</option>
-      </select>
-    </ul>
-
-  <div class="container">
-    <article class="card">
-			<img src="https://images.pexels.com/photos/3807142/pexels-photo-3807142.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="1" class="card__img">
-			<div class="card_head">
-				<p>VEN.<br><span class="bold">23/05</span></p>
-				<p class="place">Arène<br> Marchand</p>
-			</div>
-			<div class="card_body">
-				<h3 class="card_title">Singer Name</h3>
-				<div class="card_tags">
-					<p class="tag RnB">RnB</p>
-					<p class="tag Rap">Rap</p>
-					<p class="tag Metal">Metal,Hard Rock</p>
-				</div>
-			</div>
-		</article>
-
-    <article class="card">
-      <img src="https://images.pexels.com/photos/3807142/pexels-photo-3807142.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="1" class="card__img">
-      <div class="card_head">
-        <p>VEN.<br><span class="bold">23/05</span></p>
-        <p class="place">Arène<br> Marchand</p>
-      </div>
-      <div class="card_body">
-        <h3 class="card_title">Singer Name</h3>
-        <div class="card_tags">
-          <p class="tag RnB">RnB</p>
-          <p class="tag Rap">Rap</p>
-          <p class="tag Metal">Metal,Hard Rock</p>
+  <header id="root">
+    <nav id="main-nav">
+      <div class="navbar">
+        <h1>NancyRockVibraaation</h1>
+        <div class="navbar_right">
+          <ul class="menu">
+            <li><a href="/frontend/" onclick="route()">Home</a></li>
+            <li><a href="/frontend/Shows" onclick="route()">Shows</a></li>
+            <li><a href="/frontend/Info" onclick="route()">Parties</a>
+            <li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
+          </ul>
         </div>
-      </div>
-    </article>
-
-    <article class="card">
-      <img src="https://images.pexels.com/photos/3807142/pexels-photo-3807142.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="1" class="card__img">
-      <div class="card_head">
-        <p>VEN.<br><span class="bold">23/05</span></p>
-        <p class="place">Arène<br> Marchand</p>
-      </div>
-      <div class="card_body">
-        <h3 class="card_title">Singer Name</h3>
-        <div class="card_tags">
-          <p class="tag RnB">RnB</p>
-          <p class="tag Rap">Rap</p>
-          <p class="tag Metal">Metal,Hard Rock</p>
         </div>
-      </div>
-    </article>
+        </nav>
+  </header>
 
-    <article class="card">
-      <img src="https://images.pexels.com/photos/3807142/pexels-photo-3807142.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="1" class="card__img">
-      <div class="card_head">
-        <p>VEN.<br><span class="bold">23/05</span></p>
-        <p class="place">Arène<br> Marchand</p>
-      </div>
-      <div class="card_body">
-        <h3 class="card_title">Singer Name</h3>
-        <div class="card_tags">
-          <p class="tag RnB">RnB</p>
-          <p class="tag Rap">Rap</p>
-          <p class="tag Metal">Metal,Hard Rock</p>
-        </div>
-      </div>
-    </article>
+  <div id="main-page">
+
   </div>
-</section>
-
-  <!--Genres-->
-  <section>
-    <h2>Et par style ?</h2>
-  <div class="container">
-
-    <div class="genres">
-      <div class="genre_card rnb">
-        <p>RnB</p>
-      </div>
-
-      <div class="genre_card rap">
-        <p>Rap</p>
-      </div>
-
-      <div class="genre_card soul">
-        <p>Soul</p>
-      </div>
-
-      <div class="genre_card pop">
-        <p>Pop</p>
-      </div>
-
-      <div class="genre_card rock">
-        <p>Rock</p>
-      </div>
-
-      <div class="genre_card metal">
-        <p>Metal</p>
-      </div>
-    </div>
-  </div>
-</section>
-  <!--Panier-->
-  <section>
-    <h2>Votre panier :</h2>
-  <div class="container">
-    <div class="cart">
-        <div class="cart_item">
-          <img src="./assets/img/singer.jpg" alt="Chanteur"/>
-          <div class="cart_item_desc_title">
-            <div class="cart_item_title_desc">
-              <p>Nom</p>
-              <p>Prix</p>
-            </div>
-            <div class="cart_item_desc">
-              <div class="cart_item_options">
-                <span class="cart_item_options_title">Soirée Lorem Ipsum</span>
-                <span class="cart_item_options_date">Samedi 23 Mai 2024.</span>
-                <span class="cart_item_options_type">1x ticket - All pass</span>
-              </div>
-              <p class="cart_item_price">25.00€ HT</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="cart_payment">
-          <div class="cart_payment_calculus">
-            <p>Sous-total :</p>
-            <p>TTC :</p>
-            <span>Total :</span>
-          </div>
-          <button> >Payer</button>
-        </div>
-
-      </div>
-    </div>
-</section>
-
+  
 </body>
 </html>

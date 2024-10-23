@@ -7,12 +7,15 @@ async function fetchArtists() {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
+      console.log(response);
       const data = await response.json();
-      var template = Handlebars.compile(document.querySelector('.artists').innerHTML);
-      var filledTemplate = template(data);
-      document.querySelector('.artists').innerHTML = filledTemplate;
-  
-        loader.style.display = 'none';
+        var templateSource = document.querySelector('#templateArtist').innerHTML
+        var template = Handlebars.compile(templateSource);
+        var filledTemplate = template(data);
+        
+        document.querySelector('#templateArtist').innerHTML = filledTemplate;   
+
+        loader.style.display = 'none'; 
   
     }
     catch (error) {
