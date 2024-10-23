@@ -13,6 +13,11 @@ async function filterPlace(place) {
     const data = await response.json();
     console.log(data);
 
+    for (let i = 0; i < data.shows.length; i++) {
+      data.shows[i].date.date = new Date(data.shows[i].date.date).toLocaleDateString('fr-FR', { weekday: 'short', day: '2-digit', month: '2-digit' });
+  }
+    
+
     // Handlebars
     var templateSource = `
     <div class="container" id="templateShow">
@@ -21,8 +26,8 @@ async function filterPlace(place) {
       <article class="card">
       <img src="{{this.images.0.self.href}}" alt="1" class="card__img">
       <div class="card_head">
-        <p>VEN.<br><span class="bold">{{ this.date.date }}</span></p>
-        <p class="place">Arène<br> Marchand</p>
+        <p><span class="bold">{{ this.date.date }}</span></p>
+        <p class="place"></p>
       </div>
       <div class="card_body">
         <h3 class="card_title">{{ this.title }}</h3>
@@ -63,8 +68,8 @@ async function filterStyle(style) {
       <article class="card">
       <img src="{{this.images.0.self.href}}" alt="1" class="card__img">
       <div class="card_head">
-        <p>VEN.<br><span class="bold">{{ this.date.date }}</span></p>
-        <p class="place">Arène<br> Marchand</p>
+        <p><span class="bold">{{ this.date.date }}</span></p>
+        <p class="place"></p>
       </div>
       <div class="card_body">
         <h3 class="card_title">{{ this.title }}</h3>
@@ -114,8 +119,8 @@ async function filterDate(date) {
       <article class="card">
       <img src="{{this.images.0.self.href}}" alt="1" class="card__img">
       <div class="card_head">
-        <p>VEN.<br><span class="bold">{{ this.date.date }}</span></p>
-        <p class="place">Arène<br> Marchand</p>
+        <p><span class="bold">{{ this.date.date }}</span></p>
+        <p class="place"></p>
       </div>
       <div class="card_body">
         <h3 class="card_title">{{ this.title }}</h3>
@@ -136,7 +141,6 @@ async function filterDate(date) {
     console.error('There has been a problem with your fetch operation:', error);
   }
 }
-
 
 // Section des events :
 function addChangeListener(element, callback) {

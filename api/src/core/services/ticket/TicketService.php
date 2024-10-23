@@ -291,4 +291,25 @@ class TicketService implements TicketServiceInterface
             throw new RepositoryEntityNotFoundException($e->getMessage());
         }
     }
+
+
+    public function updateTicketQuantity(string $cardId, string $ticketId, int $quantity): CartDTO
+    {
+        try {
+            $cart = $this->ticketRepository->updateTicketQuantity($cardId, $ticketId, $quantity);
+            return new CartDTO($cart);
+        } catch (RepositoryInternalServerError $e) {
+            throw new RepositoryInternalServerError($e->getMessage());
+        }
+    }
+
+    public function deleteTicketFromCart(string $cardId, string $ticketId): CartDTO
+    {
+        try {
+            $cart = $this->ticketRepository->deleteTicketFromCart($cardId, $ticketId);
+            return new CartDTO($cart);
+        } catch (RepositoryInternalServerError $e) {
+            throw new RepositoryInternalServerError($e->getMessage());
+        }
+    }
 }

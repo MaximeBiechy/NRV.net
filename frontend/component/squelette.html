@@ -51,8 +51,8 @@
     <article class="card">
       <img src="{{this.images.0.self.href}}" alt="1" class="card__img">
       <div class="card_head">
-        <p>VEN.<br><span class="bold">{{ this.date.date }}</span></p>
-        <p class="place">Arène<br> Marchand</p>
+        <p><span class="bold">{{ this.date.date }}</span></p>
+        <p class="place"></p>
       </div>
       <div class="card_body">
         <h3 class="card_title">{{ this.title }}</h3>
@@ -132,11 +132,39 @@
           </div>
           <button> >Payer</button>
         </div>
-
       </div>
     </div>
 </section>
+  <!-- Carte modale à intégrer si temps dispo
+<section>
+  <div class="cart_modal">
+    <h3>Votre panier :</h3>
+
+    <div class="cart_item">
+      <img src="/assets/img/singer.jpg" alt="Chanteur"/>
+      <div class="cart_item_desc_title">
+        <div class="cart_item_title_desc">
+          <p>Nom</p>
+          <p>Prix</p>
+        </div>
+        <div class="cart_item_desc">
+          <div class="cart_item_options">
+            <span class="cart_item_options_title">Soirée Lorem Ipsum</span>
+            <span class="cart_item_options_date">Samedi 23 Mai 2024.</span>
+            <span class="cart_item_options_type">1x ticket - All pass</span>
+          </div>
+          <p class="cart_item_price">25.00€ HT</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+-->
 </main>
+
+
+
+<script type="module" src="../js/cart.js" class="main-page-script"></script>
 <script type="module" src="../js/filters.js" class="main-page-script"></script>
 <script type="module" src="../js/fetchShows.js" class="main-page-script"></script>
 </body>
