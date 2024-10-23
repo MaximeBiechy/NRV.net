@@ -3,7 +3,7 @@ var loader = document.querySelector('.loader');
 
 async function fetchShows() {
     try {
-      const response = await fetch('http://localhost:21000/shows', { headers: { 'Origin': 'http://localhost' }});
+      const response = await fetch('http://localhost:21000/shows', { headers: { 'Origin': 'http://localhost:5500' }});
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

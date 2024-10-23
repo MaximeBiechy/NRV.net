@@ -2,7 +2,6 @@ RewriteEngine On
 #
 # RewriteBase indispensable sur webetu :
 
-
 #
 # réécriture pour slim
 
