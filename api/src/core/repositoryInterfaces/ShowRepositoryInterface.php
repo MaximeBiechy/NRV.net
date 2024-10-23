@@ -15,4 +15,8 @@ interface ShowRepositoryInterface
     public function getShowsByDate(string $date): array;
     public function getShowsByStyle(string $style_name): array;
     public function getShowsByPlace(string $place_name): array;
+    public function getShowsPaginated(int $page, int $size): array;
+    public function getShowsByDatePaginated(string $date, int $page, int $size): array;
+    public function getShowsByStylePaginated(string $style_name, int $page, int $size): array;
+    public function getShowsByPlacePaginated(string $place_name, int $page, int $size): array;
 }

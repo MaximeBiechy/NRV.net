@@ -168,4 +168,81 @@ class ShowService implements ShowServiceInterface
             throw new ShowServiceInternalServerErrorException($e->getMessage());
         }
     }
+
+    public function getShowsPaginated(int $page, int $size): array
+    {
+        try {
+            $shows = $this->showRepository->getShowsPaginated($page, $size);
+            $result = [];
+            foreach ($shows as $show) {
+                $ars = [];
+                foreach ($show->getArtists() as $artist) {
+
+                    $ars[] = new ArtistDTO($artist);
+                }
+                $show->setArtists($ars);
+                $result[] = new ShowDTO($show);
+            }
+            return $result;
+        } catch (RepositoryInternalServerError $e) {
+            throw new ShowServiceInternalServerErrorException($e->getMessage());
+        }
+    }
+
+    public function getShowsByDatePaginated(string $date, int $page, int $size): array
+    {
+        try {
+            $shows = $this->showRepository->getShowsByDatePaginated($date, $page, $size);
+            $result = [];
+            foreach ($shows as $show) {
+                $ars = [];
+                foreach ($show->getArtists() as $artist) {
+                    $ars[] = new ArtistDTO($artist);
+                }
+                $show->setArtists($ars);
+                $result[] = new ShowDTO($show);
+            }
+            return $result;
+        } catch (RepositoryInternalServerError $e) {
+            throw new ShowServiceInternalServerErrorException($e->getMessage());
+        }
+    }
+
+    public function getShowsByStylePaginated(string $style_name, int $page, int $size): array
+    {
+        try {
+            $shows = $this->showRepository->getShowsByStylePaginated($style_name, $page, $size);
+            $result = [];
+            foreach ($shows as $show) {
+                $ars = [];
+                foreach ($show->getArtists() as $artist) {
+                    $ars[] = new ArtistDTO($artist);
+                }
+                $show->setArtists($ars);
+                $result[] = new ShowDTO($show);
+            }
+            return $result;
+        } catch (RepositoryInternalServerError $e) {
+            throw new ShowServiceInternalServerErrorException($e->getMessage());
+        }
+    }
+
+    public function getShowsByPlacePaginated(string $place_name, int $page, int $size): array
+    {
+        try {
+            $shows = $this->showRepository->getShowsByPlacePaginated($place_name, $page, $size);
+            $result = [];
+            foreach ($shows as $show) {
+                $ars = [];
+                foreach ($show->getArtists() as $artist) {
+                    $ars[] = new ArtistDTO($artist);
+                }
+                $show->setArtists($ars);
+                $result[] = new ShowDTO($show);
+            }
+            return $result;
+        } catch (RepositoryInternalServerError $e) {
+            throw new ShowServiceInternalServerErrorException($e->getMessage());
+        }
+    }
 }
