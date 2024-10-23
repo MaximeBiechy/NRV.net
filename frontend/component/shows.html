@@ -11,7 +11,7 @@
       {{#each shows}}
       <a href="./showInfo?id={{this.id}}"> 
       <article class="card" >
-        <img src="./{{this.images.0.self.href}}" alt="1" class="card_img">
+        <img src="{{this.images.0.self.href}}" alt="1" class="card_img">
         <div class="card_head">
           <p><span class="bold">{{this.date.date}}</span></p>
         </div>
@@ -32,7 +32,7 @@
   <div class="container" id="templateArtist">
     {{#each shows}}
     <article class="card">
-      <img src="./images/{{this.image.self.href}}" alt="1" class="card_img">
+      <img src="/images/{{this.image.self.href}}" alt="1" class="card_img">
       <div class="card_head">
       </div>
       <div class="card_body">
@@ -47,6 +47,6 @@
 
 </section>
 
-<script type="module" src="./js/fetchArtists.js" class="main-page-script" defer></script>
-<script type="module" src="./js/fetchShows.js" class="main-page-script" defer></script>
+<script type="module" src="/js/fetchArtists.js" class="main-page-script" defer></script>
+<script type="module" src="/js/fetchShows.js" class="main-page-script" defer></script>
 

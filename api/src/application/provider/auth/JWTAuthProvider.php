@@ -55,10 +55,10 @@ class JWTAuthProvider implements AuthProviderInterface
                 'aud' => 'nrv',
                 "iat" => time(),
                 "exp" => time() + 3600,
-                "sub" => $decoded->sub,
+                "sub" => $decoded['sub'],
                 "data" => [
-                    "email" => $decoded->data->email,
-                    "role" => $decoded->data->role
+                    "email" => $decoded['data']->email,
+                    "role" => $decoded['data']->role
                 ]
             ];
             $jwt = $this->jwtManager->createAccessToken($payload);
@@ -71,7 +71,7 @@ class JWTAuthProvider implements AuthProviderInterface
         }catch (\UnexpectedValueException $e) {
             throw new AuthProviderUnexpectedValueException('Token not valid');
         }
-        return new AuthDTO($decoded->sub, $decoded->data->email, $decoded->data->role, $jwt, $token);
+        return new AuthDTO($decoded['sub'], $decoded['data']->email, $decoded['data']->role, $jwt, $token);
     }
 
     public function getSignedInUser(string $token): AuthDTO
