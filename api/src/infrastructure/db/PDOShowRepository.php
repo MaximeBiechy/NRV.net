@@ -164,6 +164,7 @@ class PDOShowRepository implements ShowRepositoryInterface
                 $stmt = $this->pdo_show->prepare("SELECT * FROM images WHERE show_id = :show_id");
                 $stmt->execute(['show_id' => $show['id']]);
                 $images = $stmt->fetchAll();
+
                 $is =[];
                 foreach ($images as $image) {
                     $is[] = $image['path'];
@@ -181,13 +182,13 @@ class PDOShowRepository implements ShowRepositoryInterface
     public function getShowsByStyle(string $style_name): array
     {
         try{
-            $stmt = $this->pdo_show->prepare("SELECT * FROM shows INNER JOIN perform ON shows.id = perform.show_id INNER JOIN artists ON perform.artist_id = artists.id WHERE artists.style = :style");
+            $stmt = $this->pdo_show->prepare("SELECT shows.id, shows.title, shows.description, shows.video, shows.begin FROM shows INNER JOIN perform ON shows.id = perform.show_id INNER JOIN artists ON perform.artist_id = artists.id WHERE artists.style = :style");
             $stmt->execute(['style' => $style_name]);
             $shows = $stmt->fetchAll();
             $result = [];
             foreach ($shows as $show) {
                 $stmt = $this->pdo_show->prepare("SELECT * FROM artists INNER JOIN perform ON artists.id = perform.artist_id WHERE perform.show_id = :show_id");
-                $stmt->execute(['show_id' => $show['id']]);
+                $stmt->execute(['show_id' => $show[0]]);
                 $artists = $stmt->fetchAll();
                 $ars = [];
                 foreach ($artists as $artist) {
@@ -196,14 +197,14 @@ class PDOShowRepository implements ShowRepositoryInterface
                     $ars[] = $a;
                 }
                 $stmt = $this->pdo_show->prepare("SELECT * FROM images WHERE show_id = :show_id");
-                $stmt->execute(['show_id' => $show['id']]);
+                $stmt->execute(['show_id' => $show[0]]);
                 $images = $stmt->fetchAll();
                 $is =[];
                 foreach ($images as $image) {
                     $is[] = $image['path'];
                 }
                 $s = new Show($show['title'], $show['description'], $show['video'], $is, $ars, \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $show['begin']));
-                $s->setID($show['id']);
+                $s->setID($show[0]);
                 $result[] = $s;
             }
             return $result;
