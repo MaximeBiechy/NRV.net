@@ -2,7 +2,7 @@ var loader = document.querySelector('.loader');
 
 async function fetchShowInfo(id) {
     try {
-      const response = await fetch(`http://localhost:21000/shows/${id}/party`, { headers: { 'Origin': 'http://localhost' }});
+      const response = await fetch(`http://localhost:21000/shows/${id}/party`, { headers: { 'Origin': 'http://localhost:21001' }});
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

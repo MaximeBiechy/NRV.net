@@ -1,6 +1,9 @@
 'use strict';   
 
-let hasReloaded = false;
+window.addEventListener('reload', () => {
+    
+    handleLocation();
+});
 
 const route = (event) => {
     event = event || window.event;
