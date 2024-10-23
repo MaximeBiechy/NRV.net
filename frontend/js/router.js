@@ -23,12 +23,6 @@ const handleLocation =async () => {
     const html = await fetch(route).then((data) => data.text());
     document.getElementById("main-page").innerHTML = html;
 
-    if (path === "/Showinfo") {
-            const id = event.target.getAttribute('data-id');
-            this.localStorage.setItem('id_show', id);
-            fetchShowInfo(id);
-    }
-
     const scripts = document.querySelectorAll('.main-page-script');
 
 
@@ -46,8 +40,6 @@ const handleLocation =async () => {
 
 window.onpopstate = handleLocation;
 window.route = route;
-
-
 
 handleLocation();
 

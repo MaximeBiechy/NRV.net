@@ -1,5 +1,6 @@
-var loader = document.querySelector('.loader');
+'use strict';
 
+var loader = document.querySelector('.loader');
 
 async function fetchShows() {
     try {
@@ -20,6 +21,13 @@ async function fetchShows() {
             var templateSource = document.querySelector('#templateShow').innerHTML;
             var template = Handlebars.compile(templateSource);
             var filledTemplate = template(data);
+
+            addEventListener('click', function (event) {
+                if (event.target.classList.contains('card')) {
+                    const id = event.target.getAttribute('data-id');
+                    this.localStorage.setItem('id_show', id);
+                }
+            });
 
             document.querySelector('#templateShow').innerHTML = filledTemplate;
 
