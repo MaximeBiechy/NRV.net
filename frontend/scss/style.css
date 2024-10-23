@@ -430,7 +430,7 @@ section h2 {
 .filters {
   display: flex;
   justify-content: flex-end;
-  gap: 0.5em;
+  gap: 1em;
   list-style-type: none;
   margin: 0 auto;
   margin-bottom: 0.75em;
@@ -446,11 +446,8 @@ section h2 {
   gap: 10px;
   text-align: center;
 }
-.filters select #calendar {
-  background-color: #151515;
-}
 .filters select option {
-  font-size: 0.75em;
+  font-size: 0.25em;
 }
 
 .login {

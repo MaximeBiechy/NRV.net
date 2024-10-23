@@ -1,4 +1,6 @@
-'use strict';   
+'use strict';
+
+
 
 const route = (event) => {
     event = event || window.event;
@@ -12,11 +14,12 @@ const routes ={
     "/": "/component/squelette.html",
     "/Login": "/component/login.html",
     "/Shows": "/component/shows.html",
-    "/ShowInfo": "/component/showInfo.html",
+    "/showInfo": "/component/showInfo.html",
 }
 
+
 const handleLocation =async () => {
-    
+
 
     const path = window.location.pathname;
     const route = routes[path] || routes[404];
@@ -28,19 +31,19 @@ const handleLocation =async () => {
 
     scripts.forEach((script) => {
         const newScript = document.createElement('script');
-        newScript.textContent = script.textContent;  
+        newScript.textContent = script.textContent;
         if (script.src) {
             newScript.src = script.src;
         }
         document.body.appendChild(newScript);
-        document.body.removeChild(newScript); 
+        document.body.removeChild(newScript);
     });
 };
-
 
 window.onpopstate = handleLocation;
 window.route = route;
 
 handleLocation();
+
 
 

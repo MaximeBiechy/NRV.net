@@ -3,7 +3,7 @@
 .filters{
   display: flex;
   justify-content: flex-end;
-  gap: 1em;
+  gap: .5em;
   list-style-type: none;
   margin: 0 auto;
   margin-bottom: .75em;
@@ -14,12 +14,17 @@
     border: none;
     color: $text_color;
     font-family: $font_sans;
-    font-size: 1em;
+    font-size: .75em;
     font-weight: 300;
     gap: 10px;
+    text-align: center;
+
+    #calendar{
+      background-color: $bg-color;
+    }
 
     option{
-      font-size: .5em;
+      font-size: .75em;
     }
   }
 }
