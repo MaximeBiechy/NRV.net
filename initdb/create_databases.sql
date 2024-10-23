@@ -119,17 +119,17 @@ CREATE TABLE "public"."soldtickets" (
       "party_id" uuid NOT NULL
 ) WITH (oids = false);
 
-DROP TABLE IF EXISTS "cards";
-CREATE TABLE "public"."cards" (
+DROP TABLE IF EXISTS "carts";
+CREATE TABLE "public"."carts" (
   "id" uuid NOT NULL,
   "user_id" uuid NOT NULL,
   "total_price" integer NOT NULL,
   "state" integer DEFAULT '0' NOT NULL
 ) WITH (oids = false);
 
-DROP TABLE IF EXISTS "card_content";
-CREATE TABLE "public"."card_content" (
-    "card_id" uuid NOT NULL,
+DROP TABLE IF EXISTS "cart_content";
+CREATE TABLE "public"."cart_content" (
+    "cart_id" uuid NOT NULL,
     "ticket_id" uuid NOT NULL,
     "quantity" integer DEFAULT '1' NOT NULL
 ) WITH (oids = false);
