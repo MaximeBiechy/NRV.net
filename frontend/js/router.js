@@ -1,7 +1,5 @@
 'use strict';   
 
-
-
 const route = (event) => {
     event = event || window.event;
     event.preventDefault();
@@ -14,21 +12,22 @@ const routes ={
     "/": "/component/squelette.html",
     "/Login": "/component/login.html",
     "/Shows": "/component/shows.html",
-    "/showInfo": "/component/showInfo.html",
+    "/ShowInfo": "/component/showInfo.html",
 }
 
-
 const handleLocation =async () => {
-    
-    window.addEventListener('load', () => {
-        window.location.pathname = '/'+ window.location.pathname.split('/').pop();  ;
-    });
     
 
     const path = window.location.pathname;
     const route = routes[path] || routes[404];
     const html = await fetch(route).then((data) => data.text());
     document.getElementById("main-page").innerHTML = html;
+
+    if (path === "/Showinfo") {
+            const id = event.target.getAttribute('data-id');
+            this.localStorage.setItem('id_show', id);
+            fetchShowInfo(id);
+    }
 
     const scripts = document.querySelectorAll('.main-page-script');
 
@@ -44,11 +43,12 @@ const handleLocation =async () => {
     });
 };
 
-window.addEventListener('load', handleLocation);
+
 window.onpopstate = handleLocation;
 window.route = route;
 
-handleLocation();
 
+
+handleLocation();
 
 
