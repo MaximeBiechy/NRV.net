@@ -1,0 +1,44 @@
+@use 'config';
+
+.login{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    gap:2em;
+    input{
+        background-color: $bg_color;
+        color:$text_color;
+        border-style: none;
+        border:solid white 1px;
+        border-radius: 20px;
+        padding: 1em;
+        width: 35em;
+        height: 3em;
+        &:focus{
+            outline: none;
+        }
+    }
+    button{
+        background-color: $bg_color;
+        color:$text_color;
+        border-style: none;
+        border:solid white 1px;
+        border-radius: 20px;
+        padding: 1em;
+        width: 20em;
+        height: 3em;
+        &:hover{
+            background-color: $text_color;
+            color:$bg_color;
+            transition: all 0.3s;
+        }
+    }
+    p{
+        a{
+            text-decoration: none;
+            color: beige;
+        }
+    }
+}

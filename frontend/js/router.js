@@ -12,7 +12,7 @@ const route = (event) => {
 const routes ={
     404: "/frontend/component/404.html",
     "/frontend/": "/frontend/component/squelette.html",
-    "/frontend/Party": "/frontend/component/party.html",
+    "/frontend/Login": "/frontend/component/login.html",
     "/frontend/Shows": "/frontend/component/shows.html",
 }
 

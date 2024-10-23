@@ -8,7 +8,6 @@ async function fetchArtists() {
       }
     
       const data = await response.json();
-      console.log(data);
       var templateSource = document.querySelector('#templateArtist').innerHTML;
       var template = Handlebars.compile(templateSource);
       var filledTemplate = template(data);

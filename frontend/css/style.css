@@ -428,6 +428,47 @@ section h2 {
   font-size: 0.5em;
 }
 
+.login {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  gap: 2em;
+}
+.login input {
+  background-color: #151515;
+  color: #FFF;
+  border-style: none;
+  border: solid white 1px;
+  border-radius: 20px;
+  padding: 1em;
+  width: 35em;
+  height: 3em;
+}
+.login input:focus {
+  outline: none;
+}
+.login button {
+  background-color: #151515;
+  color: #FFF;
+  border-style: none;
+  border: solid white 1px;
+  border-radius: 20px;
+  padding: 1em;
+  width: 20em;
+  height: 3em;
+}
+.login button:hover {
+  background-color: #FFF;
+  color: #151515;
+  transition: all 0.3s;
+}
+.login p a {
+  text-decoration: none;
+  color: beige;
+}
+
 body {
   background-color: #151515;
   color: #FFF;
