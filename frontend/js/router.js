@@ -1,6 +1,7 @@
 'use strict';   
 
 
+
 const route = (event) => {
     event = event || window.event;
     event.preventDefault();
@@ -18,20 +19,16 @@ const routes ={
 
 
 const handleLocation =async () => {
+    
+    window.addEventListener('load', () => {
+        window.location.pathname = '/'+ window.location.pathname.split('/').pop();  ;
+    });
+    
+
     const path = window.location.pathname;
     const route = routes[path] || routes[404];
     const html = await fetch(route).then((data) => data.text());
     document.getElementById("main-page").innerHTML = html;
-
-        // Appeler fetchShowInfo si l'utilisateur navigue vers la page showInfo
-        if (path === "/ShowInfo") {
-            const urlParams = new URLSearchParams(window.location.search);
-            const showId = urlParams.get('id');
-            if (showId) {
-                await fetchShowInfo(showId);
-            }
-        }
-
 
     const scripts = document.querySelectorAll('.main-page-script');
 
