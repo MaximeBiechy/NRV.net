@@ -117,4 +117,47 @@ class TicketService implements TicketServiceInterface
             throw new RepositoryEntityNotFoundException($e->getMessage());
         }
     }
+
+    public function validateCard(string $cardId): CardDTO
+    {
+        try{
+            $card = $this->ticketRepository->getCardById($cardId);
+            if ($card->getState() >= 1) {
+                throw new TicketBadDataException("Card already validated");
+            }
+            $card->setState(1);
+            $this->ticketRepository->saveCard($card);
+            $t = [];
+            foreach ($card->getTickets() as $ticket) {
+                $t[] = new TicketDTO($ticket);
+            }
+            $card->setTickets($t);
+            return new CardDTO($card);
+        }catch (RepositoryInternalServerError $e) {
+            throw new TicketServiceInternalServerErrorException($e->getMessage());
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new TicketServiceNotFoundException($e->getMessage());
+        }
+    }
+
+    public function validateCommand(string $cardId): CardDTO
+    {
+        try{
+            $card = $this->ticketRepository->getCardById($cardId);
+            if ($card->getState() >= 2) {
+                throw new TicketBadDataException("Card already validated");
+            }
+            $card->setState(2);
+            $t = [];
+            foreach ($card->getTickets() as $ticket) {
+                $t[] = new TicketDTO($ticket);
+            }
+            $card->setTickets($t);
+            return new CardDTO($card);
+        }catch (RepositoryInternalServerError $e) {
+            throw new TicketServiceInternalServerErrorException($e->getMessage());
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new TicketServiceNotFoundException($e->getMessage());
+        }
+    }
 }
