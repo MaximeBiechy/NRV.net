@@ -11,8 +11,8 @@
 const routes ={
     404: "/component/404.html",
     "/": "/component/squelette.html",
-    "/Login": "/component/login.html",
-    "/Shows": "/component/shows.html",
+    "/login": "/component/login.html",
+    "/shows": "/component/shows.html",
     "/showInfo": "/component/showInfo.html",
 }
 
