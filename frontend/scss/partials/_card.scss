@@ -88,15 +88,31 @@
   }
 }
 
-.RnB{
+.R\&B, .Rap, .Hip, .Hop, .Indie, .Zouk, .Reggae{
   @extend .tag;
   background-color: $color_pink;
 }
-.Rap{
-  @extend .tag;
-  background-color: $color_green;
-}
-.Metal{
+
+.Metal, .Rock{
   @extend .tag;
   background-color: $color_orange;
 }
+.Electro{
+  @extend .tag;
+  background-color: $color_green;
+}
+.Piano, .Chanson,.Pop{
+  @extend .tag;
+  background-color: $color_yellow;
+}
+.House, .World, .Music, .Soul{
+  @extend .tag;
+  background-color: $color_purple;
+}
+.Downtempo, .Synthpop, .Classical{
+  @extend .tag;
+  background-color: $color_red;
+}
+
+
+

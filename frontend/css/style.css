@@ -163,7 +163,7 @@
   flex-wrap: wrap;
   gap: 0.2em;
 }
-.card .card_body .card_tags .tag, .card .card_body .card_tags .Metal, .card .card_body .card_tags .Rap, .card .card_body .card_tags .RnB {
+.card .card_body .card_tags .tag, .card .card_body .card_tags .Downtempo, .card .card_body .card_tags .Synthpop, .card .card_body .card_tags .Classical, .card .card_body .card_tags .House, .card .card_body .card_tags .World, .card .card_body .card_tags .Music, .card .card_body .card_tags .Soul, .card .card_body .card_tags .Piano, .card .card_body .card_tags .Chanson, .card .card_body .card_tags .Pop, .card .card_body .card_tags .Electro, .card .card_body .card_tags .Metal, .card .card_body .card_tags .Rock, .card .card_body .card_tags .R\&B, .card .card_body .card_tags .Rap, .card .card_body .card_tags .Hip, .card .card_body .card_tags .Hop, .card .card_body .card_tags .Indie, .card .card_body .card_tags .Zouk, .card .card_body .card_tags .Reggae {
   font-size: 1.2rem;
   font-weight: 600;
   padding: 0.5em;
@@ -172,16 +172,28 @@
   opacity: 80%;
 }
 
-.RnB {
+.R\&B, .Rap, .Hip, .Hop, .Indie, .Zouk, .Reggae {
   background-color: #F35DD8;
 }
 
-.Rap {
+.Metal, .Rock {
+  background-color: #F3AB5D;
+}
+
+.Electro {
   background-color: #5DF3AB;
 }
 
-.Metal {
-  background-color: #F3AB5D;
+.Piano, .Chanson, .Pop {
+  background-color: #F3EC5D;
+}
+
+.House, .World, .Music, .Soul {
+  background-color: #5D71F3;
+}
+
+.Downtempo, .Synthpop, .Classical {
+  background-color: #F35D5D;
 }
 
 .container {
