@@ -264,4 +264,20 @@ class TicketService implements TicketServiceInterface
             throw new RepositoryEntityNotFoundException($e->getMessage());
         }
     }
+
+    public function getSoldTicketsByUserId(string $userId): array
+    {
+        try{
+            $soldTickets = $this->ticketRepository->getSoldTicketsByUserID($userId);
+            $soldTicketDTOs = [];
+            foreach ($soldTickets as $soldTicket) {
+                $soldTicketDTOs[] = new SoldTicketDTO($soldTicket);
+            }
+            return $soldTicketDTOs;
+        }catch (RepositoryInternalServerError $e) {
+            throw new RepositoryInternalServerError($e->getMessage());
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new RepositoryEntityNotFoundException($e->getMessage());
+        }
+    }
 }

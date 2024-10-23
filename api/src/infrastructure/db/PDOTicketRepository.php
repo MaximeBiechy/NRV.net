@@ -109,7 +109,7 @@ class PDOTicketRepository implements TicketRepositoryInterface
             $tickets = $stmt->fetchAll();
             $ts = [];
             foreach ($tickets as $ticket) {
-                $t = new SoldTicket($ticket['name'], $ticket['price'], $ticket['ticket_id'], $ticket['user_id'], $ticket['party_id']);
+                $t = new SoldTicket($ticket['name'], $ticket['price'], $ticket['user_id'], $ticket['party_id'],  $ticket['ticket_id']);
                 $t->setID($ticket['id']);
                 $ts[] = $t;
             }

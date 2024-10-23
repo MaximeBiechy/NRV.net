@@ -5,6 +5,7 @@ declare(strict_types=1);
 use nrv\application\actions\AddTicketToUserCartAction;
 use nrv\application\actions\DisplayArtistAction;
 use nrv\application\actions\DisplayArtistsAction;
+use nrv\application\actions\DisplaySoldTicketsByUserAction;
 use nrv\application\actions\DisplayCartAction;
 use nrv\application\actions\DisplayPartyAction;
 use nrv\application\actions\DisplayPartyByShowAction;
@@ -49,6 +50,8 @@ return function(\Slim\App $app):\Slim\App {
     $app->patch('/carts/{ID-CART}[/]', UpdateCartAction::class)->setName('update_card_id');
 
     $app->get('/users/{ID-USER}/cart[/]', DisplayCartAction::class)->setName('users_id_cart');
+    $app->get('/users/{ID-USER}/sold_tickets[/]', DisplaySoldTicketsByUserAction::class)->setName('users_id_sold_tickets');
+
 
     return $app;
 };
