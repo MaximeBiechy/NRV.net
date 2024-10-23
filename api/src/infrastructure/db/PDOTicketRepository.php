@@ -157,7 +157,7 @@ class PDOTicketRepository implements TicketRepositoryInterface
     public function getCartByUserID(string $userID): Cart
     {
         try {
-            $stmt = $this->pdo_ticket->prepare("SELECT * FROM carts WHERE user_id = :user_id");
+            $stmt = $this->pdo_ticket->prepare("SELECT * FROM carts WHERE user_id = :user_id and state != 3");
             $stmt->execute(['user_id' => $userID]);
             $cart = $stmt->fetch();
             if ($cart === false) {
@@ -190,7 +190,7 @@ class PDOTicketRepository implements TicketRepositoryInterface
             } catch (RepositoryInternalServerError $e) {
                 throw new RepositoryInternalServerError($e->getMessage());
             }
-            $c = new Cart($cart['user_id'], $cart['total_price'], $tickets);
+            $c = new Cart($cart['user_id'], $cart['total_price'], $tickets, $cart['state']);
             $c->setID($cart['id']);
             return $c;
         } catch (\PDOException $e) {

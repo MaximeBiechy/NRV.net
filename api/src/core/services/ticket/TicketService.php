@@ -2,6 +2,7 @@
 
 namespace nrv\core\services\ticket;
 
+use nrv\core\domain\entities\cart\Cart;
 use nrv\core\domain\entities\ticket\SoldTicket;
 use nrv\core\domain\entities\ticket\Ticket;
 use nrv\core\dto\cart\AddTicketToCartDTO;
@@ -125,6 +126,9 @@ class TicketService implements TicketServiceInterface
             if ($card->getState() >= 1) {
                 throw new TicketBadDataException("Cart already validated");
             }
+            if ($card->getState() < 0) {
+                throw new TicketBadDataException("Cart not validated");
+            }
             $card->setState(1);
             $this->ticketRepository->saveCart($card);
             $t = [];
@@ -143,18 +147,48 @@ class TicketService implements TicketServiceInterface
     public function validateCommand(string $cardId): CartDTO
     {
         try{
-            $card = $this->ticketRepository->getCartByID($cardId);
-            if ($card->getState() >= 2) {
+            $cart = $this->ticketRepository->getCartByID($cardId);
+            if ($cart->getState() >= 2) {
                 throw new TicketBadDataException("Cart already validated");
             }
-            $card->setState(2);
+            if ($cart->getState() < 1) {
+                throw new TicketBadDataException("Cart not validated");
+            }
+            $cart->setState(2);
+            $this->ticketRepository->saveCart($cart);
             $t = [];
-            foreach ($card->getTickets() as $ticket) {
+            foreach ($cart->getTickets() as $ticket) {
                 $t[] = new TicketDTO($ticket);
             }
-            $card->setTickets($t);
-            return new CartDTO($card);
+            $cart->setTickets($t);
+            return new CartDTO($cart);
         }catch (RepositoryInternalServerError $e) {
+            throw new TicketServiceInternalServerErrorException($e->getMessage());
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new TicketServiceNotFoundException($e->getMessage());
+        }
+    }
+
+    public function payCart(string $cartId): CartDTO
+    {
+        try {
+            $cart = $this->ticketRepository->getCartByID($cartId);
+            if ($cart->getState() >= 3) {
+                throw new TicketBadDataException("Cart already payed");
+            }
+            if ($cart->getState() < 2) {
+                throw new TicketBadDataException("Cart not validated");
+            }
+            $cart->setState(3);
+            $this->ticketRepository->saveCart($cart);
+            $t = [];
+            foreach ($cart->getTickets() as $ticket) {
+                $t[] = new TicketDTO($ticket);
+            }
+            $cart->setTickets($t);
+            $this->ticketRepository->saveCart(new Cart($cart->getUserId(), 0, []));
+            return new CartDTO($cart);
+        } catch (RepositoryInternalServerError $e) {
             throw new TicketServiceInternalServerErrorException($e->getMessage());
         } catch (RepositoryEntityNotFoundException $e) {
             throw new TicketServiceNotFoundException($e->getMessage());

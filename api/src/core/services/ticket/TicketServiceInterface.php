@@ -18,4 +18,5 @@ interface TicketServiceInterface
     public function getCartByUserId(string $userId): CartDTO;
     public function validateCart(string $cartId): CartDTO;
     public function validateCommand(string $cartId): CartDTO;
+    public function payCart(string $cartId): CartDTO;
 }
