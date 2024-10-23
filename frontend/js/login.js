@@ -5,9 +5,7 @@ async function login() {
     const password = document.querySelector('input[type="password"]').value;
 
     try {
-        const response = await fetch('http://localhost:21000/signin', {
-            method: 'POST',
-            headers: {'Origin': 'http://localhost:5500'},
+        const response = await fetch('http://localhost:21000/signin', { method: 'POST', headers: {'Origin': 'http://localhost:5500'},
             body: JSON.stringify({ email: username, password: password })
         });
 
