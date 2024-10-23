@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 
 const route = (event) => {
-  event = event || window.event;
-  event.preventDefault();
-  window.history.pushState({}, "", event.target.href);
-  handleLocation();
+    event = event || window.event;
+    event.preventDefault();
+    window.history.pushState({}, "", event.currentTarget.href);
+    handleLocation();
 };
 
 const routes = {
@@ -22,20 +22,23 @@ const handleLocation = async () => {
   const html = await fetch(route).then((data) => data.text());
   document.getElementById("main-page").innerHTML = html;
 
-  const scripts = document.querySelectorAll(".main-page-script");
+    const scripts = document.querySelectorAll('.main-page-script');
+    scripts.forEach((script) => {
+        const newScript = document.createElement('script');
+        newScript.textContent = script.textContent;
+        if (script.src) {
+            newScript.src = script.src;
+        }
+        document.body.appendChild(newScript);
+        document.body.removeChild(newScript);
+    });
 
-  scripts.forEach((script) => {
-    const newScript = document.createElement("script");
-    newScript.textContent = script.textContent;
-    if (script.src) {
-      newScript.src = script.src;
-    }
-    document.body.appendChild(newScript);
-    document.body.removeChild(newScript);
-  });
 };
 
 window.onpopstate = handleLocation;
 window.route = route;
 
 handleLocation();
+
+
+

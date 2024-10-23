@@ -12,4 +12,5 @@ async function fetchShowPartyById(showId) {
       console.error('There has been a problem with your fetch operation:', error);
     }
   }
+
   
