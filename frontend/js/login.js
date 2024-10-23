@@ -5,9 +5,9 @@ async function login() {
     const password = document.querySelector('input[type="password"]').value;
 
     try {
-        const response = await fetch('http://localhost:21000/signin', { method: 'POST', headers: {'Origin': 'http://localhost:5500'},
-            body: JSON.stringify({ email: username, password: password })
-        });
+        const response = await fetch('http://localhost:21000/signin', { method: 'POST',
+            headers: {'Origin': 'http://localhost:5500', 'Content-Type': 'application/json'},
+            body: JSON.stringify({ email: username, password: password })});
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -19,8 +19,8 @@ async function login() {
         
         localStorage.setItem('authToken', data.token);
 
-    
-        window.location.href = '/frontend/';
+    alert('You are now logged in');
+
     } catch (error) {
         console.error('There has been a problem with your fetch operation:', error);
     }
