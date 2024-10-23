@@ -18,4 +18,5 @@ interface TicketRepositoryInterface
     public function getCartByUserID(string $userID): Cart;
     public function getCartByID(string $cartID): Cart;
     public function saveCart(Cart $cart): string;
+    public function getTicketsByPartyID(string $partyId): array;
 }

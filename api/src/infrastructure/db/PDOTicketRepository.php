@@ -50,7 +50,7 @@ class PDOTicketRepository implements TicketRepositoryInterface
             } else {
                 $id = Uuid::uuid4()->toString();
                 $soldTicket->setID($id);
-                $stmt = $this->pdo_ticket->prepare("INSERT INTO soldtickets (id, name, price, ticket_id, user_id, party_id) VALUES (:id, :name, :price, :ticket_id, :user_id, :party_id,)");
+                $stmt = $this->pdo_ticket->prepare("INSERT INTO soldtickets (id, name, price, user_id, ticket_id, party_id) VALUES (:id, :name, :price, :user_id, :ticket_id, :party_id)");
             }
             $stmt->execute([
                 'id' => $soldTicket->getID(),
@@ -61,7 +61,7 @@ class PDOTicketRepository implements TicketRepositoryInterface
                 'party_id' => $soldTicket->getPartyID()
             ]);
         }catch (\PDOException $e){
-            throw new RepositoryInternalServerError("Error saving sold ticket");
+            throw new RepositoryInternalServerError("Error saving sold ticket" . $e->getMessage());
         }
 
         return $soldTicket->getID();
@@ -140,6 +140,14 @@ class PDOTicketRepository implements TicketRepositoryInterface
     public function addTicketToCart(string $ticketID, string $cartID): void
     {
         try {
+            // Vérifie que l'état du panier est 0
+            $stmt0 = $this->pdo_ticket->prepare("SELECT state FROM carts WHERE id = :cart_id");
+            $stmt0->execute(['cart_id' => $cartID]);
+            $state = $stmt0->fetch();
+            if ($state === false || $state['state'] != 0) {
+                throw new RepositoryInternalServerError("Cart not found or state is not 0");
+            }
+
             $stmt = $this->pdo_ticket->prepare("SELECT * FROM cart_content WHERE cart_id = :cart_id AND ticket_id = :ticket_id");
             $stmt->execute(['cart_id' => $cartID, 'ticket_id' => $ticketID]);
             $ticket = $stmt->fetch();
@@ -149,6 +157,10 @@ class PDOTicketRepository implements TicketRepositoryInterface
                 $stmt2 = $this->pdo_ticket->prepare("INSERT INTO cart_content (cart_id, ticket_id, quantity) VALUES (:cart_id, :ticket_id, 1)");
             }
             $stmt2->execute(['cart_id' => $cartID, 'ticket_id' => $ticketID]);
+
+            // Modification du prix
+            $stmt3 = $this->pdo_ticket->prepare("UPDATE carts SET total_price = total_price + (SELECT price FROM tickets WHERE id = :ticket_id) WHERE id = :cart_id");
+            $stmt3->execute(['cart_id' => $cartID, 'ticket_id' => $ticketID]);
         } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error adding ticket to cart");
         }
@@ -219,5 +231,23 @@ class PDOTicketRepository implements TicketRepositoryInterface
         }
 
         return $cart->getID();
+    }
+
+    public function getTicketsByPartyID(string $partyId): array
+    {
+        try {
+            $stmt = $this->pdo_ticket->prepare("SELECT * FROM tickets WHERE party_id = :party_id");
+            $stmt->execute(['party_id' => $partyId]);
+            $tickets = $stmt->fetchAll();
+            $ts = [];
+            foreach ($tickets as $ticket) {
+                $t = new Ticket($ticket['name'], $ticket['price'], $ticket['quantity'], $ticket['party_id']);
+                $t->setID($ticket['id']);
+                $ts[] = $t;
+            }
+            return $ts;
+        } catch (\PDOException $e) {
+            throw new RepositoryInternalServerError("Error getting tickets by party id");
+        }
     }
 }

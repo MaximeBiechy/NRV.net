@@ -7,13 +7,11 @@ use nrv\core\domain\entities\ticket\SoldTicket;
 use nrv\core\domain\entities\ticket\Ticket;
 use nrv\core\dto\cart\AddTicketToCartDTO;
 use nrv\core\dto\cart\CartDTO;
-use nrv\core\dto\ticket\CreateTicketDTO;
 use nrv\core\dto\ticket\SoldTicketDTO;
 use nrv\core\dto\ticket\TicketDTO;
 use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 use nrv\core\repositoryInterfaces\RepositoryInternalServerError;
 use nrv\core\repositoryInterfaces\TicketRepositoryInterface;
-use nrv\core\services\ticket\TicketServiceInterface;
 
 class TicketService implements TicketServiceInterface
 {
@@ -144,10 +142,10 @@ class TicketService implements TicketServiceInterface
         }
     }
 
-    public function validateCommand(string $cardId): CartDTO
+    public function validateCommand(string $cartId): CartDTO
     {
         try{
-            $cart = $this->ticketRepository->getCartByID($cardId);
+            $cart = $this->ticketRepository->getCartByID($cartId);
             if ($cart->getState() >= 2) {
                 throw new TicketBadDataException("Cart already validated");
             }
@@ -172,26 +170,98 @@ class TicketService implements TicketServiceInterface
     public function payCart(string $cartId): CartDTO
     {
         try {
+            // Récupérer et valider le panier
             $cart = $this->ticketRepository->getCartByID($cartId);
+
             if ($cart->getState() >= 3) {
-                throw new TicketBadDataException("Cart already payed");
+                throw new TicketBadDataException("Cart already paid");
             }
             if ($cart->getState() < 2) {
                 throw new TicketBadDataException("Cart not validated");
             }
+
+            // Traiter les tickets du panier
+            $updatedTickets = $this->processTickets($cart->getTickets(), $cart->getUserId());
+
+            // Mettre à jour l'état du panier
             $cart->setState(3);
+            $cart->setTickets($updatedTickets);
             $this->ticketRepository->saveCart($cart);
-            $t = [];
-            foreach ($cart->getTickets() as $ticket) {
-                $t[] = new TicketDTO($ticket);
-            }
-            $cart->setTickets($t);
             $this->ticketRepository->saveCart(new Cart($cart->getUserId(), 0, []));
+            // Retourner le panier mis à jour sous forme de DTO
             return new CartDTO($cart);
         } catch (RepositoryInternalServerError $e) {
             throw new TicketServiceInternalServerErrorException($e->getMessage());
         } catch (RepositoryEntityNotFoundException $e) {
             throw new TicketServiceNotFoundException($e->getMessage());
+        } catch (TicketBadDataException $e) {
+            throw new TicketBadDataException($e->getMessage());
+        }
+    }
+
+    /**
+     * Traiter les tickets du panier en les validant et en les vendant si possible
+     * @param array $tickets Liste des tickets à traiter
+     * @return array Liste des tickets mis à jour
+     * @throws TicketBadDataException
+     */
+    private function processTickets(array $tickets, string $user_id): array
+    {
+        $updatedTickets = [];
+
+        foreach ($tickets as $ticket) {
+            // Vérifier et décrémenter les quantités de billets disponibles
+            $this->validateAndDecrementTickets($ticket);
+
+            // Sauvegarder le billet vendu
+            $soldTicket = new SoldTicket($ticket->getName(), $ticket->getPrice(), $user_id, $ticket->getPartyId(), $ticket->getId());
+            $this->ticketRepository->saveSoldTicket($soldTicket);
+
+            // Ajouter le ticket mis à jour dans la liste
+            $updatedTickets[] = new TicketDTO($ticket);
+        }
+
+        return $updatedTickets;
+    }
+
+    /**
+     * Vérifier et décrémenter les quantités de billets disponibles
+     * @param Ticket $ticket Billet à valider
+     * @return void
+     * @throws TicketBadDataException
+     */
+    private function validateAndDecrementTickets(Ticket $ticket): void
+    {
+        $availableTickets = $this->ticketRepository->getTicketsByPartyID($ticket->getPartyId());
+
+        foreach ($availableTickets as $availableTicket) {
+            if ($availableTicket->getQuantity() <= 0) {
+                throw new TicketBadDataException("No more tickets available for this party");
+            }
+        }
+
+        // Décrémenter la quantité des tickets disponibles
+        foreach ($availableTickets as $availableTicket) {
+            if ($availableTicket->getQuantity() > 0) {
+                $availableTicket->setQuantity($availableTicket->getQuantity() - 1);
+                $this->ticketRepository->saveTicket($availableTicket);
+            }
+        }
+    }
+
+    public function getTicketsByPartyId(string $partyId): array
+    {
+        try{
+            $tickets = $this->ticketRepository->getTicketsByPartyID($partyId);
+            $ticketDTOs = [];
+            foreach ($tickets as $ticket) {
+                $ticketDTOs[] = new TicketDTO($ticket);
+            }
+            return $ticketDTOs;
+        }catch (RepositoryInternalServerError $e) {
+            throw new RepositoryInternalServerError($e->getMessage());
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new RepositoryEntityNotFoundException($e->getMessage());
         }
     }
 }

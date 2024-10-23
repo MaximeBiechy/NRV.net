@@ -11,6 +11,7 @@ use nrv\application\actions\DisplayShowAction;
 use nrv\application\actions\DisplayShowsAction;
 use nrv\application\actions\SigninAction;
 use nrv\application\actions\SignupAction;
+use nrv\application\actions\UpdateCartAction;
 use nrv\application\provider\auth\JWTAuthProvider;
 use nrv\core\repositoryInterfaces\AuthRepositoryInterface;
 use nrv\core\repositoryInterfaces\PartyRepositoryInterface;
@@ -133,5 +134,8 @@ return [
     },
     DisplayCartAction::class => function (ContainerInterface $c) {
         return new DisplayCartAction($c->get(TicketServiceInterface::class));
+    },
+    UpdateCartAction::class => function (ContainerInterface $c) {
+        return new UpdateCartAction($c->get(TicketServiceInterface::class));
     },
 ];

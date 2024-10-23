@@ -37,4 +37,8 @@ class Ticket extends Entity
         return $this->quantity;
     }
 
+    public function setQuantity(int $quantity): void
+    {
+        $this->quantity = $quantity;
+    }
 }
