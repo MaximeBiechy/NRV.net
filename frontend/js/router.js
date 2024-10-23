@@ -1,12 +1,12 @@
 'use strict';   
 
 
-const route = (event) => {
-    event = event || window.event;
-    event.preventDefault();
-    window.history.pushState({}, "", event.target.href);
-    handleLocation();
-}
+// const route = (event) => {
+//     event = event || window.event;
+//     event.preventDefault();
+//     window.history.pushState({}, "", event.target.href);
+//     handleLocation();
+// }
 
 const routes ={
     404: "/component/404.html",
@@ -40,7 +40,13 @@ const handleLocation =async () => {
 
 window.addEventListener('load', handleLocation);
 window.onpopstate = handleLocation;
-window.route = route;
+// window.route = route;
+window.route = (event) => {
+    event = event || window.event;
+    event.preventDefault();
+    window.history.pushState({}, "", event.target.href);
+    handleLocation();
+};
 
 handleLocation();
 
