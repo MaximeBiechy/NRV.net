@@ -1,9 +1,5 @@
 'use strict';   
 
-window.addEventListener('reload', () => {
-    
-    handleLocation();
-});
 
 const route = (event) => {
     event = event || window.event;
@@ -42,6 +38,7 @@ const handleLocation =async () => {
     });
 };
 
+window.addEventListener('load', handleLocation);
 window.onpopstate = handleLocation;
 window.route = route;
 
