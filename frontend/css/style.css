@@ -366,6 +366,22 @@ section h2 {
   width: 100%;
 }
 
+.cart_modal {
+  background-color: orange;
+  width: 20vw;
+}
+.cart_modal h3 {
+  color: #FFF;
+  font-size: 1.5em;
+}
+.cart_modal .cart_item {
+  border: 2px solid red;
+}
+.cart_modal .cart_item img {
+  height: 10%;
+  width: auto;
+}
+
 .validate_order {
   display: flex;
   flex-direction: column;

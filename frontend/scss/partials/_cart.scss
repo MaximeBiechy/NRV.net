@@ -139,3 +139,23 @@
     }
   }
 }
+
+//Modale panier à intégrer si temps dispo :
+.cart_modal{
+  background-color: orange;
+  width: 20vw;
+
+  h3{
+    color: $text-color;
+    font-size: 1.5em;
+  }
+
+  .cart_item{
+    border: 2px solid red;
+
+    img{
+      height: 10%;
+      width: auto;
+    }
+  }
+}
