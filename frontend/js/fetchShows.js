@@ -16,8 +16,6 @@ async function fetchShows() {
             for (let i = 0; i < data.shows.length; i++) {
                 data.shows[i].date.date = new Date(data.shows[i].date.date).toLocaleDateString('fr-FR', { weekday: 'short', day: '2-digit', month: '2-digit' });
             }
-
-
             var templateSource = document.querySelector('#templateShow').innerHTML;
             var template = Handlebars.compile(templateSource);
             var filledTemplate = template(data);
