@@ -280,4 +280,15 @@ class TicketService implements TicketServiceInterface
             throw new RepositoryEntityNotFoundException($e->getMessage());
         }
     }
+
+    public function getNbSoldTicketsByPartyId(string $partyId): int
+    {
+        try{
+            return $this->ticketRepository->getNbSoldTicketsByPartyID($partyId);
+        }catch (RepositoryInternalServerError $e) {
+            throw new RepositoryInternalServerError($e->getMessage());
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new RepositoryEntityNotFoundException($e->getMessage());
+        }
+    }
 }

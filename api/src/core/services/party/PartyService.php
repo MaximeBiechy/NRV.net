@@ -10,6 +10,8 @@ use nrv\core\dto\party\PartyDetailsDTO;
 use nrv\core\dto\party\PartyDTO;
 use nrv\core\dto\show\ShowDTO;
 use nrv\core\repositoryInterfaces\PartyRepositoryInterface;
+use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
+use nrv\core\repositoryInterfaces\RepositoryInternalServerError;
 use nrv\core\repositoryInterfaces\ShowRepositoryInterface;
 
 class PartyService implements PartyServiceInterface
@@ -25,25 +27,31 @@ class PartyService implements PartyServiceInterface
 
     public function getParties(): array
     {
-        $parties = $this->partyRepository->getParties();
-        $partiesDTO = [];
-        foreach ($parties as $party) {
-            $s = [];
-            foreach ($party->getShows() as $show) {
-                $request = $this->showService->getShowById($show);
-                $a = [];
-                foreach ($request->getArtists() as $artist) {
-                    $art = new Artist($artist['name'], $artist['style'], $artist['image']);
-                    $art->setID($artist['id']);
-                    $a[] = new ArtistDTO($art);
+        try{
+            $parties = $this->partyRepository->getParties();
+            $partiesDTO = [];
+            foreach ($parties as $party) {
+                $s = [];
+                foreach ($party->getShows() as $show) {
+                    $request = $this->showService->getShowById($show);
+                    $a = [];
+                    foreach ($request->getArtists() as $artist) {
+                        $art = new Artist($artist['name'], $artist['style'], $artist['image']);
+                        $art->setID($artist['id']);
+                        $a[] = new ArtistDTO($art);
+                    }
+                    $request->setArtists($a);
+                    $s[] = new ShowDTO($request);
                 }
-                $request->setArtists($a);
-                $s[] = new ShowDTO($request);
+                $party->setShows($s);
+                $partiesDTO[] = new PartyDetailsDTO($party);
             }
-            $party->setShows($s);
-            $partiesDTO[] = new PartyDTO($party);
+            return $partiesDTO;
+        }catch (RepositoryInternalServerError $e){
+            throw new PartyServiceInternalServerErrorException($e->getMessage());
+        }catch (RepositoryEntityNotFoundException $e){
+            throw new PartyServiceNotFoundException($e->getMessage());
         }
-        return $partiesDTO;
     }
 
     public function getParty(string $id): PartyDetailsDTO
