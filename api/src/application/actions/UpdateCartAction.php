@@ -2,6 +2,7 @@
 
 namespace nrv\application\actions;
 
+use DateTime;
 use nrv\application\renderer\JsonRenderer;
 use nrv\core\services\ticket\TicketServiceInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -60,14 +61,21 @@ class UpdateCartAction extends AbstractAction
                 if(filter_var($numero_cb,FILTER_SANITIZE_FULL_SPECIAL_CHARS) !== $numero_cb){
                     throw new HttpBadRequestException($rq, "Bad data format num cb");
                 }
-                if(filter_var($date_exp,FILTER_SANITIZE_FULL_SPECIAL_CHARS) !== $date_exp){
-                    throw new HttpBadRequestException($rq, "Bad data format date exp");
-                }
                 if(filter_var($code,FILTER_SANITIZE_FULL_SPECIAL_CHARS) !== $code){
                     throw new HttpBadRequestException($rq, "Bad data format code");
                 }
-                if (strlen($numero_cb) != 19 || strlen($date_exp) != 4 || strlen($code) != 3) {
-                    throw new HttpBadRequestException($rq, "Invalid card number, expiration date or code");
+                $date_exp = DateTime::createFromFormat('m/y', $date_exp);
+
+
+                if ($date_exp === false) {
+                    throw new HttpBadRequestException($rq, "Invalid date format : date must be in the format mm/yy");
+                }
+                if ($date_exp < new DateTime()) {
+                    throw new HttpBadRequestException($rq, "Invalid date format : date is in the past");
+                }
+
+                if (strlen($numero_cb) != 19 || strlen($code) != 3) {
+                    throw new HttpBadRequestException($rq, "Invalid card number or code");
                 }
                 $cart = $this->ticketService->payCart($card_id);
                 break;
