@@ -1,5 +1,5 @@
 'use strict';
-console.log('router.js loaded');
+
 document.addEventListener('DOMContentLoaded', () => {
     // Attach event listeners to links when the page first loads
     attachLinkListeners();
@@ -16,11 +16,10 @@ const route = (element) => {
     const path = element.getAttribute('url');
     if (path === '/showInfo'){
         localStorage.getItem('id_show');
-        console.log(localStorage.getItem('id_show'));
     }
-    
-    localStorage.setItem('currentPath', path); 
-    handleLocation(path); 
+
+    localStorage.setItem('currentPath', path);
+    handleLocation(path);
 };
 
 const routes = {
@@ -31,6 +30,8 @@ const routes = {
     "/shows": "/component/shows.html",
     "/showInfo": "/component/showInfo.html",
     "/cart": "/component/cart.html",
+    "/payment": "/component/payment.html",
+    "/validate_order": "/component/validate_order.html",
 };
 
 const handleLocation = async (path = "/") => {
@@ -50,7 +51,6 @@ const handleLocation = async (path = "/") => {
         document.body.removeChild(newScript);
     });
 
-
     // Reattach event listeners to any new `.way` links in the dynamically loaded content
     attachLinkListeners();
 };
@@ -66,7 +66,6 @@ const attachLinkListeners = () => {
 
 // Click event handler for the links
 const handleClick = (event) => {
-    console.log('click on ', event.target);
     event.preventDefault(); // Prevent default navigation
     route(event.target); // Call the route function with the clicked element
 };

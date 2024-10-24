@@ -518,9 +518,13 @@ section h2 {
   color: #151515;
   transition: all 0.3s;
 }
-.login p a {
+.login p p {
   text-decoration: none;
   color: beige;
+}
+.login p p:hover {
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
 body {
@@ -529,6 +533,11 @@ body {
   font-family: "Instrument Serif", serif;
   font-size: 1.6rem;
   line-height: 1.5;
+}
+
+.way:hover {
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
 /*# sourceMappingURL=style.css.map */

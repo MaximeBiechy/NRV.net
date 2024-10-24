@@ -8,8 +8,6 @@ async function fetchShowInfo(id) {
         }
         const data = await response.json();
 
-        console.log(data);
-
         for (let i = 0; i < data.party.length; i++) {
             data.party[i].date.date = new Date(data.party[i].date.date).toLocaleDateString('fr-FR', {
                 weekday: 'short',
