@@ -1,13 +1,13 @@
 console.log("Fichier cart.js chargé.")
 
-let cart_button = document.querySelector('.fa-cart-shopping');
+var cart_button = document.querySelector('.fa-cart-shopping');
 
-const id_user = localStorage.getItem('id_user');
-const authToken = localStorage.getItem('authToken');
+var id_user = localStorage.getItem('id_user');
+var authToken = localStorage.getItem('authToken');
 
-let ticket_party_routes = []
-let ticket_dates = [];
-let cart_id; //Potentiellement possible à passer en localstorage
+var ticket_party_routes = []
+var ticket_dates = [];
+var cart_id; //Potentiellement possible à passer en localstorage
 
 //Cart status :
 const statuses = {
@@ -46,6 +46,9 @@ async function loadCart(user_id){
 
     //Envoi en local storage :
     localStorage.setItem('id_cart', data.cart.id);
+
+    //Suppression du loader :
+    loader.style.display = 'none';
   }
   catch(error){
     console.error('There has been a problem with your fetch operation:', error);
