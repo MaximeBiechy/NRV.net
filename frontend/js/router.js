@@ -1,16 +1,19 @@
 'use strict';
-
+console.log('router.js loaded');
 document.addEventListener('DOMContentLoaded', () => {
     // Attach event listeners to links when the page first loads
     attachLinkListeners();
 
     // Load the last visited route from localStorage on page load
-    const savedPath = localStorage.getItem('currentPath') || '/';  
-    handleLocation(savedPath);
+    handleLocation(savedPath());
 });
 
+function savedPath() {
+    return savedPath = localStorage.getItem('currentPath') || '/';
+}
+
 const route = (element) => {
-    const path = element.getAttribute('data-id'); 
+    const path = element.getAttribute('url');
     localStorage.setItem('currentPath', path); 
     handleLocation(path); 
 };
@@ -42,6 +45,7 @@ const handleLocation = async (path = "/") => {
         document.body.removeChild(newScript);
     });
 
+
     // Reattach event listeners to any new `.way` links in the dynamically loaded content
     attachLinkListeners();
 };
@@ -51,14 +55,16 @@ const attachLinkListeners = () => {
     const links = document.querySelectorAll('.way');
     links.forEach((link) => {
         link.removeEventListener('click', handleClick); // Avoid duplicate listeners
+        console.log('attaching listener', link);
         link.addEventListener('click', handleClick);
     });
 };
 
 // Click event handler for the links
 const handleClick = (event) => {
+    console.log('clickbbbb', event.target);
     event.preventDefault(); // Prevent default navigation
-    route(event.currentTarget); // Call the route function with the clicked element
+    route(event.target); // Call the route function with the clicked element
 };
 
 window.route = route;

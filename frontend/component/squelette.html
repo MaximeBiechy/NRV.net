@@ -48,18 +48,9 @@
 
 		<select name="style" id="styles">
 			<option value="default">-- Style --</option>
-			<option value="Electro">Electro</option>
-			<option value="Pop">Pop</option>
-			<option value="Rock">Rock</option>
-			<option value="House">House</option>
-			<option value="Synthpop">Synthpop</option>
-			<option value="Downtempo">Downtempo</option>
-			<option value="Classical">Classical</option>
-			<option value="Chanson">Chanson</option>
-			<option value="Hip Hop">Hip Hop</option>
-			<option value="Rap">Rap</option>
-			<option value="R&B">R&B</option>
-			<option value="Metal">Metal</option>
+			{{#each styles}}
+			<option value="{{this.name}}">{{this.name}}</option>
+			{{/each}}
 		</select>
 
       <input type="date" id="calendar" name="trip-start" />

@@ -27,9 +27,12 @@ async function fetchShows() {
             addEventListener('click', function (event) {
                 if (event.target.classList.contains('card')) {
                     const id = event.target.getAttribute('data-id');
-                    this.localStorage.setItem('id_show', id);
+                    localStorage.setItem('id_show', id);
+                    console.log('click on show', id);
                 }
             });
+
+
 
             document.querySelector('#templateShow').innerHTML = filledTemplate;
 
