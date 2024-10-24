@@ -1,11 +1,12 @@
 <section>
     <h2 class="section__title">Nouveau ?!</h2>
     <div class="login">
-        <input type="text" placeholder="Username" autocomplete="email">
+      <p id="error_message">Erreur lors de la connexion à NancyRockVibration, <br>L'email est déjà utilisé.</p>
+        <input type="text" placeholder="Email" autocomplete="email">
         <input type="password" placeholder="Password" autocomplete="current-password">
         <input type="password" id="confirm" placeholder="Confirm Password" autocomplete="current-password">
-        <button onclick="signup()">signup</button>
+        <button onclick="signup()">S'inscrire</button>
         <p>vous avez déjà un compte ? <span class="way" url="/login">-> Connectez-vous <-</span></p>
     </div>
-    <script type="module" src="/js/signup.js" class="main-page-script" defer></script>
+    <script type="module" src="./js/signup.js" class="main-page-script" defer></script>
 </section>

@@ -1,5 +1,7 @@
 'use strict';
 
+const error_message = document.querySelector('#error_message');
+
 function signup() {
     const password = document.querySelector('input[type="password"]').value;
     const confirmPassword = document.querySelector('input[id="confirm"]').value;
@@ -22,21 +24,24 @@ function signup() {
                 }
 
                 const data = await response.json();
+                console.log(data);
 
                 localStorage.setItem('authToken', data.token);
                 localStorage.setItem('refreshToken', data.token_refresh);
                 localStorage.setItem('email_user', data.email);
                 localStorage.setItem('id_user', data.id);
 
-                alert('You are now logged in');
 
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
+                const error_message = document.querySelector('#error_message');
+                error_message.style.display = 'block';
             }
         }
 
         login();
     } else {
-        alert('Passwords do not match');
+        error_message.innerHTML = 'Les mots de passe ne correspondent pas.';
+        error_message.style.display = 'block';
     }
 }
