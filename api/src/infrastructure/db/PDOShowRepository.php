@@ -37,10 +37,24 @@ class PDOShowRepository implements ShowRepositoryInterface
                 'title' => $show->getTitle(),
                 'description' => $show->getDescription(),
                 'video' => $show->getVideo(),
-                'begin' => $show->getBegin()
+                'begin' => $show->getBegin()->format('Y-m-d H:i:s')
             ]);
+            foreach ($show->getArtists() as $artist_id) {
+                $stmt = $this->pdo_show->prepare("INSERT INTO perform (show_id, artist_id) VALUES (:show_id, :artist_id)");
+                $stmt->execute([
+                    'show_id' => $show->getID(),
+                    'artist_id' => $artist_id
+                ]);
+            }
+            foreach ($show->getImages() as $image) {
+                $stmt = $this->pdo_show->prepare("INSERT INTO images (show_id, path) VALUES (:show_id, :path)");
+                $stmt->execute([
+                    'show_id' => $show->getID(),
+                    'path' => $image
+                ]);
+            }
         }catch (\PDOException $e){
-            throw new RepositoryInternalServerError("Error while saving show");
+            throw new RepositoryInternalServerError("Error while saving show" . $e->getMessage());
         }
 
         return $show->getID();

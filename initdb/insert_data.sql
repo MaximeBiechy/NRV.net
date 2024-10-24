@@ -30,7 +30,6 @@ VALUES ('35346ab9-f0c2-4651-a5d5-1be4fcdc346f', '/images/stadedefrance.jpg',
         (SELECT id FROM public.places WHERE name = 'AccorHotels Arena')),
        ('5d3c2335-8c1b-47e0-bc7e-4bb5e19b5ab7', '/images/parcdesprinces.jpg',
         (SELECT id FROM public.places WHERE name = 'Parc des Princes'));
-;
 
 -- DATA FOR SHOW
 \connect

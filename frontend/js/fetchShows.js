@@ -1,12 +1,10 @@
 'use strict';
 
-console.log('fetchShows.js loaded');
-
 var loader = document.querySelector('.loader');
 
 async function fetchShows() {
     try {
-        const response = await fetch('http://localhost:21000/shows', {headers: {'Origin': 'http://localhost:21001'}});
+        const response = await fetch('http://localhost:21000/shows', { headers: { 'Origin': 'http://localhost:21001' } });
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -17,21 +15,31 @@ async function fetchShows() {
             loader.style.display = 'none';
             return;
         } else {
+            // Format the date for each show
             for (let i = 0; i < data.shows.length; i++) {
-                data.shows[i].date.date = new Date(data.shows[i].date.date).toLocaleDateString('fr-FR', { weekday: 'short', day: '2-digit', month: '2-digit' });
+                data.shows[i].date.date = new Date(data.shows[i].date.date).toLocaleDateString('fr-FR', {
+                    weekday: 'short',
+                    day: '2-digit',
+                    month: '2-digit'
+                });
             }
+
+            // Handlebars template compilation
             var templateSource = document.querySelector('#templateShow').innerHTML;
             var template = Handlebars.compile(templateSource);
             var filledTemplate = template(data);
 
-            addEventListener('click', function (event) {
-                if (event.target.classList.contains('card')) {
-                    const id = event.target.getAttribute('data-id');
-                    this.localStorage.setItem('id_show', id);
-                }
-            });
-
+            // Add event listeners after rendering the template
             document.querySelector('#templateShow').innerHTML = filledTemplate;
+
+            // Attach click event to each card or way
+            document.querySelectorAll('.way').forEach(card => {
+                card.addEventListener('click', function (event) {
+                    const id = this.querySelector('.card').getAttribute('data-id');
+                    localStorage.setItem('id_show', id); // Store id_show in localStorage
+                    window.route(this); // Trigger navigation to /showInfo route
+                });
+            });
 
             loader.style.display = 'none';
         }

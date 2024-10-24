@@ -5,12 +5,19 @@ document.addEventListener('DOMContentLoaded', () => {
     attachLinkListeners();
 
     // Load the last visited route from localStorage on page load
-    const savedPath = localStorage.getItem('currentPath') || '/';
-    handleLocation(savedPath);
+    handleLocation(savedPath());
 });
 
+function savedPath() {
+    return savedPath = localStorage.getItem('currentPath') || '/';
+}
+
 const route = (element) => {
-    const path = element.getAttribute('data-id');
+    const path = element.getAttribute('url');
+    if (path === '/showInfo'){
+        localStorage.getItem('id_show');
+    }
+
     localStorage.setItem('currentPath', path);
     handleLocation(path);
 };
@@ -60,9 +67,11 @@ const attachLinkListeners = () => {
 // Click event handler for the links
 const handleClick = (event) => {
     event.preventDefault(); // Prevent default navigation
-    route(event.currentTarget); // Call the route function with the clicked element
+    route(event.target); // Call the route function with the clicked element
 };
 
 
 
+
 window.route = route;
+attachLinkListeners();

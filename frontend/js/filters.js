@@ -1,6 +1,10 @@
-const select_places = document.querySelector("#places");
-const select_style = document.querySelector("#styles");
-const calendar = document.querySelector("#calendar");
+'use strict';
+
+console.log("Fichier filters.js chargé.");
+
+var select_places = document.querySelector("#places");
+var select_style = document.querySelector("#styles");
+var calendar = document.querySelector("#calendar");
 
 async function filterPlace(place) {
   if (place === "default") {
@@ -17,7 +21,7 @@ async function filterPlace(place) {
     }
 
     const data = await response.json();
-    console.log(data);
+   
 
     for (let i = 0; i < data.shows.length; i++) {
       data.shows[i].date.date = new Date(
@@ -56,6 +60,7 @@ async function filterPlace(place) {
     var filledTemplate = template(data);
 
     document.querySelector("#templateShow").innerHTML = filledTemplate;
+
   } catch (error) {
     console.error("There has been a problem with your fetch operation:", error);
   }
@@ -75,7 +80,7 @@ async function filterStyle(style) {
     }
 
     const data = await response.json();
-    console.log(data);
+   
     for (let i = 0; i < data.shows.length; i++) {
       data.shows[i].date.date = new Date(
         data.shows[i].date.date
@@ -112,11 +117,7 @@ async function filterStyle(style) {
 
     var template = Handlebars.compile(templateSource);
 
-    console.log(template);
-
     var filledTemplate = template(data);
-
-    console.log(filledTemplate);
 
     document.querySelector("#templateShow").innerHTML = filledTemplate;
   } catch (error) {
@@ -125,7 +126,6 @@ async function filterStyle(style) {
 }
 
 async function filterDate(date) {
-  console.log("Fonction FilterDate");
 
   if (date === "default") {
     date = "";
@@ -139,7 +139,7 @@ async function filterDate(date) {
     }
 
     const data = await response.json();
-    console.log(data);
+   
     for (let i = 0; i < data.shows.length; i++) {
       data.shows[i].date.date = new Date(
         data.shows[i].date.date
@@ -175,6 +175,8 @@ async function filterDate(date) {
     var template = Handlebars.compile(templateSource);
     var filledTemplate = template(data);
     document.querySelector("#templateShow").innerHTML = filledTemplate;
+
+  
   } catch (error) {
     console.error("There has been a problem with your fetch operation:", error);
   }
@@ -190,7 +192,7 @@ async function getPlaces() {
     }
 
     const data = await response.json();
-    console.log(data);
+   
 
     // Handlebars
     var templateSource = `
@@ -218,7 +220,7 @@ async function getStyles() {
     }
 
     const data = await response.json();
-    console.log(data);
+    
 
     // Handlebars
     var templateSource = `
@@ -236,16 +238,18 @@ async function getStyles() {
   }
 }
 
-// Section des events :
+// Event listener helper
 function addChangeListener(element, callback) {
   element.addEventListener("change", function () {
-    let current_value = element.value;
-    console.log(current_value);
-    callback(current_value);
+      let current_value = element.value;
+      callback(current_value);
   });
 }
+
+// Initialize data and attach listeners
 getPlaces();
 getStyles();
 addChangeListener(select_places, filterPlace);
 addChangeListener(select_style, filterStyle);
 addChangeListener(calendar, filterDate);
+
