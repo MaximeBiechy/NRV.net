@@ -38,10 +38,11 @@ class PDOPlaceRepository implements PlaceRepositoryInterface
 
     public function getPlaceById(string $id): Place
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM places WHERE id = :id');
-        $stmt->execute(['id' => $id]);
-        $place = $stmt->fetch();
-        if ($place === false) {
+        try {
+            $stmt = $this->pdo->prepare('SELECT * FROM places WHERE id = :id');
+            $stmt->execute(['id' => $id]);
+            $place = $stmt->fetch();
+        } catch (\PDOException $e) {
             throw new RepositoryEntityNotFoundException("Place not found");
         }
         $st = $this->pdo->prepare('SELECT * FROM images WHERE place_id = :place_id');

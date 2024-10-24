@@ -32,7 +32,7 @@ class TicketService implements TicketServiceInterface
             }
             return $ticketDTOs;
         }catch (RepositoryInternalServerError $e) {
-            throw new RepositoryInternalServerError($e->getMessage());
+            throw new TicketServiceInternalServerErrorException($e->getMessage());
         }
     }
 
@@ -41,9 +41,9 @@ class TicketService implements TicketServiceInterface
         try{
             $this->ticketRepository->addTicketToCart($dto->ticket_id, $dto->card_id);
         } catch (RepositoryInternalServerError $e) {
-            throw new RepositoryInternalServerError($e->getMessage());
+            throw new TicketServiceInternalServerErrorException($e->getMessage());
         } catch (RepositoryEntityNotFoundException $e) {
-            throw new RepositoryEntityNotFoundException($e->getMessage());
+            throw new TicketServiceNotFoundException($e->getMessage());
         }
 
     }
@@ -59,9 +59,9 @@ class TicketService implements TicketServiceInterface
             }
             return $ticketDTOs;
         }catch (RepositoryInternalServerError $e) {
-            throw new RepositoryInternalServerError($e->getMessage());
+            throw new TicketServiceInternalServerErrorException($e->getMessage());
         } catch (RepositoryEntityNotFoundException $e) {
-            throw new RepositoryEntityNotFoundException($e->getMessage());
+            throw new TicketServiceNotFoundException($e->getMessage());
         }
     }
 
@@ -73,7 +73,7 @@ class TicketService implements TicketServiceInterface
             $ticket->setId($ticketId);
             return new TicketDTO($ticket);
         } catch (RepositoryInternalServerError $e) {
-            throw new RepositoryInternalServerError($e->getMessage());
+            throw new TicketServiceInternalServerErrorException($e->getMessage());
         }
     }
 
@@ -83,9 +83,9 @@ class TicketService implements TicketServiceInterface
             $ticket = $this->ticketRepository->getTicketById($ticketId);
             return new TicketDTO($ticket);
         } catch (RepositoryInternalServerError $e) {
-            throw new RepositoryInternalServerError($e->getMessage());
+            throw new TicketServiceInternalServerErrorException($e->getMessage());
         } catch (RepositoryEntityNotFoundException $e) {
-            throw new RepositoryEntityNotFoundException($e->getMessage());
+            throw new TicketServiceNotFoundException($e->getMessage());
         }
     }
 
@@ -98,7 +98,7 @@ class TicketService implements TicketServiceInterface
             $soldTicket->setId($soldTicketId);
             return new SoldTicketDTO($soldTicket);
         } catch (RepositoryInternalServerError $e) {
-            throw new RepositoryInternalServerError($e->getMessage());
+            throw new TicketServiceInternalServerErrorException($e->getMessage());
         }
     }
 
@@ -108,9 +108,9 @@ class TicketService implements TicketServiceInterface
             $soldTicket = $this->ticketRepository->getSoldTicketById($ticketId);
             return new SoldTicketDTO($soldTicket);
         } catch (RepositoryInternalServerError $e) {
-            throw new RepositoryInternalServerError($e->getMessage());
+            throw new TicketServiceInternalServerErrorException($e->getMessage());
         } catch (RepositoryEntityNotFoundException $e) {
-            throw new RepositoryEntityNotFoundException($e->getMessage());
+            throw new TicketServiceNotFoundException($e->getMessage());
         }
     }
 
@@ -125,9 +125,9 @@ class TicketService implements TicketServiceInterface
             $cart->setTickets($t);
             return new CartDTO($cart);
         }catch (RepositoryInternalServerError $e) {
-            throw new RepositoryInternalServerError($e->getMessage());
+            throw new TicketServiceInternalServerErrorException($e->getMessage());
         } catch (RepositoryEntityNotFoundException $e) {
-            throw new RepositoryEntityNotFoundException($e->getMessage());
+            throw new TicketServiceNotFoundException($e->getMessage());
         }
     }
 
@@ -289,9 +289,9 @@ class TicketService implements TicketServiceInterface
             }
             return $soldTicketDTOs;
         }catch (RepositoryInternalServerError $e) {
-            throw new RepositoryInternalServerError($e->getMessage());
+            throw new TicketServiceInternalServerErrorException($e->getMessage());
         } catch (RepositoryEntityNotFoundException $e) {
-            throw new RepositoryEntityNotFoundException($e->getMessage());
+            throw new TicketServiceInternalServerErrorException($e->getMessage());
         }
     }
 
@@ -300,9 +300,9 @@ class TicketService implements TicketServiceInterface
         try{
             return $this->ticketRepository->getNbSoldTicketsByPartyID($partyId);
         }catch (RepositoryInternalServerError $e) {
-            throw new RepositoryInternalServerError($e->getMessage());
+            throw new TicketServiceInternalServerErrorException($e->getMessage());
         } catch (RepositoryEntityNotFoundException $e) {
-            throw new RepositoryEntityNotFoundException($e->getMessage());
+            throw new TicketServiceNotFoundException($e->getMessage());
         }
     }
 
@@ -313,7 +313,7 @@ class TicketService implements TicketServiceInterface
             $cart = $this->ticketRepository->updateTicketQuantity($cardId, $ticketId, $quantity);
             return new CartDTO($cart);
         } catch (RepositoryInternalServerError $e) {
-            throw new RepositoryInternalServerError($e->getMessage());
+            throw new TicketServiceInternalServerErrorException($e->getMessage());
         }
     }
 
@@ -323,7 +323,24 @@ class TicketService implements TicketServiceInterface
             $cart = $this->ticketRepository->deleteTicketFromCart($cardId, $ticketId);
             return new CartDTO($cart);
         } catch (RepositoryInternalServerError $e) {
-            throw new RepositoryInternalServerError($e->getMessage());
+            throw new TicketServiceInternalServerErrorException($e->getMessage());
+        }
+    }
+
+    public function getCart(string $card_id)
+    {
+        try {
+            $cart = $this->ticketRepository->getCartByID($card_id);
+            $t = [];
+            foreach ($cart->getTickets() as $ticket) {
+                $t[] = new TicketDTO($ticket);
+            }
+            $cart->setTickets($t);
+            return new CartDTO($cart);
+        } catch (RepositoryInternalServerError $e) {
+            throw new TicketServiceInternalServerErrorException($e->getMessage());
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new TicketServiceNotFoundException($e->getMessage());
         }
     }
 }
