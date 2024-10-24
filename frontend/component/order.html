@@ -1,6 +1,6 @@
 <!--Panier-->
 <section>
-  <h2>Votre panier :</h2>
+  <h2>Résumé de votre commande :</h2>
   <div class="container cart_container" id="cart_template">
     <div class="cart">
 
@@ -31,7 +31,7 @@
           <p>TVA : {{cart.tva}}€</p>
           <span>Total : {{cart.total_price}}€</span>
         </div>
-        <button class="validate_cart" onclick="route()"> >Valider le panier</button>
+        <button class="validate_order" onclick="route()"> >Confirmer votre commande</button>
       </div>
       {{else}}
       <p>Votre panier est vide.</p>
@@ -40,6 +40,6 @@
     </div>
   </div>
 </section>
+<script type="module" src="../js/confirm_order.js" class="main-page-script" defer></script>
 
-<script type="module" src="../js/cart.js" class="main-page-script" defer></script>
 
