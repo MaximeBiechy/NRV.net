@@ -6,15 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', (event) => route(event.currentTarget));
     });
 
-    // Load the last visited route from localStorage on page load
-    const savedPath = localStorage.getItem('currentPath') || '/';  // Fallback to home if no route saved
+    const savedPath = localStorage.getItem('currentPath') || '/';  
     handleLocation(savedPath);
 });
 
 const route = (element) => {
-    const path = element.getAttribute('data-id'); // Get the data-id from the clicked element
-    localStorage.setItem('currentPath', path); // Save the path to localStorage
-    handleLocation(path); // Call handleLocation with the selected path
+    const path = element.getAttribute('data-id'); 
+    localStorage.setItem('currentPath', path); 
+    handleLocation(path); 
 };
 
 const routes = {
@@ -31,7 +30,7 @@ const handleLocation = async (path = "/") => {
     const html = await fetch(route).then((data) => data.text());
     document.getElementById("main-page").innerHTML = html;
 
-    // Re-execute any scripts loaded with the HTML
+
     const scripts = document.querySelectorAll('.main-page-script');
     scripts.forEach((script) => {
         const newScript = document.createElement('script');
@@ -44,5 +43,5 @@ const handleLocation = async (path = "/") => {
     });
 };
 
-// No need for window.onpopstate since we're not changing the URL
+
 window.route = route;
