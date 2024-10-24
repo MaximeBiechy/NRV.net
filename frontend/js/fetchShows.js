@@ -1,5 +1,7 @@
 'use strict';
 
+consoel.log('fetchShows.js loaded');
+
 var loader = document.querySelector('.loader');
 
 async function fetchShows() {
