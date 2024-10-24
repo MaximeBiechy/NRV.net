@@ -226,6 +226,12 @@ section h2 {
   margin: 0.75em auto;
   width: 80%;
 }
+section h3 {
+  font-size: 2em;
+  font-weight: 400;
+  text-align: center;
+  margin: 1em auto;
+}
 
 .container.cart_container, .cart_container.details {
   width: 90%;
@@ -510,6 +516,60 @@ section h2 {
   text-decoration: none;
   color: beige;
 }
+.login p p:hover {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.details {
+  flex-direction: column;
+  justify-content: left;
+  margin-block: 2rem;
+}
+.details p {
+  font-size: 1.8rem;
+  margin: 0;
+  font-family: "Inter", sans-serif;
+}
+
+.ticket {
+  border: 1px solid #FFF;
+  padding: 2rem;
+  border-radius: 20px;
+  width: 12em;
+}
+.ticket img {
+  border-radius: 10px;
+  aspect-ratio: 1/1;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.ticket .ticket_content {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+.ticket .ticket_title {
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 1rem 0 0 0;
+  font-family: "Inter", sans-serif;
+  text-align: start;
+}
+.ticket .ticket_price {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin: 1.5rem 0 0 0;
+}
+.ticket p {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0;
+}
+.ticket p .sans {
+  font-family: "Inter", sans-serif;
+}
 
 body {
   background-color: #151515;
@@ -517,11 +577,6 @@ body {
   font-family: "Instrument Serif", serif;
   font-size: 1.6rem;
   line-height: 1.5;
-}
-
-.way:hover {
-  cursor: pointer;
-  transition: all 0.3s;
 }
 
 .way:hover {
