@@ -21,6 +21,7 @@ use nrv\application\actions\DisplayTicketsAction;
 use nrv\application\actions\SigninAction;
 use nrv\application\actions\SignupAction;
 use nrv\application\actions\UpdateCartAction;
+use nrv\application\actions\UpdatePlaceAction;
 use nrv\application\middlewares\Auth;
 use nrv\application\provider\auth\AuthProviderInterface;
 use nrv\application\provider\auth\JWTAuthProvider;
@@ -205,5 +206,8 @@ return [
     },
     Auth::class => function (ContainerInterface $c) {
         return new Auth($c->get(AuthProviderInterface::class));
+    },
+    UpdatePlaceAction::class => function (ContainerInterface $c) {
+        return new UpdatePlaceAction($c->get(\nrv\core\services\place\PlaceServiceInterface::class));
     },
 ];

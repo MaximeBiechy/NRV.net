@@ -79,4 +79,31 @@ class PDOPlaceRepository implements PlaceRepositoryInterface
 
         return $place->getID();
     }
+
+    public function update(Place $place): string
+    {
+        try {
+            if ($place->getID() === null) {
+                throw new RepositoryEntityNotFoundException("Place not found");
+            }
+            $stmt = $this->pdo->prepare("UPDATE places SET name = :name, address = :address, nb_sit = :nbSit, nb_stand = :nbStand WHERE id = :id");
+            $stmt->execute([
+                'id' => $place->getID(),
+                'name' => $place->getName(),
+                'address' => $place->getAddress(),
+                'nbSit' => $place->getNbSit(),
+                'nbStand' => $place->getNbStand()
+            ]);
+            $stmt2 = $this->pdo->prepare("UPDATE images SET path = :path WHERE place_id = :place_id");
+            foreach ($place->getImages() as $image) {
+                $stmt2->execute([
+                    'path' => $image,
+                    'place_id' => $place->getID()
+                ]);
+            }
+            return $place->getID();
+        } catch (\PDOException $e) {
+            throw new RepositoryInternalServerError("Error while updating place");
+        }
+    }
 }

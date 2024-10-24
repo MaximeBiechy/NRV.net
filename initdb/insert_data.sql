@@ -458,18 +458,27 @@ VALUES ('cec7ef16-66db-4916-96cd-4e4a2057ae8c', 'Birthday Bash ticket', 30, 1000
         'a0b7566b-6fdd-4e34-bbab-41d882de9c07'),
        ('25679b20-65f8-4455-97f8-a717fefd581d', 'Birthday Bash ticket', 24, 100000,
         'a0b7566b-6fdd-4e34-bbab-41d882de9c07'),
-       ('eaa814ee-398e-435e-950c-32bc56cf0c90', 'Music Fiesta ticket', 50, 9000,
+       ('eaa814ee-398e-435e-950c-32bc56cf0c90', 'Music Fiesta ticket', 50, 8999,
         '8243ea21-155b-4ac9-b75e-f66fc142c2ef'),
-       ('36a2cc72-0a36-4ad6-992c-4d310faa08a9', 'Music Fiesta ticket', 40, 9000,
+       ('36a2cc72-0a36-4ad6-992c-4d310faa08a9', 'Music Fiesta ticket', 40, 8999,
         '8243ea21-155b-4ac9-b75e-f66fc142c2ef'),
-       ('788c28db-0b2a-48d5-a010-cf138292d212', 'Hola Amigo ticket', 25, 25000, '8a03e604-ed5f-457f-82c3-11d35e54d496'),
-       ('17dba176-1e22-4c39-8a73-7e9ecdde6f83', 'Hola Amigo ticket', 20, 25000, '8a03e604-ed5f-457f-82c3-11d35e54d496');
+       ('788c28db-0b2a-48d5-a010-cf138292d212', 'Hola Amigo ticket', 25, 24999, '8a03e604-ed5f-457f-82c3-11d35e54d496'),
+       ('17dba176-1e22-4c39-8a73-7e9ecdde6f83', 'Hola Amigo ticket', 20, 24999, '8a03e604-ed5f-457f-82c3-11d35e54d496');
 
 INSERT INTO public.carts (id, user_id, total_price, state)
-VALUES ('d85544dd-c85b-4f9b-a600-52f91388d6d0', '669d5162-84b0-4edc-b043-3ccfa71eb0a9', 80, 0);
+VALUES ('d85544dd-c85b-4f9b-a600-52f91388d6d0', '669d5162-84b0-4edc-b043-3ccfa71eb0a9', 80, 0),
+       ('ca395e38-c52d-46c7-b0f1-4a6c0d10678a', '669d5162-84b0-4edc-b043-3ccfa71eb0a9', 75, 3);
 
 INSERT INTO public.cart_content (cart_id, ticket_id, quantity)
 VALUES ('d85544dd-c85b-4f9b-a600-52f91388d6d0',
         'cec7ef16-66db-4916-96cd-4e4a2057ae8c', 1),
        ('d85544dd-c85b-4f9b-a600-52f91388d6d0',
-        'eaa814ee-398e-435e-950c-32bc56cf0c90', 1);
+        'eaa814ee-398e-435e-950c-32bc56cf0c90', 1),
+       ('ca395e38-c52d-46c7-b0f1-4a6c0d10678a', '788c28db-0b2a-48d5-a010-cf138292d212', 1),
+       ('ca395e38-c52d-46c7-b0f1-4a6c0d10678a', 'eaa814ee-398e-435e-950c-32bc56cf0c90', 1);
+
+INSERT INTO public.soldtickets (id, name, price, user_id, ticket_id, party_id)
+VALUES ('ef54b2c6-15bb-498f-9118-064db56f611b', 'Hola Amigo ticket', 25, '669d5162-84b0-4edc-b043-3ccfa71eb0a9',
+        '788c28db-0b2a-48d5-a010-cf138292d212', '8a03e604-ed5f-457f-82c3-11d35e54d496'),
+       ('d45fcf22-e954-4639-9c73-8fb0040e1335', 'Music Fiesta ticket', 50, '669d5162-84b0-4edc-b043-3ccfa71eb0a9',
+        'eaa814ee-398e-435e-950c-32bc56cf0c90', '8243ea21-155b-4ac9-b75e-f66fc142c2ef');
