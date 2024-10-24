@@ -18,6 +18,7 @@ use nrv\application\actions\DisplaySpectatorGaugeAction;
 use nrv\application\actions\DisplayStylesAction;
 use nrv\application\actions\DisplayTicketAction;
 use nrv\application\actions\DisplayTicketsAction;
+use nrv\application\actions\DisplayTicketsByPartyAction;
 use nrv\application\actions\SigninAction;
 use nrv\application\actions\SignupAction;
 use nrv\application\actions\UpdateCartAction;
@@ -77,6 +78,7 @@ return function(\Slim\App $app):\Slim\App {
 
     // Party
     $app->post('/parties[/]', CreatePartyAction::class)->setName('create_party');
+    $app->get('/parties/{ID-PARTY}/tickets', DisplayTicketsByPartyAction::class)->setName('parties_id_tickets');
 
     return $app;
 };
