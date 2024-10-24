@@ -13,6 +13,8 @@ use nrv\application\actions\DisplayPlaceAction;
 use nrv\application\actions\DisplayPlacesAction;
 use nrv\application\actions\DisplaySpectatorGaugeAction;
 use nrv\application\actions\DisplayStylesAction;
+use nrv\application\actions\DisplayTicketAction;
+use nrv\application\actions\DisplayTicketsAction;
 use nrv\application\actions\SigninAction;
 use nrv\application\actions\SignupAction;
 use nrv\application\actions\UpdateCartAction;
@@ -56,6 +58,9 @@ return function(\Slim\App $app):\Slim\App {
     $app->get('/users/{ID-USER}/sold_tickets[/]', DisplaySoldTicketsByUserAction::class)->setName('users_id_sold_tickets');
 
     $app->get('/styles[/]', DisplayStylesAction::class)->setName('styles');
+
+    $app->get('/tickets[/]', DisplayTicketsAction::class)->setName('tickets');
+    $app->get('/tickets/{ID-TICKET}[/]', DisplayTicketAction::class)->setName('tickets_id');
 
 
 
