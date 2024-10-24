@@ -11,4 +11,6 @@ interface PlaceServiceInterface
     public function getPlace(string $id): PlaceDTO;
     public function createPlace(CreatePlaceDTO $place): PlaceDTO;
 
+    public function updatePlace(string $id, CreatePlaceDTO $place): PlaceDTO;
+
 }

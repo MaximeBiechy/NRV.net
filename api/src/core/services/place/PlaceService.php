@@ -57,4 +57,22 @@ class PlaceService implements PlaceServiceInterface
             throw new PlaceServiceInternalServerErrorException($e->getMessage());
         }
     }
+
+    public function updatePlace(string $id, CreatePlaceDTO $placeDTO): PlaceDTO
+    {
+        try{
+            $place = $this->placeRepository->getPlaceById($id);
+            $place->setName($placeDTO->name);
+            $place->setAddress($placeDTO->address);
+            $place->setNbSit($placeDTO->nbSit);
+            $place->setNbStand($placeDTO->nbStand);
+            $place->setImages($placeDTO->images);
+            $this->placeRepository->update($place);
+            return new PlaceDTO($place);
+        }catch (RepositoryInternalServerError $e){
+            throw new PlaceServiceInternalServerErrorException($e->getMessage());
+        }catch (RepositoryEntityNotFoundException $e){
+            throw new PlaceServiceNotFoundException($e->getMessage());
+        }
+    }
 }

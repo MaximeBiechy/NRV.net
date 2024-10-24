@@ -21,6 +21,7 @@ use nrv\application\actions\DisplayTicketsAction;
 use nrv\application\actions\SigninAction;
 use nrv\application\actions\SignupAction;
 use nrv\application\actions\UpdateCartAction;
+use nrv\application\actions\UpdatePlaceAction;
 use nrv\application\middlewares\Auth;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -55,6 +56,7 @@ return function(\Slim\App $app):\Slim\App {
     // Places
     $app->get('/places[/]', DisplayPlacesAction::class)->setName('places');
     $app->get('/places/{ID-PLACE}[/]', DisplayPlaceAction::class)->setName('places_id');
+    $app->patch('/places/{ID-PLACE}[/]', UpdatePlaceAction::class)->setName('update_place_id');
 
     // Tickets
     $app->patch('/carts/{ID-CART}/ticket[/]', AddTicketToUserCartAction::class)->setName('carts_id')
