@@ -47,6 +47,8 @@ class DisplayCartAction extends AbstractAction
                 "user_id" => $cart->user_id,
                 "state" => $cart->state,
                 "tickets" => $tickets,
+                "price_HT" => $cart->priceHT,
+                "tva" => $cart->tva,
                 "total_price" => $cart->price,
                 "links" => [
                     "self" => ['href' => $urlSelf],
