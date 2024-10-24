@@ -16,10 +16,10 @@
           <div class="cart_item_desc">
             <div class="cart_item_options">
               <span class="cart_item_options_title">{{this.name}}</span>
-              <span class="cart_item_options_date">{{this.date}}</span>
+              <span class="cart_item_options_date"></span>
               <span class="cart_item_options_type">{{this.quantity}} ticket</span>
             </div>
-            <p class="cart_item_price">{{this.price}} HT</p>
+            <p class="cart_item_price">{{this.price}}€ TTC</p>
           </div>
         </div>
       </div>
@@ -27,9 +27,9 @@
 
       <div class="cart_payment">
         <div class="cart_payment_calculus">
-          <p>Sous-total :</p>
-          <p>TTC :</p>
-          <span></span>
+          <p>Sous-total : {{cart.price_HT}}€</p>
+          <p>TVA : {{cart.tva}}€</p>
+          <span>Total : {{cart.total_price}}€</span>
         </div>
         <button> >Payer</button>
       </div>
