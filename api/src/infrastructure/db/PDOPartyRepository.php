@@ -27,15 +27,15 @@ class PDOPartyRepository implements PartyRepositoryInterface
             } else {
                 $id = Uuid::uuid4()->toString();
                 $party->setID($id);
-                $stmt = $this->pdo_party->prepare('INSERT INTO party (id, name, theme, price, date, begin, show1_id, show2_id, show3_id, place_id) VALUES (:id, :name, :theme, :price, :date, :begin, :show1_id, :show2_id, :show2_id, :place)');
+                $stmt = $this->pdo_party->prepare('INSERT INTO party (id, name, theme, price, date, begin, show1_id, show2_id, show3_id, place_id) VALUES (:id, :name, :theme, :price, :date, :begin, :show1_id, :show2_id, :show3_id, :place)');
             }
             $stmt->execute([
                 'id' => $party->getID(),
                 'name' => $party->getName(),
                 'theme' => $party->getTheme(),
                 'price' => $party->getPrice(),
-                'date' => $party->getDate(),
-                'begin' => $party->getBegin(),
+                'date' => $party->getDate()->format('Y-m-d H:i:s'),
+                'begin' => $party->getBegin()->format('Y-m-d H:i:s'),
                 'show1_id' => $party->getShows()[0],
                 'show2_id' => $party->getShows()[1]??null,
                 'show3_id' => $party->getShows()[2]??null,
@@ -43,7 +43,7 @@ class PDOPartyRepository implements PartyRepositoryInterface
             ]);
             return $party->getID();
         } catch (\PDOException $e) {
-            throw new RepositoryInternalServerError('Error while saving party');
+            throw new RepositoryInternalServerError('Error while saving party' . $e->getMessage());
         }
     }
 

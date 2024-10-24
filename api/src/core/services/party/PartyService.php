@@ -76,7 +76,6 @@ class PartyService implements PartyServiceInterface
     public function createParty(CreatePartyDTO $party): PartyDTO
     {
         $party = new Party($party->name, $party->theme, $party->price, $party->date, $party->begin, $party->shows, $party->place);
-//        __construct(string $name, string $theme, int $price, \DateTimeImmutable $date, \DateTimeImmutable $begin, array $shows, string $place_id)
         $id = $this->partyRepository->save($party);
         $party->setId($id);
         return new PartyDTO($party);

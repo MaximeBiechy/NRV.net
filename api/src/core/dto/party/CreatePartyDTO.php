@@ -3,14 +3,16 @@
 namespace nrv\core\dto\party;
 
 use nrv\core\domain\entities\party\Party;
+use nrv\core\domain\entities\place\Place;
 use nrv\core\dto\DTO;
 
 class CreatePartyDTO extends DTO
 {
-    protected string $name, $theme, $place_id;
+    protected string $name, $theme;
     protected int $price;
     protected \DateTimeImmutable $date, $begin;
     protected array $shows;
+    protected Place $place;
 
     public function __construct(Party $p) {
         $this->name = $p->getName();
@@ -19,6 +21,6 @@ class CreatePartyDTO extends DTO
         $this->date = $p->getDate();
         $this->begin = $p->getBegin();
         $this->shows = $p->getShows();
-        $this->place_id = $p->getPlace();
+        $this->place = $p->getPlace();
     }
 }
