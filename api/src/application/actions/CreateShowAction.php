@@ -8,12 +8,14 @@ use nrv\core\dto\show\CreateShowDTO;
 use nrv\core\services\show\ShowServiceBadDataException;
 use nrv\core\services\show\ShowServiceInterface;
 use nrv\core\services\show\ShowServiceInternalServerErrorException;
+use nrv\core\services\show\ShowServiceNotFoundException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpInternalServerErrorException;
+use Slim\Exception\HttpNotFoundException;
 use Slim\Routing\RouteContext;
 
 class CreateShowAction extends AbstractAction
@@ -79,6 +81,8 @@ class CreateShowAction extends AbstractAction
             throw new HttpBadRequestException($rq, $e->getMessage());
         } catch (ShowServiceInternalServerErrorException $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
+        } catch (ShowServiceNotFoundException $e) {
+            throw new HttpNotFoundException($rq, $e->getMessage());
         }
     }
 }
