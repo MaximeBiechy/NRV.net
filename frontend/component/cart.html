@@ -4,7 +4,8 @@
   <div class="container cart_container" id="cart_template">
     <div class="cart">
 
-      {{#each tickets}}
+      {{#if cart.tickets.length}}
+      {{#each cart.tickets}}
       <div class="cart_item">
         <img src="/assets/img/singer.jpg" alt="Chanteur"/>
         <div class="cart_item_desc_title">
@@ -15,7 +16,7 @@
           <div class="cart_item_desc">
             <div class="cart_item_options">
               <span class="cart_item_options_title">{{this.name}}</span>
-              <span class="cart_item_options_date">date</span>
+              <span class="cart_item_options_date">{{this.date}}</span>
               <span class="cart_item_options_type">{{this.quantity}} ticket</span>
             </div>
             <p class="cart_item_price">{{this.price}} HT</p>
@@ -28,10 +29,14 @@
         <div class="cart_payment_calculus">
           <p>Sous-total :</p>
           <p>TTC :</p>
-          <span>Total :</span>
+          <span></span>
         </div>
         <button> >Payer</button>
       </div>
+      {{else}}
+      <p>Votre panier est vide.</p>
+      {{/if}}
+
     </div>
   </div>
 </section>

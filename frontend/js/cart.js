@@ -1,7 +1,9 @@
 console.log("Fichier cart.js chargé.")
 
 let cart_button = document.querySelector('.fa-cart-shopping');
-console.log(cart_button);
+
+const id_user = localStorage.getItem('id_user');
+const authToken = localStorage.getItem('authToken');
 
 async function loadCart(user_id){
   try{
@@ -13,11 +15,12 @@ async function loadCart(user_id){
     const data = await response.json();
     console.log(data);
 
-    var templateSource = document.querySelector('#templateCart').innerHTML;
+    //Handlebars :
+    var templateSource = document.querySelector('#cart_template').innerHTML;
     var template = Handlebars.compile(templateSource);
     var filledTemplate = template(data);
 
-    document.querySelector('#templateCart').innerHTML = filledTemplate;
+    document.querySelector('#cart_template').innerHTML = filledTemplate;
 
   }
   catch(error){
