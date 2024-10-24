@@ -6,7 +6,7 @@ async function login() {
 
     try {
         const response = await fetch('http://localhost:21000/signin', { method: 'POST',
-            headers: {'Origin': 'http://localhost:5500','Authorization': 'Basic ' + btoa(username + ':' + password)} })
+            headers: {'Origin': 'http://localhost:21001','Authorization': 'Basic ' + btoa(username + ':' + password)} })
           ;
 
         if (!response.ok) {
@@ -14,8 +14,8 @@ async function login() {
         }
 
         const data = await response.json();
-        
-        
+
+
         localStorage.setItem('authToken', data.token);
 
     alert('You are now logged in');
