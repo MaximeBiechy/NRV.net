@@ -442,7 +442,6 @@ class PDOShowRepository implements ShowRepositoryInterface
             throw new RepositoryInternalServerError("Error while fetching shows");
         }
     }
-
     public function getStyles(): array
     {
         try{
@@ -456,6 +455,27 @@ class PDOShowRepository implements ShowRepositoryInterface
             return $result;
         }catch (\PDOException $e){
             throw new RepositoryInternalServerError("Error while fetching styles");
+        }
+    }
+
+    public function getArtistsPaginated(int $page, int $size): array
+    {
+        try{
+            $stmt = $this->pdo_show->prepare("SELECT * FROM artists LIMIT :size OFFSET :offset");
+            $stmt->execute([
+                'size' => $size,
+                'offset' => ($page - 1) * $size
+            ]);
+            $artists = $stmt->fetchAll();
+            $result = [];
+            foreach ($artists as $artist) {
+                $a = new Artist($artist['name'], $artist['style'], $artist['image']);
+                $a->setID($artist['id']);
+                $result[] = $a;
+            }
+            return $result;
+        }catch (\PDOException $e){
+            throw new RepositoryInternalServerError("Error while fetching artists");
         }
     }
 

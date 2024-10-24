@@ -253,4 +253,18 @@ class ShowService implements ShowServiceInterface
             throw new ShowServiceInternalServerErrorException($e->getMessage());
         }
     }
+
+    public function getArtistsPaginated(int $page, int $size): array
+    {
+        try{
+            $artists = $this->showRepository->getArtistsPaginated($page, $size);
+            $result = [];
+            foreach ($artists as $artist) {
+                $result[] = new ArtistDTO($artist);
+            }
+            return $result;
+        }catch (RepositoryInternalServerError $e){
+            throw new ShowServiceInternalServerErrorException($e->getMessage());
+        }
+    }
 }

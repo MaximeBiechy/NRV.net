@@ -3,9 +3,15 @@
 namespace nrv\application\actions;
 
 use nrv\application\renderer\JsonRenderer;
+use nrv\core\services\show\ShowServiceBadDataException;
 use nrv\core\services\show\ShowServiceInterface;
+use nrv\core\services\show\ShowServiceInternalServerErrorException;
+use nrv\core\services\show\ShowServiceNotFoundException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Slim\Exception\HttpBadRequestException;
+use Slim\Exception\HttpInternalServerErrorException;
+use Slim\Exception\HttpNotFoundException;
 use Slim\Routing\RouteContext;
 
 class DisplayShowsAction extends AbstractAction
@@ -19,64 +25,72 @@ class DisplayShowsAction extends AbstractAction
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        $params = $rq->getQueryParams();
+        try{
+            $params = $rq->getQueryParams();
 
-        if (isset($params['date']) && strlen($params['date']) > 0 ) {
-            if (isset($params['page'])){
-                $shows = $this->showServiceInterface->getShowsByDatePaginated(urldecode($params['date']), $params['page'], NB_PAGES);
+            if (isset($params['date']) && strlen($params['date']) > 0 ) {
+                if (isset($params['page'])){
+                    $shows = $this->showServiceInterface->getShowsByDatePaginated(urldecode($params['date']), $params['page'], NB_PAGES);
+                } else {
+                    $shows = $this->showServiceInterface->getShowsByDate(urldecode($params['date']));
+                }
+            } else if (isset($params['style']) && strlen($params['style']) > 0) {
+                if (isset($params['page'])){
+                    $shows = $this->showServiceInterface->getShowsByStylePaginated(urldecode($params['style']), $params['page'], NB_PAGES);
+                } else {
+                    $shows = $this->showServiceInterface->getShowsByStyle(urldecode($params['style']));
+                }
+            } else if (isset($params['place']) && strlen($params['place']) > 0) {
+                if (isset($params['page'])){
+                    $shows = $this->showServiceInterface->getShowsByPlacePaginated(urldecode($params['place']), $params['page'], NB_PAGES);
+                } else {
+                    $shows = $this->showServiceInterface->getShowsByPlace(urldecode($params['place']));
+                }
             } else {
-            $shows = $this->showServiceInterface->getShowsByDate(urldecode($params['date']));
+                if (isset($params['page'])){
+                    $shows = $this->showServiceInterface->getShowsPaginated($params['page'], NB_PAGES);
+                } else {
+                    $shows = $this->showServiceInterface->getShows();
+                }
             }
-        } else if (isset($params['style']) && strlen($params['style']) > 0) {
-            if (isset($params['page'])){
-                $shows = $this->showServiceInterface->getShowsByStylePaginated(urldecode($params['style']), $params['page'], NB_PAGES);
-            } else {
-                $shows = $this->showServiceInterface->getShowsByStyle(urldecode($params['style']));
-            }
-        } else if (isset($params['place']) && strlen($params['place']) > 0) {
-            if (isset($params['page'])){
-                $shows = $this->showServiceInterface->getShowsByPlacePaginated(urldecode($params['place']), $params['page'], NB_PAGES);
-            } else {
-            $shows = $this->showServiceInterface->getShowsByPlace(urldecode($params['place']));
-            }
-        } else {
-            if (isset($params['page'])){
-                $shows = $this->showServiceInterface->getShowsPaginated($params['page'], NB_PAGES);
-            } else {
-                $shows = $this->showServiceInterface->getShows();
-            }
-        }
 
-        $routeContext = RouteContext::fromRequest($rq);
-        $routeParser = $routeContext->getRouteParser();
-        $urlSelf = $routeParser->urlFor('shows');
-        $shows = array_map(function($show) use ($routeParser) {
-            $urlShow = $routeParser->urlFor('shows_id', ['ID-SHOW' => $show->id]);
-            $images = $show->images;
-            $images = array_map(function($image) use ($routeParser) {
+            $routeContext = RouteContext::fromRequest($rq);
+            $routeParser = $routeContext->getRouteParser();
+            $urlSelf = $routeParser->urlFor('shows');
+            $shows = array_map(function($show) use ($routeParser) {
+                $urlShow = $routeParser->urlFor('shows_id', ['ID-SHOW' => $show->id]);
+                $images = $show->images;
+                $images = array_map(function($image) use ($routeParser) {
+                    return [
+                        "self" => ['href' =>$image]
+                    ];
+                }, $images);
                 return [
-                    "self" => ['href' =>$image]
+                    "id" => $show->id,
+                    "title" => $show->title,
+                    "date" => $show->begin,
+                    "images" => $images,
+                    "links" => [
+                        "self" => ['href' => $urlShow]
+                    ]
                 ];
-            }, $images);
-            return [
-                "id" => $show->id,
-                "title" => $show->title,
-                "date" => $show->begin,
-                "images" => $images,
+            }, $shows);
+
+            $response = [
+                "type" => "collection",
+                "locale" => "fr-FR",
+                "shows" => $shows,
                 "links" => [
-                    "self" => ['href' => $urlShow]
+                    "self" => ['href' => $urlSelf]
                 ]
             ];
-        }, $shows);
-
-        $response = [
-            "type" => "collection",
-            "locale" => "fr-FR",
-            "shows" => $shows,
-            "links" => [
-                "self" => ['href' => $urlSelf]
-            ]
-        ];
-        return JsonRenderer::render($rs, 200, $response);
+            return JsonRenderer::render($rs, 200, $response);
+        }catch (ShowServiceInternalServerErrorException $e){
+            throw new HttpInternalServerErrorException($rq, $e->getMessage());
+        }catch (ShowServiceNotFoundException $e){
+            throw new HttpNotFoundException($rq, $e->getMessage());
+        }catch (ShowServiceBadDataException $e){
+            throw new HttpBadRequestException($rq, $e->getMessage());
+        }
     }
 }

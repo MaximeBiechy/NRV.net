@@ -22,7 +22,13 @@ class DisplayArtistsAction extends AbstractAction
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
         try{
-            $artists = $this->showService->getArtists();
+            $params = $rq->getQueryParams();
+            if (isset($params['page']) && strlen($params['page']) > 0 ) {
+                $artists = $this->showService->getArtistsPaginated($params['page'], NB_PAGES);
+            } else {
+                $artists = $this->showService->getArtists();
+
+            }
             $routeContext = RouteContext::fromRequest($rq);
             $routeParser = $routeContext->getRouteParser();
             $urlSelf = $routeParser->urlFor('artists');

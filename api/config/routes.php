@@ -48,6 +48,7 @@ return function(\Slim\App $app):\Slim\App {
     // Compte et profil d'utilisateur
     $app->post('/signup[/]', SignupAction::class)->setName('signup');
     $app->post('/signin[/]', SigninAction::class)->setName('signin');
+    $app->post('/refresh[/]', SigninAction::class)->setName('refresh');
 
     // Artistes
     $app->get('/artists[/]', DisplayArtistsAction::class)->setName('artists');
