@@ -295,7 +295,6 @@ section h3 {
 }
 .container.cart_container .cart .cart_item, .cart_container.details .cart .cart_item {
   align-items: center;
-  border: 1px solid red;
   display: flex;
   gap: 5em;
   padding: 1em 0;
