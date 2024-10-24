@@ -33,26 +33,23 @@ async function filterPlace(place) {
 
     // Handlebars
     var templateSource = `
-    <div class="container" id="templateShow">
+    <div class="container" id="templateShow"> 
       {{#if shows.length}}
       {{#each shows}}
-      <article class="card">
-      <img src="{{this.images.0.self.href}}" alt="1" class="card__img">
-      <div class="card_head">
-        <p><span class="bold">{{ this.date.date }}</span></p>
-        <p class="place"></p>
-      </div>
-      <div class="card_body">
-        <h3 class="card_title">{{ this.title }}</h3>
-        <div class="card_tags">
-        </div>
-      </div>
-      </article>
+      <div class="way" url="/showInfo">
+	  <article class="card" data-id="{{this.id}}">
+		  <img src="{{this.images.0.self.href}}" alt="1" class="card_img">
+		  <div class="card_head">
+			  <p><span class="bold">{{this.date.date}}</span></p>
+		  </div>
+		  <div class="card_body">
+			  <h3 class="card_title">{{this.title}}</h3>
+		  </div>
+	  </article>
+  </div>
       {{/each}}
-      {{else}}
-      <p class="error-message">Aucun spectacle disponible pour le moment.</p>
       {{/if}}
-    </div>
+  </div>
     `;
     var template = Handlebars.compile(templateSource);
     var filledTemplate = template(data);
@@ -91,26 +88,23 @@ async function filterStyle(style) {
 
     // Handlebars
     var templateSource = `
-    <div class="container" id="templateShow">
+        <div class="container" id="templateShow"> 
       {{#if shows.length}}
       {{#each shows}}
-      <article class="card">
-      <img src="{{this.images.0.self.href}}" alt="1" class="card__img">
-      <div class="card_head">
-        <p><span class="bold">{{ this.date.date }}</span></p>
-        <p class="place"></p>
-      </div>
-      <div class="card_body">
-        <h3 class="card_title">{{ this.title }}</h3>
-        <div class="card_tags">
-        </div>
-      </div>
-      </article>
+      <div class="way" url="/showInfo">
+	  <article class="card" data-id="{{this.id}}">
+		  <img src="{{this.images.0.self.href}}" alt="1" class="card_img">
+		  <div class="card_head">
+			  <p><span class="bold">{{this.date.date}}</span></p>
+		  </div>
+		  <div class="card_body">
+			  <h3 class="card_title">{{this.title}}</h3>
+		  </div>
+	  </article>
+  </div>
       {{/each}}
-      {{else}}
-      <p class="error-message">Aucun spectacle disponible pour le moment.</p>
       {{/if}}
-    </div>
+  </div>
     `;
 
     var template = Handlebars.compile(templateSource);
@@ -149,26 +143,23 @@ async function filterDate(date) {
     }
     // Handlebars
     var templateSource = `
-    <div class="container" id="templateShow">
+       <div class="container" id="templateShow"> 
       {{#if shows.length}}
       {{#each shows}}
-      <article class="card">
-      <img src="{{this.images.0.self.href}}" alt="1" class="card__img">
-      <div class="card_head">
-        <p><span class="bold">{{ this.date.date }}</span></p>
-        <p class="place"></p>
-      </div>
-      <div class="card_body">
-        <h3 class="card_title">{{ this.title }}</h3>
-        <div class="card_tags">
-        </div>
-      </div>
-      </article>
+      <div class="way" url="/showInfo">
+	  <article class="card" data-id="{{this.id}}">
+		  <img src="{{this.images.0.self.href}}" alt="1" class="card_img">
+		  <div class="card_head">
+			  <p><span class="bold">{{this.date.date}}</span></p>
+		  </div>
+		  <div class="card_body">
+			  <h3 class="card_title">{{this.title}}</h3>
+		  </div>
+	  </article>
+  </div>
       {{/each}}
-      {{else}}
-      <p class="error-message">Aucun spectacle disponible pour le moment.</p>
       {{/if}}
-    </div>
+  </div>
     `;
     var template = Handlebars.compile(templateSource);
     var filledTemplate = template(data);

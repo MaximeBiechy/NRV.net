@@ -1,51 +1,53 @@
-
 <div class="loader">
-    <div class="loader__spinner"></div>
+  <div class="loader__spinner"></div>
 </div>
 <section>
   <h2>Les Spectacles Disponibles</h2>
-  
-  <div class="container" id="templateShow"> 
-
-      {{#each shows}}
-      <div class="way" url="/showInfo">
-	  <article class="card" data-id="{{this.id}}">
-		  <img src="{{this.images.0.self.href}}" alt="1" class="card_img">
-		  <div class="card_head">
-			  <p><span class="bold">{{this.date.date}}</span></p>
-		  </div>
-		  <div class="card_body">
-			  <h3 class="card_title">{{this.title}}</h3>
-		  </div>
-	  </article>
-  </div>
+  <ul class="filters">
+    <select name="places" id="places">
+      <option value="default">-- Lieux --</option>
+      {{#each places}}
+      <option value="{{this.name}}">{{this.name}}</option>
       {{/each}}
+    </select>
 
-  </div>
-</section>
+    <select name="style" id="styles">
+      <option value="default">-- styles --</option>
+      {{#each styles}}
+      <option value="{{this.name}}">{{this.name}}</option>
+      {{/each}}
+    </select>
 
-<section>
-  <h2>Artistes :</h2>
-
-  <div class="container" id="templateArtist">
-    {{#each shows}}
-    <article class="card">
-      <img src="/images/{{this.image.self.href}}" alt="1" class="card_img">
-      <div class="card_head">
-      </div>
-      <div class="card_body">
-        <h3 class="card_title">{{this.name}}</h3>
-        <div class="card_tags">
-          <p class="tag {{this.style}}">{{this.style}}</p>
+    <input type="date" id="calendar" name="trip-start" />
+  </ul>
+  <div class="container" id="templateShow">
+    {{#if shows.length}} {{#each shows}}
+    <div class="way" url="/showInfo">
+      <article class="card" data-id="{{this.id}}">
+        <img src="{{this.images.0.self.href}}" alt="1" class="card_img" />
+        <div class="card_head">
+          <p><span class="bold">{{this.date.date}}</span></p>
         </div>
-      </div>
-    </article>
-    {{/each}}
+        <div class="card_body">
+          <h3 class="card_title">{{this.title}}</h3>
+        </div>
+      </article>
+    </div>
+    {{/each}} {{else}}
+    <p class="error-message">Aucun spectacle disponible pour le moment.</p>
+    {{/if}}
   </div>
-
 </section>
 
-
-<script type="module" src="./js/fetchArtists.js" class="main-page-script" defer></script>
-<script type="module" src="./js/fetchShows.js" class="main-page-script" defer></script>
-
+<script
+  type="module"
+  src="/js/filters.js"
+  class="main-page-script"
+  defer
+></script>
+<script
+  type="module"
+  src="./js/fetchShows.js"
+  class="main-page-script"
+  defer
+></script>
