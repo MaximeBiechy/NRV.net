@@ -3,8 +3,6 @@
 var loader = document.querySelector('.loader');
 
 async function fetchTickets(id_user, token) {
-    console.log('Fetching tickets for user:', id_user);
-    console.log('Token:', token);
     try {
         const response = await fetch(`http://localhost:21000/users/${id_user}/sold_tickets`, {
             headers: {
@@ -42,7 +40,6 @@ async function fetchTickets(id_user, token) {
             loader.style.display = 'none';
             return;
         } else {
-            console.log(result);
             for (let i = 0; i < result.sold_tickets.length; i++) {
                 result.sold_tickets[i].party.party.date.date = new Date(result.sold_tickets[i].party.party.date.date).toLocaleDateString('fr-FR', {
                     weekday: 'short',
@@ -66,3 +63,21 @@ document.querySelector('#name').innerHTML = localStorage.getItem('email_user');
 
 fetchTickets(localStorage.getItem('id_user'), localStorage.getItem('authToken'));
 
+
+async function printTickets() {
+    var tickets = document.querySelectorAll('.ticket');
+    if (tickets.length === 0) {
+        alert("Vous n'avez pas de billets à imprimer");
+        return;
+    } else {
+        tickets.forEach(ticket => {
+            var printWindow = window.open('', '', 'height=400,width=600');
+            printWindow.document.write('<html><head><title>Print Ticket</title>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(ticket.outerHTML);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        });
+    }
+}

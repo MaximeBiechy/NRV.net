@@ -4,7 +4,7 @@ var loader = document.querySelector('.loader');
 
 async function fetchArtists() {
     try {
-      const response = await fetch('http://localhost:21000/artists', { headers: { 'Origin': 'http://localhost:21001'}});
+      const response = await fetch('http://localhost:21000/artists?page=', { headers: { 'Origin': 'http://localhost:21001'}});
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

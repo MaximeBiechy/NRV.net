@@ -24,7 +24,7 @@ async function login() {
         document.querySelector('#navProfile').style.display = 'block';
         document.querySelector('#navLogin').style.display = 'none';
 
-        window.route({ getAttribute: () => '/' });
+        window.route({ getAttribute: () => '/profile' });
 
     } catch (error) {
         console.error('There has been a problem with your fetch operation:', error);
