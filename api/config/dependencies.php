@@ -195,7 +195,6 @@ return [
     CreatePartyAction::class => function (ContainerInterface $c) {
         return new CreatePartyAction($c->get(PartyServiceInterface::class), $c->get(PlaceServiceInterface::class));
     },
-
     Auth::class => function (ContainerInterface $c) {
         return new Auth($c->get(AuthentificationServiceInterface::class));
     },
