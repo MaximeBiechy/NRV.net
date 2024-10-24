@@ -1,11 +1,11 @@
 <section>
     <h2 class="section__title">Nouveau ?!</h2>
-    <div class="login">
-        <input type="text" placeholder="Username">
-        <input type="password" placeholder="Password">
-        <input type="password" id="confirm" placeholder="Confirm Password">
+    <form class="login">
+        <input type="text" placeholder="Username" autocomplete="email">
+        <input type="password" placeholder="Password" autocomplete="current-password">
+        <input type="password" id="confirm" placeholder="Confirm Password" autocomplete="current-password">
         <button onclick="signup()">signup</button>
         <p>vous avez déjà un compte ? <span class="way" url="/login">-> Connectez-vous <-</span></p>
-    </div>
+    </form>
     <script type="module" src="./js/signup.js" class="main-page-script" defer></script>
 </section>
