@@ -77,3 +77,18 @@ const handleClick = (event) => {
 
 window.route = route;
 attachLinkListeners();
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Login-display
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('auth');
+    const token = localStorage.getItem('authToken');
+    if (token) {
+        document.querySelector('#navProfile').style.display = 'block';
+        document.querySelector('#navLogin').style.display = 'none';
+    } else {
+        document.querySelector('#navProfile').style.display = 'none';
+        document.querySelector('#navLogin').style.display = 'block';
+    }
+});

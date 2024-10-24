@@ -43,9 +43,7 @@ return function(\Slim\App $app):\Slim\App {
     $app->get('/shows/{ID-SHOW}/party[/]', DisplayPartyByShowAction::class)->setName('shows_id_party');
     $app->post('/shows[/]', CreateShowAction::class)->setName('create_show');
 
-    $app->get('/parties[/]', DisplayPartiesAction::class)->setName('parties');
-    $app->get('/parties/gauge[/]', DisplaySpectatorGaugeAction::class)->setName('parties_gauge');
-    $app->get('/parties/{ID-PARTY}[/]', DisplayPartyAction::class)->setName('parties_id');
+
 
     // Compte et profil d'utilisateur
     $app->post('/signup[/]', SignupAction::class)->setName('signup');
@@ -80,6 +78,10 @@ return function(\Slim\App $app):\Slim\App {
     // Party
     $app->post('/parties[/]', CreatePartyAction::class)->setName('create_party');
     $app->get('/parties/{ID-PARTY}/tickets', DisplayTicketsByPartyAction::class)->setName('parties_id_tickets');
+    $app->get('/parties[/]', DisplayPartiesAction::class)->setName('parties');
+    $app->get('/parties/gauge[/]', DisplaySpectatorGaugeAction::class)->setName('parties_gauge');
+    $app->get('/parties/{ID-PARTY}[/]', DisplayPartyAction::class)->setName('parties_id');
+
     $app->get('/parties/{ID-PARTY}/gauge', DisplayPartyGaugeAction::class)->setName('parties_id_gauge');
 
     return $app;
