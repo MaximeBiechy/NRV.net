@@ -5,6 +5,7 @@ namespace nrv\infrastructure\db;
 use nrv\core\domain\entities\cart\Cart;
 use nrv\core\domain\entities\ticket\SoldTicket;
 use nrv\core\domain\entities\ticket\Ticket;
+use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 use nrv\core\repositoryInterfaces\RepositoryInternalServerError;
 use nrv\core\repositoryInterfaces\TicketRepositoryInterface;
 use Ramsey\Uuid\Uuid;
@@ -35,7 +36,7 @@ class PDOTicketRepository implements TicketRepositoryInterface
                 'quantity' => $ticket->getQuantity(),
                 'party_id' => $ticket->getPartyID()
             ]);
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error saving ticket");
         }
 
@@ -60,7 +61,7 @@ class PDOTicketRepository implements TicketRepositoryInterface
                 'user_id' => $soldTicket->getUserID(),
                 'party_id' => $soldTicket->getPartyID()
             ]);
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error saving sold ticket" . $e->getMessage());
         }
 
@@ -109,7 +110,7 @@ class PDOTicketRepository implements TicketRepositoryInterface
             $tickets = $stmt->fetchAll();
             $ts = [];
             foreach ($tickets as $ticket) {
-                $t = new SoldTicket($ticket['name'], $ticket['price'], $ticket['user_id'], $ticket['party_id'],  $ticket['ticket_id']);
+                $t = new SoldTicket($ticket['name'], $ticket['price'], $ticket['user_id'], $ticket['party_id'], $ticket['ticket_id']);
                 $t->setID($ticket['id']);
                 $ts[] = $t;
             }
@@ -145,7 +146,7 @@ class PDOTicketRepository implements TicketRepositoryInterface
             $stmt0->execute(['cart_id' => $cartID]);
             $state = $stmt0->fetch();
             if ($state === false || $state['state'] != 0) {
-                throw new RepositoryInternalServerError("Cart not found or state is not 0");
+                throw new RepositoryEntityNotFoundException("Cart not found or state is not 0");
             }
 
             // Vérifie qu'il y a assez de tickets
@@ -209,20 +210,17 @@ class PDOTicketRepository implements TicketRepositoryInterface
             $stmt = $this->pdo_ticket->prepare("SELECT * FROM carts WHERE id = :id");
             $stmt->execute(['id' => $cartID]);
             $cart = $stmt->fetch();
-            if ($cart === false) {
-                throw new RepositoryInternalServerError("Cart not found");
-            }
-            try {
-                $tickets = $this->getTicketsByCartID($cart['id']);
-            } catch (RepositoryInternalServerError $e) {
-                throw new RepositoryInternalServerError($e->getMessage());
-            }
-            $c = new Cart($cart['user_id'], $cart['total_price'], $tickets, $cart['state']);
-            $c->setID($cart['id']);
-            return $c;
         } catch (\PDOException $e) {
-            throw new RepositoryInternalServerError("Error getting cart by id");
+            throw new RepositoryEntityNotFoundException("Error getting cart by id");
         }
+        try {
+            $tickets = $this->getTicketsByCartID($cart['id']);
+        } catch (RepositoryInternalServerError $e) {
+            throw new RepositoryInternalServerError($e->getMessage());
+        }
+        $c = new Cart($cart['user_id'], $cart['total_price'], $tickets, $cart['state']);
+        $c->setID($cart['id']);
+        return $c;
     }
 
     public function saveCart(Cart $cart): string
@@ -241,7 +239,7 @@ class PDOTicketRepository implements TicketRepositoryInterface
                 'total_price' => $cart->getTotalPrice(),
                 'state' => $cart->getState()
             ]);
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error saving cart");
         }
 

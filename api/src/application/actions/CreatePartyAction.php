@@ -11,6 +11,7 @@ use nrv\core\services\party\PartyServiceInterface;
 use nrv\core\services\place\PlaceServiceInterface;
 use nrv\core\services\show\ShowServiceBadDataException;
 use nrv\core\services\show\ShowServiceInternalServerErrorException;
+use nrv\core\services\show\ShowServiceNotFoundException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Respect\Validation\Exceptions\NestedValidationException;
@@ -89,6 +90,8 @@ class CreatePartyAction extends AbstractAction
             throw new HttpBadRequestException($rq, $e->getMessage());
         } catch (ShowServiceInternalServerErrorException $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
+        } catch (ShowServiceNotFoundException $e) {
+            throw new HttpBadRequestException($rq, $e->getMessage());
         }
     }
 }

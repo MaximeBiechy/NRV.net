@@ -4,7 +4,7 @@
 
 <section >
     <h2>Bienvenue <span id="name"></span></h2>
-    <h3>Voici tous vos tickets :</h3>
+    <h3>Voici tous vos tickets :</h3><button onclick="printTickets()">Imprimez vos tickets</button>
 <div class="container" id="templateTicket">
     {{#each sold_tickets}}
     <div class="ticket">
@@ -19,6 +19,7 @@
 
     {{/each}}
 </div>
+    
 </section>
 
 <script type="module" src="/js/profil.js" class="main-page-script"></script>

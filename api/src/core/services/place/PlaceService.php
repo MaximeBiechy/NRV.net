@@ -69,10 +69,10 @@ class PlaceService implements PlaceServiceInterface
             $place->setImages($placeDTO->images);
             $this->placeRepository->update($place);
             return new PlaceDTO($place);
-        }catch (RepositoryInternalServerError $e){
-            throw new PlaceServiceInternalServerErrorException($e->getMessage());
-        }catch (RepositoryEntityNotFoundException $e){
+        } catch (RepositoryEntityNotFoundException $e) {
             throw new PlaceServiceNotFoundException($e->getMessage());
+        } catch (RepositoryInternalServerError $e) {
+            throw new PlaceServiceInternalServerErrorException($e->getMessage());
         }
     }
 }
