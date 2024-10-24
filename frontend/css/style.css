@@ -18,6 +18,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 .genres {
   align-items: center;
   color: #151515;
@@ -218,7 +222,7 @@
   background-color: #F35D5D;
 }
 
-.container {
+.container, .details {
   display: flex;
   flex-direction: row;
   gap: 2em;
@@ -226,6 +230,7 @@
   justify-content: center;
   margin: 0 auto;
   width: 80%;
+  margin-bottom: 2em;
 }
 
 section {
@@ -241,16 +246,22 @@ section h2 {
   margin: 0.75em auto;
   width: 80%;
 }
+section h3 {
+  font-size: 2em;
+  font-weight: 400;
+  text-align: center;
+  margin: 1em auto;
+}
 
-.container.cart_container {
+.container.cart_container, .cart_container.details {
   width: 90%;
 }
-.container.cart_container .cart {
+.container.cart_container .cart, .cart_container.details .cart {
   border: 1px solid red;
   position: relative;
   width: 100%;
 }
-.container.cart_container .cart h2 {
+.container.cart_container .cart h2, .cart_container.details .cart h2 {
   border-bottom: 0.5px solid white;
   font-style: italic;
   font-weight: lighter;
@@ -259,7 +270,7 @@ section h2 {
   padding: 1em 0;
   width: 90%;
 }
-.container.cart_container .cart h3 {
+.container.cart_container .cart h3, .cart_container.details .cart h3 {
   font-family: "Inter", sans-serif;
   font-size: 1em;
   font-style: italic;
@@ -269,18 +280,18 @@ section h2 {
   border-top: 0.5px solid white;
   width: 90%;
 }
-.container.cart_container .cart .cart_nametags {
+.container.cart_container .cart .cart_nametags, .cart_container.details .cart .cart_nametags {
   background-color: orange;
   display: flex;
   justify-content: flex-end;
   width: 100%;
 }
-.container.cart_container .cart .cart_nametags p {
+.container.cart_container .cart .cart_nametags p, .cart_container.details .cart .cart_nametags p {
   font-family: "Inter", sans-serif;
   font-style: italic;
   font-weight: 200;
 }
-.container.cart_container .cart .cart_item {
+.container.cart_container .cart .cart_item, .cart_container.details .cart .cart_item {
   align-items: center;
   display: flex;
   gap: 5em;
@@ -288,50 +299,50 @@ section h2 {
   margin: 0 auto;
   width: 100%;
 }
-.container.cart_container .cart .cart_item img {
+.container.cart_container .cart .cart_item img, .cart_container.details .cart .cart_item img {
   border-radius: 2em;
   width: 175px;
   height: 350px;
   object-fit: cover;
 }
-.container.cart_container .cart .cart_item .cart_item_desc_title {
+.container.cart_container .cart .cart_item .cart_item_desc_title, .cart_container.details .cart .cart_item .cart_item_desc_title {
   display: flex;
   flex-direction: column;
 }
-.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_title_desc {
+.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_title_desc, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_title_desc {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
-.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_desc {
+.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_desc, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_desc {
   display: flex;
   flex-direction: row;
 }
-.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options {
+.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options {
   display: flex;
   flex-direction: column;
 }
-.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options .cart_item_otpions_title {
+.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options .cart_item_otpions_title, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options .cart_item_otpions_title {
   font-size: 1.25em;
 }
-.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options .cart_item_otpions_date {
+.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options .cart_item_otpions_date, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options .cart_item_otpions_date {
   font-family: "Inter", sans-serif;
   font-size: 0.75em;
   font-weight: 300;
 }
-.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options .cart_item_otpions_type {
+.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options .cart_item_otpions_type, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options .cart_item_otpions_type {
   font-family: "Inter", sans-serif;
   font-style: italic;
   font-weight: 200;
   margin: 0.1em 0;
 }
-.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_price {
+.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_price, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_price {
   font-family: "Inter", sans-serif;
   font-style: italic;
   font-weight: 200;
   margin-left: 1em;
 }
-.container.cart_container .cart .cart_payment {
+.container.cart_container .cart .cart_payment, .cart_container.details .cart .cart_payment {
   align-items: flex-end;
   display: flex;
   font-family: "Inter", sans-serif;
@@ -340,7 +351,7 @@ section h2 {
   right: 0;
   position: absolute;
 }
-.container.cart_container .cart .cart_payment button {
+.container.cart_container .cart .cart_payment button, .cart_container.details .cart .cart_payment button {
   background-color: #5DF3AB;
   border-radius: 16px;
   font-family: "Instrument Serif", serif;
@@ -349,7 +360,7 @@ section h2 {
   padding: 0.1em 2em;
   width: fit-content;
 }
-.container.cart_container .cart .cart_payment .cart_payment_calculus {
+.container.cart_container .cart .cart_payment .cart_payment_calculus, .cart_container.details .cart .cart_payment .cart_payment_calculus {
   display: flex;
   font-style: italic;
   justify-content: flex-start;
@@ -357,32 +368,32 @@ section h2 {
   margin: 0;
   width: 15em;
 }
-.container.cart_container .cart .cart_payment .cart_payment_calculus p:nth-child(2) {
+.container.cart_container .cart .cart_payment .cart_payment_calculus p:nth-child(2), .cart_container.details .cart .cart_payment .cart_payment_calculus p:nth-child(2) {
   font-style: italic;
   font-weight: 200;
 }
-.container.cart_container .cart .cart_payment .cart_payment_calculus p {
+.container.cart_container .cart .cart_payment .cart_payment_calculus p, .cart_container.details .cart .cart_payment .cart_payment_calculus p {
   margin: 0;
 }
-.container.cart_container .cart .cart_payment .cart_payment_calculus span {
+.container.cart_container .cart .cart_payment .cart_payment_calculus span, .cart_container.details .cart .cart_payment .cart_payment_calculus span {
   border-top: 0.5px solid white;
   font-size: 1.25em;
   font-style: normal;
   font-weight: 400;
   width: 100%;
 }
-.container.cart_container .cart_modal {
+.container.cart_container .cart_modal, .cart_container.details .cart_modal {
   background-color: orange;
   width: 20vw;
 }
-.container.cart_container .cart_modal h3 {
+.container.cart_container .cart_modal h3, .cart_container.details .cart_modal h3 {
   color: #FFF;
   font-size: 1.5em;
 }
-.container.cart_container .cart_modal .cart_item {
+.container.cart_container .cart_modal .cart_item, .cart_container.details .cart_modal .cart_item {
   border: 2px solid red;
 }
-.container.cart_container .cart_modal .cart_item img {
+.container.cart_container .cart_modal .cart_item img, .cart_container.details .cart_modal .cart_item img {
   height: 10%;
   width: auto;
 }
@@ -490,6 +501,12 @@ section h2 {
   height: 100%;
   gap: 2em;
 }
+.login #error_message {
+  color: red;
+  display: none;
+  margin: 0;
+  text-align: center;
+}
 .login input {
   background-color: #151515;
   color: #FFF;
@@ -525,6 +542,55 @@ section h2 {
 .login p p:hover {
   cursor: pointer;
   transition: all 0.3s;
+}
+
+.details {
+  flex-direction: column;
+  justify-content: left;
+  margin-block: 2rem;
+}
+.details p {
+  font-size: 1.8rem;
+  margin: 0;
+  font-family: "Inter", sans-serif;
+}
+
+.ticket {
+  border: 1px solid #FFF;
+  padding: 2rem;
+  border-radius: 20px;
+  width: 12em;
+}
+.ticket img {
+  border-radius: 10px;
+  aspect-ratio: 1/1;
+  width: 100%;
+  object-fit: cover;
+}
+.ticket .ticket_content {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+.ticket .ticket_title {
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 1rem 0 0 0;
+  font-family: "Inter", sans-serif;
+  text-align: start;
+}
+.ticket .ticket_price {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin: 1.5rem 0 0 0;
+}
+.ticket p {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0;
+}
+.ticket p .sans {
+  font-family: "Inter", sans-serif;
 }
 
 body {

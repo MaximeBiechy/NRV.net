@@ -46,13 +46,10 @@ async function loadCart(user_id){
 
     //Envoi en local storage :
     localStorage.setItem('id_cart', data.cart.id);
-    console.log("Panier chargé : " + data.cart.id);
-    console.log("Panier chargé (localstorage cart) : " + localStorage.getItem('id_cart'));
-    console.log("Panier chargé (localstorage user) : " + localStorage.getItem('id_user'));
-
   }
   catch(error){
     console.error('There has been a problem with your fetch operation:', error);
+    window.route({ getAttribute: () => '/login' });
   }
 }
 

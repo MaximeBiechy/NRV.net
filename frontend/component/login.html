@@ -1,10 +1,11 @@
 <section>
     <h2 class="section__title">Connectez-vous !</h2>
-    <form class="login">
+    <div class="login">
+        <p id="error_message">Erreur lors de la connexion à NancyRockVibraation, veuillez réessayer. <br>Si vous n'avez pas de compte, cliquez ci-dessous.</p>
         <input type="text" placeholder="Username" autocomplete="email">
         <input type="password" placeholder="Password" autocomplete="current-password">
         <button onclick="login()">Login</button>
         <p>vous n'avez pas de compte ?  <span class="way" url="/signup">-> Créez-en un ici <-</span></p>
-    </form>
+    </div>
     <script type="module" src="./../js/login.js" class="main-page-script" defer></script>
 </section>

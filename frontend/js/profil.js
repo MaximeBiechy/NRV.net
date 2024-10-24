@@ -30,7 +30,7 @@ async function fetchTickets(id_user, token) {
                 headers: {
                     'Authorization': `Bearer ${token}`,  // Ensure token is sent again
                     'Origin': 'http://localhost:21000',
-                    // 'mode': 'no-cors', 
+                    // 'mode': 'no-cors',
                 }
                 // Remove mode: 'no-cors'
             });
