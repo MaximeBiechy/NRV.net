@@ -245,4 +245,13 @@ class ShowService implements ShowServiceInterface
             throw new ShowServiceInternalServerErrorException($e->getMessage());
         }
     }
+
+    public function getStyles(): array
+    {
+        try{
+            return $this->showRepository->getStyles();
+        }catch (RepositoryInternalServerError $e){
+            throw new ShowServiceInternalServerErrorException($e->getMessage());
+        }
+    }
 }
