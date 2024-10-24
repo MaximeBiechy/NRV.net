@@ -16,7 +16,6 @@ const route = (element) => {
     const path = element.getAttribute('url');
     if (path === '/showInfo'){
         localStorage.getItem('id_show');
-        console.log(localStorage.getItem('id_show'));
     }
     
     localStorage.setItem('currentPath', path); 
@@ -66,7 +65,6 @@ const attachLinkListeners = () => {
 
 // Click event handler for the links
 const handleClick = (event) => {
-    console.log('click on ', event.target);
     event.preventDefault(); // Prevent default navigation
     route(event.target); // Call the route function with the clicked element
 };
