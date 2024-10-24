@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 
 use nrv\application\actions\AddTicketToUserCartAction;
+use nrv\application\actions\CreateShowAction;
 use nrv\application\actions\DisplayArtistAction;
 use nrv\application\actions\DisplayArtistsAction;
 use nrv\application\actions\DisplaySoldTicketsByUserAction;
@@ -34,6 +35,7 @@ return function(\Slim\App $app):\Slim\App {
     $app->get('/shows[/]', DisplayShowsAction::class)->setName('shows');
     $app->get('/shows/{ID-SHOW}[/]', DisplayShowAction::class)->setName('shows_id');
     $app->get('/shows/{ID-SHOW}/party[/]', DisplayPartyByShowAction::class)->setName('shows_id_party');
+    $app->post('/shows[/]', CreateShowAction::class)->setName('create_show');
 
     $app->get('/parties/gauge[/]', DisplaySpectatorGaugeAction::class)->setName('parties_gauge');
     $app->get('/parties/{ID-PARTY}[/]', DisplayPartyAction::class)->setName('parties_id');

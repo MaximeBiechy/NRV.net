@@ -1,6 +1,7 @@
 <?php
 
 use nrv\application\actions\AddTicketToUserCartAction;
+use nrv\application\actions\CreateShowAction;
 use nrv\application\actions\DisplayArtistAction;
 use nrv\application\actions\DisplayArtistsAction;
 use nrv\application\actions\DisplayCartAction;
@@ -181,5 +182,8 @@ return [
     },
     DisplayTicketAction::class => function (ContainerInterface $c) {
         return new DisplayTicketAction($c->get(TicketServiceInterface::class));
+    },
+    CreateShowAction::class => function (ContainerInterface $c) {
+        return new CreateShowAction($c->get(ShowServiceInterface::class));
     },
 ];

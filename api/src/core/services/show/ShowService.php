@@ -2,7 +2,7 @@
 
 namespace nrv\core\services\show;
 
-use nrv\core\domain\entities\Artist\Artist;
+use nrv\core\domain\entities\artist\Artist;
 use nrv\core\domain\entities\show\Show;
 use nrv\core\dto\artist\ArtistDTO;
 use nrv\core\dto\show\CreateShowDTO;
@@ -69,8 +69,7 @@ class ShowService implements ShowServiceInterface
             $show->setID($id);
             $ars = [];
             foreach ($show->getArtists() as $artist) {
-                $a = new Artist($artist['name'], $artist['style'], $artist['image']);
-                $a->setID($artist['id']);
+                $a = $this->showRepository->getArtistById($artist);
                 $ars[] = new ArtistDTO($a);
             }
             $show->setArtists($ars);
