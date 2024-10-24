@@ -12,6 +12,9 @@ use nrv\application\actions\DisplayShowAction;
 use nrv\application\actions\DisplayShowsAction;
 use nrv\application\actions\DisplaySoldTicketsByUserAction;
 use nrv\application\actions\DisplaySpectatorGaugeAction;
+use nrv\application\actions\DisplayStylesAction;
+use nrv\application\actions\DisplayTicketAction;
+use nrv\application\actions\DisplayTicketsAction;
 use nrv\application\actions\SigninAction;
 use nrv\application\actions\SignupAction;
 use nrv\application\actions\UpdateCartAction;
@@ -169,5 +172,14 @@ return [
     },
     DisplayArtistAction::class => function (ContainerInterface $c) {
         return new DisplayArtistAction($c->get(ShowServiceInterface::class));
+    },
+    DisplayStylesAction::class => function (ContainerInterface $c) {
+        return new DisplayStylesAction($c->get(ShowServiceInterface::class));
+    },
+    DisplayTicketsAction::class => function (ContainerInterface $c) {
+        return new DisplayTicketsAction($c->get(TicketServiceInterface::class));
+    },
+    DisplayTicketAction::class => function (ContainerInterface $c) {
+        return new DisplayTicketAction($c->get(TicketServiceInterface::class));
     },
 ];

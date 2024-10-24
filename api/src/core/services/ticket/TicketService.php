@@ -22,6 +22,20 @@ class TicketService implements TicketServiceInterface
         $this->ticketRepository = $ticketRepository;
     }
 
+    public function getTickets(): array
+    {
+        try{
+            $tickets = $this->ticketRepository->getTickets();
+            $ticketDTOs = [];
+            foreach ($tickets as $ticket) {
+                $ticketDTOs[] = new TicketDTO($ticket);
+            }
+            return $ticketDTOs;
+        }catch (RepositoryInternalServerError $e) {
+            throw new RepositoryInternalServerError($e->getMessage());
+        }
+    }
+
     public function addTicketToCart(AddTicketToCartDTO $dto): void
     {
         try{

@@ -180,6 +180,62 @@ async function filterDate(date) {
   }
 }
 
+async function getPlaces() {
+  try {
+    const response = await fetch("http://localhost:21000/places", {
+      headers: { Origin: "http://localhost:21001" },
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+    console.log(data);
+
+    // Handlebars
+    var templateSource = `
+    <option value="default">-- Lieux --</option>
+    {{#each places}}
+    <option value="{{this.name}}">{{this.name}}</option>
+    {{/each}}
+    `;
+    var template = Handlebars.compile(templateSource);
+    var filledTemplate = template(data);
+
+    document.querySelector("#places").innerHTML = filledTemplate;
+  } catch (error) {
+    console.error("There has been a problem with your fetch operation:", error);
+  }
+}
+
+async function getStyles() {
+  try {
+    const response = await fetch("http://localhost:21000/styles", {
+      headers: { Origin: "http://localhost:21001" },
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+    console.log(data);
+
+    // Handlebars
+    var templateSource = `
+    <option value="default">-- Styles --</option>
+    {{#each styles}}
+    <option value="{{this}}">{{this}}</option>
+    {{/each}}
+    `;
+    var template = Handlebars.compile(templateSource);
+    var filledTemplate = template(data);
+
+    document.querySelector("#styles").innerHTML = filledTemplate;
+  } catch (error) {
+    console.error("There has been a problem with your fetch operation:", error);
+  }
+}
+
 // Section des events :
 function addChangeListener(element, callback) {
   element.addEventListener("change", function () {
@@ -188,7 +244,8 @@ function addChangeListener(element, callback) {
     callback(current_value);
   });
 }
-
+getPlaces();
+getStyles();
 addChangeListener(select_places, filterPlace);
 addChangeListener(select_style, filterStyle);
 addChangeListener(calendar, filterDate);

@@ -428,4 +428,20 @@ class PDOShowRepository implements ShowRepositoryInterface
         }
     }
 
+    public function getStyles(): array
+    {
+        try{
+            $stmt = $this->pdo_show->prepare("SELECT DISTINCT style FROM artists");
+            $stmt->execute();
+            $styles = $stmt->fetchAll();
+            $result = [];
+            foreach ($styles as $style) {
+                $result[] = $style['style'];
+            }
+            return $result;
+        }catch (\PDOException $e){
+            throw new RepositoryInternalServerError("Error while fetching styles");
+        }
+    }
+
 }

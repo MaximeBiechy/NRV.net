@@ -13,6 +13,7 @@ interface TicketServiceInterface
     public function getTicketsFromcart(string $id): array;
     public function createTicket(TicketDTO $ticketDTO): TicketDTO;
     public function getTicket(string $ticketId): TicketDTO;
+    public function getTickets(): array;
     public function createSoldTicket(SoldTicketDTO $ticketDTO): SoldTicketDTO;
     public function getSoldTicket(string $ticketId): SoldTicketDTO;
     public function getCartByUserId(string $userId): CartDTO;

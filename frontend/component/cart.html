@@ -1,8 +1,10 @@
 <!--Panier-->
 <section>
   <h2>Votre panier :</h2>
-  <div class="container">
+  <div class="container cart_container" id="cart_template">
     <div class="cart">
+
+      {{#each tickets}}
       <div class="cart_item">
         <img src="/assets/img/singer.jpg" alt="Chanteur"/>
         <div class="cart_item_desc_title">
@@ -12,14 +14,15 @@
           </div>
           <div class="cart_item_desc">
             <div class="cart_item_options">
-              <span class="cart_item_options_title">Soirée Lorem Ipsum</span>
-              <span class="cart_item_options_date">Samedi 23 Mai 2024.</span>
-              <span class="cart_item_options_type">1x ticket - All pass</span>
+              <span class="cart_item_options_title">{{this.name}}</span>
+              <span class="cart_item_options_date">date</span>
+              <span class="cart_item_options_type">{{this.quantity}} ticket</span>
             </div>
-            <p class="cart_item_price">25.00€ HT</p>
+            <p class="cart_item_price">{{this.price}} HT</p>
           </div>
         </div>
       </div>
+      {{/each}}
 
       <div class="cart_payment">
         <div class="cart_payment_calculus">
@@ -32,3 +35,6 @@
     </div>
   </div>
 </section>
+
+<script type="module" src="../js/cart.js" class="main-page-script" defer></script>
+
