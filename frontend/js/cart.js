@@ -10,7 +10,7 @@ var ticket_dates = [];
 var cart_id; //Potentiellement possible à passer en localstorage
 
 //Cart status :
-const statuses = {
+var statuses = {
   validate_status: 1,
   confirmation_status: 2,
   paid_status: 3
@@ -48,7 +48,10 @@ async function loadCart(user_id){
     localStorage.setItem('id_cart', data.cart.id);
 
     //Suppression du loader :
+    var loader = document.querySelector('.loader');
     loader.style.display = 'none';
+
+    cart_empty = false;
   }
   catch(error){
     console.error('There has been a problem with your fetch operation:', error);
@@ -105,15 +108,18 @@ function updateCart(id_cart, state){
   });
 }
 
-(async () => {
-  await loadCart(localStorage.getItem('id_user'));
+  (async () => {
+    await loadCart(localStorage.getItem('id_user'));
 
-  let validate_button = document.querySelector('.validate_cart');
-  validate_button.addEventListener('click', function(){
-    console.log("Le bouton de validation a été cliqué !");
-    updateCart(localStorage.getItem('id_cart'), statuses.validate_status);
-    window.route({ getAttribute: () => '/order' });
-  });
-})();
+    let validate_button = document.querySelector('.validate_cart');
+    validate_button.addEventListener('click', function(){
+      console.log("Le bouton de validation a été cliqué !");
+      updateCart(localStorage.getItem('id_cart'), statuses.validate_status);
+      window.route({ getAttribute: () => '/order' });
+    });
+  })();
+
+
+
 
 

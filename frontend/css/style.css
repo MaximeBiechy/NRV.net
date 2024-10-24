@@ -254,10 +254,9 @@ section h3 {
 }
 
 .container.cart_container, .cart_container.details {
-  width: 90%;
+  width: 100%;
 }
 .container.cart_container .cart, .cart_container.details .cart {
-  border: 1px solid red;
   position: relative;
   width: 100%;
 }
@@ -280,6 +279,9 @@ section h3 {
   border-top: 0.5px solid white;
   width: 90%;
 }
+.container.cart_container .cart .error_message, .cart_container.details .cart .error_message {
+  text-align: center;
+}
 .container.cart_container .cart .cart_nametags, .cart_container.details .cart .cart_nametags {
   background-color: orange;
   display: flex;
@@ -293,6 +295,7 @@ section h3 {
 }
 .container.cart_container .cart .cart_item, .cart_container.details .cart .cart_item {
   align-items: center;
+  border: 1px solid red;
   display: flex;
   gap: 5em;
   padding: 1em 0;
@@ -389,9 +392,6 @@ section h3 {
 .container.cart_container .cart_modal h3, .cart_container.details .cart_modal h3 {
   color: #FFF;
   font-size: 1.5em;
-}
-.container.cart_container .cart_modal .cart_item, .cart_container.details .cart_modal .cart_item {
-  border: 2px solid red;
 }
 .container.cart_container .cart_modal .cart_item img, .cart_container.details .cart_modal .cart_item img {
   height: 10%;
