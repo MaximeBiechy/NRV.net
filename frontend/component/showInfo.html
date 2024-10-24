@@ -49,6 +49,11 @@
       <p> Tarifs de la place : {{party.[0].prices}} €</p>
     </div>
     <button id="add_to_cart">Ajouter</button>
+
+    <div class="gauge-container">
+      <label>Gauge: {{party.[0].gauge.party.spectator_gauge}}%</label>
+      <progress max="100" value="{{party.[0].gauge.party.spectator_gauge}}"></progress>
+    </div>
   </section>
 
 </section>

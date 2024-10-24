@@ -8,6 +8,7 @@ use nrv\application\actions\CreateShowAction;
 use nrv\application\actions\DisplayArtistAction;
 use nrv\application\actions\DisplayArtistsAction;
 use nrv\application\actions\DisplayPartiesAction;
+use nrv\application\actions\DisplayPartyGaugeAction;
 use nrv\application\actions\DisplaySoldTicketsByUserAction;
 use nrv\application\actions\DisplayCartAction;
 use nrv\application\actions\DisplayPartyAction;
@@ -18,6 +19,7 @@ use nrv\application\actions\DisplaySpectatorGaugeAction;
 use nrv\application\actions\DisplayStylesAction;
 use nrv\application\actions\DisplayTicketAction;
 use nrv\application\actions\DisplayTicketsAction;
+use nrv\application\actions\DisplayTicketsByPartyAction;
 use nrv\application\actions\SigninAction;
 use nrv\application\actions\SignupAction;
 use nrv\application\actions\UpdateCartAction;
@@ -41,9 +43,7 @@ return function(\Slim\App $app):\Slim\App {
     $app->get('/shows/{ID-SHOW}/party[/]', DisplayPartyByShowAction::class)->setName('shows_id_party');
     $app->post('/shows[/]', CreateShowAction::class)->setName('create_show');
 
-    $app->get('/parties[/]', DisplayPartiesAction::class)->setName('parties');
-    $app->get('/parties/gauge[/]', DisplaySpectatorGaugeAction::class)->setName('parties_gauge');
-    $app->get('/parties/{ID-PARTY}[/]', DisplayPartyAction::class)->setName('parties_id');
+
 
     // Compte et profil d'utilisateur
     $app->post('/signup[/]', SignupAction::class)->setName('signup');
@@ -77,6 +77,12 @@ return function(\Slim\App $app):\Slim\App {
 
     // Party
     $app->post('/parties[/]', CreatePartyAction::class)->setName('create_party');
+    $app->get('/parties/{ID-PARTY}/tickets', DisplayTicketsByPartyAction::class)->setName('parties_id_tickets');
+    $app->get('/parties[/]', DisplayPartiesAction::class)->setName('parties');
+    $app->get('/parties/gauge[/]', DisplaySpectatorGaugeAction::class)->setName('parties_gauge');
+    $app->get('/parties/{ID-PARTY}[/]', DisplayPartyAction::class)->setName('parties_id');
+
+    $app->get('/parties/{ID-PARTY}/gauge', DisplayPartyGaugeAction::class)->setName('parties_id_gauge');
 
     return $app;
 };
