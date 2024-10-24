@@ -30,6 +30,7 @@ const routes = {
     "/shows": "/component/shows.html",
     "/showInfo": "/component/showInfo.html",
     "/cart": "/component/cart.html",
+    "/order": "/component/order.html",
     "/payment": "/component/payment.html",
     "/validate_order": "/component/validate_order.html",
 };

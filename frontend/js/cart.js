@@ -13,7 +13,7 @@ let cart_id; //Potentiellement possible à passer en localstorage
 const statuses = {
   validate_status: 1,
   confirmation_status: 2,
-  payment_status: 3
+  paid_status: 3
 };
 
 async function loadCart(user_id){
@@ -29,9 +29,7 @@ async function loadCart(user_id){
 
     for(let i = 0; i < data.cart.tickets.length; i++){
       ticket_party_routes.push(data.cart.tickets[i].links.party.href);
-      console.log("ça push !")
     }
-    console.log(ticket_party_routes);
 
     getTicketDate();
 
@@ -97,54 +95,13 @@ function updateCart(id_cart, state){
 }
 
 (async () => {
-  await loadCart('669d5162-84b0-4edc-b043-3ccfa71eb0a9');
+  await loadCart(localStorage.getItem('id_user'));
 
-  let validate_button = document.querySelector('.validate_order');
+  let validate_button = document.querySelector('.validate_cart');
   validate_button.addEventListener('click', function(){
     console.log("Le bouton de validation a été cliqué !");
-    updateCart('d85544dd-c85b-4f9b-a600-52f91388d6d0', statuses.validate_status);
-    window.route({ getAttribute: () => '/payment' });
-  });
-})();
-
-//Fonction de vérification du paiement (state 2) :
-function checkPayment() {
-  console.log("Vérification du paiement en cours...");
-
-  // Get input values
-  const num_cb = document.querySelector('input[name="cb_number"]').value;
-  const date_exp = document.querySelector('input[name="expiration_date"]').value;
-  const cvc = document.querySelector('input[name="cvc_number"]').value;
-
-  // Expected values
-  const expectedPaymentDetails = {
-    num_cb: "1111 1111 1111 1111",
-    date_exp: "2025",
-    code: "200"
-  };
-
-  // Compare input values with expected values
-  if (num_cb === expectedPaymentDetails.num_cb &&
-    date_exp === expectedPaymentDetails.date_exp &&
-    code === expectedPaymentDetails.code) {
-    console.log("Paiement validé !");
-    // Proceed with further actions, e.g., updating the cart status
-  }
-  else {
-    console.log("Paiement refusé. Veuillez vérifier vos informations.");
-  }
-}
-
-const validate_button = document.querySelector('.validate_order');
-console.log(validate_button);
-(async () => {
-  await checkPayment();
-
-  let validate_button = document.querySelector('.validate_order');
-  validate_button.addEventListener('click', function(){
-    console.log("Le bouton de validation du paiement a été cliqué !");
-    updateCart('d85544dd-c85b-4f9b-a600-52f91388d6d0', statuses.validate_status);
-    window.route({ getAttribute: () => '/validate_order' });
+    updateCart(localStorage.getItem('id_user'), statuses.validate_status);
+    window.route({ getAttribute: () => '/order' });
   });
 })();
 
