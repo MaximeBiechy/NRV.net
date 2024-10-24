@@ -1,7 +1,5 @@
 'use strict';
 
-console.log("Fichier filters.js chargé.");
-
 var select_places = document.querySelector("#places");
 var select_style = document.querySelector("#styles");
 var calendar = document.querySelector("#calendar");

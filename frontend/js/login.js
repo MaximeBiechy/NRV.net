@@ -20,7 +20,6 @@ async function login() {
         localStorage.setItem('refreshToken', data.token_refresh);
         localStorage.setItem('email_user', data.email);
         localStorage.setItem('id_user', data.id);
-
     alert('You are now logged in');
 
     } catch (error) {
