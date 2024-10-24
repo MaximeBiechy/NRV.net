@@ -122,7 +122,8 @@
   z-index: -1;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 20px;
 }
 .card .card_head {
@@ -153,12 +154,12 @@
   width: 50%;
   margin: 0.7em;
   z-index: 2;
+  text-align: left;
 }
 .card .card_body * {
   margin: 0;
 }
 .card .card_body .card_title {
-  text-align: left;
   font-size: 1.8rem;
   font-weight: 600;
   border-bottom: 1px solid white;
@@ -286,7 +287,8 @@ section h3 {
   border-radius: 2em;
   width: 175px;
   height: 350px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .container.cart_container .cart .cart_item .cart_item_desc_title, .cart_container.details .cart .cart_item .cart_item_desc_title {
   display: flex;
@@ -339,8 +341,10 @@ section h3 {
   border-radius: 16px;
   font-family: "Instrument Serif", serif;
   font-size: 1em;
+  height: -moz-fit-content;
   height: fit-content;
   padding: 0.1em 2em;
+  width: -moz-fit-content;
   width: fit-content;
 }
 .container.cart_container .cart .cart_payment .cart_payment_calculus, .cart_container.details .cart .cart_payment .cart_payment_calculus {
@@ -534,6 +538,20 @@ section h3 {
   margin: 0;
   font-family: "Inter", sans-serif;
 }
+.details button {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  font-size: 1.8rem;
+  width: 5em;
+  font-family: "Inter", sans-serif;
+  background-color: #FFF;
+  color: #151515;
+  border: none;
+  cursor: pointer;
+}
+.details button:hover {
+  background-color: #FFF;
+}
 
 .ticket {
   border: 1px solid #FFF;
@@ -545,7 +563,8 @@ section h3 {
   border-radius: 10px;
   aspect-ratio: 1/1;
   width: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .ticket .ticket_content {
   display: flex;
@@ -588,6 +607,4 @@ body {
 
 #navProfile {
   display: none;
-}
-
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */

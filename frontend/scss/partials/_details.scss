@@ -10,4 +10,18 @@
         margin: 0;
         font-family: $font_sans;
     }
+    button{
+        margin-top: 1rem;
+        padding: 1rem 2rem;
+        font-size: 1.8rem;
+        width: 5em;
+        font-family: $font_sans;
+        background-color: $text_color;
+        color: $bg_color;
+        border: none;
+        cursor: pointer;
+        &:hover{
+            background-color: $text_color;
+        }
+    }
 }
