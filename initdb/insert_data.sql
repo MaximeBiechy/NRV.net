@@ -17,14 +17,20 @@ nrv_place;
 INSERT INTO public.places (id, name, address, nb_sit, nb_stand)
 VALUES ('340cf1fe-6344-4e93-ab6a-347c7e461d36', 'Stade de France', 'Saint-Denis, France', 80000, 20000),
        ('b6b101d5-563e-4530-a3bb-43be12ea1053', 'Zénith Paris', 'Paris, France', 6000, 3000),
-       ('df23e061-1a1b-4344-ac9c-5357465f5c5b', 'AccorHotels Arena', 'Paris, France', 20000, 5000);
+       ('df23e061-1a1b-4344-ac9c-5357465f5c5b', 'AccorHotels Arena', 'Paris, France', 20000, 5000),
+       ('a7d21201-5e1c-41ff-b3da-4c79b72e2521', 'Parc des Princes', 'Paris, France', 48000, 10000);
 
 -- Insertion des images de lieux
 INSERT INTO public.images (id, path, place_id)
 VALUES ('35346ab9-f0c2-4651-a5d5-1be4fcdc346f', '/images/stadedefrance.jpg',
         (SELECT id FROM public.places WHERE name = 'Stade de France')),
        ('8e60916a-6580-4a37-974c-1f10e25ecf12', '/images/zenithparis.jpg',
-        (SELECT id FROM public.places WHERE name = 'Zénith Paris'));
+        (SELECT id FROM public.places WHERE name = 'Zénith Paris')),
+       ('a7c12f04-1c7e-4c7e-9d84-b249084b92c3', '/images/accorhotelsarena.jpg',
+        (SELECT id FROM public.places WHERE name = 'AccorHotels Arena')),
+       ('5d3c2335-8c1b-47e0-bc7e-4bb5e19b5ab7', '/images/parcdesprinces.jpg',
+        (SELECT id FROM public.places WHERE name = 'Parc des Princes'));
+;
 
 -- DATA FOR SHOW
 \connect
@@ -291,8 +297,38 @@ VALUES ('14808e51-d1b6-4539-8596-66a9e39e01c9', 'Daft Punk Show', 'Un concert un
         '/videos/christine.mp4',
         '2024-10-15 20:00:00'),
        ('4105771b-8e04-4547-a1b4-4dd97564ddfd', 'Zaz Live', 'Zaz en live à Paris en 2024', '/videos/zaz.mp4',
-        '2024-09-15 20:00:00');
-;
+        '2024-09-15 20:00:00'),
+       ('cc3604e4-8fa5-484b-8ef6-967a39690aff', 'David Guetta Live', 'David Guetta en live à Paris',
+        '/videos/davidguetta.mp4', '2024-08-15 20:00:00'),
+       ('1d1f7925-56d4-413e-8074-203fae4a359b', 'M83 Live', 'M83 en live à Paris', '/videos/m83.mp4',
+        '2024-07-15 20:00:00'),
+       ('18ced3c9-be12-4912-a297-d69ccaee52fa', 'Air Live', 'Air en live à Paris', '/videos/air.mp4',
+        '2024-06-15 20:00:00'),
+       ('a3deef4c-de4e-4173-a7f2-29e1cbac7e75', 'Yann Tiersen Live', 'Yann Tiersen en live à Paris',
+        '/videos/yanntiersen.mp4', '2024-05-15 20:00:00'),
+       ('9d35a80f-e8ee-445a-a7c9-470b8a49d8cd', 'Stromae Live', 'Stromae en live à Paris', '/videos/stromae.mp4',
+        '2024-04-15 20:00:00'),
+       ('9cc4661a-940a-471f-ac20-82facbc327cd', 'Angèle Live', 'Angèle en live à Paris', '/videos/angele.mp4',
+        '2024-03-15 20:00:00'),
+       ('1a24a92b-e920-48c3-b848-3260685d57cf', 'Justice Live', 'Justice en live à Paris', '/videos/justice.mp4',
+        '2024-02-15 20:00:00'),
+       ('349bc08a-84b2-45e5-8d14-14ff2d6816c6', 'Sofiane Pamart Live', 'Sofiane Pamart en live à Paris',
+        '/videos/sofianepamart.mp4', '2024-01-15 20:00:00'),
+       ('c81debe6-eb5a-4076-b2d4-fbe87c29ab12', 'Imany Live', 'Imany en live à Paris', '/videos/imany.mp4',
+        '2024-01-15 20:00:00'),
+       ('56de5d60-db05-431b-a395-08ffde90e84e', 'Shaka Ponk Live', 'Shaka Ponk en live à Paris',
+        '/videos/shakaponk.mp4', '2024-01-15 20:00:00'),
+       ('727a387b-5769-406d-837d-bc3d18e20578', 'Clara Luciani Live', 'Clara Luciani en live à Paris',
+        '/videos/claraluciani.mp4', '2024-01-15 20:00:00'),
+       ('6e450f93-9f0f-47f3-813e-1a55ce50ca5a', 'Julien Doré Live', 'Julien Doré en live à Paris',
+        '/videos/juliendore.mp4', '2024-01-15 20:00:00'),
+       ('2f436ed0-e77d-42dd-9e9e-0184a95d0fc3', 'Jeanne Added Live', 'Jeanne Added en live à Paris',
+        '/videos/jeanneadded.mp4', '2024-01-15 20:00:00'),
+       ('82526ada-3aa3-4cc6-aa87-10f34e38d51b', 'Louane Live', 'Louane en live à Paris', '/videos/louane.mp4',
+        '2024-01-15 20:00:00'),
+       ('0c59224a-bc22-49d1-a773-7fb523c52d5f', 'Vianney Live', 'Vianney en live à Paris', '/videos/vianney.mp4',
+        '2024-01-15 20:00:00');
+
 
 -- Insertion des images de spectacles
 INSERT INTO public.images (id, path, show_id)
@@ -303,7 +339,37 @@ VALUES ('dc0596b0-9ac2-448e-b258-eff68fb81691', '/images/daftpunk.jpg',
        ('df220d31-9506-40f5-ad71-dd0a0ac48c52', '/images/christine.jpg',
         (SELECT id FROM public.shows WHERE title = 'Christine and the Queens')),
        ('4105771b-8e04-4547-a1b4-4dd97564ddfd', '/images/zaz.jpg',
-        (SELECT id FROM public.shows WHERE title = 'Zaz Live'));
+        (SELECT id FROM public.shows WHERE title = 'Zaz Live')),
+       ('b5cd8694-6ff3-42f8-8ef5-510e5fe16c8f', '/images/davidguetta.jpg',
+        (SELECT id FROM public.shows WHERE title = 'David Guetta Live')),
+       ('0922350d-8468-4a20-b7f3-463e6b84cd5a', '/images/m83.jpg',
+        (SELECT id FROM public.shows WHERE title = 'M83 Live')),
+       ('66ffa9c2-be20-4636-bea6-b7efa1daf734', '/images/air.jpg',
+        (SELECT id FROM public.shows WHERE title = 'Air Live')),
+       ('eb0e0a68-f274-4c8b-9a1c-7f67398a7454', '/images/yanntiersen.jpg',
+        (SELECT id FROM public.shows WHERE title = 'Yann Tiersen Live')),
+       ('e965415e-2068-4699-b6a4-4e90d34df65d', '/images/stromae.jpg',
+        (SELECT id FROM public.shows WHERE title = 'Stromae Live')),
+       ('be54c065-b527-4640-859f-cef905b36691', '/images/angele.jpg',
+        (SELECT id FROM public.shows WHERE title = 'Angèle Live')),
+       ('c62f8b94-d826-4cd9-aaad-0d1abf68d1d0', '/images/justice.jpg',
+        (SELECT id FROM public.shows WHERE title = 'Justice Live')),
+       ('9853ddf3-1867-4a7c-b77f-fff4fa5ea4fb', '/images/sofianepamart.jpg',
+        (SELECT id FROM public.shows WHERE title = 'Sofiane Pamart Live')),
+       ('5d7372b0-6da7-468e-b731-82795aac591e', '/images/imany.jpg',
+        (SELECT id FROM public.shows WHERE title = 'Imany Live')),
+       ('1c01edd4-80c5-45ae-b9fd-833777b0a2ab', '/images/shakaponk.jpg',
+        (SELECT id FROM public.shows WHERE title = 'Shaka Ponk Live')),
+       ('85bc59fb-f256-4333-bb60-bd329f4a0c51', '/images/claraluciani.jpg',
+        (SELECT id FROM public.shows WHERE title = 'Clara Luciani Live')),
+       ('4031a58e-d13a-4131-a9e7-3fe5dacd8237', '/images/juliendore.jpg',
+        (SELECT id FROM public.shows WHERE title = 'Julien Doré Live')),
+       ('535fffa4-3ac9-47ed-8a26-cefd5c0cbaf6', '/images/jeanneadded.jpg',
+        (SELECT id FROM public.shows WHERE title = 'Jeanne Added Live')),
+       ('c2d6ea5f-6957-4ff2-bdc6-4e6bc2499704', '/images/louane.jpg',
+        (SELECT id FROM public.shows WHERE title = 'Louane Live')),
+       ('b0896aae-307d-4571-9314-2a470927a692', '/images/vianney.jpg',
+        (SELECT id FROM public.shows WHERE title = 'Vianney Live'));
 
 
 -- Insertion des performances d'artistes
@@ -315,7 +381,37 @@ VALUES ((SELECT id FROM public.shows WHERE title = 'Daft Punk Show'),
        ((SELECT id FROM public.shows WHERE title = 'Christine and the Queens'),
         (SELECT id FROM public.artists WHERE name = 'Christine and the Queens')),
        ((SELECT id FROM public.shows WHERE title = 'Zaz Live'),
-        (SELECT id FROM public.artists WHERE name = 'Zaz'));
+        (SELECT id FROM public.artists WHERE name = 'Zaz')),
+       ((SELECT id FROM public.shows WHERE title = 'David Guetta Live'),
+        (SELECT id FROM public.artists WHERE name = 'David Guetta')),
+       ((SELECT id FROM public.shows WHERE title = 'M83 Live'),
+        (SELECT id FROM public.artists WHERE name = 'M83')),
+       ((SELECT id FROM public.shows WHERE title = 'Air Live'),
+        (SELECT id FROM public.artists WHERE name = 'Air')),
+       ((SELECT id FROM public.shows WHERE title = 'Yann Tiersen Live'),
+        (SELECT id FROM public.artists WHERE name = 'Yann Tiersen')),
+       ((SELECT id FROM public.shows WHERE title = 'Stromae Live'),
+        (SELECT id FROM public.artists WHERE name = 'Stromae')),
+       ((SELECT id FROM public.shows WHERE title = 'Angèle Live'),
+        (SELECT id FROM public.artists WHERE name = 'Angèle')),
+       ((SELECT id FROM public.shows WHERE title = 'Justice Live'),
+        (SELECT id FROM public.artists WHERE name = 'Justice')),
+       ((SELECT id FROM public.shows WHERE title = 'Sofiane Pamart Live'),
+        (SELECT id FROM public.artists WHERE name = 'Sofiane Pamart')),
+       ((SELECT id FROM public.shows WHERE title = 'Imany Live'),
+        (SELECT id FROM public.artists WHERE name = 'Imany')),
+       ((SELECT id FROM public.shows WHERE title = 'Shaka Ponk Live'),
+        (SELECT id FROM public.artists WHERE name = 'Shaka Ponk')),
+       ((SELECT id FROM public.shows WHERE title = 'Clara Luciani Live'),
+        (SELECT id FROM public.artists WHERE name = 'Clara Luciani')),
+       ((SELECT id FROM public.shows WHERE title = 'Julien Doré Live'),
+        (SELECT id FROM public.artists WHERE name = 'Julien Doré')),
+       ((SELECT id FROM public.shows WHERE title = 'Jeanne Added Live'),
+        (SELECT id FROM public.artists WHERE name = 'Jeanne Added')),
+       ((SELECT id FROM public.shows WHERE title = 'Louane Live'),
+        (SELECT id FROM public.artists WHERE name = 'Louane')),
+       ((SELECT id FROM public.shows WHERE title = 'Vianney Live'),
+        (SELECT id FROM public.artists WHERE name = 'Vianney'));
 
 
 -- DATA FOR PARTY
@@ -327,13 +423,32 @@ INSERT INTO public.party (id, name, theme, date, begin, place_id, show1_id, show
 VALUES ('a0b7566b-6fdd-4e34-bbab-41d882de9c07', 'Birthday Bash', 'Anniversaire', '2024-12-25 20:00:00',
         '2024-12-25 21:00:00',
         '340cf1fe-6344-4e93-ab6a-347c7e461d36', '14808e51-d1b6-4539-8596-66a9e39e01c9',
-        '05cf1397-1bf3-4227-aa5a-063c6b3e14e8', NULL, 30),
+        '05cf1397-1bf3-4227-aa5a-063c6b3e14e8', 'cc3604e4-8fa5-484b-8ef6-967a39690aff', 30),
        ('8243ea21-155b-4ac9-b75e-f66fc142c2ef', 'Music Fiesta', 'Musique', '2024-11-01 18:00:00', '2024-11-01 19:00:00',
         'b6b101d5-563e-4530-a3bb-43be12ea1053',
-        '2ccfe7d7-adaf-492a-abb4-78065bd69ae6', NULL, NULL, 25),
+        '2ccfe7d7-adaf-492a-abb4-78065bd69ae6', '1d1f7925-56d4-413e-8074-203fae4a359b', NULL, 50),
        ('8a03e604-ed5f-457f-82c3-11d35e54d496', 'Hola Amigo', 'Fiesta', '2024-10-01 18:00:00', '2024-10-01 19:00:00',
         'df23e061-1a1b-4344-ac9c-5357465f5c5b',
-        '4105771b-8e04-4547-a1b4-4dd97564ddfd', NULL, NULL, 25);
+        '4105771b-8e04-4547-a1b4-4dd97564ddfd', '18ced3c9-be12-4912-a297-d69ccaee52fa', NULL, 25),
+       ('3ec35a04-a24b-42f5-924d-df9a283cbb20', 'Rock Party', 'Rock', '2024-09-01 18:00:00', '2024-09-01 19:00:00',
+        'a7d21201-5e1c-41ff-b3da-4c79b72e2521',
+        'a3deef4c-de4e-4173-a7f2-29e1cbac7e75', NULL, NULL, 40),
+       ('e4dc52bb-98d2-4e11-993a-aefbd5a2e3a3', 'Electro Party', 'Electro', '2024-08-01 18:00:00',
+        '2024-08-01 19:00:00',
+        'b6b101d5-563e-4530-a3bb-43be12ea1053',
+        '9d35a80f-e8ee-445a-a7c9-470b8a49d8cd', '0c59224a-bc22-49d1-a773-7fb523c52d5f', NULL, 100),
+       ('16c4e551-09d8-42c3-8f91-bf63ed980b1e', 'Mix Party', 'Mixed', '2024-07-01 18:00:00', '2024-07-01 19:00:00',
+        '340cf1fe-6344-4e93-ab6a-347c7e461d36',
+        '9cc4661a-940a-471f-ac20-82facbc327cd', '82526ada-3aa3-4cc6-aa87-10f34e38d51b', NULL, 75),
+       ('b328bc9c-79a8-4b24-bbeb-2806b06ce3f6', 'Mix Party', 'Mixed', '2024-07-01 18:00:00', '2024-07-01 19:00:00',
+        'a7d21201-5e1c-41ff-b3da-4c79b72e2521',
+        '1a24a92b-e920-48c3-b848-3260685d57cf', '2f436ed0-e77d-42dd-9e9e-0184a95d0fc3', NULL, 55),
+       ('a6221ba5-639e-4952-a95c-3ff6b018a8ad', 'Mix Party', 'Mixed', '2024-07-01 18:00:00', '2024-07-01 19:00:00',
+        'df23e061-1a1b-4344-ac9c-5357465f5c5b',
+        '349bc08a-84b2-45e5-8d14-14ff2d6816c6', '56de5d60-db05-431b-a395-08ffde90e84e', NULL, 10),
+       ('864df722-b890-4ace-adf8-ddeb888d25fd', 'Mix Party', 'Mixed', '2024-07-01 18:00:00', '2024-07-01 19:00:00',
+        'b6b101d5-563e-4530-a3bb-43be12ea1053', 'c81debe6-eb5a-4076-b2d4-fbe87c29ab12',
+        '727a387b-5769-406d-837d-bc3d18e20578', '6e450f93-9f0f-47f3-813e-1a55ce50ca5a', 200);
 
 -- DATA FOR TICKETS
 \connect
