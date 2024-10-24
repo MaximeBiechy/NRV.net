@@ -1,5 +1,12 @@
 'use strict';
 
+if (!localStorage.getItem('id_user')) {
+    window.route('/login');
+}else{
+    fetchUser(localStorage.getItem('id_user'));
+}
+
+
 async function fetchTickets(id_user) {
     const response_tickets = await fetch(`http://localhost:21000/users/${id_user}/sold_tickets`);
     if (!response_tickets.ok) {
@@ -29,6 +36,3 @@ async function fetchTickets(id_user) {
     }
 }
 
-if (localStorage.getItem('id_user')) {
-    fetchTickets(localStorage.getItem('id_user'));
-}
