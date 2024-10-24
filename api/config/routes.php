@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 
 use nrv\application\actions\AddTicketToUserCartAction;
+use nrv\application\actions\CreatePartyAction;
 use nrv\application\actions\CreateShowAction;
 use nrv\application\actions\DisplayArtistAction;
 use nrv\application\actions\DisplayArtistsAction;
@@ -66,7 +67,8 @@ return function(\Slim\App $app):\Slim\App {
     $app->get('/tickets[/]', DisplayTicketsAction::class)->setName('tickets');
     $app->get('/tickets/{ID-TICKET}[/]', DisplayTicketAction::class)->setName('tickets_id');
 
-
+    // Party
+    $app->post('/parties[/]', CreatePartyAction::class)->setName('create_party');
 
     return $app;
 };
