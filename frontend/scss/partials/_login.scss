@@ -36,9 +36,13 @@
         }
     }
     p{
-        a{
+        p{
             text-decoration: none;
             color: beige;
+            &:hover{
+                cursor: pointer;
+                transition: all 0.3s;
+            }
         }
     }
 }
