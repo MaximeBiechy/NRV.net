@@ -21,6 +21,7 @@ use nrv\application\actions\DisplayTicketsAction;
 use nrv\application\actions\SigninAction;
 use nrv\application\actions\SignupAction;
 use nrv\application\actions\UpdateCartAction;
+use nrv\application\middlewares\Auth;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use nrv\application\actions\DisplayShowAction;
@@ -56,11 +57,15 @@ return function(\Slim\App $app):\Slim\App {
     $app->get('/places/{ID-PLACE}[/]', DisplayPlaceAction::class)->setName('places_id');
 
     // Tickets
-    $app->patch('/carts/{ID-CART}/ticket[/]', AddTicketToUserCartAction::class)->setName('carts_id');
-    $app->patch('/carts/{ID-CART}[/]', UpdateCartAction::class)->setName('update_card_id');
+    $app->patch('/carts/{ID-CART}/ticket[/]', AddTicketToUserCartAction::class)->setName('carts_id')
+        ->add(Auth::class);
+    $app->patch('/carts/{ID-CART}[/]', UpdateCartAction::class)->setName('update_card_id')
+        ->add(Auth::class);
 
-    $app->get('/users/{ID-USER}/cart[/]', DisplayCartAction::class)->setName('users_id_cart');
-    $app->get('/users/{ID-USER}/sold_tickets[/]', DisplaySoldTicketsByUserAction::class)->setName('users_id_sold_tickets');
+    $app->get('/users/{ID-USER}/cart[/]', DisplayCartAction::class)->setName('users_id_cart')
+        ->add(Auth::class);
+    $app->get('/users/{ID-USER}/sold_tickets[/]', DisplaySoldTicketsByUserAction::class)->setName('users_id_sold_tickets')
+        ->add(Auth::class);
 
     $app->get('/styles[/]', DisplayStylesAction::class)->setName('styles');
 
