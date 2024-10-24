@@ -1,5 +1,5 @@
 'use strict';
-console.log('router.js loaded');
+
 document.addEventListener('DOMContentLoaded', () => {
     // Attach event listeners to links when the page first loads
     attachLinkListeners();
@@ -17,9 +17,9 @@ const route = (element) => {
     if (path === '/showInfo'){
         localStorage.getItem('id_show');
     }
-    
-    localStorage.setItem('currentPath', path); 
-    handleLocation(path); 
+
+    localStorage.setItem('currentPath', path);
+    handleLocation(path);
 };
 
 const routes = {
@@ -30,6 +30,8 @@ const routes = {
     "/shows": "/component/shows.html",
     "/showInfo": "/component/showInfo.html",
     "/cart": "/component/cart.html",
+    "/payment": "/component/payment.html",
+    "/validate_order": "/component/validate_order.html",
 };
 
 const handleLocation = async (path = "/") => {
@@ -48,7 +50,6 @@ const handleLocation = async (path = "/") => {
         document.body.appendChild(newScript);
         document.body.removeChild(newScript);
     });
-
 
     // Reattach event listeners to any new `.way` links in the dynamically loaded content
     attachLinkListeners();
