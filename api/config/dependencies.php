@@ -21,6 +21,7 @@ use nrv\application\actions\DisplayTicketsAction;
 use nrv\application\actions\SigninAction;
 use nrv\application\actions\SignupAction;
 use nrv\application\actions\UpdateCartAction;
+use nrv\application\middlewares\Auth;
 use nrv\application\provider\auth\JWTAuthProvider;
 use nrv\core\repositoryInterfaces\AuthRepositoryInterface;
 use nrv\core\repositoryInterfaces\PartyRepositoryInterface;
@@ -193,5 +194,9 @@ return [
     },
     CreatePartyAction::class => function (ContainerInterface $c) {
         return new CreatePartyAction($c->get(PartyServiceInterface::class), $c->get(PlaceServiceInterface::class));
+    },
+
+    Auth::class => function (ContainerInterface $c) {
+        return new Auth($c->get(AuthentificationServiceInterface::class));
     },
 ];
