@@ -21,6 +21,9 @@ async function login() {
         localStorage.setItem('email_user', data.email);
         localStorage.setItem('id_user', data.id);
 
+        document.querySelector('#navProfile').style.display = 'block';
+        document.querySelector('#navLogin').style.display = 'none';
+
         window.route({ getAttribute: () => '/' });
 
     } catch (error) {

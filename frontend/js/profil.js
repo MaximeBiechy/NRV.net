@@ -62,13 +62,7 @@ async function fetchTickets(id_user, token) {
     }
 }
 
-var name = localStorage.getItem('email_user');
-document.querySelector('#name').innerHTML = name;
+document.querySelector('#name').innerHTML = localStorage.getItem('email_user');
 
-// Check for user and token in localStorage
-if (!localStorage.getItem('id_user')) {
-    alert('Vous devez être connecté pour accéder à cette page');
-    window.route({ getAttribute: () => '/' });
-} else {
-    fetchTickets(localStorage.getItem('id_user'), localStorage.getItem('authToken'));
-}
+fetchTickets(localStorage.getItem('id_user'), localStorage.getItem('authToken'));
+
