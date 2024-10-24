@@ -17,8 +17,12 @@ const statuses = {
 };
 
 async function loadCart(user_id){
+  console.log(localStorage.getItem('authToken'));
   try{
-    const response = await fetch(`http://localhost:21000/users/${user_id}/cart`, { headers: { 'Origin': 'http://localhost:21000'}});
+    const response = await fetch(`http://localhost:21000/users/${user_id}/cart`, { headers: {
+        'Origin': 'http://localhost:21000',
+        'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+    }});
     if(!response.ok){
       throw new Error('Network response was not ok');
     }
@@ -39,6 +43,12 @@ async function loadCart(user_id){
     var filledTemplate = template(data);
 
     document.querySelector('#cart_template').innerHTML = filledTemplate;
+
+    //Envoi en local storage :
+    localStorage.setItem('id_cart', data.cart.id);
+    console.log("Panier chargé : " + data.cart.id);
+    console.log("Panier chargé (localstorage cart) : " + localStorage.getItem('id_cart'));
+    console.log("Panier chargé (localstorage user) : " + localStorage.getItem('id_user'));
 
   }
   catch(error){
@@ -81,7 +91,8 @@ function updateCart(id_cart, state){
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      'Origin': 'http://localhost:21001'
+      'Origin': 'http://localhost:21001',
+      'Authorization': 'Bearer ' + localStorage.getItem('authToken')
     },
   })
   .then(response => response.json())
@@ -100,7 +111,7 @@ function updateCart(id_cart, state){
   let validate_button = document.querySelector('.validate_cart');
   validate_button.addEventListener('click', function(){
     console.log("Le bouton de validation a été cliqué !");
-    updateCart(localStorage.getItem('id_user'), statuses.validate_status);
+    updateCart(localStorage.getItem('id_cart'), statuses.validate_status);
     window.route({ getAttribute: () => '/order' });
   });
 })();

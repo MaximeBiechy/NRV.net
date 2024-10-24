@@ -38,5 +38,32 @@ class Place extends Entity
         return $this->images;
     }
 
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function setNbSit(int $nbSit): void
+    {
+        $this->nbSit = $nbSit;
+    }
+
+    public function setAddress(string $address): void
+    {
+        $this->address = $address;
+    }
+
+    public function setNbStand(int $nbStand): void
+    {
+        $this->nbStand = $nbStand;
+    }
+
+    public function setImages(array $images): void
+    {
+        $this->images = $images;
+    }
+
+
+
 
 }
