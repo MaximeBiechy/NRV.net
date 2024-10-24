@@ -1,5 +1,7 @@
 'use strict';
 
+var loader = document.querySelector('.loader');
+
 async function fetchTickets(id_user, token) {
     console.log('Fetching tickets for user:', id_user);
     console.log('Token:', token);
@@ -7,22 +9,18 @@ async function fetchTickets(id_user, token) {
         const response = await fetch(`http://localhost:21000/users/${id_user}/sold_tickets`, {
             headers: {
                 'Authorization': `Bearer ${token}`,  // Correct the spelling
-                'Origin': 'http://localhost:21001',
-                // 'mode': 'no-cors',  // Remove mode: 'no-cors'
+                'Origin': 'http://localhost:21001'
             }
-            // Remove mode: 'no-cors', if possible
         });
-
-        // Log the full response for debugging
-        console.log(response);
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-
-        const data = await response.json();
+       
+        const data = await response.json(); 
+        if (data.sold_tickets.length === 0) {
+            document.querySelector('#templateTicket').innerHTML = 'Vous avez aucun billets';}
         let result = data;
-        console.log(data);
 
         // Fetch additional party details
         for (let i = 0; i < data.sold_tickets.length; i++) {
@@ -30,9 +28,7 @@ async function fetchTickets(id_user, token) {
                 headers: {
                     'Authorization': `Bearer ${token}`,  // Ensure token is sent again
                     'Origin': 'http://localhost:21000',
-                    // 'mode': 'no-cors', 
                 }
-                // Remove mode: 'no-cors'
             });
 
             if (!response_party.ok) {
@@ -46,6 +42,14 @@ async function fetchTickets(id_user, token) {
             loader.style.display = 'none';
             return;
         } else {
+            console.log(result);
+            for (let i = 0; i < result.sold_tickets.length; i++) {
+                result.sold_tickets[i].party.party.date.date = new Date(result.sold_tickets[i].party.party.date.date).toLocaleDateString('fr-FR', {
+                    weekday: 'short',
+                    day: '2-digit',
+                    month: '2-digit'
+                });
+            }
             var templateSource = document.querySelector('#templateTicket').innerHTML;
             var template = Handlebars.compile(templateSource);
             var filledTemplate = template(result);
@@ -58,9 +62,13 @@ async function fetchTickets(id_user, token) {
     }
 }
 
+var name = localStorage.getItem('email_user');
+document.querySelector('#name').innerHTML = name;
+
 // Check for user and token in localStorage
 if (!localStorage.getItem('id_user')) {
-    window.route('/login');
+    alert('Vous devez être connecté pour accéder à cette page');
+    window.route({ getAttribute: () => '/' });
 } else {
     fetchTickets(localStorage.getItem('id_user'), localStorage.getItem('authToken'));
 }
