@@ -9,7 +9,6 @@ async function fetchShowInfo(id) {
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    console.log(data);
 
     for (let i = 0; i < data.party.length; i++) {
       data.party[i].date.date = new Date(
@@ -32,6 +31,21 @@ async function fetchShowInfo(id) {
               month: '2-digit'});}
     }
 
+    for (let i =0;i<data.party.length;i++){
+
+        const data_gauge = await fetch(`http://localhost:21000/parties/${data.party[0].id}/gauge`, {
+            headers: {
+                'Origin': 'http://localhost:21000'
+            }
+        });
+        if (!data_gauge.ok) {
+          throw new Error('Network response was not ok');
+      }
+      const gauge = await data_gauge.json();
+
+      data.party[i].gauge = gauge;
+
+    }
     // Compile the Handlebars template
     var templateSource = document.querySelector("#ShowInfo").innerHTML;
 
@@ -42,9 +56,11 @@ async function fetchShowInfo(id) {
     document.querySelector("#ShowInfo").innerHTML = filledTemplate;
 
     loader.style.display = "none";
+
   } catch (error) {
     console.error("There has been a problem with your fetch operation:", error);
-  }
-}
+  }};
+
 
 fetchShowInfo(localStorage.getItem("id_show"));
+

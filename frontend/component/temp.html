@@ -1,113 +1,118 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>NRV.net</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
-    <script src="../js/router.js"></script>
-    <script
-      src="https://kit.fontawesome.com/596072d93b.js"
-      crossorigin="anonymous"
-    ></script>
-    <!-- Font Awesome -->
-  </head>
-  <body>
-    <main id="content">
-      <div class="loader">
-        <div class="loader__spinner"></div>
-      </div>
-      <section>
-        <h2>Artistes Présent aux NRV:</h2>
+var loader = document.querySelector(".loader");
 
-        <div class="container" id="templateArtist">
-          {{#each shows}}
-          <article class="card">
-            <img
-              src="/images/{{this.image.self.href}}"
-              alt="1"
-              class="card_img"
-            />
-            <div class="card_head"></div>
-            <div class="card_body">
-              <h3 class="card_title">{{this.name}}</h3>
-              <div class="card_tags">
-                <p class="tag {{this.style}}">{{this.style}}</p>
-              </div>
-            </div>
-          </article>
-          {{/each}}
-        </div>
-      </section>
-      <!--Genres-->
-      <section>
-        <h2>Et par style ?</h2>
-        <div class="container">
-          <div class="genres">
-            <div class="genre_card rnb">
-              <a href="">RnB</a>
-            </div>
+async function fetchShowInfo(id) {
+  try {
+    const response = await fetch(`http://localhost:21000/shows/${id}/party`, {
+      headers: { Origin: "http://localhost:21001" },
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    console.log(data);
 
-            <div class="genre_card rap">
-              <a href="">Rap</a>
-            </div>
+    for (let i = 0; i < data.party.length; i++) {
+      data.party[i].date.date = new Date(
+        data.party[i].date.date
+      ).toLocaleDateString("fr-FR", {
+        weekday: "short",
+        day: "2-digit",
+        month: "2-digit",
+      });
+      data.party[i].begin.date = new Date(
+        data.party[i].begin.date
+      ).toLocaleTimeString("fr-FR", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      for (let j = 0; j < data.party[i].shows.length; j++){
+      data.party[i].shows[j].date.date= new Date(data.party[i].shows[j].date.date).toLocaleDateString('fr-FR', {
+              weekday: 'short',
+              day: '2-digit',
+              month: '2-digit'});}
+    }
 
-            <div class="genre_card soul">
-              <a href="">Soul</a>
-            </div>
+    for (let i =0;i<data.party.length;i++){
 
-            <div class="genre_card pop">
-              <a href="">Pop</a>
-            </div>
-
-            <div class="genre_card rock">
-              <a href="">Rock</a>
-            </div>
-
-            <div class="genre_card metal">
-              <a href="">Metal</a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <script
-      type="module"
-      src="./js/fetchArtists.js"
-      class="main-page-script"
-      defer
-    ></script>
-  </body>
-</html>
-
-
-console.log('fetchArtists.js loaded');
-
-var loader = document.querySelector('.loader');
-
-async function fetchArtists() {
-    try {
-      const response = await fetch('http://localhost:21000/artists', { headers: { 'Origin': 'http://localhost:21001'}});
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+        const data_gauge = await fetch(`http://localhost:21000/parties/${data.party.length}/gauge`, {
+            headers: {
+                'Origin': 'http://localhost:21000',
+            }
+        });
+        if (!data_gauge.ok) {
+          throw new Error('Network response was not ok');
       }
-    
-      const data = await response.json();
-      var templateSource = document.querySelector('#templateArtist').innerHTML;
-      var template = Handlebars.compile(templateSource);
-      var filledTemplate = template(data);
-      
-      document.querySelector('#templateArtist').innerHTML = filledTemplate;   
-
-      loader.style.display = 'none';
-
-
-  
+      console.log(data_gauge);
     }
-    catch (error) {
-      console.error('There has been a problem with your fetch operation:', error);
+    // Compile the Handlebars template
+    var templateSource = document.querySelector("#ShowInfo").innerHTML;
+
+    var template = Handlebars.compile(templateSource);
+    var filledTemplate = template(data);
+
+    // Insert the filled template into the DOM
+    document.querySelector("#ShowInfo").innerHTML = filledTemplate;
+
+    loader.style.display = "none";
+
+  } catch (error) {
+    console.error("There has been a problem with your fetch operation:", error);
+  }};
+
+
+fetchShowInfo(localStorage.getItem("id_show"));
+
+
+////
+
+
+
+var loader = document.querySelector(".loader");
+
+async function fetchShowInfo(id) {
+  try {
+    const response = await fetch(`http://localhost:21000/shows/${id}/party`, {
+      headers: { Origin: "http://localhost:21001" },
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
     }
+    const data = await response.json();
+    console.log(data);
+
+    for (let i = 0; i < data.party.length; i++) {
+      data.party[i].date.date = new Date(
+        data.party[i].date.date
+      ).toLocaleDateString("fr-FR", {
+        weekday: "short",
+        day: "2-digit",
+        month: "2-digit",
+      });
+      data.party[i].begin.date = new Date(
+        data.party[i].begin.date
+      ).toLocaleTimeString("fr-FR", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      for (let j = 0; j < data.party[i].shows.length; j++){
+      data.party[i].shows[j].date.date= new Date(data.party[i].shows[j].date.date).toLocaleDateString('fr-FR', {
+              weekday: 'short',
+              day: '2-digit',
+              month: '2-digit'});}
+    }
+    // Compile the Handlebars template
+    var templateSource = document.querySelector("#ShowInfo").innerHTML;
+
+    var template = Handlebars.compile(templateSource);
+    var filledTemplate = template(data);
+
+    // Insert the filled template into the DOM
+    document.querySelector("#ShowInfo").innerHTML = filledTemplate;
+
+    loader.style.display = "none";
+  } catch (error) {
+    console.error("There has been a problem with your fetch operation:", error);
+  }
 }
 
-fetchArtists();
+fetchShowInfo(localStorage.getItem("id_show"));
