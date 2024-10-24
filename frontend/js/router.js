@@ -14,6 +14,11 @@ function savedPath() {
 
 const route = (element) => {
     const path = element.getAttribute('url');
+    if (path === '/showInfo'){
+        localStorage.getItem('id_show');
+        console.log(localStorage.getItem('id_show'));
+    }
+    
     localStorage.setItem('currentPath', path); 
     handleLocation(path); 
 };
@@ -55,16 +60,23 @@ const attachLinkListeners = () => {
     const links = document.querySelectorAll('.way');
     links.forEach((link) => {
         link.removeEventListener('click', handleClick); // Avoid duplicate listeners
-        console.log('attaching listener', link);
         link.addEventListener('click', handleClick);
     });
 };
 
 // Click event handler for the links
 const handleClick = (event) => {
-    console.log('clickbbbb', event.target);
+    console.log('click on ', event.target);
     event.preventDefault(); // Prevent default navigation
     route(event.target); // Call the route function with the clicked element
 };
 
+if (route === '/showInfo'){
+    localStorage.getItem('id_show');
+    console.log(localStorage.getItem('id_show'));
+}
+
+
+
 window.route = route;
+attachLinkListeners();

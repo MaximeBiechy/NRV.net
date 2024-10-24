@@ -8,7 +8,8 @@
   <div class="container" id="templateShow"> 
 
       {{#each shows}}
-	  <article class="card way" data-id="{{this.id}}" url="/showInfo">
+      <div class="way" url="/showInfo">
+	  <article class="card" data-id="{{this.id}}">
 		  <img src="{{this.images.0.self.href}}" alt="1" class="card_img">
 		  <div class="card_head">
 			  <p><span class="bold">{{this.date.date}}</span></p>
@@ -17,6 +18,7 @@
 			  <h3 class="card_title">{{this.title}}</h3>
 		  </div>
 	  </article>
+  </div>
       {{/each}}
 
   </div>
