@@ -71,10 +71,6 @@ const handleClick = (event) => {
     route(event.target); // Call the route function with the clicked element
 };
 
-if (route === '/showInfo'){
-    localStorage.getItem('id_show');
-    console.log(localStorage.getItem('id_show'));
-}
 
 
 

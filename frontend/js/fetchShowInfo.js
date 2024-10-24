@@ -34,4 +34,3 @@ async function fetchShowInfo(id) {
 }
 
 fetchShowInfo(localStorage.getItem('id_show'));
-localStorage.removeItem('id_show');
