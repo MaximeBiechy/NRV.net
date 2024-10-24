@@ -8,27 +8,5 @@
   justify-content: space-between;
   height: 10vh;
   margin: 0 1em;
-
-  .navbar_right {
-    display: flex;
-    flex-direction: row;
-    gap: 2rem;
-
-    .menu{
-      display: flex;
-      flex-direction: row;
-      gap: 2rem;
-      li{
-        list-style: none;
-        p {
-          color: $text_color;
-          &:hover{
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        }
-      }
-    }
-  }
 }
 
