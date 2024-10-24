@@ -8,6 +8,7 @@ use nrv\application\actions\CreateShowAction;
 use nrv\application\actions\DisplayArtistAction;
 use nrv\application\actions\DisplayArtistsAction;
 use nrv\application\actions\DisplayPartiesAction;
+use nrv\application\actions\DisplayPartyGaugeAction;
 use nrv\application\actions\DisplaySoldTicketsByUserAction;
 use nrv\application\actions\DisplayCartAction;
 use nrv\application\actions\DisplayPartyAction;
@@ -79,6 +80,7 @@ return function(\Slim\App $app):\Slim\App {
     // Party
     $app->post('/parties[/]', CreatePartyAction::class)->setName('create_party');
     $app->get('/parties/{ID-PARTY}/tickets', DisplayTicketsByPartyAction::class)->setName('parties_id_tickets');
+    $app->get('/parties/{ID-PARTY}/gauge', DisplayPartyGaugeAction::class)->setName('parties_id_gauge');
 
     return $app;
 };

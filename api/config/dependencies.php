@@ -9,6 +9,7 @@ use nrv\application\actions\DisplayCartAction;
 use nrv\application\actions\DisplayPartiesAction;
 use nrv\application\actions\DisplayPartyAction;
 use nrv\application\actions\DisplayPartyByShowAction;
+use nrv\application\actions\DisplayPartyGaugeAction;
 use nrv\application\actions\DisplayPlaceAction;
 use nrv\application\actions\DisplayPlacesAction;
 use nrv\application\actions\DisplayShowAction;
@@ -18,6 +19,7 @@ use nrv\application\actions\DisplaySpectatorGaugeAction;
 use nrv\application\actions\DisplayStylesAction;
 use nrv\application\actions\DisplayTicketAction;
 use nrv\application\actions\DisplayTicketsAction;
+use nrv\application\actions\DisplayTicketsByPartyAction;
 use nrv\application\actions\SigninAction;
 use nrv\application\actions\SignupAction;
 use nrv\application\actions\UpdateCartAction;
@@ -208,6 +210,12 @@ return [
         return new Auth($c->get(AuthProviderInterface::class));
     },
     UpdatePlaceAction::class => function (ContainerInterface $c) {
-        return new UpdatePlaceAction($c->get(\nrv\core\services\place\PlaceServiceInterface::class));
+        return new UpdatePlaceAction($c->get(PlaceServiceInterface::class));
+    },
+    DisplayTicketsByPartyAction::class => function (ContainerInterface $c) {
+        return new DisplayTicketsByPartyAction($c->get(TicketServiceInterface::class), $c->get(PartyServiceInterface::class));
+    },
+    DisplayPartyGaugeAction::class => function (ContainerInterface $c) {
+        return new DisplayPartyGaugeAction($c->get(PartyServiceInterface::class), $c->get(TicketServiceInterface::class));
     },
 ];
