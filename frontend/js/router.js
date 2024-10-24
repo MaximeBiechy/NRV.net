@@ -5,14 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
     attachLinkListeners();
 
     // Load the last visited route from localStorage on page load
-    const savedPath = localStorage.getItem('currentPath') || '/';  
+    const savedPath = localStorage.getItem('currentPath') || '/';
     handleLocation(savedPath);
 });
 
 const route = (element) => {
-    const path = element.getAttribute('data-id'); 
-    localStorage.setItem('currentPath', path); 
-    handleLocation(path); 
+    const path = element.getAttribute('data-id');
+    localStorage.setItem('currentPath', path);
+    handleLocation(path);
 };
 
 const routes = {
@@ -23,6 +23,8 @@ const routes = {
     "/shows": "/component/shows.html",
     "/showInfo": "/component/showInfo.html",
     "/cart": "/component/cart.html",
+    "/payment": "/component/payment.html",
+    "/validate_order": "/component/validate_order.html",
 };
 
 const handleLocation = async (path = "/") => {
@@ -60,5 +62,7 @@ const handleClick = (event) => {
     event.preventDefault(); // Prevent default navigation
     route(event.currentTarget); // Call the route function with the clicked element
 };
+
+
 
 window.route = route;

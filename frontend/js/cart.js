@@ -7,6 +7,14 @@ const authToken = localStorage.getItem('authToken');
 
 let ticket_party_routes = []
 let ticket_dates = [];
+let cart_id; //Potentiellement possible à passer en localstorage
+
+//Cart status :
+const statuses = {
+  validate_status: 1,
+  confirmation_status: 2,
+  payment_status: 3
+};
 
 async function loadCart(user_id){
   try{
@@ -41,9 +49,6 @@ async function loadCart(user_id){
 }
 
 async function getTicketDate(){
-  console.log("Fonction getTicketDate appelée.")
-  console.log(ticket_party_routes[0]);
-  console.log(ticket_party_routes[1]);
   for(let i = 0; i < ticket_party_routes.length; i++){
     try{
       const response = await fetch(`http://localhost:21000${ticket_party_routes[i]}`, { headers: { 'Origin': 'http://localhost:21000'}});
@@ -52,10 +57,8 @@ async function getTicketDate(){
       }
 
       const data = await response.json();
-      console.log(data)
       let party_date = new Date(data.party.date.date).toLocaleDateString('fr-FR', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' });
       ticket_dates.push(party_date);
-      console.log(ticket_dates);
 
     }
     catch(error){
@@ -63,10 +66,86 @@ async function getTicketDate(){
     }
   }
   for(let i = 0; i < ticket_dates.length; i++){
-    console.log(ticket_dates[i]);
     const ticket_dates_placeholders = document.querySelectorAll('.cart_item_options_date')
     ticket_dates_placeholders[i].innerHTML = ticket_dates[i];
   }
+
+  //loader.style.display = "none";
 }
 
-loadCart('669d5162-84b0-4edc-b043-3ccfa71eb0a9');
+function updateCart(id_cart, state){
+  console.log("Panier en cours d'actualisation...");
+  console.log('Statut : ' + state);
+
+  let cart_status = statuses.validate_status;
+
+  fetch(`http://localhost:21000/carts/${id_cart}/?state=${state}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Origin': 'http://localhost:21001'
+    },
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Success:', data);
+    console.log('Panier actualisé vers le statut : ' + cart_status);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+}
+
+(async () => {
+  await loadCart('669d5162-84b0-4edc-b043-3ccfa71eb0a9');
+
+  let validate_button = document.querySelector('.validate_order');
+  validate_button.addEventListener('click', function(){
+    console.log("Le bouton de validation a été cliqué !");
+    updateCart('d85544dd-c85b-4f9b-a600-52f91388d6d0', statuses.validate_status);
+    window.route({ getAttribute: () => '/payment' });
+  });
+})();
+
+//Fonction de vérification du paiement (state 2) :
+function checkPayment() {
+  console.log("Vérification du paiement en cours...");
+
+  // Get input values
+  const num_cb = document.querySelector('input[name="cb_number"]').value;
+  const date_exp = document.querySelector('input[name="expiration_date"]').value;
+  const cvc = document.querySelector('input[name="cvc_number"]').value;
+
+  // Expected values
+  const expectedPaymentDetails = {
+    num_cb: "1111 1111 1111 1111",
+    date_exp: "2025",
+    code: "200"
+  };
+
+  // Compare input values with expected values
+  if (num_cb === expectedPaymentDetails.num_cb &&
+    date_exp === expectedPaymentDetails.date_exp &&
+    code === expectedPaymentDetails.code) {
+    console.log("Paiement validé !");
+    // Proceed with further actions, e.g., updating the cart status
+  }
+  else {
+    console.log("Paiement refusé. Veuillez vérifier vos informations.");
+  }
+}
+
+const validate_button = document.querySelector('.validate_order');
+console.log(validate_button);
+(async () => {
+  await checkPayment();
+
+  let validate_button = document.querySelector('.validate_order');
+  validate_button.addEventListener('click', function(){
+    console.log("Le bouton de validation du paiement a été cliqué !");
+    updateCart('d85544dd-c85b-4f9b-a600-52f91388d6d0', statuses.validate_status);
+    window.route({ getAttribute: () => '/validate_order' });
+  });
+})();
+
+
