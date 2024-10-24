@@ -1,10 +1,12 @@
 <?php
 
 use nrv\application\actions\AddTicketToUserCartAction;
+use nrv\application\actions\CreatePartyAction;
 use nrv\application\actions\CreateShowAction;
 use nrv\application\actions\DisplayArtistAction;
 use nrv\application\actions\DisplayArtistsAction;
 use nrv\application\actions\DisplayCartAction;
+use nrv\application\actions\DisplayPartiesAction;
 use nrv\application\actions\DisplayPartyAction;
 use nrv\application\actions\DisplayPartyByShowAction;
 use nrv\application\actions\DisplayPlaceAction;
@@ -19,6 +21,7 @@ use nrv\application\actions\DisplayTicketsAction;
 use nrv\application\actions\SigninAction;
 use nrv\application\actions\SignupAction;
 use nrv\application\actions\UpdateCartAction;
+use nrv\application\middlewares\Auth;
 use nrv\application\provider\auth\JWTAuthProvider;
 use nrv\core\repositoryInterfaces\AuthRepositoryInterface;
 use nrv\core\repositoryInterfaces\PartyRepositoryInterface;
@@ -185,5 +188,14 @@ return [
     },
     CreateShowAction::class => function (ContainerInterface $c) {
         return new CreateShowAction($c->get(ShowServiceInterface::class));
+    },
+    DisplayPartiesAction::class => function (ContainerInterface $c) {
+        return new DisplayPartiesAction($c->get(PartyServiceInterface::class), $c->get(ShowServiceInterface::class));
+    },
+    CreatePartyAction::class => function (ContainerInterface $c) {
+        return new CreatePartyAction($c->get(PartyServiceInterface::class), $c->get(PlaceServiceInterface::class));
+    },
+    Auth::class => function (ContainerInterface $c) {
+        return new Auth($c->get(AuthentificationServiceInterface::class));
     },
 ];

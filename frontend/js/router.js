@@ -33,6 +33,7 @@ const routes = {
     "/order": "/component/order.html",
     "/payment": "/component/payment.html",
     "/validate_order": "/component/validate_order.html",
+    "/profile" : "/component/profile.html",
 };
 
 const handleLocation = async (path = "/") => {

@@ -1,0 +1,41 @@
+@import 'config';
+
+
+
+.ticket{
+        border: 1px solid $text_color;
+        padding: 2rem;
+        border-radius: 20px;
+        width: 12em;
+        img{
+            border-radius: calc(20px / 2);
+            aspect-ratio: 1/1;
+            width: 100%;
+            object-fit: cover;
+        }
+        .ticket_content{
+            display: flex;
+            flex-direction: column;
+            margin: 1rem;
+        }
+        .ticket_title{
+            font-size: 2rem;
+            font-weight: 500;
+            margin:1rem 0 0 0 ;
+            font-family: $font_sans;
+            text-align: start;
+        }
+        .ticket_price{
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin: 1.5rem 0 0 0;
+        }
+        p{
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin:0;
+            .sans{
+                font-family: $font_sans;
+            }
+        }
+    }

@@ -6,6 +6,7 @@
   justify-content: center;
   margin: 0 auto;
   width: 80%;
+  margin-bottom: 2em;
 }
 
 section {
@@ -19,5 +20,11 @@ section {
     border-bottom: white 1px solid;
     margin: .75em auto;
     width: 80%;
+  }
+  h3{
+    font-size: 2em;
+    font-weight: 400;
+    text-align: center;
+    margin: 1em auto;
   }
 }

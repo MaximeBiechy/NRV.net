@@ -1,0 +1,13 @@
+@import 'config';
+
+.details{
+    @extend .container;
+    flex-direction: column;
+    justify-content: left;
+    margin-block: 2rem;
+    p{
+        font-size: 1.8rem;
+        margin: 0;
+        font-family: $font_sans;
+    }
+}

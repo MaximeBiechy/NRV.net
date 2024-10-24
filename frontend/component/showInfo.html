@@ -4,11 +4,11 @@
 </div>
 
 <section id="ShowInfo">
-  <h2>{{party.[0].name}}</h2>
+  <h2>Soirée : {{party.[0].name}}</h2>
 
   <div class="container" >
-      <article class="card">
-        <img src="./{{party.[0].shows.[0].images.[0].self.href}}" alt="1" class="card_img">
+      <article class="card card_place">
+        <img src="./{{party.[0].place.images.0.self.href}}" alt="1" class="card_img">
         <div class="card_head">
           <p><span class="bold">{{party.[0].date.date}}</span></p>
           <p class="place">{{party.[0].place.name}}</p>
@@ -17,8 +17,35 @@
           <h3 class="card_title">{{party.[0].title}}</h3>
         </div>
       </article>
-  </div>   
+  </div> 
+
+  <div class="details">
+      <p> heure de début de la soirée : {{party.[0].begin.date}}</p>
+      <p> Adresse de la soirée : {{party.[0].place.address}}</p>
+      <p>Theme de la soirée : {{party.[0].theme}} </p>
+      <p> Tarifs de la place : {{party.[0].prices}} €</p>
+  </div>
+
+  <section>
+    <h2>Les Spectacles de ce soir</h2>
+    
+    <div class="container" id="templateShow"> 
+  
+        {{#each party.[0].shows}}
+      <article class="card" data-id="{{this.id}}">
+        <img src="{{this.images.0.self.href}}" alt="1" class="card_img">
+        <div class="card_head">
+          <p><span class="bold">{{this.date.date}}</span></p>
+          <p >{{this.place.name}}</p>
+        </div>
+        <div class="card_body">
+          <h3 class="card_title">{{this.title}}</h3>
+        </div>
+      </article>
+        {{/each}}
+  
+    </div>
+  </section>
 </section>
 
-<script type="module" src="/js/router.js" defer></script>
 <script type="module" src="/js/fetchShowInfo.js" class="main-page-script"></script>

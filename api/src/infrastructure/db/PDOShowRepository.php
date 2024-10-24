@@ -47,8 +47,9 @@ class PDOShowRepository implements ShowRepositoryInterface
                 ]);
             }
             foreach ($show->getImages() as $image) {
-                $stmt = $this->pdo_show->prepare("INSERT INTO images (show_id, path) VALUES (:show_id, :path)");
+                $stmt = $this->pdo_show->prepare("INSERT INTO images (id, show_id, path) VALUES (:id, :show_id, :path)");
                 $stmt->execute([
+                    'id' => Uuid::uuid4()->toString(),
                     'show_id' => $show->getID(),
                     'path' => $image
                 ]);
