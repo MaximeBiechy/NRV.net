@@ -22,7 +22,9 @@ use nrv\application\actions\SigninAction;
 use nrv\application\actions\SignupAction;
 use nrv\application\actions\UpdateCartAction;
 use nrv\application\middlewares\Auth;
+use nrv\application\provider\auth\AuthProviderInterface;
 use nrv\application\provider\auth\JWTAuthProvider;
+use nrv\application\provider\auth\JWTManager;
 use nrv\core\repositoryInterfaces\AuthRepositoryInterface;
 use nrv\core\repositoryInterfaces\PartyRepositoryInterface;
 
@@ -130,6 +132,12 @@ return [
     AuthzTicketServiceInterface::class => function (ContainerInterface $c) {
         return new AuthzTicketService($c->get(TicketRepositoryInterface::class), $c->get(AuthRepositoryInterface::class));
     },
+    AuthProviderInterface::class => function (ContainerInterface $c) {
+        return new JWTAuthProvider($c->get(AuthentificationServiceInterface::class), $c->get(JWTManager::class));
+    },
+    JWTManager::class => function (ContainerInterface $c) {
+        return new JWTManager();
+    },
 
     //Actions
     DisplayShowsAction::class => function (ContainerInterface $c) {
@@ -196,6 +204,6 @@ return [
         return new CreatePartyAction($c->get(PartyServiceInterface::class), $c->get(PlaceServiceInterface::class));
     },
     Auth::class => function (ContainerInterface $c) {
-        return new Auth($c->get(AuthentificationServiceInterface::class));
+        return new Auth($c->get(AuthProviderInterface::class));
     },
 ];
