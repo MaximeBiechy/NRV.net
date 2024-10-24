@@ -21,5 +21,6 @@ interface ShowServiceInterface
     public function getShowsByStylePaginated(string $style_name, int $page, int $size): array;
     public function getShowsByPlacePaginated(string $place_name, int $page, int $size): array;
     public function getStyles(): array;
+    public function getArtistsPaginated(int $page, int $size): array;
 
 }
