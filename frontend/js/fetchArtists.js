@@ -1,3 +1,5 @@
+console.log('fetchArtists.js loaded');
+
 var loader = document.querySelector('.loader');
 
 async function fetchArtists() {
@@ -13,6 +15,8 @@ async function fetchArtists() {
       var filledTemplate = template(data);
       
       document.querySelector('#templateArtist').innerHTML = filledTemplate;   
+
+      loader.style.display = 'none';
 
 
   

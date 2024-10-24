@@ -1,5 +1,8 @@
 <!--Panier-->
 <section>
+  <div class="loader">
+    <div class="loader__spinner"></div>
+  </div>
   <h2>Votre panier :</h2>
   <div class="container cart_container" id="cart_template">
     <div class="cart">
@@ -34,7 +37,7 @@
         <button class="validate_cart" onclick="route()"> >Valider le panier</button>
       </div>
       {{else}}
-      <p>Votre panier est vide.</p>
+      <p class="error_message">Votre panier est vide.</p>
       {{/if}}
 
     </div>

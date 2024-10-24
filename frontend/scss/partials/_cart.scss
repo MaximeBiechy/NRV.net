@@ -1,9 +1,8 @@
 @import 'config';
 .container.cart_container{
-  width: 90%;
+  width: 100%;
 
   .cart{
-    border: 1px solid red;
     position: relative;;
     width: 100%;
     h2{
@@ -27,6 +26,10 @@
       width: 90%;
     }
 
+    .error_message{
+      text-align: center;
+    }
+
     .cart_nametags{
       background-color: orange;
       display: flex;
@@ -42,6 +45,7 @@
 
     .cart_item{
       align-items: center;
+      border: 1px solid red;
       display: flex;
       gap: 5em;
       padding: 1em 0;
@@ -155,7 +159,6 @@
     }
 
     .cart_item{
-      border: 2px solid red;
 
       img{
         height: 10%;

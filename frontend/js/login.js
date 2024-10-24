@@ -20,9 +20,16 @@ async function login() {
         localStorage.setItem('refreshToken', data.token_refresh);
         localStorage.setItem('email_user', data.email);
         localStorage.setItem('id_user', data.id);
-    alert('You are now logged in');
+
+        document.querySelector('#navProfile').style.display = 'block';
+        document.querySelector('#navLogin').style.display = 'none';
+
+        window.route({ getAttribute: () => '/' });
 
     } catch (error) {
         console.error('There has been a problem with your fetch operation:', error);
+       console.log("Application des styles :")
+        const error_message = document.querySelector('#error_message');
+        error_message.style.display = 'block';
     }
 }

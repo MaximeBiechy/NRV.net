@@ -1,86 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>NRV.net</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
-      defer
-    ></script>
-    <script src="./js/router.js" defer></script>
-    <script
-      src="https://kit.fontawesome.com/596072d93b.js"
-      crossorigin="anonymous"
-    ></script>
-    <!-- Font Awesome -->
-  </head>
-  <body>
-    <header id="root">
-      <nav id="main-nav">
-        <div class="navbar">
-          <h1>NancyRockVibraaation</h1>
-          <div class="navbar_right">
-            <ul class="menu">
-              <li><a href="/" onclick="route()">Home</a></li>
-              <li><a href="/shows" onclick="route()">Shows</a></li>
-              <li><a href="/login" onclick="route()">login</a></li>
-              <li>
-                <a href="/cart" onclick="route()"
-                  ><i class="fa-solid fa-cart-shopping"></i
-                ></a>
-              </li>
-            </ul>
-          </div>
+<div class="loader">
+  <div class="loader__spinner"></div>
+</div>
+<section>
+  <h2>Les Spectacles Disponibles</h2>
+  <ul class="filters">
+    <select name="places" id="places">
+      <option value="default">-- Lieux --</option>
+      {{#each places}}
+      <option value="{{this.name}}">{{this.name}}</option>
+      {{/each}}
+    </select>
+
+    <select name="style" id="styles">
+      <option value="default">-- styles --</option>
+      {{#each styles}}
+      <option value="{{this.name}}">{{this.name}}</option>
+      {{/each}}
+    </select>
+
+    <input type="date" id="calendar" name="trip-start" />
+  </ul>
+  <div class="container" id="templateShow">
+    {{#if shows.length}} {{#each shows}}
+    <div class="way" url="/showInfo">
+      <article class="card" data-id="{{this.id}}">
+        <img src="{{this.images.0.self.href}}" alt="1" class="card_img" />
+        <div class="card_head">
+          <p><span class="bold">{{this.date.date}}</span></p>
         </div>
-      </nav>
-    </header>
+        <div class="card_body">
+          <h3 class="card_title">{{this.title}}</h3>
+        </div>
+      </article>
+    </div>
+    {{/each}} {{else}}
+    <p class="error-message">Aucun spectacle disponible pour le moment.</p>
+    {{/if}}
+  </div>
+</section>
 
-    <div id="main-page"></div>
-  </body>
-</html>
-
-<script>
-  // 'use strict';
-
-// const route = (event) => {
-//     event = event || window.event;
-//     event.preventDefault();
-//     window.history.pushState({}, "", event.currentTarget.href);
-//     handleLocation();
-// };
-
-// const routes = {
-//   404: "/component/404.html",
-//   "/": "/component/squelette.html",
-//   "/login": "/component/login.html",
-//   "/shows": "/component/shows.html",
-//   "/showInfo": "/component/showInfo.html",
-//   "/cart": "/component/cart.html",
-// };
-
-// const handleLocation = async () => {
-//   const path = window.location.pathname;
-//   const route = routes[path] || routes[404];
-//   const html = await fetch(route).then((data) => data.text());
-//   document.getElementById("main-page").innerHTML = html;
-
-//     const scripts = document.querySelectorAll('.main-page-script');
-//     scripts.forEach((script) => {
-//         const newScript = document.createElement('script');
-//         newScript.textContent = script.textContent;
-//         if (script.src) {
-//             newScript.src = script.src;
-//         }
-//         document.body.appendChild(newScript);
-//         document.body.removeChild(newScript);
-//     });
-
-// };
-
-// window.onpopstate = handleLocation;
-// window.route = route;
-
-// handleLocation();
-
-</script>
+<script
+  type="module"
+  src="/js/filters.js"
+  class="main-page-script"
+  defer
+></script>
+<script
+  type="module"
+  src="./js/fetchShows.js"
+  class="main-page-script"
+  defer
+></script>

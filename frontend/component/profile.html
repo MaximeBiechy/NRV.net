@@ -1,15 +1,19 @@
-<section>
-    <h2>Bienvenue {{tim}}</h2>
+<div class="loader">
+    <div class="loader__spinner"></div>
+</div>
+
+<section >
+    <h2>Bienvenue <span id="name"></span></h2>
     <h3>Voici tous vos tickets :</h3>
-<div class="container">
-    {{#each tickets}}
+<div class="container" id="templateTicket">
+    {{#each sold_tickets}}
     <div class="ticket">
-        <img src="./images/M.jpg" alt="1" class="card_img">
+        <img src="./images/{{this.party.party.shows.[0].artists.[0].image.self.href}}" alt="1" class="card_img">
         <div class="ticket_content">
-            <h3 class="ticket_title">{{ticket.title}}</h3>
-            <p><span class="sans">Date : {{ticket.date.date}}</span></p>
-            <p><em>Lieu :{{ticket.place.name}}</em></p>
-            <p class="ticket_price">Prix : {{ticket.prices}} €</p>
+            <h3 class="ticket_title">{{this.party.party.name}}</h3>
+            <p><span class="sans">Date : {{this.party.party.date.date}}</span></p>
+            <p><em>Lieu :{{this.party.party.place.address}}</em></p>
+            <p class="ticket_price">Prix : {{this.price}} €</p>
         </div>
     </div>
 
