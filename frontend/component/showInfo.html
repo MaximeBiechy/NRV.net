@@ -17,20 +17,13 @@
           <h3 class="card_title">{{party.[0].title}}</h3>
         </div>
       </article>
-  </div> 
-
-  <div class="details">
-      <p> heure de début de la soirée : {{party.[0].begin.date}}</p>
-      <p> Adresse de la soirée : {{party.[0].place.address}}</p>
-      <p>Theme de la soirée : {{party.[0].theme}} </p>
-      <p> Tarifs de la place : {{party.[0].prices}} €</p>
   </div>
 
   <section>
     <h2>Les Spectacles de ce soir</h2>
-    
-    <div class="container" id="templateShow"> 
-  
+
+    <div class="container" id="templateShow">
+
         {{#each party.[0].shows}}
       <article class="card" data-id="{{this.id}}">
         <img src="{{this.images.0.self.href}}" alt="1" class="card_img">
@@ -43,9 +36,22 @@
         </div>
       </article>
         {{/each}}
-  
+
     </div>
   </section>
+
+  <section>
+    <h2>Détails</h2>
+    <div class="details">
+      <p> heure de début de la soirée : {{party.[0].begin.date}}</p>
+      <p> Adresse de la soirée : {{party.[0].place.address}}</p>
+      <p>Theme de la soirée : {{party.[0].theme}} </p>
+      <p> Tarifs de la place : {{party.[0].prices}} €</p>
+    </div>
+    <button id="add_to_cart">Ajouter</button>
+  </section>
+
 </section>
 
 <script type="module" src="/js/fetchShowInfo.js" class="main-page-script"></script>
+<script type="module" src="../js/addToCart.js" class="main-page-script" defer></script>
