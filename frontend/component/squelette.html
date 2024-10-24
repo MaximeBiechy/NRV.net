@@ -17,28 +17,7 @@
 <section>
   <h2 class="section__title">NRV.net</h2>
     <ul class="filters">
-<!--      <select name="places" id="places">-->
-<!--        <option value="default">&#45;&#45; Lieux &#45;&#45;</option>-->
-<!--        <option value="Stade de France">Stade de France</option>-->
-<!--        <option value="Zénith Paris">Zénith Paris</option>-->
-<!--        <option value="AccorHotels Arena">AccorHotels Arena</option>-->
-<!--      </select>-->
 
-<!--      <select name="style" id="styles">-->
-<!--        <option value="default">&#45;&#45; Style &#45;&#45;</option>-->
-<!--        <option value="Electro">Electro</option>-->
-<!--        <option value="Pop">Pop</option>-->
-<!--        <option value="Rock">Rock</option>-->
-<!--        <option value="House">House</option>-->
-<!--        <option value="Synthpop">Synthpop</option>-->
-<!--        <option value="Downtempo">Downtempo</option>-->
-<!--        <option value="Classical">Classical</option>-->
-<!--        <option value="Chanson">Chanson</option>-->
-<!--        <option value="Hip Hop">Hip Hop</option>-->
-<!--        <option value="Rap">Rap</option>-->
-<!--        <option value="R&B">R&B</option>-->
-<!--        <option value="Metal">Metal</option>-->
-<!--      </select>-->
 		<select name="places" id="places">
 			<option value="default">-- Lieux --</option>
 			{{#each places}}
@@ -47,7 +26,7 @@
 		</select>
 
 		<select name="style" id="styles">
-			<option value="default">-- Style --</option>
+			<option value="default">-- styles --</option>
 			{{#each styles}}
 			<option value="{{this.name}}">{{this.name}}</option>
 			{{/each}}
@@ -144,8 +123,8 @@
 
 
 
-<script type="module" src="/js/cart.js" class="main-page-script"></script>
-<script type="module" src="/js/filters.js" class="main-page-script"></script>
-<script type="module" src="/js/fetchShows.js" class="main-page-script"></script>
+<script type="module" src="/js/cart.js" class="main-page-script" defer></script>
+<script type="module" src="./../js/filters.js" class="main-page-script" defer></script>
+<script type="module" src="/js/fetchShows.js" class="main-page-script" defer></script>
 </body>
 </html>
