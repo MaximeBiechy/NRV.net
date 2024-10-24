@@ -2,8 +2,8 @@
 
 namespace nrv\application\actions;
 
-use nrv\application\actions\AbstractAction;
 use nrv\application\renderer\JsonRenderer;
+use nrv\core\services\party\PartyServiceInterface;
 use nrv\core\services\ticket\TicketServiceInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -35,7 +35,8 @@ class DisplaySoldTicketsByUserAction extends AbstractAction
                 "ticket_id" => $soldTicket->ticket_id,
                 "party_id" => $soldTicket->party_id,
                 "links" => [
-                    "self" => ['href' => $urlSoldTicket]
+                    "self" => ['href' => $urlSoldTicket],
+                    "party" => ['href' => $routeParser->urlFor('parties_id', ['ID-PARTY' => $soldTicket->party_id])],
                 ]
             ];
         }, $soldTickets);
