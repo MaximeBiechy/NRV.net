@@ -8,7 +8,8 @@ async function validatePayment(cart_id) {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'Origin': 'http://localhost:21001'
+        'Origin': 'http://localhost:21001',
+        'Authorization': 'Bearer ' + localStorage.getItem('authToken')
       },
       body: JSON.stringify({
         "num_cb": document.getElementById('cb_number').value,
@@ -29,7 +30,7 @@ async function validatePayment(cart_id) {
 
 const validate_order_button = document.querySelector('.validate_payment');
 validate_order_button.addEventListener('click', function(){
-  validatePayment(localStorage.getItem('id_user'));
-  updateCart(localStorage.getItem('id_user'), statuses.paid_status);
+  validatePayment(localStorage.getItem('id_cart'));
+  updateCart(localStorage.getItem('id_cart'), statuses.paid_status);
   window.route({ getAttribute: () => '/validate_order' });
 });
