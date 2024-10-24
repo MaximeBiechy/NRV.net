@@ -358,4 +358,22 @@ class PDOTicketRepository implements TicketRepositoryInterface
             throw new RepositoryInternalServerError($e->getMessage());
         }
     }
+
+    public function getTickets(): array
+    {
+        try {
+            $stmt = $this->pdo_ticket->prepare("SELECT * FROM tickets");
+            $stmt->execute();
+            $tickets = $stmt->fetchAll();
+            $ts = [];
+            foreach ($tickets as $ticket) {
+                $t = new Ticket($ticket['name'], $ticket['price'], $ticket['quantity'], $ticket['party_id']);
+                $t->setID($ticket['id']);
+                $ts[] = $t;
+            }
+            return $ts;
+        } catch (\PDOException $e) {
+            throw new RepositoryInternalServerError("Error getting tickets");
+        }
+    }
 }
