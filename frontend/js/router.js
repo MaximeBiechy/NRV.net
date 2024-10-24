@@ -82,7 +82,6 @@ attachLinkListeners();
 //Login-display
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('auth');
     const token = localStorage.getItem('authToken');
     if (token) {
         document.querySelector('#navProfile').style.display = 'block';
