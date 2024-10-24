@@ -51,6 +51,8 @@ const handleLocation = async (path = "/") => {
         }
         document.body.appendChild(newScript);
         document.body.removeChild(newScript);
+
+        closeBurger();
     });
 
     // Reattach event listeners to any new `.way` links in the dynamically loaded content
@@ -72,22 +74,21 @@ const handleClick = (event) => {
     route(event.target); // Call the route function with the clicked element
 };
 
-
+function closeBurger (){
+    const burger = localStorage.getItem('burgerOpen');
+    if (burger === 'false'){
+        document.querySelector('#burger').classList.toggle('active');
+        document.querySelector('#menu').style.transform = 'translateX(100%)';
+    }else{
+        document.querySelector('#burger').classList.toggle('active');
+        document.querySelector('#menu').style.transform = 'translateX(0%)';
+}
+}
 
 
 window.route = route;
 attachLinkListeners();
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Login-display
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-document.addEventListener('DOMContentLoaded', () => {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-        document.querySelector('#navProfile').style.display = 'block';
-        document.querySelector('#navLogin').style.display = 'none';
-    } else {
-        document.querySelector('#navProfile').style.display = 'none';
-        document.querySelector('#navLogin').style.display = 'block';
-    }
-});
+
+
+
