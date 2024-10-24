@@ -20,15 +20,12 @@
       gap: 2rem;
       li{
         list-style: none;
-        a {
+        p {
           color: $text_color;
-          font-size: 1.2rem;
-          text-decoration: none;
-          transition: color 0.3s;
-
-        &:hover {
-          //color: adjust-color($text_color, $lightness: 0.5);
-          }
+          &:hover{
+            cursor: pointer;
+            transition: all 0.3s;
+        }
         }
       }
     }

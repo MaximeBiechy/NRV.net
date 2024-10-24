@@ -1,6 +1,6 @@
 'use strict';
 
-consoel.log('fetchShows.js loaded');
+console.log('fetchShows.js loaded');
 
 var loader = document.querySelector('.loader');
 
