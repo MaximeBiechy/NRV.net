@@ -51,6 +51,7 @@ async function filterPlace(place) {
       {{/if}}
   </div>
     `;
+  var templateSource = document.querySelector("#templateShow").innerHTML;
     var template = Handlebars.compile(templateSource);
     var filledTemplate = template(data);
 
