@@ -27,6 +27,13 @@
     }
 
     .error_message{
+      color: red;
+      display: none;
+      text-align: center;
+      width: 100%;
+    }
+
+    .error_message_empty{
       text-align: center;
     }
 

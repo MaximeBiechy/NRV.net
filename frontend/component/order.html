@@ -1,8 +1,12 @@
 <!--Panier-->
 <section>
+  <div class="loader">
+    <div class="loader__spinner"></div>
+  </div>
   <h2>Résumé de votre commande :</h2>
   <div class="container cart_container" id="cart_template">
     <div class="cart">
+      <p class="error_message">Erreur lors de la récupération du panier. <br>Veuillez actualiser la page.</p>
 
       {{#if cart.tickets.length}}
       {{#each cart.tickets}}

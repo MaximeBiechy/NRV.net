@@ -35,7 +35,7 @@ async function loadCart(user_id){
       ticket_party_routes.push(data.cart.tickets[i].links.party.href);
     }
 
-    getTicketDate();
+    await getTicketDate();
 
     //Handlebars :
     var templateSource = document.querySelector('#cart_template').innerHTML;
@@ -55,15 +55,27 @@ async function loadCart(user_id){
   }
   catch(error){
     console.error('There has been a problem with your fetch operation:', error);
-    window.route({ getAttribute: () => '/login' });
+
+    if(localStorage.getItem('authToken') == null){
+      window.route({ getAttribute: () => '/login' });
+      console.log("Vous devez être connecté pour accéder à votre panier.");
+    }
+    else{
+      var error_message = document.querySelector('.error_message');
+      error_message.style.display = 'block';
+      var loader = document.querySelector('.loader');
+      loader.style.display = 'none';
+      console.log("Erreur lors du chargement du panier.");
+    }
   }
 }
 
-async function getTicketDate(){
-  for(let i = 0; i < ticket_party_routes.length; i++){
-    try{
-      const response = await fetch(`http://localhost:21000${ticket_party_routes[i]}`, { headers: { 'Origin': 'http://localhost:21000'}});
-      if(!response.ok){
+
+async function getTicketDate() {
+  for (let i = 0; i < ticket_party_routes.length; i++) {
+    try {
+      const response = await fetch(`http://localhost:21000${ticket_party_routes[i]}`, { headers: { 'Origin': 'http://localhost:21000' } });
+      if (!response.ok) {
         throw new Error('Network response was not ok');
       }
 
@@ -71,17 +83,19 @@ async function getTicketDate(){
       let party_date = new Date(data.party.date.date).toLocaleDateString('fr-FR', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' });
       ticket_dates.push(party_date);
 
-    }
-    catch(error){
+    } catch (error) {
       console.error('There has been a problem with your fetch operation:', error);
     }
   }
-  for(let i = 0; i < ticket_dates.length; i++){
-    const ticket_dates_placeholders = document.querySelectorAll('.cart_item_options_date')
-    ticket_dates_placeholders[i].innerHTML = ticket_dates[i];
-  }
 
-  //loader.style.display = "none";
+  const ticket_dates_placeholders = document.querySelectorAll('.cart_item_options_date');
+  for (let i = 0; i < ticket_dates.length; i++) {
+    if (ticket_dates_placeholders[i]) {
+      ticket_dates_placeholders[i].innerHTML = ticket_dates[i];
+    } else {
+      console.error(`Element at index ${i} not found`);
+    }
+  }
 }
 
 function updateCart(id_cart, state){
