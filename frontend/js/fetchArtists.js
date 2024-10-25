@@ -1,6 +1,6 @@
 console.log('fetchArtists.js loaded');
 
-// var loader = document.querySelector('.loader');
+var loader = document.querySelector('.loader');
 var currentPage = 1;
 
 async function fetchArtists(page) {
@@ -35,7 +35,7 @@ async function fetchArtists(page) {
     var filledTemplate = template(data);
 
     document.querySelector('#templateArtist').innerHTML = filledTemplate;   
-    // loader.style.display = 'none';
+    loader.style.display = 'none';
   }
   catch (error) {
     console.error('There has been a problem with your fetch operation:', error);
