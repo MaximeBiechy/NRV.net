@@ -1,6 +1,12 @@
 /////////////////////////////////////////////
 //Fonction validation paiement :
 /////////////////////////////////////////////
+
+console.log("Fichier validate_payment.js chargé");
+
+var loader = document.querySelector('.loader');
+loader.style.display = 'none';
+
 async function validatePayment(cart_id) {
   console.log(document.querySelector('.validate_payment'))
   try {

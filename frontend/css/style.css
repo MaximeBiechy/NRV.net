@@ -105,8 +105,7 @@
   z-index: -1;
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   border-radius: 20px;
 }
 .card .card_head {
@@ -264,6 +263,12 @@ section .pagination .btn:hover {
   width: 90%;
 }
 .container.cart_container .cart .error_message, .cart_container.details .cart .error_message {
+  color: red;
+  display: none;
+  text-align: center;
+  width: 100%;
+}
+.container.cart_container .cart .error_message_empty, .cart_container.details .cart .error_message_empty {
   text-align: center;
 }
 .container.cart_container .cart .cart_nametags, .cart_container.details .cart .cart_nametags {
@@ -289,8 +294,7 @@ section .pagination .btn:hover {
   border-radius: 2em;
   width: 175px;
   height: 350px;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .container.cart_container .cart .cart_item .cart_item_desc_title, .cart_container.details .cart .cart_item .cart_item_desc_title {
   display: flex;
@@ -343,10 +347,8 @@ section .pagination .btn:hover {
   border-radius: 16px;
   font-family: "Instrument Serif", serif;
   font-size: 1em;
-  height: -moz-fit-content;
   height: fit-content;
   padding: 0.1em 2em;
-  width: -moz-fit-content;
   width: fit-content;
 }
 .container.cart_container .cart .cart_payment .cart_payment_calculus, .cart_container.details .cart .cart_payment .cart_payment_calculus {
@@ -547,7 +549,6 @@ section .pagination .btn:hover {
 .details button {
   position: auto;
   padding: 1em 2em;
-  width: -moz-fit-content;
   width: fit-content;
   font-family: "Inter", sans-serif;
   background-color: #FFF;
@@ -581,9 +582,7 @@ section .pagination .btn:hover {
   margin: 0;
   border: none;
   background-color: #FFF;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+  appearance: none;
 }
 .details .gauge-container progress::-webkit-progress-bar {
   background-color: #5DF3AB;
@@ -603,8 +602,7 @@ section .pagination .btn:hover {
   border-radius: 10px;
   aspect-ratio: 1/1;
   width: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .ticket .ticket_content {
   display: flex;
@@ -645,8 +643,7 @@ section .pagination .btn:hover {
     border-radius: 10px;
     aspect-ratio: 1/1;
     width: 100%;
-    -o-object-fit: cover;
-       object-fit: cover;
+    object-fit: cover;
   }
   .ticket .ticket_content {
     display: flex;
@@ -776,4 +773,6 @@ body {
 
 #navProfile {
   display: none;
-}/*# sourceMappingURL=style.css.map */
+}
+
+/*# sourceMappingURL=style.css.map */
