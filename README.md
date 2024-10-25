@@ -6,6 +6,7 @@
 - BIECHY Maxime
 - KHENFER Vadim
 
+
 ## Liens utiles :
 Pour le tableau de bord :
 - [Trello](https://trello.com/invite/b/671606b9a621c991bbfbdbcf/ATTI347b9a8a5d751f01d1a7904350e3f333E7D484AA/nrv)
@@ -13,8 +14,21 @@ Pour le tableau de bord :
 Pour les maquettes :
 - [Figma](https://www.figma.com/design/J5tfFdFLmFty3NlROJSx8Q/NRV?node-id=0-1&t=P17VER0GD6nMLpdj-1)
 
+Docketu :
+- [Docketu](http://docketu.iutnc.univ-lorraine.fr:21001)
+
 Le diagramme des entités : 
 <img src="/api/diagrams/diagram_class_entity.png" alt="diagramme de classe des entités de l'api">
+
+## Description du projet
+Il ne faut pas oublier de créer les fichier ini pour les bases de données et les fichiers .env pour les variables d'environnement.
+auth.ini, party.ini, place.ini, shows.ini, tickets.ini
+nrv.env nrvdb.env
+
+On a deux utlisateur pour la connexion :
+
+- greg@gmail.com mdp: greg
+- tim@gmail.com mdp: tim
 
 ## Tableau des fonctionnalités
 
