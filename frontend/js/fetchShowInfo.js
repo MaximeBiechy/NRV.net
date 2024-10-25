@@ -97,8 +97,6 @@ async function fetchShowInfo(id) {
 
 
 async function addToCart(cart_id, ticket_id) {
-  console.log(cart_id);
-  console.log(ticket_id);
   try {
        const response = await fetch(`http://localhost:21000/carts/${cart_id}/ticket`, {
         method: "PATCH",
@@ -114,7 +112,6 @@ async function addToCart(cart_id, ticket_id) {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      console.log(data);
   }
   catch (error) {
     console.error("There has been a problem with your fetch operation:", error);
