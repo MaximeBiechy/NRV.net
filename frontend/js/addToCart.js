@@ -1,11 +1,8 @@
 console.log("Fichier addToCart.js chargé.")
 
-var button = document.getElementById("add_to_cart");
+
 
 async function addToCart(cart_id, ticket_id) {
-    var id = button.getAttribute("data-id");
-    console.log(id);
-
     var response = await fetch(`https://localhost:21000/carts/${cart_id}/ticket`, {
         method: "PATCH",
         headers: {
@@ -29,10 +26,11 @@ async function addToCart(cart_id, ticket_id) {
     }
 }
 
-//ID party : a0b7566b-6fdd-4e34-bbab-41d882de9c07
 
-//const card = document.querySelector(".card");
-//console.log(card.getAttribute("data-id"));
+// var button = document.getElementById("add_to_cart");
+// var ticketPrice = document.querySelectorAll('.ticket_price');
+// var id = "";
 
-
-
+// for (let i = 0; i < ticketPrice.length; i++) {
+//   ticketPrice[i].addEventListener("click", getCartId);
+// }

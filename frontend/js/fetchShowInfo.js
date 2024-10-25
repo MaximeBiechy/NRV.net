@@ -72,7 +72,7 @@ async function fetchShowInfo(id) {
         document.querySelector(".tickets").innerHTML = filledTemplate;
     
         //Ajout attribute :
-        var tickets_price = document.querySelectorAll(".ticket_price");
+        var tickets_price = document.querySelectorAll(".add_to_cart");
         for(let i = 0; i < tickets_price.length; i++){
           tickets_price[i].setAttribute("data-id", tickets[i]);
         }
@@ -95,19 +95,54 @@ async function fetchShowInfo(id) {
     console.error("There has been a problem with your fetch operation:", error);
   }};
 
-(async () => {
-  await fetchShowInfo(localStorage.getItem("id_show"));
-})();
 
-function addEventListenersToButtons() {
-  var ticket_prices = document.querySelectorAll(".ticket_price");
-  var buttons = document.querySelectorAll(".add_to_cart");
-  for (let i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener("click", function() {
-      // addToCart(localStorage.getItem("cart_id"), ticket_prices[i].getAttribute("data-id"));
-    });
+async function addToCart(cart_id, ticket_id) {
+  console.log(cart_id);
+  console.log(ticket_id);
+  try {
+       const response = await fetch(`http://localhost:21000/carts/${cart_id}/ticket`, {
+        method: "PATCH",
+        headers: { "Origin": "http://localhost:21001",
+                    "Authorization": "Bearer " + localStorage.getItem("authToken"),
+                    "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          "ticket_id": ticket_id
+        })
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      console.log(data);
   }
-}
+  catch (error) {
+    console.error("There has been a problem with your fetch operation:", error);
+  }
+};
+
+(async () => {
+
+  ///charge les informations de la page afin de récupérer les informations chargées
+  await fetchShowInfo(localStorage.getItem("id_show"));
+
+//////////////////////////////////////////
+// Add to cart
+//////////////////////////////////////////
+
+//get les informations de la page
+var buttons = document.getElementsByClassName("add_to_cart");
+var id_ticket = "";
+var cart_id = localStorage.getItem("id_cart");
+
+Array.from(buttons).forEach(e => {
+  e.addEventListener("click", function() {
+    id_ticket = e.getAttribute("data-id");
+    addToCart(cart_id, id_ticket);
+  });
+});
+
+})();
 
 
 
