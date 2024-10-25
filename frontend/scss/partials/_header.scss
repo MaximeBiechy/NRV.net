@@ -1,6 +1,11 @@
-@import "config";
+
 
 .navbar {
+  @include respond-to(small) {
+    h1{
+      font-size: 0.8em;
+    }
+  }
   align-items: center;
   color: $text_color;
   display: flex;
