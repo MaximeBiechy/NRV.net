@@ -110,7 +110,7 @@ return [
 
     // Services
     AuthentificationServiceInterface::class => function (ContainerInterface $c) {
-        return new AuthentificationService($c->get(AuthRepositoryInterface::class));
+        return new AuthentificationService($c->get(AuthRepositoryInterface::class), $c->get(TicketRepositoryInterface::class));
     },
     PlaceServiceInterface::class => function (ContainerInterface $c) {
         return new PlaceService($c->get(PlaceRepositoryInterface::class));
