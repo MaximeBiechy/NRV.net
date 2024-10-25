@@ -1,5 +1,7 @@
 'use strict';
 
+const { log } = require("handlebars");
+
 const error_message = document.querySelector('#error_message');
 
 function signup() {
@@ -30,7 +32,10 @@ function signup() {
                 localStorage.setItem('refreshToken', data.token_refresh);
                 localStorage.setItem('email_user', data.email);
                 localStorage.setItem('id_user', data.id);
-
+                alert('Inscription réussie !');
+                document.querySelector('#navProfile').style.display = 'block';
+        document.querySelector('#navLogin').style.display = 'none';
+                window.route({ getAttribute: () => '/' });
 
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);

@@ -4,6 +4,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('authToken');
     if (token) {
+        console.log('logged');
         document.querySelector('#navProfile').style.display = 'block';
         document.querySelector('#navLogin').style.display = 'none';
     } else {
@@ -54,16 +55,14 @@ async function refreshToken() {
             throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        if (data.authToken){
-        localStorage.setItem('authToken', data.authToken);
+        console.log(data);
+        if (data.token_refresh){
+        localStorage.setItem('authToken', data.token_refresh);
         console.log('Token refreshed');
         document.querySelector('#navProfile').style.display = 'block';
         document.querySelector('#navLogin').style.display = 'none';
     }else{
-        // localStorage.removeItem('authToken');
-        // localStorage.removeItem('refreshToken');
-        // localStorage.removeItem('email_user');
-        // localStorage.removeItem('id_user');
+        console.log('Token expired');
         document.querySelector('#navProfile').style.display = 'none';
         document.querySelector('#navLogin').style.display = 'block';
     }
@@ -73,8 +72,5 @@ async function refreshToken() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const token = localStorage.getItem('authToken');
-    if (token) {
         refreshToken();
-    }
 });
