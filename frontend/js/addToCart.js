@@ -31,8 +31,5 @@ async function addToCart(cart_id, ticket_id) {
 
 //ID party : a0b7566b-6fdd-4e34-bbab-41d882de9c07
 
-//const card = document.querySelector(".card");
-//console.log(card.getAttribute("data-id"));
-
 
 
