@@ -1,0 +1,955 @@
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+.genres {
+  align-items: center;
+  color: #151515;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  justify-content: space-around;
+  margin: 0 auto;
+  width: 100%;
+}
+.genres .genre_card {
+  align-items: center;
+  aspect-ratio: 1/1;
+  background-image: url("../assets/img/rnb.jpg");
+  border-radius: 1em;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-basis: calc(33% - 2em);
+  position: relative;
+}
+.genres .genre_card a {
+  align-items: center;
+  color: black;
+  display: flex;
+  justify-content: center;
+  font-size: 4em;
+  font-style: italic;
+  height: 100%;
+  line-height: 100%;
+  text-decoration: none;
+  width: 100%;
+  z-index: 2;
+}
+.genres .genre_card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 60%;
+  z-index: 1;
+  border-radius: 20px;
+}
+.genres .genre_card:nth-child(1)::before {
+  background-color: #F35DD8;
+}
+.genres .genre_card:nth-child(2)::before {
+  background-color: #5DF3AB;
+}
+.genres .genre_card:nth-child(3)::before {
+  background-color: #F3EC5D;
+}
+.genres .genre_card:nth-child(4)::before {
+  background-color: #5D71F3;
+}
+.genres .genre_card:nth-child(5)::before {
+  background-color: #F3AB5D;
+}
+.genres .genre_card:nth-child(6)::before {
+  background-color: #F35D5D;
+}
+
+.navbar {
+  align-items: center;
+  color: #FFF;
+  display: flex;
+  font-family: "Instrument Serif", serif;
+  justify-content: space-between;
+  height: 10vh;
+  margin: 0 1em;
+  z-index: 100;
+}
+@media (max-width: 600px) {
+  .navbar h1 {
+    font-size: 0.8em;
+  }
+}
+
+.card {
+  color: #FFF;
+  width: 9em;
+  height: 18em;
+  min-width: 230px;
+  min-height: 460px;
+  z-index: 2;
+  position: relative;
+  border-radius: 20px;
+}
+@media (max-width: 600px) {
+  .card .card {
+    width: 10em;
+    height: 20em;
+  }
+}
+.card.card_place {
+  width: 100%;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(360deg, rgb(0, 0, 0) 0%, rgba(255, 255, 255, 0) 76%, rgb(0, 0, 0) 100%);
+  z-index: 1;
+  border-radius: 20px;
+}
+.card img {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 20px;
+}
+.card .card_head {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  color: white;
+  width: 100%;
+  font-size: 1.1rem;
+  z-index: 2;
+}
+.card .card_head .bold {
+  font-weight: 600;
+}
+.card .card_head .place {
+  font-size: 1em;
+  text-align: right;
+}
+.card .card_head p {
+  margin-inline: 1em;
+}
+.card .card_body {
+  position: absolute;
+  bottom: 0.3em;
+  left: 0.1em;
+  width: 50%;
+  margin: 0.7em;
+  z-index: 2;
+}
+.card .card_body * {
+  margin: 0;
+}
+.card .card_body .card_title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  border-bottom: 1px solid white;
+  margin-bottom: 0.3em;
+  text-align: left;
+}
+.card .card_body .card_tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2em;
+}
+.card .card_body .card_tags .tag, .card .card_body .card_tags .Downtempo, .card .card_body .card_tags .Synthpop, .card .card_body .card_tags .Classical, .card .card_body .card_tags .House, .card .card_body .card_tags .World, .card .card_body .card_tags .Music, .card .card_body .card_tags .Soul, .card .card_body .card_tags .Piano, .card .card_body .card_tags .Chanson, .card .card_body .card_tags .Pop, .card .card_body .card_tags .Electro, .card .card_body .card_tags .Metal, .card .card_body .card_tags .Rock, .card .card_body .card_tags .R\&B, .card .card_body .card_tags .Rap, .card .card_body .card_tags .Hip, .card .card_body .card_tags .Hop, .card .card_body .card_tags .Indie, .card .card_body .card_tags .Zouk, .card .card_body .card_tags .Reggae {
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.5em;
+  border-radius: 10px;
+  color: #151515;
+  opacity: 80%;
+}
+
+.R\&B, .Rap, .Hip, .Hop, .Indie, .Zouk, .Reggae {
+  background-color: #F35DD8;
+}
+
+.Metal, .Rock {
+  background-color: #F3AB5D;
+}
+
+.Electro {
+  background-color: #5DF3AB;
+}
+
+.Piano, .Chanson, .Pop {
+  background-color: #F3EC5D;
+}
+
+.House, .World, .Music, .Soul {
+  background-color: #5D71F3;
+}
+
+.Downtempo, .Synthpop, .Classical {
+  background-color: #F35D5D;
+}
+
+.container, .details {
+  display: flex;
+  flex-direction: row;
+  gap: 3em;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  width: 80%;
+  margin-bottom: 2em;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+section h2 {
+  font-size: 2.5em;
+  font-weight: 400;
+  text-align: center;
+  border-bottom: white 1px solid;
+  margin: 1em 1em 1em 1em;
+  width: auto;
+}
+@media (max-width: 600px) {
+  section h2 {
+    font-size: 1.5em;
+  }
+}
+section h3 {
+  font-size: 2em;
+  font-weight: 400;
+  text-align: center;
+  margin: 1em auto;
+}
+section .pagination {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  margin: 1em auto;
+}
+section .pagination p {
+  font-size: 0.6em;
+  font-weight: 400;
+  cursor: pointer;
+}
+section .pagination .btn {
+  background-color: #151515;
+  color: #FFF;
+  border: 1px solid #FFF;
+  padding: 1em 1.5em;
+  border-radius: 5px;
+  cursor: pointer;
+}
+section .pagination .btn:hover {
+  background-color: #F3EC5D;
+  color: #151515;
+  transition: all 0.5s;
+  border: 1px solid #F3EC5D;
+}
+
+.container.cart_container, .cart_container.details {
+  width: 100%;
+}
+.container.cart_container .cart, .cart_container.details .cart {
+  position: relative;
+  width: 100%;
+}
+.container.cart_container .cart h2, .cart_container.details .cart h2 {
+  border-bottom: 0.5px solid white;
+  font-style: italic;
+  font-weight: lighter;
+  text-align: center;
+  margin: 0 auto;
+  padding: 1em 0;
+  width: 90%;
+}
+.container.cart_container .cart h3, .cart_container.details .cart h3 {
+  font-family: "Inter", sans-serif;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 200;
+  margin: 2em auto;
+  padding: 0.5em 0;
+  border-top: 0.5px solid white;
+  width: 90%;
+}
+.container.cart_container .cart .error_message, .cart_container.details .cart .error_message {
+  color: red;
+  display: none;
+  text-align: center;
+  width: 100%;
+}
+.container.cart_container .cart .error_message_empty, .cart_container.details .cart .error_message_empty {
+  text-align: center;
+}
+.container.cart_container .cart .cart_nametags, .cart_container.details .cart .cart_nametags {
+  background-color: orange;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+.container.cart_container .cart .cart_nametags p, .cart_container.details .cart .cart_nametags p {
+  font-family: "Inter", sans-serif;
+  font-style: italic;
+  font-weight: 200;
+}
+.container.cart_container .cart .cart_item, .cart_container.details .cart .cart_item {
+  align-items: center;
+  display: flex;
+  gap: 5em;
+  padding: 1em 0;
+  margin: 0 auto;
+  width: 100%;
+}
+.container.cart_container .cart .cart_item img, .cart_container.details .cart .cart_item img {
+  border-radius: 2em;
+  width: 175px;
+  height: 350px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.container.cart_container .cart .cart_item .cart_item_desc_title, .cart_container.details .cart .cart_item .cart_item_desc_title {
+  display: flex;
+  flex-direction: column;
+}
+.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_title_desc, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_title_desc {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_delete, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_delete {
+  cursor: pointer;
+  height: -moz-fit-content;
+  height: fit-content;
+  text-decoration: underline;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_desc, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_desc {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+}
+.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options {
+  display: flex;
+  flex-direction: column;
+}
+.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options .cart_item_otpions_title, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options .cart_item_otpions_title {
+  font-size: 1.25em;
+}
+.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options .cart_item_otpions_date, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options .cart_item_otpions_date {
+  font-family: "Inter", sans-serif;
+  font-size: 0.75em;
+  font-weight: 300;
+}
+.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options .cart_item_otpions_type, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options .cart_item_otpions_type {
+  font-family: "Inter", sans-serif;
+  font-style: italic;
+  font-weight: 200;
+  margin: 0.1em 0;
+}
+.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_price, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_price {
+  font-family: "Inter", sans-serif;
+  font-style: italic;
+  font-weight: 200;
+  margin-left: 1em;
+}
+.container.cart_container .cart .cart_payment, .cart_container.details .cart .cart_payment {
+  align-items: flex-end;
+  display: flex;
+  font-family: "Inter", sans-serif;
+  gap: 5em;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+}
+.container.cart_container .cart .cart_payment button, .cart_container.details .cart .cart_payment button {
+  background-color: #5DF3AB;
+  border-radius: 16px;
+  font-family: "Instrument Serif", serif;
+  font-size: 1em;
+  height: -moz-fit-content;
+  height: fit-content;
+  padding: 0.1em 2em;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.container.cart_container .cart .cart_payment .cart_payment_calculus, .cart_container.details .cart .cart_payment .cart_payment_calculus {
+  display: flex;
+  font-style: italic;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin: 0;
+  width: 15em;
+}
+.container.cart_container .cart .cart_payment .cart_payment_calculus p:nth-child(2), .cart_container.details .cart .cart_payment .cart_payment_calculus p:nth-child(2) {
+  font-style: italic;
+  font-weight: 200;
+}
+.container.cart_container .cart .cart_payment .cart_payment_calculus p, .cart_container.details .cart .cart_payment .cart_payment_calculus p {
+  margin: 0;
+}
+.container.cart_container .cart .cart_payment .cart_payment_calculus span, .cart_container.details .cart .cart_payment .cart_payment_calculus span {
+  border-top: 0.5px solid white;
+  font-size: 1.25em;
+  font-style: normal;
+  font-weight: 400;
+  width: 100%;
+}
+.container.cart_container .cart_modal, .cart_container.details .cart_modal {
+  background-color: orange;
+  width: 20vw;
+}
+.container.cart_container .cart_modal h3, .cart_container.details .cart_modal h3 {
+  color: #FFF;
+  font-size: 1.5em;
+}
+.container.cart_container .cart_modal .cart_item img, .cart_container.details .cart_modal .cart_item img {
+  height: 10%;
+  width: auto;
+}
+
+.validate_order {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.validate_order img {
+  width: 5%;
+  height: auto;
+}
+.validate_order p {
+  margin: 0;
+  font-size: 3em;
+  font-family: "Instrument Serif", serif;
+  font-style: italic;
+}
+.validate_order span {
+  font-family: "Inter", sans-serif;
+  font-size: 1em;
+  font-weight: 300;
+  text-align: center;
+}
+
+.party {
+  margin: 0 auto;
+  width: 80%;
+}
+.party h2 {
+  text-align: center;
+  word-spacing: 4px;
+}
+.party h2 span {
+  color: #F3EC5D;
+  font-size: 1.5em;
+  font-style: italic;
+}
+.party p {
+  font-size: 1.5em;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #151515;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 1s;
+}
+.loader .loader__spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid #FFF;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  list-style-type: none;
+  margin: 1em 0 1em 0;
+  padding: 0;
+  width: 100%;
+}
+@media (max-width: 600px) {
+  .filters {
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.filters select {
+  background-color: #151515;
+  border: none;
+  color: #FFF;
+  font-family: "Inter", sans-serif;
+  font-size: 0.7em;
+  font-weight: 300;
+  gap: 10px;
+  text-align: center;
+}
+@media (max-width: 600px) {
+  .filters select {
+    height: 4em;
+    width: 18em;
+  }
+}
+.filters select option {
+  font-size: 0.7em;
+}
+.filters #calendar {
+  background-color: #151515;
+  color: #FFF;
+  font-family: "Inter", sans-serif;
+  border-radius: 5px;
+  text-align: center;
+}
+@media (max-width: 600px) {
+  .filters #calendar {
+    height: 4em;
+    width: 18em;
+    font-size: 0.7em;
+    font-weight: 300;
+    border-radius: 10px;
+  }
+}
+
+.login {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 2em;
+  margin-top: 2em;
+}
+.login #error_message {
+  color: red;
+  display: none;
+  margin: 0;
+  text-align: center;
+}
+.login input {
+  background-color: #151515;
+  color: #FFF;
+  border-style: none;
+  border: solid white 1px;
+  border-radius: 20px;
+  padding: 1em;
+  width: 35em;
+  height: 3em;
+}
+@media (max-width: 600px) {
+  .login input {
+    width: 20em;
+    height: 2.5em;
+  }
+}
+.login input:focus {
+  outline: none;
+}
+.login button {
+  background-color: #151515;
+  color: #FFF;
+  border-style: none;
+  border: solid white 1px;
+  border-radius: 20px;
+  padding: 1em;
+  width: 20em;
+  height: 3em;
+}
+.login button:hover {
+  background-color: #FFF;
+  color: #151515;
+  transition: all 0.3s;
+}
+@media (max-width: 600px) {
+  .login p {
+    font-size: 0.8em;
+    margin: 0.2em;
+  }
+}
+.login p p {
+  text-decoration: none;
+  color: beige;
+}
+.login p p:hover {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.details {
+  margin-top: 2em;
+  position: relative;
+  flex-direction: column;
+  justify-content: left;
+  position: relative;
+  gap: 0.5em;
+}
+.details p {
+  font-size: 1em;
+  margin: 0;
+  font-family: "Inter", sans-serif;
+}
+.details p span {
+  font-family: "Instrument Serif", serif;
+  font-size: 2em;
+}
+.details p:last-child {
+  margin-bottom: 1em;
+}
+.details button {
+  position: auto;
+  padding: 1em 2em;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-family: "Inter", sans-serif;
+  background-color: #FFF;
+  color: #151515;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.details button:hover {
+  transition: all 0.5s;
+  background-color: #5DF3AB;
+}
+.details .gauge-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1em;
+  align-items: center;
+  margin: 0 0 1rem 0;
+  width: 100%;
+  height: 100%;
+}
+.details .gauge-container label {
+  font-family: "Instrument Serif", serif;
+  font-size: 4rem;
+  margin: 0 1rem 0 0;
+  letter-spacing: 2px;
+  text-align: center;
+}
+.details .gauge-container label span {
+  font-family: "Inter", sans-serif;
+}
+.details .gauge-container progress {
+  width: 50%;
+  height: 1.5rem;
+  border-radius: 10px;
+  margin: 0;
+  border: none;
+  background-color: #FFF;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.details .gauge-container progress::-webkit-progress-bar {
+  background-color: #5DF3AB;
+  border-radius: 10px;
+}
+.details .gauge-container progress::-webkit-progress-value {
+  background-color: #FFF;
+}
+
+.tickets {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  font-size: large;
+  gap: 2em;
+}
+.tickets .ticket_price {
+  justify-content: end;
+  align-items: end;
+  display: flex;
+  flex-direction: column;
+}
+.tickets .ticket_price p {
+  font-size: 1.5em;
+  font-family: "Inter", sans-serif;
+}
+
+.tickets {
+  display: flex;
+  justify-content: center;
+  gap: 3em;
+}
+.tickets .ticket {
+  border: 1px solid #FFF;
+  padding: 2rem;
+  border-radius: 20px;
+  width: 12em;
+}
+.tickets .ticket img {
+  border-radius: 10px;
+  aspect-ratio: 1/1;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.tickets .ticket .ticket_content {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+.tickets .ticket .ticket_title {
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 1rem 0 0 0;
+  font-family: "Inter", sans-serif;
+  text-align: start;
+}
+.tickets .ticket .ticket_price {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin: 1.5rem 0 0 0;
+}
+.tickets .ticket p {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0;
+}
+.tickets .ticket p .sans {
+  font-family: "Inter", sans-serif;
+}
+@media print {
+  .tickets .ticket {
+    border: 1px solid #151515;
+    padding: 2rem;
+    border-radius: 20px;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+  }
+  .tickets .ticket img {
+    border-radius: 10px;
+    aspect-ratio: 1/1;
+    width: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+  .tickets .ticket .ticket_content {
+    display: flex;
+    flex-direction: column;
+    margin: 0 1em 0 1em;
+    width: 100%;
+  }
+  .tickets .ticket .ticket_title {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 1rem 0 0 0;
+    font-family: "Inter", sans-serif;
+    text-align: start;
+  }
+  .tickets .ticket .ticket_price {
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 1.5rem 0 0 0;
+  }
+  .tickets .ticket p {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin: 0;
+  }
+  .tickets .ticket p .sans {
+    font-family: "Inter", sans-serif;
+  }
+}
+.tickets .green_btn {
+  position: auto;
+  padding: 1em 2em;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-family: "Inter", sans-serif;
+  background-color: #FFF;
+  color: #151515;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.tickets .green_btn:hover {
+  transition: all 0.5s;
+  background-color: #5DF3AB;
+}
+
+#burger {
+  display: block;
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  z-index: 100;
+  cursor: pointer;
+  width: 2em;
+  height: 2em;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+#burger:focus {
+  outline: none;
+}
+#burger .line1, #burger .line2, #burger .line3 {
+  display: block;
+  width: 100%;
+  height: 0.2em;
+  background: #FFF;
+  margin: 0.35em 0;
+  transition: 0.3s;
+  border-radius: 2rem;
+}
+#burger.cross .line1 {
+  transform: rotate(45deg) translate(0.5em, 0.5em);
+}
+#burger.cross .line2 {
+  opacity: 0;
+}
+#burger.cross .line3 {
+  transform: rotate(-45deg) translate(0.5em, -0.5em);
+}
+
+#menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: #151515;
+  z-index: 90;
+  transition: all 0.3s;
+  transform: translateX(100%);
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+#menu li {
+  list-style: none;
+}
+#menu li p {
+  font-size: 2em;
+  font-weight: 600;
+  color: #FFF;
+  margin: 0.2em;
+  transition: 0.3s;
+}
+#menu li p:hover {
+  transition: all 0.3s;
+  color: #F3EC5D;
+}
+
+.payment_form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  justify-content: center;
+  width: 50%;
+  margin: 0 auto;
+}
+.payment_form .error_message {
+  color: red;
+  display: none;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+.payment_form .card_input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  text-align: center;
+}
+.payment_form .card_input input {
+  border: 1px solid gray;
+  border-radius: 16px;
+  background-color: #151515;
+  color: #FFF;
+  margin: 0 auto;
+  padding: 10px 0;
+  text-align: center;
+  width: 50%;
+}
+.payment_form .card_input input::-moz-placeholder {
+  font-family: "Inter", sans-serif;
+  text-align: center;
+  margin: 25px 0;
+}
+.payment_form .card_input input::placeholder {
+  font-family: "Inter", sans-serif;
+  text-align: center;
+  margin: 25px 0;
+}
+.payment_form .validate_payment {
+  background-color: #5DF3AB;
+  border-radius: 25px;
+  font-family: "Instrument Serif", serif;
+  font-size: 1em;
+  margin: 0 auto;
+  padding: 0.25em;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+body {
+  background-color: #151515;
+  color: #FFF;
+  font-family: "Instrument Serif", serif;
+  font-size: 1.6rem;
+  line-height: 1.5;
+}
+
+.way:hover {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#navProfile {
+  display: none;
+}/*# sourceMappingURL=style.css.map */
