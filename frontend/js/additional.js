@@ -55,14 +55,11 @@ async function refreshToken() {
             throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        console.log(data);
         if (data.token_refresh){
         localStorage.setItem('authToken', data.token_refresh);
-        console.log('Token refreshed');
         document.querySelector('#navProfile').style.display = 'block';
         document.querySelector('#navLogin').style.display = 'none';
     }else{
-        console.log('Token expired');
         document.querySelector('#navProfile').style.display = 'none';
         document.querySelector('#navLogin').style.display = 'block';
     }

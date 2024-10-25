@@ -25,6 +25,7 @@ async function loadCart(user_id){
     }
 
     const data = await response.json();
+    console.log(data);
 
     for(let i = 0; i < data.cart.tickets.length; i++){
       ticket_party_routes.push(data.cart.tickets[i].links.party.href);
@@ -87,7 +88,7 @@ async function getTicketDate() {
     if (ticket_dates_placeholders[i]) {
       ticket_dates_placeholders[i].innerHTML = ticket_dates[i];
     } else {
-      console.error(`Element at index ${i} not found`);
+      // console.error(`Element at index ${i} not found`);
     }
   }
 }
@@ -124,6 +125,9 @@ function updateCart(id_cart, state){
       });
     }
   })();
+
+
+  
 
 
 
