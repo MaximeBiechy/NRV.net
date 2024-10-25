@@ -28,7 +28,8 @@
         border-radius: 2rem;
     }
 
-    &.active {
+    &.cross {
+
         .line1 {
             transform: rotate(45deg) translate(0.5em, 0.5em);
         }
@@ -49,7 +50,7 @@
     width: 100%;
     height: 100%;
     background: $bg_color;
-    z-index: 99;
+    z-index: 90;
     transition: all 0.3s;
     transform: translateX(100%);
     padding: 2em;
