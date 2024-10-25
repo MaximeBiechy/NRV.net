@@ -136,17 +136,17 @@ async function deleteTicket(id_cart, ticket_id){
   console.log('id_cart', localStorage.getItem('id_cart'));
 
   try{
-    const response = await fetch(`http://localhost:21000/carts/${id_cart}/?state=0/`, {
+    const response = await fetch(`http://localhost:21000/carts/${id_cart}/?state=0`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         'Origin': 'http://localhost:21001',
         'Authorization': 'Bearer ' + localStorage.getItem('authToken')
       },
-      body:{
+      body: JSON.stringify({
         "ticket_id": ticket_id,
         "quantity": 0
-      }
+      })
     });
 
     if(!response.ok){
@@ -202,6 +202,7 @@ async function deleteTicket(id_cart, ticket_id){
       console.log(element)
       element.addEventListener('click', function(){
         const index = Array.from(delete_button).indexOf(event.target);
+        console.log(ticket_ids[index]);
         deleteTicket(localStorage.getItem('id_cart'), ticket_ids[index]);
         window.route({ getAttribute: () => '/cart' });
       });
