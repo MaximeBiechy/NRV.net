@@ -1,5 +1,3 @@
-console.log("Fichier cart.js chargé.")
-
 var cart_button = document.querySelector('.fa-cart-shopping');
 
 var id_user = localStorage.getItem('id_user');
@@ -17,7 +15,6 @@ var statuses = {
 };
 
 async function loadCart(user_id){
-  console.log(localStorage.getItem('authToken'));
   try{
     const response = await fetch(`http://localhost:21000/users/${user_id}/cart`, { headers: {
         'Origin': 'http://localhost:21000',
@@ -28,8 +25,6 @@ async function loadCart(user_id){
     }
 
     const data = await response.json();
-    console.log(data);
-
 
     for(let i = 0; i < data.cart.tickets.length; i++){
       ticket_party_routes.push(data.cart.tickets[i].links.party.href);
@@ -54,18 +49,17 @@ async function loadCart(user_id){
     cart_empty = false;
   }
   catch(error){
-    console.error('There has been a problem with your fetch operation:', error);
+
+    console.error("Erreur lors de la récupération du panier :" + error)
 
     if(localStorage.getItem('authToken') == null){
       window.route({ getAttribute: () => '/login' });
-      console.log("Vous devez être connecté pour accéder à votre panier.");
     }
     else{
       var error_message = document.querySelector('.error_message');
       error_message.style.display = 'block';
       var loader = document.querySelector('.loader');
       loader.style.display = 'none';
-      console.log("Erreur lors du chargement du panier.");
     }
   }
 }
@@ -99,8 +93,6 @@ async function getTicketDate() {
 }
 
 function updateCart(id_cart, state){
-  console.log("Panier en cours d'actualisation...");
-  console.log('Statut : ' + state);
 
   let cart_status = statuses.validate_status;
 
@@ -114,8 +106,7 @@ function updateCart(id_cart, state){
   })
   .then(response => response.json())
   .then(data => {
-    console.log('Success:', data);
-    console.log('Panier actualisé vers le statut : ' + cart_status);
+
   })
   .catch((error) => {
     console.error('Error:', error);
@@ -126,11 +117,12 @@ function updateCart(id_cart, state){
     await loadCart(localStorage.getItem('id_user'));
 
     let validate_button = document.querySelector('.validate_cart');
-    validate_button.addEventListener('click', function(){
-      console.log("Le bouton de validation a été cliqué !");
-      updateCart(localStorage.getItem('id_cart'), statuses.validate_status);
-      window.route({ getAttribute: () => '/order' });
-    });
+    if(validate_button){
+      validate_button.addEventListener('click', function(){
+        updateCart(localStorage.getItem('id_cart'), statuses.validate_status);
+        window.route({ getAttribute: () => '/order' });
+      });
+    }
   })();
 
 

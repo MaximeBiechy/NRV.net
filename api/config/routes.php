@@ -47,8 +47,6 @@ return function(\Slim\App $app):\Slim\App {
     $app->get('/shows/{ID-SHOW}/party[/]', DisplayPartyByShowAction::class)->setName('shows_id_party');
     $app->post('/shows[/]', CreateShowAction::class)->setName('create_show');
 
-
-
     // Compte et profil d'utilisateur
     $app->post('/signup[/]', SignupAction::class)->setName('signup');
     $app->post('/signin[/]', SigninAction::class)->setName('signin');

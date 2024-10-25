@@ -1,11 +1,4 @@
-/////////////////////////////////////////////
-//Fonction validation commande :
-/////////////////////////////////////////////
-
-console.log("Fichier confirm_order.js chargé");
-
 async function validateOrder(){
-  console.log("Le bouton de validation de commande a été cliqué !");
 
   await loadCart(localStorage.getItem('id_user'));
 
