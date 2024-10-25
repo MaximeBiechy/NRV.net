@@ -1,5 +1,3 @@
-var cart_button = document.querySelector('.fa-cart-shopping');
-
 var id_user = localStorage.getItem('id_user');
 var authToken = localStorage.getItem('authToken');
 
@@ -9,10 +7,13 @@ var cart_id; //Potentiellement possible à passer en localstorage
 
 //Cart status :
 var statuses = {
+  cart_status: 0,
   validate_status: 1,
   confirmation_status: 2,
   paid_status: 3
 };
+
+var ticket_ids = [];
 
 async function loadCart(user_id){
   try{
@@ -25,13 +26,29 @@ async function loadCart(user_id){
     }
 
     const data = await response.json();
-    console.log(data);
+    console.log(data)
+
 
     for(let i = 0; i < data.cart.tickets.length; i++){
       ticket_party_routes.push(data.cart.tickets[i].links.party.href);
     }
 
+    for(let i = 0; i < data.cart.tickets.length; i++){
+      ticket_ids.push(data.cart.tickets[i].id);
+      console.log(ticket_ids);
+    }
+
     await getTicketDate();
+
+    //Formatage des montants :
+      for(let i = 0; i < data.cart.tickets.length; i++){
+        data.cart.tickets[i].price = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(data.cart.tickets[i].price);
+      }
+
+
+      data.cart.price_HT = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(data.cart.price_HT);
+      data.cart.tva = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(data.cart.tva);
+      data.cart.total_price = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(data.cart.total_price);
 
     //Handlebars :
     var templateSource = document.querySelector('#cart_template').innerHTML;
@@ -64,7 +81,6 @@ async function loadCart(user_id){
     }
   }
 }
-
 
 async function getTicketDate() {
   for (let i = 0; i < ticket_party_routes.length; i++) {
@@ -114,6 +130,61 @@ function updateCart(id_cart, state){
   });
 }
 
+async function deleteTicket(id_cart, ticket_id){
+  console.log(`http://localhost:21000/carts/${id_cart}/?state=0/`);
+  console.log('ticket_id', ticket_id);
+  console.log('id_cart', localStorage.getItem('id_cart'));
+
+  try{
+    const response = await fetch(`http://localhost:21000/carts/${id_cart}/?state=0`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Origin': 'http://localhost:21001',
+        'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+      },
+      body: JSON.stringify({
+        "ticket_id": ticket_id,
+        "quantity": 0
+      })
+    });
+
+    if(!response.ok){
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    console.log(data);
+  }
+  catch(error){
+    console.error('Error:', error);
+  }
+}
+
+
+
+
+
+
+
+
+
+  /*for(let i = 0; i < delete_button.length; i++){
+    delete_button[i].addEventListener('click', function(){
+      console.log("click")
+      deleteTicket(localStorage.getItem('id_cart'), "25679b20-65f8-4455-97f8-a717fefd581d");
+      window.route({ getAttribute: () => '/cart' });
+    });
+  }*/
+
+
+
+
+
+
+
+
+
   (async () => {
     await loadCart(localStorage.getItem('id_user'));
 
@@ -124,10 +195,26 @@ function updateCart(id_cart, state){
         window.route({ getAttribute: () => '/order' });
       });
     }
+    var delete_button = document.getElementsByClassName('cart_item_delete');
+    console.log(delete_button)
+
+    Array.from(delete_button).forEach(function(element) {
+      console.log(element)
+      element.addEventListener('click', function(){
+        const index = Array.from(delete_button).indexOf(event.target);
+        console.log(ticket_ids[index]);
+        deleteTicket(localStorage.getItem('id_cart'), ticket_ids[index]);
+        window.route({ getAttribute: () => '/cart' });
+      });
+    });
+
+    var cart_items = document.querySelectorAll('.cart_item');
+    console.log(cart_items);
+
   })();
 
 
-  
+
 
 
 

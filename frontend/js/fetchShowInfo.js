@@ -89,7 +89,6 @@ async function fetchShowInfo(id) {
     // Insert the filled template into the DOM
     document.querySelector("#ShowInfo").innerHTML = filledTemplate;
 
-    loader.style.display = "none";
 
   } catch (error) {
     console.error("There has been a problem with your fetch operation:", error);
