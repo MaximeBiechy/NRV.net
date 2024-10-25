@@ -18,7 +18,8 @@ async function addToCart(cart_id, ticket_id) {
         }
     });
 
-    var data = await response.json();
+    const data = await response.json();
+    console.log(data)
 
     if (data.success) {
       window.route({ getAttribute: () => '/cart' });
@@ -30,10 +31,8 @@ async function addToCart(cart_id, ticket_id) {
 
 //ID party : a0b7566b-6fdd-4e34-bbab-41d882de9c07
 
-console.log(localStorage.getItem("id_cart"));
-console.log(button.getAttribute("data-id"));
+//const card = document.querySelector(".card");
+//console.log(card.getAttribute("data-id"));
 
-button.addEventListener("click", function() {
-    addToCart(localStorage.getItem("id_cart"), button.getAttribute("data-id"));
-});
+
 

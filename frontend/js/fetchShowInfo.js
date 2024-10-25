@@ -62,5 +62,8 @@ async function fetchShowInfo(id) {
   }};
 
 
-fetchShowInfo(localStorage.getItem("id_show"));
 
+
+(async () => {
+  await fetchShowInfo(localStorage.getItem("id_show"));
+})();

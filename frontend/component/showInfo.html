@@ -50,16 +50,22 @@
       <p> heure de début de la soirée : {{party.[0].begin.date}}</p>
       <p> Adresse de la soirée : {{party.[0].place.address}}</p>
       <p>Theme de la soirée : {{party.[0].theme}} </p>
-      <p> Tarifs de la place : {{party.[0].prices}} €</p> 
 
-      <button id="add_to_cart">Ajouter au panier</button>
-
-    
+      <div class="tickets">
+        {{#each party.tickets}}
+        <div class="ticket_price" data-id="">
+          <p> Prix du billet : {{this.price}} €</p>
+          <p>Quantité de billets restants : {{this.quantity}}</p>
+          <p class="add_to_cart">Ajouter au panier</p>
+        </div>
+        {{/each}}
+      </div>
     </div>
-   
+
   </section>
 
 </section>
 
-<script type="module" src="/js/fetchShowInfo.js" class="main-page-script"></script>
+<script type="module" src="/js/fetchShowInfo.js" class="main-page-script" defer></script>
 <script type="module" src="../js/addToCart.js" class="main-page-script" defer></script>
+<script type="module" src="../js/getPartyTickets.js" class="main-page-script" defer></script>
