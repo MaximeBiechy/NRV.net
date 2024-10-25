@@ -5,6 +5,8 @@ nrv_auth;
 INSERT INTO public.users (id, email, password, role)
 VALUES ('669d5162-84b0-4edc-b043-3ccfa71eb0a9', 'greg@gmail.com',
         '$2y$10$Z/Ly0lfKRG8/6.I7Ask8cumJwbmaHPpnTTevulJwerlaK4109okAS', 0),
+       ('59f6ee1e-cc37-4d54-8852-ab09f6fd46a7', 'tim@gmail.com',
+        '$2y$10$R.ysQMOHt8oYFE0YY1ws0eZ91vKgcpzAY82R8rWEMsvFLRHjFpmd2', 0),
        ('2a0d23e7-dab5-4074-be44-4a2822d92915', 'admin@gmail.com',
         '$2y$10$yEKWI4iJHlN5.PdKp8LvFefnKpclftKoWleY4xFkLHO7NzUUA5RlK', 10),
        ('23daaea8-68d2-4d80-90cf-0d01339c92d7', 'superadmin@gmail.com',
@@ -439,13 +441,13 @@ VALUES ('a0b7566b-6fdd-4e34-bbab-41d882de9c07', 'Birthday Bash', 'Anniversaire',
        ('16c4e551-09d8-42c3-8f91-bf63ed980b1e', 'Mix Party', 'Mixed', '2024-07-01 18:00:00', '2024-07-01 19:00:00',
         '340cf1fe-6344-4e93-ab6a-347c7e461d36',
         '9cc4661a-940a-471f-ac20-82facbc327cd', '82526ada-3aa3-4cc6-aa87-10f34e38d51b', NULL, 75),
-       ('b328bc9c-79a8-4b24-bbeb-2806b06ce3f6', 'Mix Party', 'Mixed', '2024-07-01 18:00:00', '2024-07-01 19:00:00',
+       ('b328bc9c-79a8-4b24-bbeb-2806b06ce3f6', 'Night Party', 'Night', '2024-07-01 18:00:00', '2024-07-01 19:00:00',
         'a7d21201-5e1c-41ff-b3da-4c79b72e2521',
         '1a24a92b-e920-48c3-b848-3260685d57cf', '2f436ed0-e77d-42dd-9e9e-0184a95d0fc3', NULL, 55),
-       ('a6221ba5-639e-4952-a95c-3ff6b018a8ad', 'Mix Party', 'Mixed', '2024-07-01 18:00:00', '2024-07-01 19:00:00',
+       ('a6221ba5-639e-4952-a95c-3ff6b018a8ad', 'Music Party', 'Music', '2024-07-01 18:00:00', '2024-07-01 19:00:00',
         'df23e061-1a1b-4344-ac9c-5357465f5c5b',
         '349bc08a-84b2-45e5-8d14-14ff2d6816c6', '56de5d60-db05-431b-a395-08ffde90e84e', NULL, 10),
-       ('864df722-b890-4ace-adf8-ddeb888d25fd', 'Mix Party', 'Mixed', '2024-07-01 18:00:00', '2024-07-01 19:00:00',
+       ('864df722-b890-4ace-adf8-ddeb888d25fd', 'Giga Party', 'Big', '2024-07-01 18:00:00', '2024-07-01 19:00:00',
         'b6b101d5-563e-4530-a3bb-43be12ea1053', 'c81debe6-eb5a-4076-b2d4-fbe87c29ab12',
         '727a387b-5769-406d-837d-bc3d18e20578', '6e450f93-9f0f-47f3-813e-1a55ce50ca5a', 200);
 
@@ -462,12 +464,32 @@ VALUES ('cec7ef16-66db-4916-96cd-4e4a2057ae8c', 'Birthday Bash ticket', 30, 1000
         '8243ea21-155b-4ac9-b75e-f66fc142c2ef'),
        ('36a2cc72-0a36-4ad6-992c-4d310faa08a9', 'Music Fiesta ticket', 40, 8999,
         '8243ea21-155b-4ac9-b75e-f66fc142c2ef'),
-       ('788c28db-0b2a-48d5-a010-cf138292d212', 'Hola Amigo ticket', 25, 24999, '8a03e604-ed5f-457f-82c3-11d35e54d496'),
-       ('17dba176-1e22-4c39-8a73-7e9ecdde6f83', 'Hola Amigo ticket', 20, 24999, '8a03e604-ed5f-457f-82c3-11d35e54d496');
+       ('5964bb56-16a5-4d4d-ac40-f5ee584bb771', 'Hola Amigo ticket', 25, 24999, '8a03e604-ed5f-457f-82c3-11d35e54d496'),
+       ('08f6c431-6c0c-4255-a0c6-6440b52f231a', 'Hola Amigo ticket', 20, 24999, '8a03e604-ed5f-457f-82c3-11d35e54d496'),
+       ('f90df33c-133b-4e75-8e7a-f85e6c9d20a6', 'Rock Party ticket', 40, 10000, '3ec35a04-a24b-42f5-924d-df9a283cbb20'),
+       ('3dd2788e-f1c4-4801-aa3b-f5bbf788723e', 'Rock Party ticket', 32, 10000, '3ec35a04-a24b-42f5-924d-df9a283cbb20'),
+       ('b92cebe7-3557-4562-8604-f180700525c3', 'Electro Party ticket', 100, 10000,
+        'e4dc52bb-98d2-4e11-993a-aefbd5a2e3a3'),
+       ('fae7f85c-3e52-458c-9606-d55fe621868e', 'Electro Party ticket', 80, 10000,
+        'e4dc52bb-98d2-4e11-993a-aefbd5a2e3a3'),
+       ('c890a902-b1a3-4f5c-a629-c78eb86e3520', 'Mix Party ticket', 75, 100000, '16c4e551-09d8-42c3-8f91-bf63ed980b1e'),
+       ('dd953cbf-faad-4bc0-a6ce-884cff968ee4', 'Mix Party ticket', 60, 100000, '16c4e551-09d8-42c3-8f91-bf63ed980b1e'),
+       ('7312ee6c-cf4c-4b7d-b179-a213fcec3a52', 'Night Party ticket', 55, 58000,
+        'b328bc9c-79a8-4b24-bbeb-2806b06ce3f6'),
+       ('3e0456f5-0fda-45c6-874e-05e1cde9974d', 'Night Party ticket', 44, 58000,
+        'b328bc9c-79a8-4b24-bbeb-2806b06ce3f6'),
+       ('fa42974d-ebc2-416f-8508-82e783881d86', 'Music Party ticket', 10, 25000,
+        'a6221ba5-639e-4952-a95c-3ff6b018a8ad'),
+       ('6fd17e88-b8d1-40af-a8cf-df07a27ab8e8', 'Music Party ticket', 8, 25000, 'a6221ba5-639e-4952-a95c-3ff6b018a8ad'),
+       ('44ff5b30-043c-4c1a-9842-303751ee7f8d', 'Giga Party ticket', 200, 9000,
+        '864df722-b890-4ace-adf8-ddeb888d25fd'),
+       ('bb58543e-246b-46ff-8a4e-35d7b2e530fe', 'Giga Party ticket', 160, 9000,
+        '864df722-b890-4ace-adf8-ddeb888d25fd');
 
 INSERT INTO public.carts (id, user_id, total_price, state)
 VALUES ('d85544dd-c85b-4f9b-a600-52f91388d6d0', '669d5162-84b0-4edc-b043-3ccfa71eb0a9', 80, 0),
-       ('ca395e38-c52d-46c7-b0f1-4a6c0d10678a', '669d5162-84b0-4edc-b043-3ccfa71eb0a9', 75, 3);
+       ('ca395e38-c52d-46c7-b0f1-4a6c0d10678a', '669d5162-84b0-4edc-b043-3ccfa71eb0a9', 75, 3),
+       ('befe0a2c-828d-48f4-8273-81afcbd39be5', '59f6ee1e-cc37-4d54-8852-ab09f6fd46a7', 0, 0);
 
 INSERT INTO public.cart_content (cart_id, ticket_id, quantity)
 VALUES ('d85544dd-c85b-4f9b-a600-52f91388d6d0',
