@@ -20,6 +20,7 @@ use nrv\application\actions\DisplayStylesAction;
 use nrv\application\actions\DisplayTicketAction;
 use nrv\application\actions\DisplayTicketsAction;
 use nrv\application\actions\DisplayTicketsByPartyAction;
+use nrv\application\actions\RefreshTokenAction;
 use nrv\application\actions\SigninAction;
 use nrv\application\actions\SignupAction;
 use nrv\application\actions\UpdateCartAction;
@@ -217,5 +218,8 @@ return [
     },
     DisplayPartyGaugeAction::class => function (ContainerInterface $c) {
         return new DisplayPartyGaugeAction($c->get(PartyServiceInterface::class), $c->get(TicketServiceInterface::class));
+    },
+    RefreshTokenAction::class => function (ContainerInterface $c) {
+        return new RefreshTokenAction($c->get(AuthProviderInterface::class));
     },
 ];

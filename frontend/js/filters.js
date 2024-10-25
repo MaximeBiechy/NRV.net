@@ -5,7 +5,7 @@ var select_style = document.querySelector("#styles");
 var calendar = document.querySelector("#calendar");
 
 // Template for rendering shows (can be reused)
-const templateSource = `
+var templateSource = `
 <div class="container" id="templateShow">
   {{#if shows.length}}
   {{#each shows}}

@@ -96,6 +96,7 @@
   justify-content: space-between;
   height: 10vh;
   margin: 0 1em;
+  z-index: 100;
 }
 
 .card {
@@ -229,14 +230,34 @@ section h2 {
   font-weight: 400;
   text-align: center;
   border-bottom: white 1px solid;
-  margin: 0.75em auto;
-  width: 80%;
+  margin: 1em 1em 0 1em;
+  width: auto;
 }
 section h3 {
   font-size: 2em;
   font-weight: 400;
   text-align: center;
   margin: 1em auto;
+}
+section .pagination {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  margin: 1em auto;
+}
+section .pagination .btn {
+  background-color: #151515;
+  color: #FFF;
+  border: 1px solid #FFF;
+  padding: 1em 1.5em;
+  border-radius: 5px;
+  cursor: pointer;
+}
+section .pagination .btn:hover {
+  background-color: #F3EC5D;
+  color: #151515;
+  transition: all 0.5s;
+  border: 1px solid #F3EC5D;
 }
 
 .container.cart_container, .cart_container.details {
@@ -655,7 +676,8 @@ section h3 {
   .ticket .ticket_content {
     display: flex;
     flex-direction: column;
-    margin: 0;
+    margin: 0 1em 0 1em;
+    width: 100%;
   }
   .ticket .ticket_title {
     font-size: 1rem;
@@ -704,13 +726,13 @@ section h3 {
   transition: 0.3s;
   border-radius: 2rem;
 }
-#burger.active .line1 {
+#burger.cross .line1 {
   transform: rotate(45deg) translate(0.5em, 0.5em);
 }
-#burger.active .line2 {
+#burger.cross .line2 {
   opacity: 0;
 }
-#burger.active .line3 {
+#burger.cross .line3 {
   transform: rotate(-45deg) translate(0.5em, -0.5em);
 }
 
@@ -722,7 +744,7 @@ section h3 {
   width: 100%;
   height: 100%;
   background: #151515;
-  z-index: 99;
+  z-index: 90;
   transition: all 0.3s;
   transform: translateX(100%);
   padding: 2em;

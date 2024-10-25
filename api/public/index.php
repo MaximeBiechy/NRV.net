@@ -19,7 +19,7 @@ const CREATE_PLACE = 7;
 const CREATE_TICKET = 8;
 const CONSULTING_CART = 9;
 const CONSULTING_SOLD_TICKET = 10;
-const NB_PAGES = 10;
+const NB_PAGES = 6;
 
 // USERS ROLES
 const USER = 0;
