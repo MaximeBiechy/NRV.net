@@ -341,15 +341,16 @@ class PDOTicketRepository implements TicketRepositoryInterface
 
             $stmt3 = $this->pdo_ticket->prepare("
                 UPDATE carts 
-                SET total_price = (
+                SET total_price = COALESCE((
                     SELECT SUM(t.price * cc.quantity)
                     FROM cart_content cc
                     INNER JOIN tickets t ON cc.ticket_id = t.id
                     WHERE cc.cart_id = :cart_id
-                ) 
+                ), 0)
                 WHERE id = :cart_id
             ");
             $stmt3->execute(['cart_id' => $cartID]);
+
             return $this->getCartByID($cartID);
         } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error deleting ticket from cart " . $e->getMessage());
