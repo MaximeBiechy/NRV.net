@@ -272,6 +272,27 @@ section .pagination .btn:hover {
   border: 1px solid #F3EC5D;
 }
 
+.bouton_section {
+  display: flex;
+  justify-content: center;
+  margin: 1em auto;
+  width: 100%;
+}
+.bouton_section button {
+  padding: 1em 2em;
+  width: fit-content;
+  font-family: "Inter", sans-serif;
+  background-color: #FFF;
+  color: #151515;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.bouton_section button:hover {
+  transition: all 0.5s;
+  background-color: #5DF3AB;
+}
+
 .container.cart_container, .cart_container.details {
   width: 100%;
 }

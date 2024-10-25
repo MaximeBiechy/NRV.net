@@ -14,7 +14,7 @@ section {
   display: flex;
   flex-direction: column;
   width: 100%;
-  h2{ 
+  h2{
     @include respond-to(small) {
       font-size: 1.5em;
     }
@@ -57,3 +57,25 @@ section {
     }
   }
 }
+
+.bouton_section{
+  display: flex;
+  justify-content: center;
+  margin: 1em auto;
+  width: 100%;
+  button {
+    padding: 1em 2em;
+    width: fit-content;
+    font-family: $font_sans;
+    background-color: $text_color;
+    color: $bg_color;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &:hover {
+      transition: all 0.5s;
+      background-color: $color_green;
+    }
+  }
+  }
