@@ -568,9 +568,7 @@ section .pagination .btn:hover {
   margin-bottom: 1em;
 }
 .details button {
-  position: absolute;
-  right: 0;
-  bottom: 0;
+  position: auto;
   padding: 1em 2em;
   width: -moz-fit-content;
   width: fit-content;
@@ -700,6 +698,23 @@ section .pagination .btn:hover {
     font-family: "Inter", sans-serif;
   }
 }
+.green_btn {
+  position: auto;
+  padding: 1em 2em;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-family: "Inter", sans-serif;
+  background-color: #FFF;
+  color: #151515;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.green_btn:hover {
+  transition: all 0.5s;
+  background-color: #5DF3AB;
+}
+
 #burger {
   display: block;
   position: fixed;
