@@ -32,7 +32,7 @@ function signup() {
                 localStorage.setItem('refreshToken', data.token_refresh);
                 localStorage.setItem('email_user', data.email);
                 localStorage.setItem('id_user', data.id);
-                alert('Inscription réussie !Maintenant connectez -vous !');
+                alert('Inscription réussie ! Maintenant connectez-vous !');
                 document.querySelector('#navProfile').style.display = 'block';
                 document.querySelector('#navLogin').style.display = 'none';
                 window.route({ getAttribute: () => '/login' });

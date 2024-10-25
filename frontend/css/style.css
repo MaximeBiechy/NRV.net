@@ -131,8 +131,7 @@
   z-index: -1;
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   border-radius: 20px;
 }
 .card .card_head {
@@ -331,8 +330,7 @@ section .pagination .btn:hover {
   border-radius: 2em;
   width: 175px;
   height: 350px;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .container.cart_container .cart .cart_item .cart_item_desc_title, .cart_container.details .cart .cart_item .cart_item_desc_title {
   display: flex;
@@ -345,10 +343,8 @@ section .pagination .btn:hover {
 }
 .container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_delete, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_delete {
   cursor: pointer;
-  height: -moz-fit-content;
   height: fit-content;
   text-decoration: underline;
-  width: -moz-fit-content;
   width: fit-content;
 }
 .container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_desc, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_desc {
@@ -389,15 +385,19 @@ section .pagination .btn:hover {
   right: 0;
   position: absolute;
 }
+@media (max-width: 1200px) {
+  .container.cart_container .cart .cart_payment, .cart_container.details .cart .cart_payment {
+    margin: 0 1.5em;
+    position: relative;
+  }
+}
 .container.cart_container .cart .cart_payment button, .cart_container.details .cart .cart_payment button {
   background-color: #5DF3AB;
   border-radius: 16px;
   font-family: "Instrument Serif", serif;
   font-size: 1em;
-  height: -moz-fit-content;
   height: fit-content;
   padding: 0.1em 2em;
-  width: -moz-fit-content;
   width: fit-content;
 }
 .container.cart_container .cart .cart_payment .cart_payment_calculus, .cart_container.details .cart .cart_payment .cart_payment_calculus {
@@ -643,7 +643,6 @@ section .pagination .btn:hover {
 .details button {
   position: auto;
   padding: 1em 2em;
-  width: -moz-fit-content;
   width: fit-content;
   font-family: "Inter", sans-serif;
   background-color: #FFF;
@@ -683,9 +682,7 @@ section .pagination .btn:hover {
   margin: 0;
   border: none;
   background-color: #FFF;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+  appearance: none;
 }
 .details .gauge-container progress::-webkit-progress-bar {
   background-color: #5DF3AB;
@@ -723,8 +720,7 @@ section .pagination .btn:hover {
   border-radius: 10px;
   aspect-ratio: 1/1;
   width: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .ticket .ticket_content {
   display: flex;
@@ -764,8 +760,7 @@ section .pagination .btn:hover {
     border-radius: 10px;
     aspect-ratio: 1/1;
     width: 100%;
-    -o-object-fit: cover;
-       object-fit: cover;
+    object-fit: cover;
   }
   .ticket .ticket .ticket_content {
     display: flex;
@@ -797,7 +792,6 @@ section .pagination .btn:hover {
 .ticket .green_btn {
   position: auto;
   padding: 1em 2em;
-  width: -moz-fit-content;
   width: fit-content;
   font-family: "Inter", sans-serif;
   background-color: #FFF;
@@ -911,11 +905,6 @@ section .pagination .btn:hover {
   text-align: center;
   width: 50%;
 }
-.payment_form .card_input input::-moz-placeholder {
-  font-family: "Inter", sans-serif;
-  text-align: center;
-  margin: 25px 0;
-}
 .payment_form .card_input input::placeholder {
   font-family: "Inter", sans-serif;
   text-align: center;
@@ -928,7 +917,6 @@ section .pagination .btn:hover {
   font-size: 1em;
   margin: 0 auto;
   padding: 0.25em;
-  width: -moz-fit-content;
   width: fit-content;
 }
 
@@ -947,4 +935,6 @@ body {
 
 #navProfile {
   display: none;
-}/*# sourceMappingURL=style.css.map */
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -119,6 +119,10 @@
       bottom: 0;
       right: 0;
       position: absolute;
+      @include respond-to(large){
+        margin: 0 1.5em;
+        position: relative;
+      }
 
       button{
         background-color: $color_green;
@@ -128,7 +132,6 @@
         height: fit-content;
         padding: .10em 2em;
         width: fit-content;
-
       }
 
       .cart_payment_calculus{
