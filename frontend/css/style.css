@@ -1,5 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 .genres {
   align-items: center;
   color: #151515;
@@ -115,7 +131,8 @@
   z-index: -1;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 20px;
 }
 .card .card_head {
@@ -314,7 +331,8 @@ section .pagination .btn:hover {
   border-radius: 2em;
   width: 175px;
   height: 350px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .container.cart_container .cart .cart_item .cart_item_desc_title, .cart_container.details .cart .cart_item .cart_item_desc_title {
   display: flex;
@@ -327,8 +345,10 @@ section .pagination .btn:hover {
 }
 .container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_delete, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_delete {
   cursor: pointer;
+  height: -moz-fit-content;
   height: fit-content;
   text-decoration: underline;
+  width: -moz-fit-content;
   width: fit-content;
 }
 .container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_desc, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_desc {
@@ -374,8 +394,10 @@ section .pagination .btn:hover {
   border-radius: 16px;
   font-family: "Instrument Serif", serif;
   font-size: 1em;
+  height: -moz-fit-content;
   height: fit-content;
   padding: 0.1em 2em;
+  width: -moz-fit-content;
   width: fit-content;
 }
 .container.cart_container .cart .cart_payment .cart_payment_calculus, .cart_container.details .cart .cart_payment .cart_payment_calculus {
@@ -621,6 +643,7 @@ section .pagination .btn:hover {
 .details button {
   position: auto;
   padding: 1em 2em;
+  width: -moz-fit-content;
   width: fit-content;
   font-family: "Inter", sans-serif;
   background-color: #FFF;
@@ -660,7 +683,9 @@ section .pagination .btn:hover {
   margin: 0;
   border: none;
   background-color: #FFF;
-  appearance: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
 }
 .details .gauge-container progress::-webkit-progress-bar {
   background-color: #5DF3AB;
@@ -694,39 +719,40 @@ section .pagination .btn:hover {
   border-radius: 20px;
   width: 12em;
 }
-.tickets .ticket img {
+.ticket img {
   border-radius: 10px;
   aspect-ratio: 1/1;
   width: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
-.tickets .ticket .ticket_content {
+.ticket .ticket_content {
   display: flex;
   flex-direction: column;
   margin: 1rem;
 }
-.tickets .ticket .ticket_title {
+.ticket .ticket_title {
   font-size: 2rem;
   font-weight: 500;
   margin: 1rem 0 0 0;
   font-family: "Inter", sans-serif;
   text-align: start;
 }
-.tickets .ticket .ticket_price {
+.ticket .ticket_price {
   font-size: 1.4rem;
   font-weight: 400;
   margin: 1.5rem 0 0 0;
 }
-.tickets .ticket p {
+.ticket p {
   font-size: 1.2rem;
   font-weight: 500;
   margin: 0;
 }
-.tickets .ticket p .sans {
+.ticket p .sans {
   font-family: "Inter", sans-serif;
 }
 @media print {
-  .tickets .ticket {
+  .ticket .ticket {
     border: 1px solid #151515;
     padding: 2rem;
     border-radius: 20px;
@@ -734,42 +760,44 @@ section .pagination .btn:hover {
     display: flex;
     flex-direction: row;
   }
-  .tickets .ticket img {
+  .ticket .ticket img {
     border-radius: 10px;
     aspect-ratio: 1/1;
     width: 100%;
-    object-fit: cover;
+    -o-object-fit: cover;
+       object-fit: cover;
   }
-  .tickets .ticket .ticket_content {
+  .ticket .ticket .ticket_content {
     display: flex;
     flex-direction: column;
     margin: 0 1em 0 1em;
     width: 100%;
   }
-  .tickets .ticket .ticket_title {
+  .ticket .ticket .ticket_title {
     font-size: 1rem;
     font-weight: 500;
     margin: 1rem 0 0 0;
     font-family: "Inter", sans-serif;
     text-align: start;
   }
-  .tickets .ticket .ticket_price {
+  .ticket .ticket .ticket_price {
     font-size: 1rem;
     font-weight: 400;
     margin: 1.5rem 0 0 0;
   }
-  .tickets .ticket p {
+  .ticket .ticket p {
     font-size: 0.8rem;
     font-weight: 500;
     margin: 0;
   }
-  .tickets .ticket p .sans {
+  .ticket .ticket p .sans {
     font-family: "Inter", sans-serif;
   }
 }
-.tickets .green_btn {
+.ticket .green_btn {
   position: auto;
   padding: 1em 2em;
+  width: -moz-fit-content;
   width: fit-content;
   font-family: "Inter", sans-serif;
   background-color: #FFF;
@@ -778,7 +806,7 @@ section .pagination .btn:hover {
   border-radius: 10px;
   cursor: pointer;
 }
-.tickets .green_btn:hover {
+.ticket .green_btn:hover {
   transition: all 0.5s;
   background-color: #5DF3AB;
 }

@@ -138,6 +138,8 @@ Array.from(buttons).forEach(e => {
   });
 });
 
+loader.style.display = "none";
+
 })();
 
 

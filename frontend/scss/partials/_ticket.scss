@@ -1,7 +1,4 @@
-.tickets{
-  display: flex;
-  justify-content: center;
-  gap: 3em;
+
   .ticket{
     border: 1px solid $text_color;
     padding: 2rem;
@@ -38,7 +35,7 @@
         font-family: $font_sans;
       }
     }
-  }
+
 
   @media print{
     .ticket{

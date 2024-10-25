@@ -28,7 +28,6 @@ async function login() {
 
     } catch (error) {
         console.error('There has been a problem with your fetch operation:', error);
-       console.log("Application des styles :")
         const error_message = document.querySelector('#error_message');
         error_message.style.display = 'block';
     }
