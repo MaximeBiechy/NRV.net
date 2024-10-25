@@ -16,16 +16,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 .genres {
   align-items: center;
   color: #151515;
@@ -141,8 +131,7 @@
   z-index: -1;
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   border-radius: 20px;
 }
 .card .card_head {
@@ -341,8 +330,7 @@ section .pagination .btn:hover {
   border-radius: 2em;
   width: 175px;
   height: 350px;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .container.cart_container .cart .cart_item .cart_item_desc_title, .cart_container.details .cart .cart_item .cart_item_desc_title {
   display: flex;
@@ -353,8 +341,15 @@ section .pagination .btn:hover {
   flex-direction: row;
   justify-content: space-around;
 }
+.container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_delete, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_delete {
+  cursor: pointer;
+  height: fit-content;
+  text-decoration: underline;
+  width: fit-content;
+}
 .container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_desc, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_desc {
   display: flex;
+  justify-content: space-around;
   flex-direction: row;
 }
 .container.cart_container .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options, .cart_container.details .cart .cart_item .cart_item_desc_title .cart_item_desc .cart_item_options {
@@ -395,10 +390,8 @@ section .pagination .btn:hover {
   border-radius: 16px;
   font-family: "Instrument Serif", serif;
   font-size: 1em;
-  height: -moz-fit-content;
   height: fit-content;
   padding: 0.1em 2em;
-  width: -moz-fit-content;
   width: fit-content;
 }
 .container.cart_container .cart .cart_payment .cart_payment_calculus, .cart_container.details .cart .cart_payment .cart_payment_calculus {
@@ -622,15 +615,20 @@ section .pagination .btn:hover {
 }
 
 .details {
-  position: relative;
+  align-items: center;
   flex-direction: column;
   justify-content: left;
-  gap: 1em;
+  position: relative;
+  gap: 0.5em;
 }
 .details p {
   font-size: 1.8rem;
   margin: 0;
   font-family: "Inter", sans-serif;
+}
+.details p span {
+  font-family: "Instrument Serif", serif;
+  font-size: 2em;
 }
 .details p:last-child {
   margin-bottom: 1em;
@@ -638,7 +636,6 @@ section .pagination .btn:hover {
 .details button {
   position: auto;
   padding: 1em 2em;
-  width: -moz-fit-content;
   width: fit-content;
   font-family: "Inter", sans-serif;
   background-color: #FFF;
@@ -653,28 +650,32 @@ section .pagination .btn:hover {
 }
 .details .gauge-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  gap: 1em;
   align-items: center;
   margin: 0 0 1rem 0;
   width: 100%;
   height: 100%;
 }
 .details .gauge-container label {
-  font-size: 1.5rem;
-  font-family: "Inter", sans-serif;
+  font-family: "Instrument Serif", serif;
+  font-size: 4rem;
   margin: 0 1rem 0 0;
+  letter-spacing: 2px;
+  text-align: center;
+}
+.details .gauge-container label span {
+  font-family: "Inter", sans-serif;
 }
 .details .gauge-container progress {
-  width: 100%;
+  width: 50%;
   height: 1.5rem;
   border-radius: 10px;
   margin: 0;
   border: none;
   background-color: #FFF;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+  appearance: none;
 }
 .details .gauge-container progress::-webkit-progress-bar {
   background-color: #5DF3AB;
@@ -684,47 +685,50 @@ section .pagination .btn:hover {
   background-color: #FFF;
 }
 
-.ticket {
+.tickets {
+  display: flex;
+  justify-content: center;
+  gap: 3em;
+}
+.tickets .ticket {
   border: 1px solid #FFF;
   padding: 2rem;
   border-radius: 20px;
   width: 12em;
 }
-.ticket img {
+.tickets .ticket img {
   border-radius: 10px;
   aspect-ratio: 1/1;
   width: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
-.ticket .ticket_content {
+.tickets .ticket .ticket_content {
   display: flex;
   flex-direction: column;
   margin: 1rem;
 }
-.ticket .ticket_title {
+.tickets .ticket .ticket_title {
   font-size: 2rem;
   font-weight: 500;
   margin: 1rem 0 0 0;
   font-family: "Inter", sans-serif;
   text-align: start;
 }
-.ticket .ticket_price {
+.tickets .ticket .ticket_price {
   font-size: 1.4rem;
   font-weight: 400;
   margin: 1.5rem 0 0 0;
 }
-.ticket p {
+.tickets .ticket p {
   font-size: 1.2rem;
   font-weight: 500;
   margin: 0;
 }
-.ticket p .sans {
+.tickets .ticket p .sans {
   font-family: "Inter", sans-serif;
 }
-
 @media print {
-  .ticket {
+  .tickets .ticket {
     border: 1px solid #151515;
     padding: 2rem;
     border-radius: 20px;
@@ -732,44 +736,42 @@ section .pagination .btn:hover {
     display: flex;
     flex-direction: row;
   }
-  .ticket img {
+  .tickets .ticket img {
     border-radius: 10px;
     aspect-ratio: 1/1;
     width: 100%;
-    -o-object-fit: cover;
-       object-fit: cover;
+    object-fit: cover;
   }
-  .ticket .ticket_content {
+  .tickets .ticket .ticket_content {
     display: flex;
     flex-direction: column;
     margin: 0 1em 0 1em;
     width: 100%;
   }
-  .ticket .ticket_title {
+  .tickets .ticket .ticket_title {
     font-size: 1rem;
     font-weight: 500;
     margin: 1rem 0 0 0;
     font-family: "Inter", sans-serif;
     text-align: start;
   }
-  .ticket .ticket_price {
+  .tickets .ticket .ticket_price {
     font-size: 1rem;
     font-weight: 400;
     margin: 1.5rem 0 0 0;
   }
-  .ticket p {
+  .tickets .ticket p {
     font-size: 0.8rem;
     font-weight: 500;
     margin: 0;
   }
-  .ticket p .sans {
+  .tickets .ticket p .sans {
     font-family: "Inter", sans-serif;
   }
 }
-.green_btn {
+.tickets .green_btn {
   position: auto;
   padding: 1em 2em;
-  width: -moz-fit-content;
   width: fit-content;
   font-family: "Inter", sans-serif;
   background-color: #FFF;
@@ -778,7 +780,7 @@ section .pagination .btn:hover {
   border-radius: 10px;
   cursor: pointer;
 }
-.green_btn:hover {
+.tickets .green_btn:hover {
   transition: all 0.5s;
   background-color: #5DF3AB;
 }
@@ -913,4 +915,6 @@ body {
 
 #navProfile {
   display: none;
-}/*# sourceMappingURL=style.css.map */
+}
+
+/*# sourceMappingURL=style.css.map */

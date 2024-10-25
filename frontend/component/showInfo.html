@@ -44,18 +44,18 @@
     <h2>Détails</h2>
     <div class="details">
       <div class="gauge-container">
-      <label>Pourcentage de place réservées : {{party.[0].gauge.party.spectator_gauge}}%</label>
+      <label>Pourcentage de place réservées : <span>{{party.[0].gauge.party.spectator_gauge}}</span>%</label>
       <progress max="100" value="{{party.[0].gauge.party.spectator_gauge}}"></progress>
     </div>
-      <p> heure de début de la soirée : {{party.[0].begin.date}}</p>
-      <p> Adresse de la soirée : {{party.[0].place.address}}</p>
-      <p>Theme de la soirée : {{party.[0].theme}} </p>
+
+      <p><span>Heure de début de la soirée :</span> {{party.[0].begin.date}}</p>
+      <p> <span>Adresse de la soirée :</span> {{party.[0].place.address}}</p>
+      <p><span>Thème de la soirée :</span> {{party.[0].theme}} </p>
 
       <div class="tickets">
         {{#each party.tickets}}
         <div class="ticket_price" data-id="">
-          <p> Prix du billet : {{this.price}} €</p>
-          <p>Quantité de billets restants : {{this.quantity}}</p>
+          <p> Prix du billet : {{this.price}}</p>
           <button class="add_to_cart">Ajouter au panier</button>
         </div>
         {{/each}}

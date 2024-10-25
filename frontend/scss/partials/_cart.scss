@@ -73,8 +73,15 @@
           flex-direction: row;
           justify-content: space-around;
         }
+        .cart_item_delete{
+          cursor: pointer;
+          height: fit-content;
+          text-decoration: underline;
+          width: fit-content;
+        }
         .cart_item_desc{
           display: flex;
+          justify-content: space-around;
           flex-direction: row;
           .cart_item_options{
             display: flex;
