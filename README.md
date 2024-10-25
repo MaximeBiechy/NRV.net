@@ -14,7 +14,7 @@ Pour les maquettes :
 - [Figma](https://www.figma.com/design/J5tfFdFLmFty3NlROJSx8Q/NRV?node-id=0-1&t=P17VER0GD6nMLpdj-1)
 
 Le diagramme des entités : 
-<img src="api/diagrams/diagram_class_entity.png" alt="diagramme de classe des entités de l'api">
+<img src="/api/diagrams/diagram_class_entity.png" alt="diagramme de classe des entités de l'api">
 
 ## Tableau des fonctionnalités
 
