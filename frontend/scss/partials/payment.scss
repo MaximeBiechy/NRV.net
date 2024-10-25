@@ -1,0 +1,51 @@
+@import 'config';
+
+.payment_form{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  justify-content: center;
+  width: 50%;
+  margin: 0 auto;
+
+  .error_message{
+    color: red;
+    display: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  .card_input{
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    text-align: center;
+
+    input{
+      border: 1px solid gray;
+      border-radius: 16px;
+      background-color: $bg_color;
+      color: $text_color;
+      margin: 0 auto;
+      padding: 10px 0;
+      text-align: center;
+      width: 50%;
+      &::placeholder{
+        font-family: $font_sans;
+        text-align: center;
+        margin: 25px 0;
+      }
+    }
+  }
+
+  .validate_payment{
+    background-color: $color_green;
+    border-radius: 25px;
+    font-family: $font_serif;
+    font-size: 1em;
+    margin: 0 auto;
+    padding: .25em;
+    width: fit-content;
+  }
+}

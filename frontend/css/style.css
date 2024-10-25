@@ -1,6 +1,31 @@
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 .genres {
   align-items: center;
   color: #151515;
@@ -672,6 +697,22 @@ section .pagination .btn:hover {
     font-family: "Inter", sans-serif;
   }
 }
+.green_btn {
+  position: auto;
+  padding: 1em 2em;
+  width: fit-content;
+  font-family: "Inter", sans-serif;
+  background-color: #FFF;
+  color: #151515;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.green_btn:hover {
+  transition: all 0.5s;
+  background-color: #5DF3AB;
+}
+
 #burger {
   display: block;
   position: fixed;
@@ -739,6 +780,52 @@ section .pagination .btn:hover {
 #menu li p:hover {
   transition: all 0.3s;
   color: #F3EC5D;
+}
+
+.payment_form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  justify-content: center;
+  width: 50%;
+  margin: 0 auto;
+}
+.payment_form .error_message {
+  color: red;
+  display: none;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+.payment_form .card_input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  text-align: center;
+}
+.payment_form .card_input input {
+  border: 1px solid gray;
+  border-radius: 16px;
+  background-color: #151515;
+  color: #FFF;
+  margin: 0 auto;
+  padding: 10px 0;
+  text-align: center;
+  width: 50%;
+}
+.payment_form .card_input input::placeholder {
+  font-family: "Inter", sans-serif;
+  text-align: center;
+  margin: 25px 0;
+}
+.payment_form .validate_payment {
+  background-color: #5DF3AB;
+  border-radius: 25px;
+  font-family: "Instrument Serif", serif;
+  font-size: 1em;
+  margin: 0 auto;
+  padding: 0.25em;
+  width: fit-content;
 }
 
 body {

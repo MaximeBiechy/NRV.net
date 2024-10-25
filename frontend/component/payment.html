@@ -2,21 +2,29 @@
   <div class="loader">
     <div class="loader__spinner"></div>
   </div>
-  <h1>Section de paiement</h1>
+  <h2>Section de paiement</h2>
   <!-- "num_cb": "1111 1111 1111 1111",
     "date_exp": "2025",
     "code": "200" -->
+  <div class="payment_form">
+    <p class="error_message">Une erreur est survenue lors du paiement, <br>veuillez réessayer.</p>
+    <div class="card_input">
+      <label for="cb_number">Numéro de carte bancaire :</label>
+      <input type="text" name="cb_number" placeholder="1212 1313 1414 1515" id="cb_number" maxlength="19" pattern="\d{4} \d{4} \d{4} \d{4}">
+    </div>
 
-  <label for="cb_number">Numéro de carte bancaire :</label>
-  <input type="text" name="cb_number" id="cb_number">
+    <div class="card_input">
+      <label for="expiration_date">Date d'expiration :</label>
+      <input type="text" name="expiration_date" placeholder="05/25" id="expiration_date" maxlength="5" pattern="\d{2}/\d{2}">
+    </div>
 
-  <label for="expiration_date">Date d'expiration :</label>
-  <input type="text" name="expiration_date" id="expiration_date">
+    <div class="card_input">
+      <label for="cvc_number">CVC :</label>
+      <input type="password" name="cvc_number" placeholder="123" maxlength="3" id="cvc_number">
+    </div>
 
-  <label for="cvc_number">CVC :</label>
-  <input type="text" name="cvc_number" id="cvc_number">
-
-  <button class="validate_payment"> >Valider le paiement</button>
+    <button class="validate_payment"> >Valider le paiement</button>
+  </div>
 
 </section>
 <script type="module" src="../js/validate_payment.js" class="main-page-script" defer></script>
