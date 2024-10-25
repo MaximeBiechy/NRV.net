@@ -30,6 +30,11 @@ class UpdatePlaceAction extends AbstractAction
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
         try {
+            // Vérification de l'ID UUID
+            $uuidValidator = new \Ramsey\Uuid\Rfc4122\Validator();
+            if (!$uuidValidator->validate($args['ID-PLACE'])) {
+                throw new HttpBadRequestException($rq, "Invalid UUID format.");
+            }
             $place_id = $args['ID-PLACE'];
             $data = $rq->getParsedBody();
 

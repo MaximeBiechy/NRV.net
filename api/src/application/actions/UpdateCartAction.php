@@ -14,6 +14,7 @@ use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpInternalServerErrorException;
+use Slim\Exception\HttpNotFoundException;
 use Slim\Routing\RouteContext;
 
 class UpdateCartAction extends AbstractAction
@@ -21,18 +22,20 @@ class UpdateCartAction extends AbstractAction
 
     private TicketServiceInterface $ticketService;
 
-    public function __construct(TicketServiceInterface $ticketService) {
+    public function __construct(TicketServiceInterface $ticketService)
+    {
         $this->ticketService = $ticketService;
     }
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-
         try {
-
-
             $param = $rq->getQueryParams();
             $card_id = $args["ID-CART"];
+            $uuidValidator = new \Ramsey\Uuid\Rfc4122\Validator();
+            if (!$uuidValidator->validate($card_id)) {
+                throw new HttpBadRequestException($rq, "Invalid UUID format.");
+            }
             if (!isset($param['state'])) {
                 throw new HttpBadRequestException($rq, "Missing state parameter");
             }
@@ -40,6 +43,9 @@ class UpdateCartAction extends AbstractAction
             switch ($param['state']) {
                 case UPDATABLE:
                     $ticket_id = $rq->getParsedBody()['ticket_id'];
+                    if (!$uuidValidator->validate($ticket_id)) {
+                        throw new HttpBadRequestException($rq, "Invalid UUID format.");
+                    }
                     $quantity = (int)$rq->getParsedBody()['quantity'];
                     if ($quantity > 0) {
                         $cart = $this->ticketService->updateTicketQuantity($card_id, $ticket_id, $quantity);
@@ -113,7 +119,7 @@ class UpdateCartAction extends AbstractAction
         } catch (TicketBadDataException $e) {
             throw new HttpBadRequestException($rq, $e->getMessage());
         } catch (TicketServiceNotFoundException $e) {
-            throw new HttpBadRequestException($rq, $e->getMessage());
+            throw new HttpNotFoundException($rq, $e->getMessage());
         }
     }
 }

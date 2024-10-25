@@ -75,7 +75,7 @@ class PDOTicketRepository implements TicketRepositoryInterface
             $stmt->execute(['id' => $id]);
             $ticket = $stmt->fetch();
             if ($ticket === false) {
-                throw new RepositoryInternalServerError("Ticket not found");
+                throw new RepositoryEntityNotFoundException("Ticket not found");
             }
             $t = new Ticket($ticket['name'], $ticket['price'], $ticket['quantity'], $ticket['party_id']);
             $t->setID($ticket['id']);
@@ -189,7 +189,7 @@ class PDOTicketRepository implements TicketRepositoryInterface
             $stmt->execute(['user_id' => $userID]);
             $cart = $stmt->fetch();
             if ($cart === false) {
-                throw new RepositoryInternalServerError("Cart not found");
+                throw new RepositoryEntityNotFoundException("Cart not found");
             }
             try {
                 $tickets = $this->getTicketsByCartID($cart['id']);
@@ -210,17 +210,20 @@ class PDOTicketRepository implements TicketRepositoryInterface
             $stmt = $this->pdo_ticket->prepare("SELECT * FROM carts WHERE id = :id");
             $stmt->execute(['id' => $cartID]);
             $cart = $stmt->fetch();
+            if ($cart === false) {
+                throw new RepositoryEntityNotFoundException("Cart not found");
+            }
+            try {
+                $tickets = $this->getTicketsByCartID($cart['id']);
+            } catch (RepositoryInternalServerError $e) {
+                throw new RepositoryInternalServerError($e->getMessage());
+            }
+            $c = new Cart($cart['user_id'], $cart['total_price'], $tickets, $cart['state']);
+            $c->setID($cart['id']);
+            return $c;
         } catch (\PDOException $e) {
-            throw new RepositoryEntityNotFoundException("Error getting cart by id");
+            throw new RepositoryInternalServerError("Error getting cart by id");
         }
-        try {
-            $tickets = $this->getTicketsByCartID($cart['id']);
-        } catch (RepositoryInternalServerError $e) {
-            throw new RepositoryInternalServerError($e->getMessage());
-        }
-        $c = new Cart($cart['user_id'], $cart['total_price'], $tickets, $cart['state']);
-        $c->setID($cart['id']);
-        return $c;
     }
 
     public function saveCart(Cart $cart): string
@@ -269,7 +272,7 @@ class PDOTicketRepository implements TicketRepositoryInterface
         try {
             $stmt = $this->pdo_ticket->prepare("SELECT COUNT(*) FROM soldtickets WHERE party_id = :party_id");
             $stmt->execute(['party_id' => $partyId]);
-            $nb = $stmt->fetch();
+            $nb = $stmt->fetch() ?? [0];
             return $nb[0];
         } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error getting number of sold tickets by party id");
@@ -291,7 +294,7 @@ class PDOTicketRepository implements TicketRepositoryInterface
             $stmt1 = $this->pdo_ticket->prepare("SELECT * FROM cart_content WHERE cart_id = :cart_id AND ticket_id = :ticket_id");
             $stmt1->execute(['cart_id' => $cartID, 'ticket_id' => $ticketID]);
             if ($stmt1->fetch() === false) {
-                throw new RepositoryInternalServerError("Ticket not found in cart");
+                throw new RepositoryEntityNotFoundException("Ticket not found in cart");
             }
 
             // Mise à jour de la quantité
@@ -314,8 +317,6 @@ class PDOTicketRepository implements TicketRepositoryInterface
             return $this->getCartByID($cartID);
         } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error updating ticket quantity" . $e->getMessage());
-        } catch (RepositoryInternalServerError $e) {
-            throw new RepositoryInternalServerError($e->getMessage());
         }
     }
 
@@ -327,13 +328,13 @@ class PDOTicketRepository implements TicketRepositoryInterface
             $stmt0->execute(['cart_id' => $cartID]);
             $state = $stmt0->fetch();
             if ($state === false || $state['state'] != 0) {
-                throw new RepositoryInternalServerError("Cart not found or state is not 0");
+                throw new RepositoryEntityNotFoundException("Cart not found or state is not 0");
             }
             // Vérifie que le ticket est dans le panier
             $stmt1 = $this->pdo_ticket->prepare("SELECT * FROM cart_content WHERE cart_id = :cart_id AND ticket_id = :ticket_id");
             $stmt1->execute(['cart_id' => $cartID, 'ticket_id' => $ticketID]);
             if ($stmt1->fetch() === false) {
-                throw new RepositoryInternalServerError("Ticket not found in cart");
+                throw new RepositoryEntityNotFoundException("Ticket not found in cart");
             }
             $stmt2 = $this->pdo_ticket->prepare("DELETE FROM cart_content WHERE cart_id = :cart_id AND ticket_id = :ticket_id");
             $stmt2->execute(['cart_id' => $cartID, 'ticket_id' => $ticketID]);
@@ -352,8 +353,6 @@ class PDOTicketRepository implements TicketRepositoryInterface
             return $this->getCartByID($cartID);
         } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error deleting ticket from cart " . $e->getMessage());
-        } catch (RepositoryInternalServerError $e) {
-            throw new RepositoryInternalServerError($e->getMessage());
         }
     }
 

@@ -21,7 +21,7 @@ class AuthentificationService implements AuthentificationServiceInterface
 
     public function register(CredentialsDTO $credentials, int $role): string
     {
-        try{
+        try {
             $user = $this->authRepository->getUserByEmail($credentials->email);
             if ($user !== null) {
                 throw new AuthentificationServiceBadDataException("User already exists");
@@ -29,14 +29,16 @@ class AuthentificationService implements AuthentificationServiceInterface
             $pass = password_hash($credentials->password, PASSWORD_DEFAULT);
             $user = new User($credentials->email, $pass, $role);
             return $this->authRepository->save($user);
-        }catch (RepositoryInternalServerError $e){
+        } catch (RepositoryInternalServerError $e) {
             throw new AuthentificationServiceInternalServerErrorException("Error while registering user");
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new AuthentificationServiceNotFoundException("Error while registering user");
         }
     }
 
     public function byCredentials(CredentialsDTO $credentials): AuthDTO
     {
-        try{
+        try {
             $user = $this->authRepository->getUserByEmail($credentials->email);
             if ($user === null) {
                 throw new AuthentificationServiceBadDataException("User not found");
@@ -45,11 +47,22 @@ class AuthentificationService implements AuthentificationServiceInterface
                 throw new AuthentificationServiceBadDataException("Invalid password");
             }
             return new AuthDTO($user->getID(), $user->getEmail(), $user->getRole());
-        }catch (RepositoryEntityNotFoundException $e){
+        } catch (RepositoryEntityNotFoundException $e) {
             throw new AuthentificationServiceBadDataException("User not found");
-        }catch (RepositoryInternalServerError $e){
+        } catch (RepositoryInternalServerError $e) {
             throw new AuthentificationServiceInternalServerErrorException("Error while fetching user");
         }
     }
 
+    public function getUserById(string $id): AuthDTO
+    {
+        try {
+            $user = $this->authRepository->getUserById($id);
+            return new AuthDTO($user->getID(), $user->getEmail(), $user->getRole());
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new AuthentificationServiceNotFoundException("User not found");
+        } catch (RepositoryInternalServerError $e) {
+            throw new AuthentificationServiceInternalServerErrorException("Error while fetching user" . $e->getMessage());
+        }
+    }
 }

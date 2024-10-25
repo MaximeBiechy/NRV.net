@@ -3,13 +3,19 @@
 namespace nrv\application\actions;
 
 use nrv\application\renderer\JsonRenderer;
+use nrv\core\services\party\PartyServiceBadDataException;
 use nrv\core\services\party\PartyServiceInterface;
 use nrv\core\services\party\PartyServiceInternalServerErrorException;
+use nrv\core\services\party\PartyServiceNotFoundException;
+use nrv\core\services\ticket\TicketBadDataException;
 use nrv\core\services\ticket\TicketServiceInterface;
 use nrv\core\services\ticket\TicketServiceInternalServerErrorException;
+use nrv\core\services\ticket\TicketServiceNotFoundException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpInternalServerErrorException;
+use Slim\Exception\HttpNotFoundException;
 use Slim\Routing\RouteContext;
 
 class DisplaySpectatorGaugeAction extends AbstractAction
@@ -25,16 +31,16 @@ class DisplaySpectatorGaugeAction extends AbstractAction
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        try{
+        try {
             $parties = $this->partyService->getParties();
             $routeContext = RouteContext::fromRequest($rq);
             $routeParser = $routeContext->getRouteParser();
-            $parties = array_map(function($party) use ($routeParser) {
+            $parties = array_map(function ($party) use ($routeParser) {
                 $soldTickets = $this->ticketService->getNbSoldTicketsByPartyId($party->id);
                 $images = $party->place->images;
-                $images = array_map(function($image) use ($routeParser) {
+                $images = array_map(function ($image) use ($routeParser) {
                     return [
-                        "self" => ['href' =>$image]
+                        "self" => ['href' => $image]
                     ];
                 }, $images);
                 return [
@@ -65,10 +71,18 @@ class DisplaySpectatorGaugeAction extends AbstractAction
             return JsonRenderer::render($rs, 200, $response);
 
 
-        }catch (PartyServiceInternalServerErrorException $e) {
+        } catch (PartyServiceInternalServerErrorException $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
-        }catch (TicketServiceInternalServerErrorException $e) {
+        } catch (TicketServiceInternalServerErrorException $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
+        } catch (PartyServiceBadDataException $e) {
+            throw new HttpBadRequestException($rq, $e->getMessage());
+        } catch (TicketBadDataException $e) {
+            throw new HttpBadRequestException($rq, $e->getMessage());
+        } catch (TicketServiceNotFoundException $e) {
+            throw new HttpNotFoundException($rq, $e->getMessage());
+        } catch (PartyServiceNotFoundException $e) {
+            throw new HttpNotFoundException($rq, $e->getMessage());
         }
     }
 }

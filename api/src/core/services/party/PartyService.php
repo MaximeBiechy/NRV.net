@@ -27,7 +27,7 @@ class PartyService implements PartyServiceInterface
 
     public function getParties(): array
     {
-        try{
+        try {
             $parties = $this->partyRepository->getParties();
             $partiesDTO = [];
             foreach ($parties as $party) {
@@ -47,45 +47,17 @@ class PartyService implements PartyServiceInterface
                 $partiesDTO[] = new PartyDetailsDTO($party);
             }
             return $partiesDTO;
-        }catch (RepositoryInternalServerError $e){
+        } catch (RepositoryInternalServerError $e) {
             throw new PartyServiceInternalServerErrorException($e->getMessage());
-        }catch (RepositoryEntityNotFoundException $e){
+        } catch (RepositoryEntityNotFoundException $e) {
             throw new PartyServiceNotFoundException($e->getMessage());
         }
     }
 
     public function getParty(string $id): PartyDetailsDTO
     {
-        $party = $this->partyRepository->getPartyById($id);
-        $s = [];
-        foreach ($party->getShows() as $show) {
-            $request = $this->showService->getShowById($show);
-            $a = [];
-            foreach ($request->getArtists() as $artist) {
-                $art = new Artist($artist['name'], $artist['style'], $artist['image']);
-                $art->setID($artist['id']);
-                $a[] = new ArtistDTO($art);
-            }
-            $request->setArtists($a);
-            $s[] = new ShowDTO($request);
-        }
-        $party->setShows($s);
-        return new PartyDetailsDTO($party);
-    }
-
-    public function createParty(CreatePartyDTO $party): PartyDTO
-    {
-        $party = new Party($party->name, $party->theme, $party->price, $party->date, $party->begin, $party->shows, $party->place);
-        $id = $this->partyRepository->save($party);
-        $party->setId($id);
-        return new PartyDTO($party);
-    }
-
-    public function getPartyByShow(string $showId): array
-    {
-        $parties = $this->partyRepository->getPartyByShow($showId);
-        $partiesDTO = [];
-        foreach ($parties as $party) {
+        try {
+            $party = $this->partyRepository->getPartyById($id);
             $s = [];
             foreach ($party->getShows() as $show) {
                 $request = $this->showService->getShowById($show);
@@ -99,8 +71,57 @@ class PartyService implements PartyServiceInterface
                 $s[] = new ShowDTO($request);
             }
             $party->setShows($s);
-            $partiesDTO[] = new PartyDetailsDTO($party);
+            return new PartyDetailsDTO($party);
+        } catch (RepositoryInternalServerError $e) {
+            throw new PartyServiceInternalServerErrorException($e->getMessage());
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new PartyServiceNotFoundException($e->getMessage());
         }
-        return $partiesDTO;
+    }
+
+    public function createParty(CreatePartyDTO $party): PartyDTO
+    {
+        try {
+            $party = new Party($party->name, $party->theme, $party->price, $party->date, $party->begin, $party->shows, $party->place);
+            $id = $this->partyRepository->save($party);
+            $party->setId($id);
+            return new PartyDTO($party);
+        } catch (RepositoryInternalServerError $e) {
+            throw new PartyServiceInternalServerErrorException($e->getMessage());
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new PartyServiceNotFoundException($e->getMessage());
+        }
+    }
+
+    public function getPartyByShow(string $showId): array
+    {
+        try {
+            if ($this->showService->getShowById($showId) === null) {
+                throw new PartyServiceNotFoundException('Show not found');
+            }
+            $parties = $this->partyRepository->getPartyByShow($showId);
+            $partiesDTO = [];
+            foreach ($parties as $party) {
+                $s = [];
+                foreach ($party->getShows() as $show) {
+                    $request = $this->showService->getShowById($show);
+                    $a = [];
+                    foreach ($request->getArtists() as $artist) {
+                        $art = new Artist($artist['name'], $artist['style'], $artist['image']);
+                        $art->setID($artist['id']);
+                        $a[] = new ArtistDTO($art);
+                    }
+                    $request->setArtists($a);
+                    $s[] = new ShowDTO($request);
+                }
+                $party->setShows($s);
+                $partiesDTO[] = new PartyDetailsDTO($party);
+            }
+            return $partiesDTO;
+        } catch (RepositoryInternalServerError $e) {
+            throw new PartyServiceInternalServerErrorException($e->getMessage());
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new PartyServiceNotFoundException($e->getMessage());
+        }
     }
 }

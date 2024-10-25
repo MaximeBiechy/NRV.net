@@ -8,6 +8,8 @@ use nrv\core\dto\place\PlaceDTO;
 use nrv\core\repositoryInterfaces\PlaceRepositoryInterface;
 use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 use nrv\core\repositoryInterfaces\RepositoryInternalServerError;
+use Ramsey\Uuid\Rfc4122\Validator;
+use Slim\Exception\HttpBadRequestException;
 
 class PlaceService implements PlaceServiceInterface
 {
@@ -20,27 +22,29 @@ class PlaceService implements PlaceServiceInterface
 
     public function getPlaces(): array
     {
-        try{
+        try {
             $places = $this->placeRepository->getPlaces();
             $result = [];
             foreach ($places as $place) {
                 $result[] = new PlaceDTO($place);
             }
             return $result;
-        }catch (RepositoryInternalServerError $e){
+        } catch (RepositoryInternalServerError $e) {
             throw new PlaceServiceInternalServerErrorException($e->getMessage());
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new PlaceServiceNotFoundException($e->getMessage());
         }
 
     }
 
     public function getPlace(string $id): PlaceDTO
     {
-        try{
+        try {
             $place = $this->placeRepository->getPlaceById($id);
             return new PlaceDTO($place);
-        }catch (RepositoryInternalServerError $e){
+        } catch (RepositoryInternalServerError $e) {
             throw new PlaceServiceInternalServerErrorException($e->getMessage());
-        }catch (RepositoryEntityNotFoundException $e){
+        } catch (RepositoryEntityNotFoundException $e) {
             throw new PlaceServiceNotFoundException($e->getMessage());
         }
 
@@ -48,19 +52,21 @@ class PlaceService implements PlaceServiceInterface
 
     public function createPlace(CreatePlaceDTO $place): PlaceDTO
     {
-        try{
-            $place = new Place($place->name, $place->address,$place->nbSit, $place->nbStand, $place->images);
+        try {
+            $place = new Place($place->name, $place->address, $place->nbSit, $place->nbStand, $place->images);
             $id = $this->placeRepository->save($place);
             $place->setID($id);
             return new PlaceDTO($place);
-        }catch (RepositoryInternalServerError $e){
+        } catch (RepositoryInternalServerError $e) {
             throw new PlaceServiceInternalServerErrorException($e->getMessage());
+        } catch (RepositoryEntityNotFoundException $e) {
+            throw new PlaceServiceNotFoundException($e->getMessage());
         }
     }
 
     public function updatePlace(string $id, CreatePlaceDTO $placeDTO): PlaceDTO
     {
-        try{
+        try {
             $place = $this->placeRepository->getPlaceById($id);
             $place->setName($placeDTO->name);
             $place->setAddress($placeDTO->address);

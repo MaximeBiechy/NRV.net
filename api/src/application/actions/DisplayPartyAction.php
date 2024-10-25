@@ -7,9 +7,13 @@ use nrv\core\services\party\PartyServiceBadDataException;
 use nrv\core\services\party\PartyServiceInterface;
 use nrv\core\services\party\PartyServiceInternalServerErrorException;
 use nrv\core\services\party\PartyServiceNotFoundException;
+use nrv\core\services\show\ShowServiceBadDataException;
 use nrv\core\services\show\ShowServiceInterface;
+use nrv\core\services\show\ShowServiceInternalServerErrorException;
+use nrv\core\services\show\ShowServiceNotFoundException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Ramsey\Uuid\Rfc4122\Validator;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Exception\HttpNotFoundException;
@@ -29,6 +33,12 @@ class DisplayPartyAction extends AbstractAction
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
         $id = $args['ID-PARTY'];
+
+        // Vérification de l'ID UUID
+        $uuidValidator = new Validator();
+        if (!$uuidValidator->validate($args['ID-PARTY'])) {
+            throw new HttpBadRequestException($rq, "Invalid UUID format.");
+        }
         try {
             $party = $this->partyService->getParty($id);
             $routeContext = RouteContext::fromRequest($rq);
@@ -38,13 +48,13 @@ class DisplayPartyAction extends AbstractAction
             foreach ($party->shows as $show) {
                 $s = $this->showService->getShow($show->id);
                 $images = $s->images;
-                $images = array_map(function($image) use ($routeParser) {
+                $images = array_map(function ($image) use ($routeParser) {
                     return [
-                        "self" => ['href' =>$image]
+                        "self" => ['href' => $image]
                     ];
                 }, $images);
                 $artists = $s->artists;
-                $artists = array_map(function($artist) use ($routeParser) {
+                $artists = array_map(function ($artist) use ($routeParser) {
                     return [
                         "id" => $artist->id,
                         "name" => $artist->name,
@@ -66,10 +76,10 @@ class DisplayPartyAction extends AbstractAction
                 ];
 
             }
-            $images =$party->place->images;
-            $images = array_map(function($image) use ($routeParser) {
+            $images = $party->place->images;
+            $images = array_map(function ($image) use ($routeParser) {
                 return [
-                    "self" => ['href' =>$image]
+                    "self" => ['href' => $image]
                 ];
             }, $images);
             $response = [
@@ -102,12 +112,18 @@ class DisplayPartyAction extends AbstractAction
 
             return JsonRenderer::render($rs, 200, $response);
 
-        } catch (PartyServiceNotFoundException $e) {
-            throw new HttpNotFoundException($rq, $e->getMessage());
         } catch (PartyServiceInternalServerErrorException $e) {
+            throw new HttpInternalServerErrorException($rq, $e->getMessage());
+        } catch (ShowServiceInternalServerErrorException $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
         } catch (PartyServiceBadDataException $e) {
             throw new HttpBadRequestException($rq, $e->getMessage());
+        } catch (ShowServiceBadDataException $e) {
+            throw new HttpBadRequestException($rq, $e->getMessage());
+        } catch (PartyServiceNotFoundException $e) {
+            throw new HttpNotFoundException($rq, $e->getMessage());
+        } catch (ShowServiceNotFoundException $e) {
+            throw new HttpNotFoundException($rq, $e->getMessage());
         }
     }
 }

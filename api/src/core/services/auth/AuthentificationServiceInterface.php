@@ -11,4 +11,6 @@ interface AuthentificationServiceInterface
     public function register(CredentialsDTO $credentials, int $role): string;
     public function byCredentials(CredentialsDTO $credentials): AuthDTO;
 
+    public function getUserById(string $id): AuthDTO;
+
 }

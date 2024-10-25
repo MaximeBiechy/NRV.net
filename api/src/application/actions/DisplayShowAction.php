@@ -9,6 +9,7 @@ use nrv\core\services\show\ShowServiceInternalServerErrorException;
 use nrv\core\services\show\ShowServiceNotFoundException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Ramsey\Uuid\Rfc4122\Validator;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Exception\HttpNotFoundException;
@@ -26,7 +27,14 @@ class DisplayShowAction extends AbstractAction
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
         try{
+            // Vérification de l'ID UUID
+            $uuidValidator = new Validator();
+            if (!$uuidValidator->validate($args['ID-SHOW'])) {
+                throw new HttpBadRequestException($rq, "Invalid UUID format.");
+            }
+
             $show = $this->showServiceInterface->getShow($args['ID-SHOW']);
+
             $routeContext = RouteContext::fromRequest($rq);
             $routeParser = $routeContext->getRouteParser();
             $images = $show->images;
