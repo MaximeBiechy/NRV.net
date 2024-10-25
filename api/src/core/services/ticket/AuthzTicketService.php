@@ -27,7 +27,7 @@ class AuthzTicketService implements AuthzTicketServiceInterface
                 return $role === ADMIN || $role === SUPER_ADMIN;
             case CONSULTING_CART :
                 $cart = $this->ticketRepository->getCartByUserId($user_id);
-                return $cart->getUserId() === $user_id && $cart->getID() === $ressource_id;
+                return $cart->getUserId() === $user_id;
             case CONSULTING_SOLD_TICKET :
                 return $user_id === $ressource_id;
             default :

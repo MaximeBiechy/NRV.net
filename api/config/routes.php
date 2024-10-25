@@ -68,7 +68,7 @@ return function(\Slim\App $app):\Slim\App {
     $app->patch('/carts/{ID-CART}[/]', UpdateCartAction::class)->setName('update_card_id')
         ->add(Auth::class); // ajouter un middleware pour vérifier que l'utilisateur est bien le propriétaire du panier
     $app->get('/users/{ID-USER}/cart[/]', DisplayCartAction::class)->setName('users_id_cart')
-        ->add(Auth::class);
+        ->add(AuthzConsultingCart::class)->add(Auth::class);
     $app->get('/users/{ID-USER}/sold_tickets[/]', DisplaySoldTicketsByUserAction::class)->setName('users_id_sold_tickets')
         ->add(Auth::class); // vérifier que l'utilisateur connecté est bien le propriétaire du compte
 
