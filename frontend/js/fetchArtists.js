@@ -1,4 +1,3 @@
-console.log('fetchArtists.js loaded');
 
 var loader = document.querySelector('.loader');
 var currentPage = 1;
@@ -6,6 +5,7 @@ var displayPage = document.querySelector("#page");
 var displayMaxPage = document.querySelector("#maxPage");
 var maxPage = 1;
 displayPage.innerHTML = currentPage;
+var nbImages = 0;
 
 async function  nbArtists() {
   try {
@@ -14,8 +14,7 @@ async function  nbArtists() {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
-    console.log(data);
-    maxPage = Math.ceil(data.shows.length / 6);
+    maxPage = Math.ceil(data.shows.length / nbImages);
     displayMaxPage.innerHTML = maxPage;
   }
   catch (error) {
@@ -23,7 +22,6 @@ async function  nbArtists() {
   }
 }
 
-nbArtists();
 
 async function fetchArtists(page) {
   try {
@@ -33,6 +31,7 @@ async function fetchArtists(page) {
     }
 
     const data = await response.json();
+    nbImages = data.shows.length;
 
 
     var templateSource = ` 
@@ -81,4 +80,5 @@ document.getElementById('next').addEventListener('click', function() {
 });
 
 fetchArtists(currentPage);
+nbArtists();
 displayMaxPage.innerHTML = maxPage;

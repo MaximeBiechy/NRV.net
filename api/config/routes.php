@@ -34,8 +34,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use nrv\application\actions\DisplayShowAction;
 use nrv\application\actions\DisplayShowsAction;
 
-return function(\Slim\App $app):\Slim\App {
-
+return function (\Slim\App $app): \Slim\App {
 
     $app->options('/{routes:.+}', function (Request $rq, Response $rs, array $args): Response {
         return $rs;
@@ -59,8 +58,7 @@ return function(\Slim\App $app):\Slim\App {
     // Places
     $app->get('/places[/]', DisplayPlacesAction::class)->setName('places');
     $app->get('/places/{ID-PLACE}[/]', DisplayPlaceAction::class)->setName('places_id');
-    $app->patch('/places/{ID-PLACE}[/]', UpdatePlaceAction::class)->setName('update_place_id')
-        ->add(AuthzCreateParty::class)->add(Auth::class);
+    $app->patch('/places/{ID-PLACE}[/]', UpdatePlaceAction::class)->setName('update_place_id')->add(Auth::class);
 
     // Tickets
     $app->patch('/carts/{ID-CART}/ticket[/]', AddTicketToUserCartAction::class)->setName('carts_id')

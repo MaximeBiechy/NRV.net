@@ -5,6 +5,7 @@ namespace nrv\infrastructure\db;
 use nrv\core\domain\entities\party\Party;
 use nrv\core\domain\entities\place\Place;
 use nrv\core\repositoryInterfaces\PartyRepositoryInterface;
+use nrv\core\repositoryInterfaces\RepositoryEntityNotFoundException;
 use nrv\core\repositoryInterfaces\RepositoryInternalServerError;
 use Ramsey\Uuid\Uuid;
 
@@ -37,8 +38,8 @@ class PDOPartyRepository implements PartyRepositoryInterface
                 'date' => $party->getDate()->format('Y-m-d H:i:s'),
                 'begin' => $party->getBegin()->format('Y-m-d H:i:s'),
                 'show1_id' => $party->getShows()[0],
-                'show2_id' => $party->getShows()[1]??null,
-                'show3_id' => $party->getShows()[2]??null,
+                'show2_id' => $party->getShows()[1] ?? null,
+                'show3_id' => $party->getShows()[2] ?? null,
                 'place' => $party->getPlace()->getID()
             ]);
             return $party->getID();
@@ -54,7 +55,7 @@ class PDOPartyRepository implements PartyRepositoryInterface
             $stmt->execute(['id' => $id]);
             $party = $stmt->fetch();
             if ($party === false) {
-                throw new RepositoryInternalServerError('Party not found');
+                throw new RepositoryEntityNotFoundException('Party not found');
             }
             $shows = [];
             if ($party['show1_id'] !== null) {
@@ -154,7 +155,7 @@ class PDOPartyRepository implements PartyRepositoryInterface
                 $stmt->execute(['id' => $party['place_id']]);
                 $place = $stmt->fetch();
                 if ($place === false) {
-                    throw new RepositoryInternalServerError('Place not found');
+                    throw new RepositoryEntityNotFoundException('Place not found');
                 }
                 $stmt = $this->pdo_place->prepare('SELECT * FROM images WHERE place_id = :id');
                 $stmt->execute(['id' => $party['place_id']]);

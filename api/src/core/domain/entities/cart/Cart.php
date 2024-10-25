@@ -11,7 +11,7 @@ class Cart extends Entity
     protected array $tickets;
     protected int $state;
 
-    public function __construct(string $user_id, int $total_price, array $tickets, int $state = 0)
+    public function __construct(string $user_id, int $total_price = 0, array $tickets = [], int $state = 0)
     {
         $this->user_id = $user_id;
         $this->total_price = $total_price;

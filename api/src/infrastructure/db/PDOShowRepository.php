@@ -24,10 +24,10 @@ class PDOShowRepository implements ShowRepositoryInterface
 
     public function save(Show $show): string
     {
-        try{
+        try {
             if ($show->getID() !== null) {
                 $stmt = $this->pdo_show->prepare("UPDATE shows SET title = :title, description = :description, video = :video, begin = :begin WHERE id = :id");
-            }else{
+            } else {
                 $id = Uuid::uuid4()->toString();
                 $show->setID($id);
                 $stmt = $this->pdo_show->prepare("INSERT INTO shows (id, title, description, video, begin) VALUES (:id, :title, :description, :video, :begin)");
@@ -54,7 +54,7 @@ class PDOShowRepository implements ShowRepositoryInterface
                     'path' => $image
                 ]);
             }
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error while saving show" . $e->getMessage());
         }
 
@@ -63,7 +63,7 @@ class PDOShowRepository implements ShowRepositoryInterface
 
     public function getShows(): array
     {
-        try{
+        try {
             $stmt = $this->pdo_show->prepare("SELECT * FROM shows");
             $stmt->execute();
             $shows = $stmt->fetchAll();
@@ -81,7 +81,7 @@ class PDOShowRepository implements ShowRepositoryInterface
                 $stmt = $this->pdo_show->prepare("SELECT * FROM images WHERE show_id = :show_id");
                 $stmt->execute(['show_id' => $show['id']]);
                 $images = $stmt->fetchAll();
-                $is =[];
+                $is = [];
                 foreach ($images as $image) {
                     $is[] = $image['path'];
                 }
@@ -90,14 +90,14 @@ class PDOShowRepository implements ShowRepositoryInterface
                 $result[] = $s;
             }
             return $result;
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error while fetching shows");
         }
     }
 
     public function getShowById(string $id): Show
     {
-        try{
+        try {
             $stmt = $this->pdo_show->prepare("SELECT * FROM shows WHERE id = :id");
             $stmt->execute(['id' => $id]);
             $show = $stmt->fetch();
@@ -111,21 +111,21 @@ class PDOShowRepository implements ShowRepositoryInterface
             $stmt = $this->pdo_show->prepare("SELECT * FROM images WHERE show_id = :show_id");
             $stmt->execute(['show_id' => $show['id']]);
             $images = $stmt->fetchAll();
-            $is =[];
+            $is = [];
             foreach ($images as $image) {
                 $is[] = $image['path'];
             }
-            $s = new Show($show['title'], $show['description'], $show['video'],$is,$show['artists'], \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $show['begin']));
+            $s = new Show($show['title'], $show['description'], $show['video'], $is, $show['artists'], \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $show['begin']));
             $s->setID($show['id']);
             return $s;
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error while fetching show");
         }
     }
 
     public function getArtists(): array
     {
-        try{
+        try {
             $stmt = $this->pdo_show->prepare("SELECT * FROM artists");
             $stmt->execute();
             $artists = $stmt->fetchAll();
@@ -136,14 +136,14 @@ class PDOShowRepository implements ShowRepositoryInterface
                 $result[] = $a;
             }
             return $result;
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error while fetching artists");
         }
     }
 
     public function getArtistById(string $id): Artist
     {
-        try{
+        try {
             $stmt = $this->pdo_show->prepare("SELECT * FROM artists WHERE id = :id");
             $stmt->execute(['id' => $id]);
             $artist = $stmt->fetch();
@@ -153,7 +153,7 @@ class PDOShowRepository implements ShowRepositoryInterface
             $a = new Artist($artist['name'], $artist['style'], $artist['image']);
             $a->setID($artist['id']);
             return $a;
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error while fetching artist");
         }
     }
@@ -161,7 +161,7 @@ class PDOShowRepository implements ShowRepositoryInterface
 
     public function getShowsByDate(string $date): array
     {
-        try{
+        try {
             $stmt = $this->pdo_show->prepare("SELECT * FROM shows WHERE DATE(begin) = :begin");
             $stmt->execute(['begin' => $date]);
             $shows = $stmt->fetchAll();
@@ -180,7 +180,7 @@ class PDOShowRepository implements ShowRepositoryInterface
                 $stmt->execute(['show_id' => $show['id']]);
                 $images = $stmt->fetchAll();
 
-                $is =[];
+                $is = [];
                 foreach ($images as $image) {
                     $is[] = $image['path'];
                 }
@@ -189,14 +189,14 @@ class PDOShowRepository implements ShowRepositoryInterface
                 $result[] = $s;
             }
             return $result;
-        }catch (\PDOException $e){
-            throw new RepositoryInternalServerError("Error while fetching shows");
+        } catch (\PDOException $e) {
+            throw new RepositoryEntityNotFoundException("Error while fetching shows");
         }
     }
 
     public function getShowsByStyle(string $style_name): array
     {
-        try{
+        try {
             $stmt = $this->pdo_show->prepare("SELECT shows.id, shows.title, shows.description, shows.video, shows.begin FROM shows INNER JOIN perform ON shows.id = perform.show_id INNER JOIN artists ON perform.artist_id = artists.id WHERE artists.style = :style");
             $stmt->execute(['style' => $style_name]);
             $shows = $stmt->fetchAll();
@@ -214,7 +214,7 @@ class PDOShowRepository implements ShowRepositoryInterface
                 $stmt = $this->pdo_show->prepare("SELECT * FROM images WHERE show_id = :show_id");
                 $stmt->execute(['show_id' => $show[0]]);
                 $images = $stmt->fetchAll();
-                $is =[];
+                $is = [];
                 foreach ($images as $image) {
                     $is[] = $image['path'];
                 }
@@ -223,14 +223,14 @@ class PDOShowRepository implements ShowRepositoryInterface
                 $result[] = $s;
             }
             return $result;
-        }catch (\PDOException $e){
-            throw new RepositoryInternalServerError("Error while fetching shows");
+        } catch (\PDOException $e) {
+            throw new RepositoryEntityNotFoundException("Error while fetching shows");
         }
     }
 
     public function getShowsByPlace(string $place_name): array
     {
-        try{
+        try {
             $stmt = $this->pdo_place->prepare("SELECT * FROM places WHERE name = :name");
             $stmt->execute(['name' => $place_name]);
             $place = $stmt->fetch();
@@ -262,7 +262,7 @@ class PDOShowRepository implements ShowRepositoryInterface
                     $stmt = $this->pdo_show->prepare("SELECT * FROM images WHERE show_id = :show_id");
                     $stmt->execute(['show_id' => $show['id']]);
                     $images = $stmt->fetchAll();
-                    $is =[];
+                    $is = [];
                     foreach ($images as $image) {
                         $is[] = $image['path'];
                     }
@@ -273,14 +273,14 @@ class PDOShowRepository implements ShowRepositoryInterface
             }
             return $result;
 
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error while fetching shows");
         }
     }
 
     public function getShowsPaginated(int $page, int $size): array
     {
-        try{
+        try {
             $stmt = $this->pdo_show->prepare("SELECT * FROM shows LIMIT :size OFFSET :offset");
             $stmt->execute([
                 'size' => $size,
@@ -301,7 +301,7 @@ class PDOShowRepository implements ShowRepositoryInterface
                 $stmt = $this->pdo_show->prepare("SELECT * FROM images WHERE show_id = :show_id");
                 $stmt->execute(['show_id' => $show['id']]);
                 $images = $stmt->fetchAll();
-                $is =[];
+                $is = [];
                 foreach ($images as $image) {
                     $is[] = $image['path'];
                 }
@@ -310,14 +310,14 @@ class PDOShowRepository implements ShowRepositoryInterface
                 $result[] = $s;
             }
             return $result;
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error while fetching shows");
         }
     }
 
     public function getShowsByDatePaginated(string $date, int $page, int $size): array
     {
-        try{
+        try {
             $stmt = $this->pdo_show->prepare("SELECT * FROM shows WHERE DATE(begin) = :begin LIMIT :size OFFSET :offset");
             $stmt->execute([
                 'begin' => $date,
@@ -339,7 +339,7 @@ class PDOShowRepository implements ShowRepositoryInterface
                 $stmt = $this->pdo_show->prepare("SELECT * FROM images WHERE show_id = :show_id");
                 $stmt->execute(['show_id' => $show['id']]);
                 $images = $stmt->fetchAll();
-                $is =[];
+                $is = [];
                 foreach ($images as $image) {
                     $is[] = $image['path'];
                 }
@@ -348,14 +348,14 @@ class PDOShowRepository implements ShowRepositoryInterface
                 $result[] = $s;
             }
             return $result;
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error while fetching shows");
         }
     }
 
     public function getShowsByStylePaginated(string $style_name, int $page, int $size): array
     {
-        try{
+        try {
             $stmt = $this->pdo_show->prepare("SELECT shows.id, shows.title, shows.description, shows.video, shows.begin FROM shows INNER JOIN perform ON shows.id = perform.show_id INNER JOIN artists ON perform.artist_id = artists.id WHERE artists.style = :style LIMIT :size OFFSET :offset");
             $stmt->execute([
                 'style' => $style_name,
@@ -377,7 +377,7 @@ class PDOShowRepository implements ShowRepositoryInterface
                 $stmt = $this->pdo_show->prepare("SELECT * FROM images WHERE show_id = :show_id");
                 $stmt->execute(['show_id' => $show[0]]);
                 $images = $stmt->fetchAll();
-                $is =[];
+                $is = [];
                 foreach ($images as $image) {
                     $is[] = $image['path'];
                 }
@@ -386,14 +386,14 @@ class PDOShowRepository implements ShowRepositoryInterface
                 $result[] = $s;
             }
             return $result;
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error while fetching shows");
         }
     }
 
     public function getShowsByPlacePaginated(string $place_name, int $page, int $size): array
     {
-        try{
+        try {
             $stmt = $this->pdo_place->prepare("SELECT * FROM places WHERE name = :name");
             $stmt->execute(['name' => $place_name]);
             $place = $stmt->fetch();
@@ -427,7 +427,7 @@ class PDOShowRepository implements ShowRepositoryInterface
                     $stmt = $this->pdo_show->prepare("SELECT * FROM images WHERE show_id = :show_id");
                     $stmt->execute(['show_id' => $show['id']]);
                     $images = $stmt->fetchAll();
-                    $is =[];
+                    $is = [];
                     foreach ($images as $image) {
                         $is[] = $image['path'];
                     }
@@ -438,13 +438,14 @@ class PDOShowRepository implements ShowRepositoryInterface
             }
             return $result;
 
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error while fetching shows");
         }
     }
+
     public function getStyles(): array
     {
-        try{
+        try {
             $stmt = $this->pdo_show->prepare("SELECT DISTINCT style FROM artists");
             $stmt->execute();
             $styles = $stmt->fetchAll();
@@ -453,14 +454,14 @@ class PDOShowRepository implements ShowRepositoryInterface
                 $result[] = $style['style'];
             }
             return $result;
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error while fetching styles");
         }
     }
 
     public function getArtistsPaginated(int $page, int $size): array
     {
-        try{
+        try {
             $stmt = $this->pdo_show->prepare("SELECT * FROM artists LIMIT :size OFFSET :offset");
             $stmt->execute([
                 'size' => $size,
@@ -474,7 +475,7 @@ class PDOShowRepository implements ShowRepositoryInterface
                 $result[] = $a;
             }
             return $result;
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             throw new RepositoryInternalServerError("Error while fetching artists");
         }
     }

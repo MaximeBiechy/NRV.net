@@ -10,6 +10,7 @@ use nrv\core\services\party\PartyServiceNotFoundException;
 use nrv\core\services\show\ShowServiceInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Ramsey\Uuid\Rfc4122\Validator;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Exception\HttpNotFoundException;
@@ -28,6 +29,10 @@ class DisplayPartyByShowAction extends AbstractAction
     {
         try{
             $showId = $args['ID-SHOW'];
+            $uuidValidator = new Validator();
+            if (!$uuidValidator->validate($showId)) {
+                throw new HttpBadRequestException($rq, "Invalid UUID format.");
+            }
             $party = $this->partyService->getPartyByShow($showId);
             $routeContext = RouteContext::fromRequest($rq);
             $routeParser = $routeContext->getRouteParser();

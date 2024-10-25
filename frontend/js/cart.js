@@ -104,7 +104,7 @@ async function getTicketDate() {
     if (ticket_dates_placeholders[i]) {
       ticket_dates_placeholders[i].innerHTML = ticket_dates[i];
     } else {
-      console.error(`Element at index ${i} not found`);
+      // console.error(`Element at index ${i} not found`);
     }
   }
 }
@@ -211,6 +211,9 @@ async function deleteTicket(id_cart, ticket_id){
     console.log(cart_items);
 
   })();
+
+
+
 
 
 

@@ -3,11 +3,15 @@
 namespace nrv\application\actions;
 
 use nrv\application\renderer\JsonRenderer;
+use nrv\core\services\place\PlaceServiceBadDataException;
 use nrv\core\services\place\PlaceServiceInterface;
 use nrv\core\services\place\PlaceServiceInternalServerErrorException;
+use nrv\core\services\place\PlaceServiceNotFoundException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpInternalServerErrorException;
+use Slim\Exception\HttpNotFoundException;
 use Slim\Routing\RouteContext;
 
 class DisplayPlacesAction extends AbstractAction
@@ -21,19 +25,19 @@ class DisplayPlacesAction extends AbstractAction
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        try{
+        try {
             $places = $this->placeServiceInterface->getPlaces();
             $routeContext = RouteContext::fromRequest($rq);
             $routeParser = $routeContext->getRouteParser();
             $urlSelf = $routeParser->urlFor('places');
-            $places = array_map(function($place) use ($routeParser){
+            $places = array_map(function ($place) use ($routeParser) {
                 return [
                     "id" => $place->id,
                     "name" => $place->name,
                     "address" => $place->address,
                     "nbSit" => $place->nbSit,
                     "nbStand" => $place->nbStand,
-                    "images" => array_map(function($image){
+                    "images" => array_map(function ($image) {
                         return ['href' => $image];
                     }, $place->images),
                     "links" => [
@@ -50,8 +54,12 @@ class DisplayPlacesAction extends AbstractAction
                 ]
             ];
             return JsonRenderer::render($rs, 200, $response);
-        }catch (PlaceServiceInternalServerErrorException $e){
+        } catch (PlaceServiceInternalServerErrorException $e) {
             throw new HttpInternalServerErrorException($rq, $e->getMessage());
+        } catch (PlaceServiceNotFoundException $e) {
+            throw new HttpNotFoundException($rq, $e->getMessage());
+        } catch (PlaceServiceBadDataException $e) {
+            throw new HttpBadRequestException($rq, $e->getMessage());
         }
     }
 }

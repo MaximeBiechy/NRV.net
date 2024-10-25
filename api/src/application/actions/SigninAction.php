@@ -29,7 +29,7 @@ class SigninAction extends AbstractAction
     {
 
         $token = $rq->getHeader('Authorization')[0] ?? throw new HttpUnauthorizedException($rq, 'missing Authorization Header');
-        $authHeader = sscanf($token, "Basic %s")[0] ;
+        $authHeader = sscanf($token, "Basic %s")[0];
 
         $decodedAuth = base64_decode($authHeader);
         list($email, $password) = explode(':', $decodedAuth, 2);

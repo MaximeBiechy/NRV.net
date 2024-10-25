@@ -110,7 +110,7 @@ return [
 
     // Services
     AuthentificationServiceInterface::class => function (ContainerInterface $c) {
-        return new AuthentificationService($c->get(AuthRepositoryInterface::class));
+        return new AuthentificationService($c->get(AuthRepositoryInterface::class), $c->get(TicketRepositoryInterface::class));
     },
     PlaceServiceInterface::class => function (ContainerInterface $c) {
         return new PlaceService($c->get(PlaceRepositoryInterface::class));
@@ -175,7 +175,7 @@ return [
         return new AddTicketToUserCartAction($c->get(TicketServiceInterface::class));
     },
     DisplayCartAction::class => function (ContainerInterface $c) {
-        return new DisplayCartAction($c->get(TicketServiceInterface::class));
+        return new DisplayCartAction($c->get(TicketServiceInterface::class), $c->get(AuthentificationServiceInterface::class));
     },
     UpdateCartAction::class => function (ContainerInterface $c) {
         return new UpdateCartAction($c->get(TicketServiceInterface::class));
@@ -184,7 +184,7 @@ return [
         return new DisplaySpectatorGaugeAction($c->get(PartyServiceInterface::class), $c->get(TicketServiceInterface::class));
     },
     DisplaySoldTicketsByUserAction::class => function (ContainerInterface $c) {
-        return new DisplaySoldTicketsByUserAction($c->get(TicketServiceInterface::class));
+        return new DisplaySoldTicketsByUserAction($c->get(TicketServiceInterface::class), $c->get(AuthentificationServiceInterface::class));
     },
     DisplayArtistAction::class => function (ContainerInterface $c) {
         return new DisplayArtistAction($c->get(ShowServiceInterface::class));

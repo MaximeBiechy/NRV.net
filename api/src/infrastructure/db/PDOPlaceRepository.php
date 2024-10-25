@@ -19,21 +19,25 @@ class PDOPlaceRepository implements PlaceRepositoryInterface
 
     public function getPlaces(): array
     {
-        $stmt = $this->pdo->query('SELECT * FROM places');
-        $places = [];
-        while ($row = $stmt->fetch()) {
-            $st = $this->pdo->prepare('SELECT * FROM images WHERE place_id = :place_id');
-            $st->execute(['place_id' => $row['id']]);
-            $images = $st->fetchAll();
-            $is = [];
-            foreach ($images as $image) {
-                $is[] = $image['path'];
+        try {
+            $stmt = $this->pdo->query('SELECT * FROM places');
+            $places = [];
+            while ($row = $stmt->fetch()) {
+                $st = $this->pdo->prepare('SELECT * FROM images WHERE place_id = :place_id');
+                $st->execute(['place_id' => $row['id']]);
+                $images = $st->fetchAll();
+                $is = [];
+                foreach ($images as $image) {
+                    $is[] = $image['path'];
+                }
+                $p = new Place($row['name'], $row['address'], $row['nb_sit'], $row['nb_stand'], $is);
+                $p->setID($row['id']);
+                $places[] = $p;
             }
-            $p = new Place($row['name'], $row['address'], $row['nb_sit'], $row['nb_stand'], $is);
-            $p->setID($row['id']);
-            $places[] = $p;
+            return $places;
+        } catch (\PDOException $e) {
+            throw new RepositoryInternalServerError("Error while fetching places");
         }
-        return $places;
     }
 
     public function getPlaceById(string $id): Place
@@ -42,19 +46,23 @@ class PDOPlaceRepository implements PlaceRepositoryInterface
             $stmt = $this->pdo->prepare('SELECT * FROM places WHERE id = :id');
             $stmt->execute(['id' => $id]);
             $place = $stmt->fetch();
+            if ($place === false) {
+                throw new RepositoryEntityNotFoundException("Place not found");
+            }
+
+            $st = $this->pdo->prepare('SELECT * FROM images WHERE place_id = :place_id');
+            $st->execute(['place_id' => $place['id']]);
+            $images = $st->fetchAll();
+            $is = [];
+            foreach ($images as $image) {
+                $is[] = $image['path'];
+            }
+            $p = new Place($place['name'], $place['address'], $place['nb_sit'], $place['nb_stand'], $is);
+            $p->setID($place['id']);
+            return $p;
         } catch (\PDOException $e) {
-            throw new RepositoryEntityNotFoundException("Place not found");
+            throw new RepositoryInternalServerError("Error while fetching place");
         }
-        $st = $this->pdo->prepare('SELECT * FROM images WHERE place_id = :place_id');
-        $st->execute(['place_id' => $place['id']]);
-        $images = $st->fetchAll();
-        $is = [];
-        foreach ($images as $image) {
-            $is[] = $image['path'];
-        }
-        $p = new Place($place['name'], $place['address'], $place['nb_sit'], $place['nb_stand'], $is);
-        $p->setID($place['id']);
-        return $p;
     }
 
     public function save(Place $place): string

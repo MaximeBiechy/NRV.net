@@ -26,8 +26,15 @@ class AddTicketToUserCartAction extends AbstractAction
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
+        $uuidValidator = new \Ramsey\Uuid\Rfc4122\Validator();
         $card_id = $args['ID-CART'];
+        if (!$uuidValidator->validate($card_id)) {
+            throw new HttpBadRequestException($rq, "Invalid UUID format. Cart ID");
+        }
         $ticket_id = $rq->getParsedBody()['ticket_id'];
+        if (!$uuidValidator->validate($ticket_id)) {
+            throw new HttpBadRequestException($rq, "Invalid UUID format. Ticket ID");
+        }
 
         try {
             $this->ticketService->addTicketToCart(new AddTicketToCartDTO($card_id, $ticket_id));
