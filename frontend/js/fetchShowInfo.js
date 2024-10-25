@@ -18,7 +18,7 @@ async function fetchShowInfo(id) {
         weekday: "short",
         day: "2-digit",
         month: "2-digit",
-      });
+      });   
       data.party[i].begin.date = new Date(
         data.party[i].begin.date
       ).toLocaleTimeString("fr-FR", {
@@ -111,7 +111,7 @@ async function addToCart(cart_id, ticket_id) {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      const data = await response.json();
+      window.route({ getAttribute: () => '/cart' });
   }
   catch (error) {
     console.error("There has been a problem with your fetch operation:", error);

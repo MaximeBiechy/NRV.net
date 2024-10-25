@@ -53,9 +53,9 @@
 
       <div class="tickets">
         {{#each party.tickets}}
-        <div class="ticket_price" data-id="">
+        <div class="ticket_price">
           <p> Prix du billet : {{this.price}} €</p>
-          <p>Quantité de billets restants : {{this.quantity}}</p>
+          <p> Billets restants : {{this.quantity}}</p>
           <button class="add_to_cart">Ajouter au panier</button>
         </div>
         {{/each}}

@@ -1,31 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
 .genres {
   align-items: center;
   color: #151515;
@@ -243,7 +218,7 @@ section h2 {
   font-weight: 400;
   text-align: center;
   border-bottom: white 1px solid;
-  margin: 1em 1em 0 1em;
+  margin: 1em 1em 1em 1em;
   width: auto;
 }
 @media (max-width: 600px) {
@@ -622,13 +597,14 @@ section .pagination .btn:hover {
 }
 
 .details {
+  margin-top: 2em;
   position: relative;
   flex-direction: column;
   justify-content: left;
   gap: 1em;
 }
 .details p {
-  font-size: 1.8rem;
+  font-size: 1em;
   margin: 0;
   font-family: "Inter", sans-serif;
 }
@@ -682,6 +658,24 @@ section .pagination .btn:hover {
 }
 .details .gauge-container progress::-webkit-progress-value {
   background-color: #FFF;
+}
+
+.tickets {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  font-size: large;
+  gap: 2em;
+}
+.tickets .ticket_price {
+  justify-content: end;
+  align-items: end;
+  display: flex;
+  flex-direction: column;
+}
+.tickets .ticket_price p {
+  font-size: 1.5em;
+  font-family: "Inter", sans-serif;
 }
 
 .ticket {
@@ -883,6 +877,11 @@ section .pagination .btn:hover {
   text-align: center;
   width: 50%;
 }
+.payment_form .card_input input::-moz-placeholder {
+  font-family: "Inter", sans-serif;
+  text-align: center;
+  margin: 25px 0;
+}
 .payment_form .card_input input::placeholder {
   font-family: "Inter", sans-serif;
   text-align: center;
@@ -895,6 +894,7 @@ section .pagination .btn:hover {
   font-size: 1em;
   margin: 0 auto;
   padding: 0.25em;
+  width: -moz-fit-content;
   width: fit-content;
 }
 

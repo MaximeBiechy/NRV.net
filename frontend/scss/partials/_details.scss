@@ -3,12 +3,13 @@
 
 .details{
     @extend .container;
+    margin-top: 2em;
     position: relative;
     flex-direction: column;
     justify-content: left;
     gap:1em;
     p{
-        font-size: 1.8rem;
+        font-size: 1em;
         margin: 0;
         font-family: $font_sans;
         &:last-child{
@@ -62,3 +63,22 @@
         }
 }
 
+.tickets{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    font-size: large;
+    gap: 2em;
+    .ticket_price{
+        justify-content: end;
+        align-items: end;
+        display: flex;
+        flex-direction: column;
+
+        p{
+            font-size: 1.5em;
+            font-family: $font_sans;
+        }
+    }
+}
+        
