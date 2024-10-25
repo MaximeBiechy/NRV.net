@@ -18,13 +18,33 @@ section {
     font-weight: 400;
     text-align: center;
     border-bottom: white 1px solid;
-    margin: .75em auto;
-    width: 80%;
+    margin: 1em 1em 0 1em ;
+    width: auto;
   }
   h3{
     font-size: 2em;
     font-weight: 400;
     text-align: center;
     margin: 1em auto;
+  }
+  .pagination{
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin: 1em auto;
+    .btn{
+      background-color: $bg_color;
+      color: $text_color;
+      border: 1px solid $text_color;
+      padding:1em 1.5em;
+      border-radius: 5px;
+      cursor: pointer;
+      &:hover{
+        background-color: $color_yellow;
+        color: $bg_color;
+        transition: all 0.5s;
+        border: 1px solid $color_yellow;
+      }
+    }
   }
 }

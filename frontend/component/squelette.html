@@ -1,26 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>NRV.net</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
-    <script src="../js/router.js"></script>
-    <script
-      src="https://kit.fontawesome.com/596072d93b.js"
-      crossorigin="anonymous"
-    ></script>
-    <!-- Font Awesome -->
-  </head>
-  <body>
-    <main id="content">
+<!-- 
       <div class="loader">
         <div class="loader__spinner"></div>
-      </div>
+      </div> -->
+
       <section>
         <h2>Artistes Présent aux NRV:</h2>
 
-        <div class="container" id="templateArtist">
+    <div class="pagination">
+            <button class="btn" id="prev">Précédent</button>
+            <button class="btn" id="next">Suivant</button>
+          </div>
+      <div class="container" id="templateArtist">
+
+      
+
           {{#each shows}}
           <article class="card">
             <img
@@ -38,7 +31,7 @@
           {{/each}}
         </div>
       </section>
-      <!--Genres-->
+      <!-- Genres
       <section>
         <h2>Et par style ?</h2>
         <div class="container">
@@ -68,8 +61,7 @@
             </div>
           </div>
         </div>
-      </section>
-    </main>
+      </section> -->
 
     <script
       type="module"
