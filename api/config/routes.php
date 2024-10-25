@@ -20,11 +20,15 @@ use nrv\application\actions\DisplayStylesAction;
 use nrv\application\actions\DisplayTicketAction;
 use nrv\application\actions\DisplayTicketsAction;
 use nrv\application\actions\DisplayTicketsByPartyAction;
+use nrv\application\actions\RefreshTokenAction;
 use nrv\application\actions\SigninAction;
 use nrv\application\actions\SignupAction;
 use nrv\application\actions\UpdateCartAction;
 use nrv\application\actions\UpdatePlaceAction;
 use nrv\application\middlewares\Auth;
+use nrv\application\middlewares\AuthzAddTicketCart;
+use nrv\application\middlewares\AuthzConsultingCart;
+use nrv\application\middlewares\AuthzCreateParty;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use nrv\application\actions\DisplayShowAction;
@@ -48,7 +52,7 @@ return function(\Slim\App $app):\Slim\App {
     // Compte et profil d'utilisateur
     $app->post('/signup[/]', SignupAction::class)->setName('signup');
     $app->post('/signin[/]', SigninAction::class)->setName('signin');
-    $app->post('/refresh[/]', SigninAction::class)->setName('refresh');
+    $app->post('/refresh[/]', RefreshTokenAction::class)->setName('refresh');
 
     // Artistes
     $app->get('/artists[/]', DisplayArtistsAction::class)->setName('artists');
@@ -57,18 +61,18 @@ return function(\Slim\App $app):\Slim\App {
     // Places
     $app->get('/places[/]', DisplayPlacesAction::class)->setName('places');
     $app->get('/places/{ID-PLACE}[/]', DisplayPlaceAction::class)->setName('places_id');
-    $app->patch('/places/{ID-PLACE}[/]', UpdatePlaceAction::class)->setName('update_place_id');
+    $app->patch('/places/{ID-PLACE}[/]', UpdatePlaceAction::class)->setName('update_place_id')
+        ->add(AuthzCreateParty::class)->add(Auth::class);
 
     // Tickets
     $app->patch('/carts/{ID-CART}/ticket[/]', AddTicketToUserCartAction::class)->setName('carts_id')
-        ->add(Auth::class);
+        ->add(AuthzAddTicketCart::class)->add(Auth::class);
     $app->patch('/carts/{ID-CART}[/]', UpdateCartAction::class)->setName('update_card_id')
-        ->add(Auth::class);
-
+        ->add(Auth::class); // ajouter un middleware pour vérifier que l'utilisateur est bien le propriétaire du panier
     $app->get('/users/{ID-USER}/cart[/]', DisplayCartAction::class)->setName('users_id_cart')
         ->add(Auth::class);
     $app->get('/users/{ID-USER}/sold_tickets[/]', DisplaySoldTicketsByUserAction::class)->setName('users_id_sold_tickets')
-        ->add(Auth::class);
+        ->add(Auth::class); // vérifier que l'utilisateur connecté est bien le propriétaire du compte
 
     $app->get('/styles[/]', DisplayStylesAction::class)->setName('styles');
 
