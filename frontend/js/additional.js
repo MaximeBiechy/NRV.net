@@ -56,11 +56,13 @@ async function refreshToken() {
         const data = await response.json();
         if (data.authToken){
         localStorage.setItem('authToken', data.authToken);
+        document.querySelector('#navProfile').style.display = 'block';
+        document.querySelector('#navLogin').style.display = 'none';
     }else{
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('email_user');
-        localStorage.removeItem('id_user');
+        // localStorage.removeItem('authToken');
+        // localStorage.removeItem('refreshToken');
+        // localStorage.removeItem('email_user');
+        // localStorage.removeItem('id_user');
         document.querySelector('#navProfile').style.display = 'none';
         document.querySelector('#navLogin').style.display = 'block';
     }

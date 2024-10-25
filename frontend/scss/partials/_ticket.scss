@@ -1,7 +1,5 @@
 @import 'config';
 
-
-
 .ticket{
         border: 1px solid $text_color;
         padding: 2rem;
@@ -81,4 +79,20 @@
                 }
             }
         }
+    }
+
+    .green_btn{
+            position: auto;
+            padding: 1em 2em;
+            width: fit-content;
+            font-family: $font_sans;
+            background-color: $text_color;
+            color: $bg_color;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            &:hover{
+                transition: all 0.5s ;
+                background-color: $color_green;
+                    }
     }

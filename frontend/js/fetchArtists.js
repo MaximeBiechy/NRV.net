@@ -2,6 +2,11 @@ console.log('fetchArtists.js loaded');
 
 var loader = document.querySelector('.loader');
 var currentPage = 1;
+var displayPage = document.querySelector("#page");
+var displayMaxPage = document.querySelector("#maxPage");
+var maxPage = 14;
+displayPage.innerHTML = currentPage;
+
 
 async function fetchArtists(page) {
   try {
@@ -9,9 +14,18 @@ async function fetchArtists(page) {
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    console.log(response);
+
     const data = await response.json();
-    console.log(data);
+    
+
+    if (data.shows.length === 0) {
+      console.log('No artists available');
+      document.querySelector('#templateArtist').innerHTML = 'No artists available';
+      loader.style.display = 'none';
+      maxPage = currentPage;
+    }
+
+
     var templateSource = ` 
     <div class="container" id="templateArtist">
           {{#each shows}}
@@ -43,17 +57,19 @@ async function fetchArtists(page) {
 }
 
 document.getElementById('prev').addEventListener('click', function() {
-  console.log('prev');
   if (currentPage > 1) {
+    displayPage.innerHTML = currentPage - 1;
     currentPage--;
     fetchArtists(currentPage);
   }
 });
 
 document.getElementById('next').addEventListener('click', function() {
-  console.log('next');
+ if (currentPage < maxPage){
+  displayPage.innerHTML = currentPage + 1;
   currentPage++;
-  fetchArtists(currentPage);
+  fetchArtists(currentPage);}
 });
 
 fetchArtists(currentPage);
+displayMaxPage.innerHTML = maxPage;
