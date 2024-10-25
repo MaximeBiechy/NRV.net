@@ -8,9 +8,9 @@ use nrv\core\dto\DTO;
 class CartDTO extends DTO
 {
     protected string $id, $user_id;
-    protected int $price;
-    protected int $priceHT;
-    protected int $tva;
+    protected float $price;
+    protected float $priceHT;
+    protected float $tva;
     protected array $tickets;
     protected int $state;
 

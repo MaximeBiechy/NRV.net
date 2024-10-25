@@ -56,6 +56,7 @@ async function refreshToken() {
         const data = await response.json();
         if (data.authToken){
         localStorage.setItem('authToken', data.authToken);
+        console.log('Token refreshed');
         document.querySelector('#navProfile').style.display = 'block';
         document.querySelector('#navLogin').style.display = 'none';
     }else{
