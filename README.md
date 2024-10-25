@@ -45,7 +45,7 @@ On a deux utlisateur pour la connexion :
 | Filtrage de la liste des spectacles par lieu                                                                         | Timothée Benchergui                   | Vadim Khenfer Benjamin Auger |
 | Inscription sur la plateforme et création d’un compte                                                                | Maxime Biechy                         | Benjamin Auger               |
 | Accès aux billets achetés (« mes billets »)                                                                          | Maxime Biechy                         | Benjamin Auger               |
-| Lors de la visualisation d’une soirée, possibilité d’ajouter des billets d’entrée pour cette soirée dans un panier   | Maxime Biechy                         |  Vadim Khenfer               |
+| Lors de la visualisation d’une soirée, possibilité d’ajouter des billets d’entrée pour cette soirée dans un panier   | Maxime Biechy                         | Benjamin Auger               |
 | Visualisation de l’état courant du panier, calcul et affichage du montant total                                      | Timothée Benchergui                   | Vadim Khenfer                |
 | Validation du panier et transformation en commande, validation de la commande                                        | Timothée Benchergui                   | Vadim Khenfer                |
 | Paiement de la commande                                                                                              | Maxime Biechy                         | Vadim Khenfer                |
