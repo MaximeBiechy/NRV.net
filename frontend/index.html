@@ -7,6 +7,7 @@
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" defer ></script>
     <script src="./js/router.js" defer></script>
+    <script src="./js/additional.js" defer></script>
     <script
       src="https://kit.fontawesome.com/596072d93b.js"
       crossorigin="anonymous"
@@ -16,9 +17,14 @@
     <header id="root">
       <nav id="main-nav">
         <div class="navbar">
-          <h1>NancyRockVibraaation</h1>
+          <h1 class="way" url="/">NancyRockVibraaation</h1>
           <div class="navbar_right">
-            <ul class="menu">
+            <div id="burger">
+              <div class="line1"></div>
+              <div class="line2"></div>
+              <div class="line3"></div>
+            </div>
+            <ul id="menu">
               <li><p class="way" url="/">Home</p></li>
               <li><p class="way" url="/profile" id="navProfile">profile</p>
               </li><li><p class="way" url="/login" id="navLogin">Login</p></li>

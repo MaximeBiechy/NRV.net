@@ -1,6 +1,29 @@
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 .genres {
   align-items: center;
   color: #151515;
@@ -74,31 +97,13 @@
   height: 10vh;
   margin: 0 1em;
 }
-.navbar .navbar_right {
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
-}
-.navbar .navbar_right .menu {
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
-}
-.navbar .navbar_right .menu li {
-  list-style: none;
-}
-.navbar .navbar_right .menu li p {
-  color: #FFF;
-}
-.navbar .navbar_right .menu li p:hover {
-  cursor: pointer;
-  transition: all 0.3s;
-}
 
 .card {
   color: #FFF;
   width: 9em;
   height: 18em;
+  min-width: 230px;
+  min-height: 460px;
   z-index: 2;
   position: relative;
   border-radius: 20px;
@@ -122,7 +127,8 @@
   z-index: -1;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 20px;
 }
 .card .card_head {
@@ -158,11 +164,11 @@
   margin: 0;
 }
 .card .card_body .card_title {
-  text-align: left;
   font-size: 1.8rem;
   font-weight: 600;
   border-bottom: 1px solid white;
   margin-bottom: 0.3em;
+  text-align: left;
 }
 .card .card_body .card_tags {
   display: flex;
@@ -205,7 +211,7 @@
 .container, .details {
   display: flex;
   flex-direction: row;
-  gap: 2em;
+  gap: 3em;
   flex-wrap: wrap;
   justify-content: center;
   margin: 0 auto;
@@ -285,7 +291,8 @@ section h3 {
   border-radius: 2em;
   width: 175px;
   height: 350px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .container.cart_container .cart .cart_item .cart_item_desc_title, .cart_container.details .cart .cart_item .cart_item_desc_title {
   display: flex;
@@ -338,8 +345,10 @@ section h3 {
   border-radius: 16px;
   font-family: "Instrument Serif", serif;
   font-size: 1em;
+  height: -moz-fit-content;
   height: fit-content;
   padding: 0.1em 2em;
+  width: -moz-fit-content;
   width: fit-content;
 }
 .container.cart_container .cart .cart_payment .cart_payment_calculus, .cart_container.details .cart .cart_payment .cart_payment_calculus {
@@ -524,14 +533,68 @@ section h3 {
 }
 
 .details {
+  position: relative;
   flex-direction: column;
   justify-content: left;
-  margin-block: 2rem;
+  gap: 1em;
 }
 .details p {
   font-size: 1.8rem;
   margin: 0;
   font-family: "Inter", sans-serif;
+}
+.details p:last-child {
+  margin-bottom: 1em;
+}
+.details button {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 1em 2em;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-family: "Inter", sans-serif;
+  background-color: #FFF;
+  color: #151515;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.details button:hover {
+  transition: all 0.5s;
+  background-color: #5DF3AB;
+}
+.details .gauge-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 1rem 0;
+  width: 100%;
+  height: 100%;
+}
+.details .gauge-container label {
+  font-size: 1.5rem;
+  font-family: "Inter", sans-serif;
+  margin: 0 1rem 0 0;
+}
+.details .gauge-container progress {
+  width: 100%;
+  height: 1.5rem;
+  border-radius: 10px;
+  margin: 0;
+  border: none;
+  background-color: #FFF;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.details .gauge-container progress::-webkit-progress-bar {
+  background-color: #5DF3AB;
+  border-radius: 10px;
+}
+.details .gauge-container progress::-webkit-progress-value {
+  background-color: #FFF;
 }
 
 .ticket {
@@ -544,7 +607,8 @@ section h3 {
   border-radius: 10px;
   aspect-ratio: 1/1;
   width: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .ticket .ticket_content {
   display: flex;
@@ -572,6 +636,117 @@ section h3 {
   font-family: "Inter", sans-serif;
 }
 
+@media print {
+  .ticket {
+    border: 1px solid #151515;
+    padding: 2rem;
+    border-radius: 20px;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+  }
+  .ticket img {
+    border-radius: 10px;
+    aspect-ratio: 1/1;
+    width: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+  .ticket .ticket_content {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+  .ticket .ticket_title {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 1rem 0 0 0;
+    font-family: "Inter", sans-serif;
+    text-align: start;
+  }
+  .ticket .ticket_price {
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 1.5rem 0 0 0;
+  }
+  .ticket p {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin: 0;
+  }
+  .ticket p .sans {
+    font-family: "Inter", sans-serif;
+  }
+}
+#burger {
+  display: block;
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  z-index: 100;
+  cursor: pointer;
+  width: 2em;
+  height: 2em;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+#burger:focus {
+  outline: none;
+}
+#burger .line1, #burger .line2, #burger .line3 {
+  display: block;
+  width: 100%;
+  height: 0.2em;
+  background: #FFF;
+  margin: 0.35em 0;
+  transition: 0.3s;
+  border-radius: 2rem;
+}
+#burger.active .line1 {
+  transform: rotate(45deg) translate(0.5em, 0.5em);
+}
+#burger.active .line2 {
+  opacity: 0;
+}
+#burger.active .line3 {
+  transform: rotate(-45deg) translate(0.5em, -0.5em);
+}
+
+#menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: #151515;
+  z-index: 99;
+  transition: all 0.3s;
+  transform: translateX(100%);
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+#menu li {
+  list-style: none;
+}
+#menu li p {
+  font-size: 2em;
+  font-weight: 600;
+  color: #FFF;
+  margin: 0.2em;
+  transition: 0.3s;
+}
+#menu li p:hover {
+  transition: all 0.3s;
+  color: #F3EC5D;
+}
+
 body {
   background-color: #151515;
   color: #FFF;
@@ -587,6 +762,4 @@ body {
 
 #navProfile {
   display: none;
-}
-
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */

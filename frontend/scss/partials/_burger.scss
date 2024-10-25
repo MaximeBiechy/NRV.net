@@ -1,0 +1,77 @@
+@import 'config';
+
+#burger {
+    display: block;
+    position: fixed;
+    top: 1em;
+    right: 1em;
+    z-index: 100;
+    cursor: pointer;
+    width: 2em;
+    height: 2em;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+
+    &:focus {
+        outline: none;
+    }
+
+    .line1, .line2, .line3 {
+        display: block;
+        width: 100%;
+        height: 0.2em;
+        background: $text_color;
+        margin: 0.35em 0;
+        transition: 0.3s;
+        border-radius: 2rem;
+    }
+
+    &.active {
+        .line1 {
+            transform: rotate(45deg) translate(0.5em, 0.5em);
+        }
+        .line2 {
+            opacity: 0;
+        }
+        .line3 {
+            transform: rotate(-45deg) translate(0.5em, -0.5em);
+        }
+    }
+}
+
+#menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: $bg_color;
+    z-index: 99;
+    transition: all 0.3s;
+    transform: translateX(100%);
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    li{
+        list-style: none;
+    p {
+        font-size: 2em;
+        font-weight: 600;
+        color: $text_color;
+        margin:0.2em;
+        transition: 0.3s;
+    }
+
+    p:hover {
+        transition: all 0.3s;
+        color: $color_yellow;
+    }
+}
+
+}

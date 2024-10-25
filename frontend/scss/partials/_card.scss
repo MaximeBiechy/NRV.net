@@ -4,6 +4,8 @@
   color: $text_color;
   width: 9em; //!
   height: 18em; //!
+  min-width: 230px; //!
+  min-height: 460px; //!
   z-index: 2;
   position: relative;
   border-radius: 20px;
@@ -62,6 +64,7 @@
     width:50%;
     margin: 0.7em;
     z-index: 2;
+    
     *{
       margin: 0;
     }
@@ -70,6 +73,7 @@
       font-weight: 600;
       border-bottom: 1px solid white;
       margin-bottom: 0.3em;
+      text-align: left;
     }
     .card_tags{
       display: flex;

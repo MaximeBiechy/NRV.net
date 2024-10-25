@@ -70,14 +70,16 @@ async function printTickets() {
         alert("Vous n'avez pas de billets à imprimer");
         return;
     } else {
-        tickets.forEach(ticket => {
             var printWindow = window.open('', '', 'height=400,width=600');
             printWindow.document.write('<html><head><title>Print Ticket</title>');
+            printWindow.document.write(' <link media="print" href="./css/style.css" rel="stylesheet"/> ');
             printWindow.document.write('</head><body >');
-            printWindow.document.write(ticket.outerHTML);
+            for (let i = 0; i < tickets.length; i++) {
+                printWindow.document.write(tickets[i].outerHTML);
+            }
             printWindow.document.write('</body></html>');
             printWindow.document.close();
             printWindow.print();
-        });
+
     }
 }
