@@ -1,6 +1,13 @@
 @use 'config';
 
 .card {
+  @include respond-to(small) {
+    .card{
+      width: 10em;
+      height: 20em;
+    }
+   
+  }
   color: $text_color;
   width: 9em; //!
   height: 18em; //!

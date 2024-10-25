@@ -24,7 +24,7 @@ class AuthzConsultingCart
         $route = $routeContext->getRoute();
         $user_id = $route->getArguments()['ID-USER'] ;
 
-        if($this->authzTicketService->isGranted($user_id,CONSULTING_CART, $cart_id, $user->role))
+        if($this->authzTicketService->isGranted($user_id,CONSULTING_CART, $user_id, $user->role))
             return $next->handle($rq);
         else
             throw new HttpForbiddenException($rq, 'Forbidden');

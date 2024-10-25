@@ -4,9 +4,26 @@ var loader = document.querySelector('.loader');
 var currentPage = 1;
 var displayPage = document.querySelector("#page");
 var displayMaxPage = document.querySelector("#maxPage");
-var maxPage = 14;
+var maxPage = 1;
 displayPage.innerHTML = currentPage;
 
+async function  nbArtists() {
+  try {
+    const response = await fetch('http://localhost:21000/artists', { headers: { 'Origin': 'http://localhost:21001'}});
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    console.log(data);
+    maxPage = Math.ceil(data.shows.length / 6);
+    displayMaxPage.innerHTML = maxPage;
+  }
+  catch (error) {
+    console.error('There has been a problem with your fetch operation:', error);
+  }
+}
+
+nbArtists();
 
 async function fetchArtists(page) {
   try {
@@ -16,14 +33,6 @@ async function fetchArtists(page) {
     }
 
     const data = await response.json();
-    
-
-    if (data.shows.length === 0) {
-      console.log('No artists available');
-      document.querySelector('#templateArtist').innerHTML = 'No artists available';
-      loader.style.display = 'none';
-      maxPage = currentPage;
-    }
 
 
     var templateSource = ` 
