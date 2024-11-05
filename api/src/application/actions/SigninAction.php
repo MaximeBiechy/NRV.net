@@ -11,6 +11,8 @@ use nrv\core\services\auth\AuthentificationServiceInternalServerErrorException;
 use nrv\core\services\auth\AuthentificationServiceNotFoundException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Respect\Validation\Exceptions\NestedValidationException;
+use Respect\Validation\Validator;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpInternalServerErrorException;
 use Slim\Exception\HttpNotFoundException;
@@ -33,6 +35,19 @@ class SigninAction extends AbstractAction
 
         $decodedAuth = base64_decode($authHeader);
         list($email, $password) = explode(':', $decodedAuth, 2);
+
+        $signinValidator = Validator::key('email', Validator::email())
+            ->key('password', Validator::stringType()->notEmpty());
+
+        try {
+            $signinValidator->assert(['email' => $email, 'password' => $password]);
+        } catch (NestedValidationException $e) {
+            throw new HttpBadRequestException($rq, $e->getFullMessage());
+        }
+
+        if (filter_var($email, FILTER_SANITIZE_EMAIL) !== $email) {
+            throw new HttpBadRequestException($rq, "Bad data format email");
+        }
 
         try {
             $authDTO = $this->authProvider->signin(new CredentialsDTO($email, $password));
