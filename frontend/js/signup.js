@@ -1,6 +1,8 @@
 'use strict';
+var config = 'http://localhost:21001';
+var config2 = 'http://localhost:21000';
 
-const { log } = require("handlebars");
+// const { log } = require("handlebars");
 
 const error_message = document.querySelector('#error_message');
 
@@ -13,10 +15,10 @@ function signup() {
             const username = document.querySelector('input[type="text"]').value;
 
             try {
-                const response = await fetch('http://localhost:21000/signup', {
+                const response = await fetch(config2+'/signup', {
                     method: 'POST',
                     headers: {
-                        'Origin': 'http://localhost:21001',
+                        'Origin': config,
                         'Authorization': 'Basic ' + btoa(username + ':' + password)
                     }
                 });

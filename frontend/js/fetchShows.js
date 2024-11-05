@@ -1,12 +1,15 @@
 'use strict';
 
+var config = 'http://localhost:21001';
+var config2 = 'http://localhost:21000';
+
 console.log('fetchShows.js loaded');
 
 var loader = document.querySelector('.loader');
 
 async function fetchShows() {
     try {
-        const response = await fetch('http://localhost:21000/shows', { headers: { 'Origin': 'http://localhost:21001' } });
+        const response = await fetch(config2+'/shows', { headers: { 'Origin': config } });
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }

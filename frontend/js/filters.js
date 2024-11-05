@@ -1,5 +1,10 @@
 'use strict';
 
+var config = 'http://localhost:21001';
+var config2 = 'http://localhost:21000';
+var config3 = 'http://localhost';
+
+
 var select_places = document.querySelector("#places");
 var select_style = document.querySelector("#styles");
 var calendar = document.querySelector("#calendar");
@@ -31,7 +36,7 @@ const template = Handlebars.compile(templateSource);
 // Function to fetch and display filtered shows
 async function fetchFilteredShows(url) {
   try {
-    const response = await fetch(url, { headers: { Origin: "http://localhost" } });
+    const response = await fetch(url, { headers: { Origin: config3 } });
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
@@ -62,24 +67,24 @@ async function fetchFilteredShows(url) {
 // Event listeners for filters
 async function filterPlace(place) {
   const placeValue = place === "default" ? "" : place;
-  await fetchFilteredShows(`http://localhost:21000/shows?place=${placeValue}`);
+  await fetchFilteredShows(config2+`/shows?place=${placeValue}`);
 }
 
 async function filterStyle(style) {
   const styleValue = style === "default" ? "" : style;
-  await fetchFilteredShows(`http://localhost:21000/shows?style=${styleValue}`);
+  await fetchFilteredShows(config2+`/shows?style=${styleValue}`);
 }
 
 async function filterDate(date) {
   const dateValue = date === "default" ? "" : date;
-  await fetchFilteredShows(`http://localhost:21000/shows?date=${dateValue}`);
+  await fetchFilteredShows(config2+`/shows?date=${dateValue}`);
 }
 
 // Function to fetch and populate places dropdown
 async function getPlaces() {
   try {
-    const response = await fetch("http://localhost:21000/places", {
-      headers: { Origin: "http://localhost:21001" },
+    const response = await fetch(config2+"/places", {
+      headers: { Origin: config },
     });
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -106,8 +111,8 @@ async function getPlaces() {
 // Function to fetch and populate styles dropdown
 async function getStyles() {
   try {
-    const response = await fetch("http://localhost:21000/styles", {
-      headers: { Origin: "http://localhost:21001" },
+    const response = await fetch(config2+"/styles", {
+      headers: { Origin: config },
     });
     if (!response.ok) {
       throw new Error("Network response was not ok");

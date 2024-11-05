@@ -1,12 +1,15 @@
 'use strict';
 
+var config = 'http://localhost:21001';
+var config2 = 'http://localhost:21000';
+
 async function login() {
     const username = document.querySelector('input[type="text"]').value;
     const password = document.querySelector('input[type="password"]').value;
 
     try {
-        const response = await fetch('http://localhost:21000/signin', { method: 'POST',
-            headers: {'Origin': 'http://localhost:21001','Authorization': 'Basic ' + btoa(username + ':' + password)} })
+        const response = await fetch(config2+'/signin', { method: 'POST',
+            headers: {'Origin': config,'Authorization': 'Basic ' + btoa(username + ':' + password)} })
           ;
 
         if (!response.ok) {

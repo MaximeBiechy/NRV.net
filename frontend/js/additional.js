@@ -1,3 +1,6 @@
+var config = 'http://localhost:21001';
+var config2 = 'http://localhost:21000';
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Login-display
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -44,10 +47,10 @@ burger.addEventListener('click', () => {
 
 async function refreshToken() {
     try {
-        const response = await fetch('http://localhost:21000/refresh', {
+        const response = await fetch(config2+'/refresh', {
             method: 'POST',
             headers: {
-                'Origin': 'http://localhost:21001',
+                'Origin': config,
                 'Authorization': 'Bearer ' + localStorage.getItem('refreshToken'),
             },
         });

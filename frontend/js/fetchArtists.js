@@ -1,3 +1,7 @@
+var config = 'http://localhost:21001';
+var config2 = 'http://localhost:21000';
+
+
 
 var loader = document.querySelector('.loader');
 var currentPage = 1;
@@ -9,7 +13,7 @@ var nbImages = 0;
 
 async function  nbArtists() {
   try {
-    const response = await fetch('http://localhost:21000/artists', { headers: { 'Origin': 'http://localhost:21001'}});
+    const response = await fetch(config2+'/artists', { headers: { 'Origin': config}});
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -25,7 +29,7 @@ async function  nbArtists() {
 
 async function fetchArtists(page) {
   try {
-    const response = await fetch(`http://localhost:21000/artists?page=${page}`, { headers: { 'Origin': 'http://localhost:21001'}});
+    const response = await fetch(config2+`/artists?page=${page}`, { headers: { 'Origin': config}});
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }

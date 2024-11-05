@@ -1,13 +1,15 @@
 'use strict';
+var config = 'http://localhost:21001';
+var config2 = 'http://localhost:21000';
 
 var loader = document.querySelector('.loader');
 
 async function fetchTickets(id_user, token) {
     try {
-        const response = await fetch(`http://localhost:21000/users/${id_user}/sold_tickets`, {
+        const response = await fetch(config2+`/users/${id_user}/sold_tickets`, {
             headers: {
                 'Authorization': `Bearer ${token}`,  // Correct the spelling
-                'Origin': 'http://localhost:21001'
+                'Origin': config
             }
         });
 
@@ -22,10 +24,10 @@ async function fetchTickets(id_user, token) {
 
         // Fetch additional party details
         for (let i = 0; i < data.sold_tickets.length; i++) {
-            const response_party = await fetch(`http://localhost:21000${data.sold_tickets[i].links.party.href}`, {
+            const response_party = await fetch(config2+`${data.sold_tickets[i].links.party.href}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,  // Ensure token is sent again
-                    'Origin': 'http://localhost:21000',
+                    'Origin': config,
                 }
             });
 

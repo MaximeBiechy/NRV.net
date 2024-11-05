@@ -1,10 +1,13 @@
 'use strict';
+var config = 'http://localhost:21001';
+var config2 = 'http://localhost:21000';
+
 var tickets = [];
 var loader = document.querySelector(".loader");
 async function fetchShowInfo(id) {
   try {
-    const response = await fetch(`http://localhost:21000/shows/${id}/party`, {
-      headers: { Origin: "http://localhost:21001" },
+    const response = await fetch(config2+`/shows/${id}/party`, {
+      headers: { Origin: config },
     });
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -34,9 +37,9 @@ async function fetchShowInfo(id) {
 
     for (let i =0;i<data.party.length;i++){
 
-        const data_gauge = await fetch(`http://localhost:21000/parties/${data.party[0].id}/gauge`, {
+        const data_gauge = await fetch(config2+`/parties/${data.party[0].id}/gauge`, {
             headers: {
-                'Origin': 'http://localhost:21000'
+                'Origin': config 
             }
         });
         if (!data_gauge.ok) {
@@ -50,11 +53,11 @@ async function fetchShowInfo(id) {
 
     if (data.party[0].id){
       try{
-        const response = await fetch(`http://localhost:21000/parties/${data.party[0].id}/tickets`, {
+        const response = await fetch(config2+`/parties/${data.party[0].id}/tickets`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Origin": "http://localhost:21000"
+            "Origin": config
           }
         });
     
@@ -97,9 +100,9 @@ async function fetchShowInfo(id) {
 
 async function addToCart(cart_id, ticket_id) {
   try {
-       const response = await fetch(`http://localhost:21000/carts/${cart_id}/ticket`, {
+       const response = await fetch(config2+`/carts/${cart_id}/ticket`, {
         method: "PATCH",
-        headers: { "Origin": "http://localhost:21001",
+        headers: { "Origin": config,
                     "Authorization": "Bearer " + localStorage.getItem("authToken"),
                     "Content-Type": "application/json"
         },

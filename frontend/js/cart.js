@@ -1,3 +1,6 @@
+var config = 'http://localhost:21001';
+var config2 = 'http://localhost:21000';
+
 var id_user = localStorage.getItem('id_user');
 var authToken = localStorage.getItem('authToken');
 
@@ -17,8 +20,8 @@ var ticket_ids = [];
 
 async function loadCart(user_id){
   try{
-    const response = await fetch(`http://localhost:21000/users/${user_id}/cart`, { headers: {
-        'Origin': 'http://localhost:21000',
+    const response = await fetch(config2+`/users/${user_id}/cart`, { headers: {
+        'Origin': config,
         'Authorization': 'Bearer ' + localStorage.getItem('authToken')
     }});
     if(!response.ok){
@@ -85,7 +88,7 @@ async function loadCart(user_id){
 async function getTicketDate() {
   for (let i = 0; i < ticket_party_routes.length; i++) {
     try {
-      const response = await fetch(`http://localhost:21000${ticket_party_routes[i]}`, { headers: { 'Origin': 'http://localhost:21000' } });
+      const response = await fetch(config2+`${ticket_party_routes[i]}`, { headers: { 'Origin': config } });
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -113,11 +116,11 @@ function updateCart(id_cart, state){
 
   let cart_status = statuses.validate_status;
 
-  fetch(`http://localhost:21000/carts/${id_cart}/?state=${state}`, {
+  fetch(config2+`/carts/${id_cart}/?state=${state}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      'Origin': 'http://localhost:21001',
+      'Origin': config,
       'Authorization': 'Bearer ' + localStorage.getItem('authToken')
     },
   })
@@ -131,16 +134,16 @@ function updateCart(id_cart, state){
 }
 
 async function deleteTicket(id_cart, ticket_id){
-  console.log(`http://localhost:21000/carts/${id_cart}/?state=0/`);
+  console.log(config2+`/carts/${id_cart}/?state=0/`);
   console.log('ticket_id', ticket_id);
   console.log('id_cart', localStorage.getItem('id_cart'));
 
   try{
-    const response = await fetch(`http://localhost:21000/carts/${id_cart}/?state=0`, {
+    const response = await fetch(config2+`/carts/${id_cart}/?state=0`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'Origin': 'http://localhost:21001',
+        'Origin': config,
         'Authorization': 'Bearer ' + localStorage.getItem('authToken')
       },
       body: JSON.stringify({

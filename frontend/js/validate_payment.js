@@ -1,14 +1,17 @@
+var config = 'http://localhost:21001';
+var config2 = 'http://localhost:21000';
+
 var loader = document.querySelector('.loader');
 loader.style.display = 'none';
 
 async function validatePayment(cart_id) {
-  console.log(`http://localhost:21000/carts/${cart_id}/?state=${statuses.paid_status}`);
+  console.log(config2+`/carts/${cart_id}/?state=${statuses.paid_status}`);
   try {
-    const response = await fetch(`http://localhost:21000/carts/${cart_id}/?state=${statuses.paid_status}`, {
+    const response = await fetch(config2+`/carts/${cart_id}/?state=${statuses.paid_status}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'Origin': 'http://localhost:21001',
+        'Origin': config,
         'Authorization': 'Bearer ' + localStorage.getItem('authToken')
       },
       body: JSON.stringify({
